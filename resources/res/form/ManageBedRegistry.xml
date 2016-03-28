@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/managerBed_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="dept" isView="0" remark="科室" multiple="N"></item>
+			<item name="time" isView="0" remark="时间" multiple="N"></item>
+			<item name="name" isView="0" remark="病名" multiple="N"></item>
+			<item name="caseNo" isView="0" remark="病例号" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="dept" isView="0" remark="科室" multiple="N"></item>
+			<item name="time" remark="时间" multiple="N"></item>
+			<item name="name" remark="病名" multiple="N"></item>
+			<item name="caseNo" remark="病例号" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+</jspForm>
+

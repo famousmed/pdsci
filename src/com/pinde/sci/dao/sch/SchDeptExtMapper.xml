@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.sch.SchDeptExtMapper" >
+	<select id="searchTeachDept" resultMap="com.pinde.sci.dao.base.SchDeptMapper.BaseResultMap">
+		SELECT * 
+		FROM PDSCI.SCH_DEPT
+		WHERE RECORD_STATUS = 'Y'
+		AND SCH_DEPT_FLOW IN (
+			SELECT DISTINCT SCH_DEPT_FLOW
+			FROM PDSCI.RES_DOCTOR_SCH_PROCESS
+			WHERE RECORD_STATUS = 'Y'
+			<if test='teacherUserFlow!=null and teacherUserFlow!=""'>
+				AND TEACHER_USER_FLOW = #{teacherUserFlow}
+			</if>
+		)
+	</select>
+	
+	<select id="searchrotationDept" resultMap="com.pinde.sci.dao.base.SchDeptMapper.BaseResultMap">
+		SELECT * 
+		FROM PDSCI.SCH_DEPT
+		WHERE RECORD_STATUS = 'Y'
+		AND SCH_DEPT_FLOW IN (
+			SELECT DISTINCT SCH_DEPT_FLOW
+			FROM PDSCI.SCH_ARRANGE_RESULT
+			WHERE RECORD_STATUS = 'Y'
+			<if test='userFlow!=null and userFlow!=""'>
+				AND DOCTOR_FLOW = #{userFlow}
+			</if>
+		)
+	</select>
+	
+	<select id="countDeptArea" resultMap="com.pinde.sci.dao.base.SchDeptMapper.BaseResultMap">
+		SELECT * 
+		FROM PDSCI.SCH_DEPT
+		WHERE RECORD_STATUS = 'Y'
+		AND SCH_DEPT_FLOW IN (
+			SELECT SCH_DEPT_FLOW
+			FROM PDSCI.SCH_ARRANGE_RESULT
+			WHERE RECORD_STATUS = 'Y'
+			AND DOCTOR_FLOW IN(
+				SELECT DOCTOR_FLOW
+				FROM PDSCI.RES_DOCTOR
+				WHERE RECORD_STATUS = 'Y'
+				AND SCH_STATUS_ID IS NOT NULL
+				<if test='doctor!=null'>
+					<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+						AND ORG_FLOW = #{doctor.orgFlow}
+					</if>
+					<if test='doctor.doctorCategoryId!=null and doctor.doctorCategoryId!=""'>
+						AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+					</if>
+					<if test='doctor.sessionNumber!=null and doctor.sessionNumber!=""'>
+						AND	SESSION_NUMBER = #{doctor.sessionNumber}
+					</if>
+					<if test='doctor.trainingSpeId!=null and doctor.trainingSpeId!=""'>
+						AND	TRAINING_SPE_ID = #{doctor.trainingSpeId}
+					</if>
+					<if test='doctor.doctorName!=null and doctor.doctorName!=""'>
+						AND	DOCTOR_NAME LIKE '%${doctor.doctorName}%'
+					</if>
+				</if>
+			)
+		)
+		ORDER BY ORDINAL
+	</select>
+	
+	<select id="userSchDept" resultMap="com.pinde.sci.dao.base.SchDeptMapper.BaseResultMap">
+		SELECT * 
+		FROM PDSCI.SCH_DEPT SD
+		WHERE SD.RECORD_STATUS = 'Y'
+		AND SD.DEPT_FLOW IN (
+			SELECT SSD.DEPT_FLOW
+			FROM PDSCI.SYS_DEPT SSD,PDSCI.SYS_USER_DEPT SUD
+			WHERE SSD.RECORD_STATUS = 'Y'
+			AND SUD.RECORD_STATUS = 'Y'
+			AND SUD.USER_FLOW = #{userFlow}
+			AND SUD.DEPT_FLOW = SSD.DEPT_FLOW
+		)
+	</select>
+</mapper>

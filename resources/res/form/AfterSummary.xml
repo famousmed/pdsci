@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/after_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="personalSummary" remark="个人小结" multiple="N"></item>
+			<item name="deptAppraise" remark="科室评价" multiple="N"></item>
+			<item name="deptHeadAutograth" remark="科主任签名" multiple="N"></item>
+			<item name="isAgaree" remark="同意出科" multiple="N"></item>
+			<item name="head" remark="主任" multiple="N"></item>
+			<item name="date" remark="日期" multiple="N"></item>
+		</page>
+		<page  ver="2.0">
+			<item name="personalSummary" remark="个人小结" multiple="N"></item>
+			<item name="internshipEvaluation" remark="实习表现评价" multiple="N"></item>
+			<item name="theoryTest" remark="理论考试" multiple="N"></item>
+			<item name="skillTest" remark="技能考试" multiple="N"></item>
+			<item name="total" remark="总分" multiple="N"></item>
+			<item name="isAgaree" remark="同意出科" multiple="N"></item>
+			<item name="head" remark="主任" multiple="N"></item>
+			<item name="date" remark="日期" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="personalSummary" remark="个人小结" multiple="N"></item>
+			<item name="internshipEvaluation" remark="实习表现评价" multiple="N"></item>
+			<item name="theoryTest" remark="理论考试" multiple="N"></item>
+			<item name="skillTest" remark="技能考试" multiple="N"></item>
+			<item name="total" remark="总分" multiple="N"></item>
+			<item name="isAgaree" remark="同意出科" multiple="N"></item>
+			<item name="head" remark="主任" multiple="N"></item>
+			<item name="date" remark="日期" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+	<nzy ver="1.0">
+		<page  ver="1.0">
+			<item name="basicCheckBranch" remark="基本原则考核分" multiple="N"></item>
+			<item name="basicSelfratingBranch" isView="Y" remark="基本原则自评分" multiple="N"></item>
+			
+			<item name="disciplineCheckBranch" remark="纪律考核分" multiple="N"></item>
+			<item name="disciplineSelfratingBranch" isView="Y" remark="纪律自评分" multiple="N"></item>
+			
+			<item name="uniteCheckBranch" remark="团结考核分" multiple="N"></item>
+			<item name="uniteSelfratingBranch" isView="Y" remark="团结自评分" multiple="N"></item>
+			
+			<item name="activityCheckBranch" remark="活动考核分" multiple="N"></item>
+			<item name="activitySelfratingBranch" isView="Y" remark="活动自评分" multiple="N"></item>
+			
+			<item name="attendanceCheckBranch" remark="出勤考核分" multiple="N"></item>
+			<item name="attendanceSelfratingBranch" isView="Y" remark="出勤自评分" multiple="N"></item>
+			
+			<item name="attitudeCheckBranch" remark="态度考核分" multiple="N"></item>
+			<item name="attitudeSelfratingBranch" isView="Y" remark="态度自评分" multiple="N"></item>
+			
+			<item name="technologyCheckBranch" remark="技术考核分" multiple="N"></item>
+			<item name="technologySelfratingBranch" isView="Y" remark="技术自评分" multiple="N"></item>
+			
+			<item name="studyCheckBranch" remark="学习考核分" multiple="N"></item>
+			<item name="studySelfratingBranch" isView="Y" remark="学习自评分" multiple="N"></item>
+			
+			<item name="checkBranchThetotalscore" isView="Y" remark="考核总分" multiple="N"></item>
+			<item name="selfratingBranchThetotalscore" isView="Y" remark="自评总分" multiple="N"></item>
+			<item name="accident" isView="Y" remark="医疗事故" multiple="N"></item>
+			<item name="error" isView="Y" remark="医疗差错" multiple="N"></item>
+			<item name="wrong" isView="Y" remark="工作错误" multiple="N"></item>
+			<item name="isAgaree" isView="Y" remark="同意出科" multiple="N"></item>
+		</page>
+	</nzy>
+</jspForm>
+

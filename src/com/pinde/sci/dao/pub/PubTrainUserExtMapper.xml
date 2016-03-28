@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.pub.PubTrainUserExtMapper" >
+	<resultMap type="com.pinde.sci.model.pub.PubTrainUserExt" id="extMap">
+		<id property="trainFlow" column="train_flow" jdbcType="VARCHAR"/>
+		<result property="userFlow" column="user_flow" jdbcType="VARCHAR" />
+		<result property="trainDate" column="train_date" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectGcpList" resultMap="extMap" parameterType="string">
+		select user_flow, train_date from PDSCI.pub_train pt,PDSCI.pub_train_user ptu where pt.record_status ='Y' and ptu.record_status ='Y'  and train_type_id ='Gcp'
+			and ptu.train_flow=pt.train_flow and user_flow in <foreach collection="list" open="(" separator="," close=")" item="item">#{item}</foreach>
+			order by pt.train_date asc
+	</select>
+</mapper>

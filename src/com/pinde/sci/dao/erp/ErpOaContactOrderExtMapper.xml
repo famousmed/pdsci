@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.erp.ErpOaContactOrderExtMapper">
+     <select id="searchContactOrderList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.ErpOaContactOrderMapper.BaseResultMap">
+         select <include refid="com.pinde.sci.dao.base.ErpOaContactOrderMapper.Base_Column_List"/>
+         from pdsci.erp_oa_contact_order
+         where record_status='Y'
+         <if test='contactOrder!=null'>
+            <if test='contactOrder.customerName!=null and contactOrder.customerName!=""'>
+                <bind name="customerName" value="'%'+contactOrder.customerName+'%'"/>
+                and (customer_Name like #{customerName} or alias_name like #{customerName})
+            </if>
+            <if test='contactOrder.contactNo!=null and contactOrder.contactNo!=""'>
+                <bind name="contactNo" value="'%'+contactOrder.contactNo+'%'"/>
+                and contact_no like #{contactNo}
+            </if>
+            <if test='contactOrder.contactStatusId!=null and contactOrder.contactStatusId!=""'>
+               and contact_Status_Id=#{contactOrder.contactStatusId}
+            </if>
+            <if test='contactOrder.contactStatusName!=null and contactOrder.contactStatusName!=""'>
+               and contact_Status_Name=#{contactOrder.contactStatusName}
+            </if>
+            <if test='contactOrder.productTypeName!=null and contactOrder.productTypeName!=""'>
+               <bind name="productTypeName" value="'%'+contactOrder.productTypeName+'%'"/>
+               and product_Type_Name like #{productTypeName}
+            </if>
+            <if test='contactOrder.demandMatterId!=null and contactOrder.demandMatterId!=""'>
+               and demand_matter_id =#{contactOrder.demandMatterId}
+            </if>
+            <if test='contactOrder.applyUserFlow!=null and contactOrder.applyUserFlow!=""'>
+               and apply_user_flow=#{contactOrder.applyUserFlow}
+            </if>
+            <if test='contactOrder.applyDeptFlow!=null and contactOrder.applyDeptFlow!=""'>
+               and apply_dept_flow=#{contactOrder.applyDeptFlow}
+            </if>
+         </if>
+         <if test='orderTimeForm!=null'>
+            <if test='orderTimeForm.applyDateStart!=null and orderTimeForm.applyDateStart!=""'>
+               and apply_date >= #{orderTimeForm.applyDateStart}
+            </if>
+            <if test='orderTimeForm.applyDateEnd!=null and orderTimeForm.applyDateEnd!=""'>
+               and apply_date <![CDATA[ <= ]]> #{orderTimeForm.applyDateEnd}
+            </if>
+         </if>
+         <if test='deptFlow!=null and deptFlow!=""'>
+             and apply_user_flow in(select user_flow from pdsci.sys_user where dept_flow=#{deptFlow})
+         </if>
+         <if test='receiveFlag!=null and receiveFlag!=""'>
+             and contact_status_id='Passed'
+         </if>
+          <if test='currDeptFlowFlag!=null and currDeptFlowFlag!=""'>
+	             and (receive_dept_flow is null or receive_dept_flow=#{currDeptFlowFlag})
+	         </if>
+          <if test='currDeptFlow!=null and currDeptFlow!=""'>
+	             and receive_dept_flow=#{currDeptFlow}
+	      </if>
+         <!-- 查询联系单派工  -->
+         <if test='contactStatusIdList!=null and contactStatusIdList!=""'>
+             and contact_Status_Id in
+           	 <foreach collection="contactStatusIdList" item="item" index="index" open="(" separator="," close=")">  
+	  			#{item}  
+	 		 </foreach>
+         </if>
+         <if test='contactStatusNameNotList!=null and contactStatusNameNotList!=""'>
+             and contact_Status_name not in
+           	 <foreach collection="contactStatusNameNotList" item="item" index="index" open="(" separator="," close=")">  
+	  			#{item}  
+	 		 </foreach>
+         </if>
+         <if test='sortCondition==null or sortCondition==""'>
+           order by create_time desc
+         </if>
+         <if test='sortCondition!=null'>
+           <if test='sortCondition=="applyDate"'>
+           order by apply_date
+           </if>
+           <if test='sortCondition=="demandDate"'>
+           order by demand_date
+           </if>
+         </if>
+         <if test='sortType!=null and sortType=="desc"'>
+           desc
+         </if>
+     </select>
+     
+     <select id="countContactOrderList" parameterType="java.util.Map" resultType="int">
+         select count(*) from pdsci.erp_oa_contact_order
+           where record_status='Y'
+           <if test='statusList!=null'>
+               and contact_status_id in 
+               <foreach collection="statusList" item="item" index="index" open="(" separator="," close=")">  
+	  			#{item}  
+	 		 </foreach>
+           </if>
+     </select>
+</mapper>

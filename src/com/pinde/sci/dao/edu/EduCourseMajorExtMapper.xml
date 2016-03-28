@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edu.EduCourseMajorExtMapper">
+       <resultMap id="majorCourseFormMap" type="com.pinde.sci.form.edu.MajorCourseForm">
+		 <result column="major_id" jdbcType="VARCHAR" property="majorId"/>
+		 <result column="major_name" jdbcType="VARCHAR" property="majorName"/>
+		<collection property="courseMajorExtList" ofType="com.pinde.sci.model.edu.EduCourseMajorExt" column="MAJOR_ID">
+			 	<id column="COURSE_FLOW" jdbcType="VARCHAR" property="courseFlow"/>
+			 	<result column="COURSE_TYPE_ID" jdbcType="VARCHAR" property="courseTypeId" />
+			    <result column="COURSE_TYPE_NAME" jdbcType="VARCHAR" property="courseTypeName"/>
+			    <result column="COURSE_NAME" jdbcType="VARCHAR" property="courseName"/>
+			    <result column="PLAN_YEAR" jdbcType="VARCHAR" property="planYear"/>
+			    <association property="course" column="COURSE_FLOW" javaType="com.pinde.sci.model.mo.EduCourse">
+		    	   <id column="COURSE_FLOW" jdbcType="VARCHAR" property="courseFlow"/>
+		    	   <result column="COURSE_PERIOD" jdbcType="VARCHAR" property="coursePeriod"/>
+			       <result column="COURSE_CREDIT" jdbcType="VARCHAR" property="courseCredit"/>
+			       <result column="COURSE_CODE" jdbcType="VARCHAR" property="courseCode"/>
+			       <result column="GRADATION_ID" jdbcType="VARCHAR" property="gradationId"/>
+			       <result column="GRADATION_NAME" jdbcType="VARCHAR" property="gradationName"/>
+			       <result column="COURSE_CODE" jdbcType="VARCHAR" property="courseCode"/>
+		        </association>
+		</collection>
+	</resultMap>
+	 <resultMap id="majorCourseExtMap" type="com.pinde.sci.model.edu.EduCourseMajorExt" extends="com.pinde.sci.dao.base.EduCourseMajorMapper.BaseResultMap">
+		  <association property="course" column="course_flow" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap" />
+	</resultMap>
+	<select id="selectCourseByMajor" parameterType="java.util.Map" resultMap="majorCourseExtMap">
+	      select ecm.*,ec.course_name,ec.course_credit,ec.course_period,ec.course_code
+	         from pdsci.edu_course ec,pdsci.edu_course_major ecm
+	         where ec.record_status='Y' and ecm.record_status='Y'
+	         and ec.course_flow=ecm.course_flow
+	         <if test='majorId!=null and majorId!=""'>
+                  and ecm.major_id=#{majorId}
+             </if>
+             <if test='year!=null and year!=""'>
+                  and ecm.plan_year=#{year}
+             </if>
+	
+	</select>
+     <select id="searchIncludeCourseMajor" parameterType="java.util.Map" resultMap="majorCourseFormMap">
+          select ecm.major_id,ecm.major_name,ecm.course_type_id,ecm.course_type_name,ecm.plan_year,
+                 eu.course_code,eu.course_flow,eu.gradation_id,eu.gradation_name,
+                 eu.course_name,eu.course_period,eu.course_credit,eu.create_time
+                 from pdsci.edu_course eu,pdsci.edu_course_major ecm
+                 where eu.record_status='Y' and ecm.record_status='Y'
+                 and eu.course_flow=ecm.course_flow
+                 <if test='courseMajor!=null'>
+                    <if test='courseMajor.majorId!=null and courseMajor.majorId!=""'>
+                        and ecm.major_id=#{courseMajor.majorId}
+                    </if>
+                    <if test='courseMajor.planYear!=null and courseMajor.planYear!=""'>
+                        and ecm.plan_year=#{courseMajor.planYear}
+                    </if>
+                 </if>
+                 <if test='course!=null'>
+                    <if test='course.courseName!=null and course.courseName!=""'>
+                        <bind name="courseName" value="'%'+course.courseName+'%'"/>
+                        and eu.course_name like #{courseName}
+                    </if>
+                    <if test='course.gradationId!=null and course.gradationId!=""'>
+                        and eu.gradation_id=#{course.gradationId}
+                    </if>
+                    <if test='course.courseFlow!=null and course.courseFlow!=""'>
+                        and eu.course_Flow=#{course.courseFlow}
+                    </if>
+                 </if>
+                 group by ecm.major_id,ecm.major_name,ecm.course_type_id,ecm.course_type_name,ecm.plan_year,eu.course_flow,
+                 eu.course_name,eu.course_code,eu.gradation_id,eu.gradation_name,eu.course_period,eu.course_credit,eu.create_time
+                 order by ecm.major_id asc,ecm.course_type_id asc,eu.course_code asc,eu.create_time asc
+     </select>
+     
+     <select id="selectCourseNotIncludeMajor" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap">
+          select <include refid="com.pinde.sci.dao.base.EduCourseMapper.Base_Column_List"/>
+             from pdsci.edu_course
+             where record_status='Y'
+             <if test='(majorId!=null and majorId!="") or (year!=null and year!="")'>
+             and course_flow not in (select course_flow from pdsci.edu_course_major 
+                   where record_status='Y'
+             <if test='majorId!=null and majorId!=""'>
+                 and major_id=#{majorId}
+             </if>
+             <if test='year!=null and year!=""'>
+                 and plan_year=#{year}
+             </if>
+             )
+             </if>
+     </select>
+     
+     <select id="searchCourseMajorExtList" parameterType="com.pinde.sci.model.edu.EduCourseMajorExt" resultMap="majorCourseExtMap">
+		  select 
+		  		cm.RECORD_FLOW, cm.COURSE_FLOW, cm.COURSE_TYPE_ID, 
+		  		c.COURSE_FLOW, c.COURSE_NAME, c.COURSE_CREDIT, c.COURSE_PERIOD, c.COURSE_CODE, c.COURSE_USER_COUNT
+		  from pdsci.EDU_COURSE_MAJOR cm
+		  left join pdsci.EDU_COURSE c on cm.COURSE_FLOW = c.COURSE_FLOW
+		  where cm.RECORD_STATUS='Y' and c.RECORD_STATUS='Y'
+          <if test='majorId!=null and majorId!=""'>
+                and cm.MAJOR_ID = #{majorId}
+          </if>
+          <if test='planYear!=null and planYear!=""'>
+                and cm.PLAN_YEAR = #{planYear}
+          </if>
+          order by cm.CREATE_TIME DESC
+      </select>
+      
+     <select id="searchReplenishCourseMajorExtList" parameterType="java.util.Map" resultMap="majorCourseExtMap">
+		  select 
+		  		cm.RECORD_FLOW, cm.COURSE_FLOW, cm.COURSE_TYPE_ID, 
+		  		c.COURSE_FLOW, c.COURSE_NAME, c.COURSE_CREDIT, c.COURSE_PERIOD, c.COURSE_CODE, c.COURSE_USER_COUNT
+		  from pdsci.EDU_COURSE_MAJOR cm
+		  left join pdsci.EDU_COURSE c on cm.COURSE_FLOW = c.COURSE_FLOW
+		  where cm.RECORD_STATUS='Y' and c.RECORD_STATUS='Y'
+          <if test='majorId!=null and majorId!=""'>
+                and cm.MAJOR_ID = #{majorId}
+          </if>
+          <if test='planYear!=null and planYear!=""'>
+                and cm.PLAN_YEAR = #{planYear}
+          </if>
+          <if test='userFlow!=null and userFlow!=""'>
+                and cm.COURSE_FLOW not in (
+                	select COURSE_FLOW from pdsci.EDU_STUDENT_COURSE
+                	where RECORD_STATUS='Y'  
+                	and USER_FLOW = #{userFlow}
+                	<if test='planYear!=null and planYear!=""'>
+					      and STUDENT_PERIOD = #{planYear}
+					</if>
+                )
+          </if>
+          order by cm.CREATE_TIME DESC
+      </select>
+      
+      <select id="searchRecommendYear" parameterType="java.util.Map" resultType="string">
+           select distinct(plan_year) from pdsci.edu_course_major
+              where record_status='Y'
+              <if test='year!=null and year!=""'>
+                and plan_year!=#{year}
+              </if>
+              <if test='recommendFlag!=null and recommendFlag!=""'>
+                and recommend_Flag=#{recommendFlag}
+              </if>
+      </select>
+</mapper>

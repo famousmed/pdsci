@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>
+	<!-- 初始审查申请表单 -->
+	<!-- {0}:表单所属机构(开关控制) {1}:版本号 -->
+	<jsp ver="1.0" path="gcp/form/{0}/org_First_CheckList_{1}"></jsp>
+	<product>
+		<page ver="1.0">
+			<item name="result1" remark="研究者文件夹 的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark1" remark="研究者文件夹 的备注" multiple="N"></item>
+
+			<item name="result2" remark="伦理批件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark2" remark="伦理批件的备注" multiple="N"></item>
+
+			<item name="result3" remark="启动会资料的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark3" remark="启动会资料的备注" multiple="N"></item>
+
+			<item name="result4" remark="分工授权表的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark4" remark="分工授权表的备注" multiple="N"></item>
+
+			<item name="result5" remark="知情同意及签署的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark5" remark="知情同意及签署的备注" multiple="N"></item>
+
+			<item name="result6" remark="入排标准符合方案的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark6" remark="入排标准符合方案的备注" multiple="N"></item>
+
+			<item name="result7" remark="实验室检查的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark7" remark="实验室检查的备注" multiple="N"></item>
+
+			<item name="result8" remark="原始医疗文件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark8" remark="原始医疗文件的备注" multiple="N"></item>
+
+			<item name="result9" remark="受试者签认代码表的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark9" remark="受试者签认代码表的备注" multiple="N"></item>
+
+			<item name="result10" remark="受试者筛选入选表的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark10" remark="受试者筛选入选表的备注" multiple="N"></item>
+
+			<item name="result11" remark="完成编码目录的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark11" remark="完成编码目录的备注" multiple="N"></item>
+
+			<item name="result12" remark="相关药品管理表格的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark12" remark="相关药品管理表格的备注" multiple="N"></item>
+
+			<item name="result13" remark="试验用药品管理的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark13" remark="试验用药品管理的备注" multiple="N"></item>
+
+			<item name="result14" remark="受试者访视费发放表的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark14" remark="受试者访视费发放表的备注" multiple="N"></item>
+
+			<item name="result15" remark="免费检查单的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark15" remark="免费检查单的备注" multiple="N"></item>
+
+			<item name="result16" remark="AE与SAE的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark16" remark="AE与SAE的备注" multiple="N"></item>
+
+			<item name="result17" remark="CRF填写的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark17" remark="CRF填写的备注" multiple="N"></item>
+			
+			<item name="isSae" remark="是否存在AE与SAE" multiple="N">
+				<code value="1">有</code>
+				<code value="2">无</code>
+			</item>
+			
+			<item name="other" remark="其他" multiple="N"></item>
+			<item name="problem" remark="问题" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

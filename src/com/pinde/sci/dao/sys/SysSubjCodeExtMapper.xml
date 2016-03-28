@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.sys.SysSubjCodeExtMapper" >
+  	<update id="updateByIds" parameterType="com.pinde.sci.form.sys.SubjectForm">
+  		 update  PDSCI.SYS_SUBJ_CODE set record_status = 'N' where subj_id in
+  	        <foreach collection="ids" open="(" separator="," close=")" item="item">#{item}</foreach>
+  	</update>
+  	<update id="updateParentId" parameterType="com.pinde.sci.form.sys.SubjectForm">
+  		 update  PDSCI.SYS_SUBJ_CODE set PAR_SUBJ_ID = #{id} where PAR_SUBJ_ID = #{parentId} and record_status = 'Y'
+  	</update>
+</mapper>

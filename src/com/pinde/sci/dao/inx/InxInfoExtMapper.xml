@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.inx.InxInfoExtMapper" >
+	<resultMap id="extResultMap" type="com.pinde.sci.model.inx.InxInfoExt" extends="com.pinde.sci.dao.base.InxInfoMapper.BaseResultMap" >
+		<association property="column" column="column_id" javaType="com.pinde.sci.model.mo.InxColumn" >
+			<id column="COLUMN_FLOW" jdbcType="VARCHAR" property="columnFlow" />
+		    <result column="COLUMN_ID" jdbcType="VARCHAR" property="columnId" />
+		    <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+		    <result column="PARENT_COLUMN_ID" jdbcType="VARCHAR" property="parentColumnId" />
+		    <result column="t2_ORDINAL" jdbcType="DECIMAL" property="ordinal" />
+		    <result column="t2_RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+		    <result column="t2_CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+		    <result column="t2_CREATE_USER_FLOW" jdbcType="VARCHAR" property="createUserFlow" />
+		    <result column="t2_MODIFY_TIME" jdbcType="VARCHAR" property="modifyTime" />
+		    <result column="t2_MODIFY_USER_FLOW" jdbcType="VARCHAR" property="modifyUserFlow" />
+		</association>
+	</resultMap>
+	<resultMap id="extResultMapWithBLOBs" type="com.pinde.sci.model.inx.InxInfoExt" extends="com.pinde.sci.dao.base.InxInfoMapper.ResultMapWithBLOBs" >
+		<association property="column" column="column_id" javaType="com.pinde.sci.model.mo.InxColumn" >
+			<id column="COLUMN_FLOW" jdbcType="VARCHAR" property="columnFlow" />
+		    <result column="COLUMN_ID" jdbcType="VARCHAR" property="columnId" />
+		    <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+		    <result column="PARENT_COLUMN_ID" jdbcType="VARCHAR" property="parentColumnId" />
+		    <result column="t2_ORDINAL" jdbcType="DECIMAL" property="ordinal" />
+		    <result column="t2_RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+		    <result column="t2_CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+		    <result column="t2_CREATE_USER_FLOW" jdbcType="VARCHAR" property="createUserFlow" />
+		    <result column="t2_MODIFY_TIME" jdbcType="VARCHAR" property="modifyTime" />
+		    <result column="t2_MODIFY_USER_FLOW" jdbcType="VARCHAR" property="modifyUserFlow" />
+		</association>
+	</resultMap>
+   <select id="selectByForm" parameterType="com.pinde.sci.form.inx.InxInfoForm" resultMap="com.pinde.sci.dao.base.InxInfoMapper.BaseResultMap">
+	select tt.* from (select t.*,rownum as myrownum from (select <include refid="com.pinde.sci.dao.base.InxInfoMapper.Base_Column_List" /> from PDSCI.INX_INFO
+		   	<where>
+		   		<if test='recordStatus != null and recordStatus != ""'>
+		   			RECORD_STATUS = #{recordStatus}
+		   		</if>
+		   		<if test='columnId != null and columnId != ""'>
+		   			and COLUMN_ID like '${columnId}%'
+		   		</if>
+		   		<if test='infoTitle != null and infoTitle != ""'>
+		   			and INFO_TITLE like '%${infoTitle}%'
+		   		</if>
+		   		<if test='content != null and content != ""'>
+		   			and INFO_CONTENT like '%${content}%'
+		   		</if>
+		   		<if test='infoKeyword != null and infoKeyword != ""'>
+		   			and (INFO_KEYWORD like '%${infoKeyword}%' or INFO_TITLE like '%${infoKeyword}%')
+		   		</if>
+		   		<if test='hasImage=="Y"'>
+		   			and title_img is not null
+		   		</if>
+		   	</where>
+		   	order by is_top desc,info_time desc) t
+		   	<where>
+		   		<if test='endIndex != null and endIndex != ""'>
+		   			rownum <![CDATA[<=]]> #{endIndex}
+		   		</if>
+		   	</where>)tt
+		   	<where>
+		   		<if test='startIndex != null and startIndex != ""'>
+		   			tt.myrownum <![CDATA[>]]> #{startIndex}
+		   		</if>
+		   	</where>
+  </select>
+  <select id="selectExtByForm" parameterType="com.pinde.sci.form.inx.InxInfoForm" resultMap="extResultMap">
+	select t1.*,COLUMN_FLOW, t2.COLUMN_ID as t2_column_id, t2.COLUMN_NAME, t2.PARENT_COLUMN_ID, t2.ORDINAL as t2_ORDINAL, t2.RECORD_STATUS as t2_RECORD_STATUS, t2.CREATE_TIME as t2_CREATE_TIME, t2.CREATE_USER_FLOW as t2_CREATE_USER_FLOW, t2.MODIFY_TIME as t2_MODIFY_TIME, t2.MODIFY_USER_FLOW as t2_MODIFY_USER_FLOW 
+	      from(select tt.* from (select t.*,rownum as myrownum from (select <include refid="com.pinde.sci.dao.base.InxInfoMapper.Base_Column_List" /> from PDSCI.INX_INFO where RECORD_STATUS <![CDATA[<>]]> 'failure'
+		   	
+	   		<if test='recordStatus != null and recordStatus != ""'>
+	   			and RECORD_STATUS = #{recordStatus}
+	   		</if>
+	   		<if test='columnId != null and columnId != ""'>
+	   			and COLUMN_ID like '${columnId}%'
+	   		</if>
+	   		<if test='infoTitle != null and infoTitle != ""'>
+	   			and INFO_TITLE like '%${infoTitle}%'
+	   		</if>
+	   		<if test='content != null and content != ""'>
+	   			and INFO_CONTENT like '%${content}%'
+	   		</if>
+	   		<if test='infoKeyword != null and infoKeyword != ""'>
+	   			and INFO_KEYWORD like '%${infoKeyword}%'
+	   		</if>
+	   		<if test='startDate != null and startDate != ""'>
+	   			and info_time <![CDATA[>=]]> #{startDate}
+	   		</if>
+	   		<if test='endDate != null and endDate != ""'>
+	   			and info_time <![CDATA[<=]]> #{endDate}
+	   		</if>
+		   		
+		   	order by is_top desc,info_time desc) t
+		   	<where>
+		   		<if test='endIndex != null and endIndex != ""'>
+		   			rownum <![CDATA[<=]]> #{endIndex}
+		   		</if>
+		   	</where>)tt
+		   	<where>
+		   		<if test='startIndex != null and startIndex != ""'>
+		   			tt.myrownum <![CDATA[>]]> #{startIndex}
+		   		</if>
+		   	</where>)t1 left join PDSCI.INX_COLUMN t2 on t1.column_id = t2.column_id order by t1.is_top desc,t1.info_time desc
+  </select>
+   <select id="selectByFormWithBlobs" parameterType="com.pinde.sci.form.inx.InxInfoForm" resultMap="com.pinde.sci.dao.base.InxInfoMapper.ResultMapWithBLOBs">
+	select tt.* from (select t.*,rownum as myrownum from (select <include refid="com.pinde.sci.dao.base.InxInfoMapper.Base_Column_List" />,
+	     <include refid="com.pinde.sci.dao.base.InxInfoMapper.Blob_Column_List" />
+	      from PDSCI.INX_INFO
+		   	<where>
+		   		<if test='recordStatus != null and recordStatus != ""'>
+		   			RECORD_STATUS = #{recordStatus}
+		   		</if>
+		   		<if test='columnId != null and columnId != ""'>
+		   			and COLUMN_ID like '${columnId}%'
+		   		</if>
+		   		<if test='infoTitle != null and infoTitle != ""'>
+		   			and INFO_TITLE like '%${infoTitle}%'
+		   		</if>
+		   		<if test='content != null and content != ""'>
+		   			and INFO_CONTENT like '%${content}%'
+		   		</if>
+		   		<if test='infoKeyword != null and infoKeyword != ""'>
+		   			and (INFO_KEYWORD like '%${infoKeyword}%' or INFO_TITLE like '%${infoTitle}%')
+		   		</if>
+		   		<if test='hasImage=="Y"'>
+		   			and title_img is not null
+		   		</if>
+		   	</where>
+		   	order by is_top desc,info_time desc) t
+		   	<where>
+		   		<if test='endIndex != null and endIndex != ""'>
+		   			rownum <![CDATA[<=]]> #{endIndex}
+		   		</if>
+		   	</where>)tt
+		   	<where>
+		   		<if test='startIndex != null and startIndex != ""'>
+		   			tt.myrownum <![CDATA[>]]> #{startIndex}
+		   		</if>
+		   	</where>
+  </select>
+  <select id="selectExtByFormWithBlobs" parameterType="com.pinde.sci.form.inx.InxInfoForm" resultMap="extResultMapWithBLOBs">
+	select t1.*,COLUMN_FLOW, t2.COLUMN_ID as t2_column_id, t2.COLUMN_NAME, t2.PARENT_COLUMN_ID, t2.ORDINAL as t2_ORDINAL, t2.RECORD_STATUS as t2_RECORD_STATUS, t2.CREATE_TIME as t2_CREATE_TIME, t2.CREATE_USER_FLOW as t2_CREATE_USER_FLOW, t2.MODIFY_TIME as t2_MODIFY_TIME, t2.MODIFY_USER_FLOW as t2_MODIFY_USER_FLOW 
+	      from(select tt.* from (select t.*,rownum as myrownum from (select <include refid="com.pinde.sci.dao.base.InxInfoMapper.Base_Column_List" />,
+	     <include refid="com.pinde.sci.dao.base.InxInfoMapper.Blob_Column_List" /> from PDSCI.INX_INFO where RECORD_STATUS <![CDATA[<>]]> '4'
+	   		<if test='recordStatus != null and recordStatus != ""'>
+	   		    and RECORD_STATUS = #{recordStatus}
+	   		</if>
+	   		<if test='columnId != null and columnId != ""'>
+	   			and COLUMN_ID like '${columnId}%'
+	   		</if>
+	   		<if test='infoTitle != null and infoTitle != ""'>
+	   			and INFO_TITLE like '%${infoTitle}%'
+	   		</if>
+	   		<if test='content != null and content != ""'>
+	   			and INFO_CONTENT like '%${content}%'
+	   		</if>
+	   		<if test='infoKeyword != null and infoKeyword != ""'>
+	   			and INFO_KEYWORD like '%${infoKeyword}%'
+	   		</if>
+		   	order by is_top desc,info_time desc) t
+		   	<where>
+		   		<if test='endIndex != null and endIndex != ""'>
+		   			rownum <![CDATA[<=]]> #{endIndex}
+		   		</if>
+		   	</where>)tt
+		   	<where>
+		   		<if test='startIndex != null and startIndex != ""'>
+		   			tt.myrownum <![CDATA[>]]> #{startIndex}
+		   		</if>
+		   	</where>)t1 left join PDSCI.INX_COLUMN t2 on t1.column_id = t2.column_id order by t1.is_top desc,t1.info_time desc
+  </select>
+    <select id="selectCountByForm" parameterType="com.pinde.sci.form.inx.InxInfoForm" resultType="_long">
+	    select count(*) from PDSCI.INX_INFO where RECORD_STATUS <![CDATA[<>]]> 'failure'
+	   		<if test='recordStatus != null and recordStatus != ""'>
+	   			and RECORD_STATUS = #{recordStatus}
+	   		</if>
+	   		<if test='columnId != null and columnId != ""'>
+	   			and COLUMN_ID like '${columnId}%'
+	   		</if>
+	   		<if test='infoTitle != null and infoTitle != ""'>
+	   			and INFO_TITLE like '%${infoTitle}%'
+	   		</if>
+	   		<if test='content != null and content != ""'>
+	   			and INFO_CONTENT like '%${content}%'
+	   		</if>
+	   		<if test='infoKeyword != null and infoKeyword != ""'>
+	   			and (INFO_KEYWORD like '%${infoKeyword}%' or INFO_TITLE like '%${infoKeyword}%')
+	   		</if>
+	   		<if test='startDate != null and startDate != ""'>
+	   			and info_time <![CDATA[>=]]> #{startDate}
+	   		</if>
+	   		<if test='endDate != null and endDate != ""'>
+	   			and info_time <![CDATA[<=]]> #{endDate}
+	   		</if>
+		   	<if test='hasImage=="Y"'>
+		   			and title_img is not null
+		   	</if>
+  </select>
+  <select id="selectExtByFlow" parameterType="string" resultMap="extResultMapWithBLOBs">
+  	select t1.*,COLUMN_FLOW, t2.COLUMN_ID as t2_column_id, t2.COLUMN_NAME, t2.PARENT_COLUMN_ID, t2.ORDINAL as t2_ORDINAL, t2.RECORD_STATUS as t2_RECORD_STATUS, t2.CREATE_TIME as t2_CREATE_TIME, t2.CREATE_USER_FLOW as t2_CREATE_USER_FLOW, t2.MODIFY_TIME as t2_MODIFY_TIME, t2.MODIFY_USER_FLOW as t2_MODIFY_USER_FLOW 
+	      from PDSCI.INX_INFO  t1 left join PDSCI.INX_COLUMN t2 on t1.column_id = t2.column_id  where info_flow=#{infoFlow}
+  </select>
+  <update id="updateInfoState" parameterType="com.pinde.sci.form.inx.InxInfoForm">
+	 update  PDSCI.INX_INFO set INFO_STATUS_ID = #{infoStatusId},INFO_STATUS_NAME = #{infoStatusName} where INFO_STATUS_ID <![CDATA[<>]]> 'Failure' and   info_flow in
+	       <foreach collection="infoFlows" open="(" separator="," close=")" item="item">#{item}</foreach>
+	       <if test='infoStatusId=="Passing"'>
+	       	and (INFO_STATUS_ID = 'Edit' or INFO_STATUS_ID = 'NoPassed')
+	       </if>
+  </update>
+  
+  <select id="searchInfoByOrgBeforeDate" resultMap="com.pinde.sci.dao.base.InxInfoMapper.ResultMapWithBLOBs">
+  	SELECT *
+  	FROM PDSCI.INX_INFO
+  	WHERE RECORD_STATUS = 'Y'
+  	<if test='orgFlow!=null and orgFlow!=""'>
+  		AND (ORG_FLOW = #{orgFlow} OR ORG_FLOW IS NULL)
+  	</if>
+  	<if test='orgFlow==null or orgFlow==""'>
+  		AND ORG_FLOW IS NULL
+  	</if>
+  	<if test='date!=null and date!=""'>
+  		AND INFO_TIME >= #{date}
+  	</if>
+  	ORDER BY INFO_TIME DESC
+  </select>
+  
+</mapper>

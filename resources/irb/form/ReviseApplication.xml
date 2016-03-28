@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查申请表单 -->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/application/revise_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 一、一般信息 -->	
+			<item name="proposeAmender" remark="提出修正者" multiple="Y">
+				<code value="1">项目资助方</code>
+				<code value="2">研究中心</code>
+				<code value="3">主要研究者</code>
+			</item>
+			<item name="reviseCategory" remark="修正类别" multiple="Y">
+				<code value="1">研究设计</code>
+				<code value="2">研究步骤</code>
+				<code value="3">受试者例数</code>
+				<code value="4">纳入排除标准</code>
+				<code value="5">干预措施</code>
+				<code value="6">知情同意书</code>
+				<code value="7">招募材料</code>
+				<code value="8">其他</code>
+			</item>
+			<item name="otherReviseCategory" remark="其他修正类别" multiple="N"></item>
+			<item name="isModifyImple" remark="为了避免对受试者造成紧急伤害，在提交伦理委员会审查批准前对方案进行了修改并实施" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+			</item>
+		<!-- 二、修正的具体内容与原因 -->		
+			<item name="reviseContentReason" remark="修正的具体内容与原因" multiple="N"></item>
+		<!-- 三、修正案对研究的影响 -->		
+			<item name="reviseAffect1" remark="修正案是否增加研究的预期风险" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviseAffect2" remark="修正案是否降低受试者预期受益" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviseAffect3" remark="修正案是否涉及弱势群体" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviseAffect4" remark="修正案是否增加受试者参加研究的持续时间或花费" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviseAffect5" remark="如果研究已经开始，修正案是否对已纳入的受试者造成影响" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="reviseAffect6" remark="在研受试者是否需要重新获取知情同意" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+		<!-- 申请人签字/日期 -->		
+			<item name="applyManName" remark="申请人签字" multiple="N"></item>
+			<item name="applyDate" remark="申请人签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

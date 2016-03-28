@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.srm.SrmExpertProjExtMapper" >
+	<resultMap type="com.pinde.sci.model.srm.SrmExpertGroupProjExt" id="SrmExpertGroupProjExtMap" extends="com.pinde.sci.dao.base.SrmExpertProjEvalMapper.BaseResultMap">
+		<association property="srmGradeScheme" column="SCHEME_FLOW" resultMap="com.pinde.sci.dao.base.SrmGradeSchemeMapper.BaseResultMap"></association>
+	</resultMap>
+	<resultMap type="com.pinde.sci.model.srm.SrmExpertProjExt" id="SrmExpertProjExtMap" extends="com.pinde.sci.dao.base.SrmExpertProjMapper.BaseResultMap">
+		<association property="srmExpertGroupProjExt" column="EVAL_SET_FLOW" resultMap="SrmExpertGroupProjExtMap"></association>
+		<association property="pubProj" column="PROJ_FLOW" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap"></association>
+	</resultMap>
+   <select id="selectExpertProj" parameterType="com.pinde.sci.model.srm.SrmExpertProjExt" resultMap="SrmExpertProjExtMap">
+   		SELECT SEP.EXPERT_PROJ_FLOW , SEP.PROJ_FLOW , SEP.SCORE_TOTAL , SEP.SCORE_RESULT_NAME , 
+   			PP.APPLY_ORG_FLOW , PP.APPLY_ORG_NAME , PP.PROJ_NAME , 
+   			SEGP.SCHEME_FLOW , SEGP.BEGIN_DATE , SEGP.END_DATE , SEGP.EVALUATION_WAY_ID ,
+   			SEGP.EVALUATION_ID , SEGP.EVALUATION_NAME
+   		 FROM PDSCI.SRM_EXPERT_PROJ SEP , PDSCI.SRM_EXPERT_PROJ_EVAL SEGP , PDSCI.PUB_PROJ PP 
+   		 WHERE SEP.EVAL_SET_FLOW=SEGP.EVAL_SET_FLOW AND SEP.PROJ_FLOW=PP.PROJ_FLOW
+   		 <if test='userFlow!=null and userFlow!=""'>
+   		 	AND SEP.USER_FLOW=#{userFlow}
+   		 </if>
+   		 <if test='recordStatus!=null and recordStatus!=""'>
+   		 	AND SEP.RECORD_STATUS=#{recordStatus} AND SEGP.RECORD_STATUS=#{recordStatus}
+   		 </if>
+   		 <if test='agreeFlag!=null and agreeFlag!="" and agreeFlag!="NULL"'>
+   		 	AND SEP.AGREE_FLAG=#{agreeFlag}
+   		 </if>
+   		 <if test='agreeFlag=="NULL"'>
+   		 	AND SEP.AGREE_FLAG IS NULL
+   		 </if>
+   		 <if test='scoreTotal=="NOTNULL"'>
+   		 	AND SEP.SCORE_TOTAL IS NOT NULL
+   		 </if>
+   		 <if test='scoreTotal=="NULL"'>
+   		 	AND SEP.SCORE_TOTAL IS NULL
+   		 </if>
+   		 <if test='projName!=null and projName!=""'>
+   		 	AND PP.PROJ_NAME LIKE #{projName}
+   		 </if>
+   		 <if test='srmExpertGroupProjExt.evalStatusId!=null and srmExpertGroupProjExt.evalStatusId!=""'>
+   		 	AND SEGP.EVAL_STATUS_ID = #{srmExpertGroupProjExt.evalStatusId}
+   		 </if>
+   		 ORDER BY SEP.CREATE_TIME DESC
+   </select>
+   <resultMap type="com.pinde.sci.model.srm.SysUserExt" id="UserMap" extends="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+   </resultMap>
+   <select id="selectJoinEvalSetExpertList" parameterType="com.pinde.sci.model.mo.SrmExpertProj" resultMap="UserMap">
+   		SELECT * FROM PDSCI.SYS_USER SU WHERE EXISTS 
+	   		(SELECT NULL FROM PDSCI.SRM_EXPERT_PROJ SEP WHERE SEP.RECORD_STATUS='Y' AND SEP.USER_FLOW=SU.USER_FLOW
+	   		<if test='projFlow!=null and projFlow!=""'>
+	   			AND SEP.PROJ_FLOW = '${projFlow}'
+	   		</if>
+	   		<if test='evalSetFlow!=null and evalSetFlow!=""'>
+	   			AND SEP.EVAL_SET_FLOW = '${evalSetFlow}'
+	   		</if>
+	   		)
+   </select>
+   
+   <resultMap type="com.pinde.sci.model.srm.SrmExpertProjExt" id="SrmExpertGroupProjExtAndUserMap" extends="com.pinde.sci.dao.base.SrmExpertProjMapper.BaseResultMap">
+		<association property="userExt"  column="USER_FLOW" resultMap="UserMap"></association>
+	</resultMap>
+   <select id="selectExpertProjAndUserExt" parameterType="com.pinde.sci.model.mo.SrmExpertProj" resultMap="SrmExpertGroupProjExtAndUserMap">
+   		SELECT SEP.EXPERT_PROJ_FLOW , SEP.PROJ_FLOW , SEP.USER_FLOW , 
+   			   SEP.EMAIL_NOTIFY_FLAG , SEP.PHONE_NOTIFY_FLAG , SEP.FEEDBACK_INFO , 
+   			   SEP.AGREE_FLAG , SEP.SCORE_TOTAL , SEP.SCORE_RESULT_ID , 
+   			   SEP.SCORE_RESULT_NAME , SEP.EXPERT_OPINION , SEP.EVAL_SET_FLOW  , 
+   			   SEP.EVAL_STATUS_ID , SEP.EVAL_STATUS_NAME , 
+   			   SU.USER_NAME FROM PDSCI.SRM_EXPERT_PROJ SEP , PDSCI.SYS_USER SU WHERE SEP.USER_FLOW=SU.USER_FLOW AND SEP.RECORD_STATUS='Y'
+   		<if test='projFlow!=null and projFlow!=""'>
+	   			AND SEP.PROJ_FLOW = '${projFlow}'
+	   		</if>
+	   		<if test='evalSetFlow!=null and evalSetFlow!=""'>
+	   			AND SEP.EVAL_SET_FLOW = '${evalSetFlow}'
+	   		</if>
+	   		<if test='evalStatusId!=null and evalStatusId!=""'>
+	   			AND SEP.EVAL_STATUS_ID = '${evalStatusId}'
+	   		</if>
+   </select>
+   
+</mapper>

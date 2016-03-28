@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>
+	<!-- 初始审查申请表单 -->
+	<!-- {0}:表单所属机构(开关控制) {1}:版本号 -->
+	<jsp ver="1.0" path="gcp/form/{0}/dept_OTG_CheckList_{1}"></jsp>
+	<product>
+		<page ver="1.0">
+			<item name="result1" remark="伦理会批准与备案的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark1" remark="伦理会批准与备案的备注" multiple="N"></item>
+
+			<item name="result2" remark="研究者资质、培训与授权的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark2" remark="研究者资质、培训与授权的备注" multiple="N"></item>
+
+			<item name="result3" remark="受试者权益保护（知情、受试费）的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark3" remark="受试者权益保护（知情、受试费）的备注" multiple="N"></item>
+
+			<item name="result4" remark="方案依从性的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark4" remark="方案依从性的备注" multiple="N"></item>
+
+			<item name="result5" remark="受试者姓名、住址、电话真实性核对的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark5" remark="受试者姓名、住址、电话真实性核对的备注" multiple="N"></item>
+
+			<item name="result6" remark="实验方案依从性（入排、随访）的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark6" remark="实验方案依从性（入排、随访）的备注" multiple="N"></item>
+
+			<item name="result7" remark="原始记录（病史、医嘱单、处方单等）的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark7" remark="原始记录（病史、医嘱单、处方单等）的备注" multiple="N"></item>
+
+			<item name="result8" remark="病例报告表（及时、准确、完整、可溯源）的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark8" remark="病例报告表（及时、准确、完整、可溯源）的备注" multiple="N"></item>
+
+			<item name="result9" remark="试验用药品管理的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark9" remark="试验用药品管理的备注" multiple="N"></item>
+
+			<item name="result10" remark="样品采集与管理的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark10" remark="样品采集与管理的备注" multiple="N"></item>
+
+			<item name="result11" remark="合并用药与伴随治疗的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark11" remark="合并用药与伴随治疗的备注" multiple="N"></item>
+
+			<item name="result12" remark="方案偏离与违背的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark12" remark="方案偏离与违背的备注" multiple="N"></item>
+
+			<item name="result13" remark="AE与SAE处理、记录与报告的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark13" remark="AE与SAE处理、记录与报告的备注" multiple="N"></item>
+
+			<item name="result14" remark="随即分组与设盲、破盲的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark14" remark="随即分组与设盲、破盲的备注" multiple="N"></item>
+
+			<item name="result15" remark="申办者方式及记录正常的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark15" remark="申办者方式及记录正常的备注" multiple="N"></item>
+
+			<item name="result16" remark="内部质量控制的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark16" remark="内部质量控制的备注" multiple="N"></item>
+			
+			<item name="problem" remark="问题" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

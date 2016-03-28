@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.res.ResAppealExtMapper" >
+	<resultMap type="com.pinde.sci.form.res.AppealForm" id="appealFormMap">
+		<result column="REC_TYPE_ID" jdbcType="VARCHAR" property="recTypeId"/>
+		<result column="ITEM_NAME" jdbcType="VARCHAR" property="itemName"/>
+		<result column="APPEAL_NUM" jdbcType="DECIMAL" property="appealNum"/>
+	</resultMap>
+	
+	<resultMap type="HashMap" id="appealCountMap">
+		<result  property="appealKey" column="APPEAL_KEY" javaType="string"/>
+		<result property="appealSum" column="APPEAL_SUM" javaType="java.math.BigDecimal"/>
+	</resultMap>
+	
+	<select id="searchAppealFormList" resultMap="appealFormMap">
+		SELECT REC_TYPE_ID,ITEM_NAME,SUM(APPEAL_NUM) APPEAL_NUM
+		FROM PDSCI.RES_APPEAL
+		GROUP BY REC_TYPE_ID
+	</select>
+	
+	<select id="appealCountWithUser" resultMap="appealCountMap">
+		SELECT OPER_USER_FLOW||SCH_DEPT_FLOW||REC_TYPE_ID APPEAL_KEY,SUM(APPEAL_NUM) APPEAL_SUM
+		FROM PDSCI.RES_APPEAL
+		WHERE RECORD_STATUS = 'Y'
+		AND OPER_USER_FLOW IN 
+		<foreach collection="userFlows" item="userFlow" open="(" separator="," close=")">
+			#{userFlow}
+		</foreach>
+		AND SCH_DEPT_FLOW IN 
+		<foreach collection="schDeptFlows" item="schDeptFlow" open="(" separator="," close=")">
+			#{schDeptFlow}
+		</foreach>
+		<if test='roleFlag != null and roleFlag !=""'>
+			AND AUDIT_STATUS_ID IS NULL
+		</if>
+		GROUP BY OPER_USER_FLOW,SCH_DEPT_FLOW,REC_TYPE_ID
+	</select>
+	
+	<select id="searchAppealForAudit" resultMap="com.pinde.sci.dao.base.ResAppealMapper.BaseResultMap">
+		SELECT *
+		FROM PDSCI.RES_APPEAL
+		WHERE RECORD_STATUS = 'Y'
+		<if test='recTypeId != null and recTypeId != ""'>
+			AND REC_TYPE_ID = #{recTypeId}
+		</if>
+		<if test='schDeptFlow != null and schDeptFlow != ""'>
+			AND SCH_DEPT_FLOW = #{schDeptFlow}
+		</if>
+		<if test='doctorFlow != null and doctorFlow != ""'>
+			AND OPER_USER_FLOW = #{doctorFlow}
+		</if>
+<!-- 		AND (AUDIT_STATUS_ID <![CDATA[<>]]> 'TeacherAuditN' OR AUDIT_STATUS_ID IS NULL) -->
+		ORDER BY AUDIT_STATUS_ID NULLS FIRST,OPER_TIME
+	</select>
+	
+	<select id="searchAppealCount" resultMap="appealCountMap">
+		SELECT REC_TYPE_ID AS APPEAL_KEY,Count(*) APPEAL_SUM
+		FROM PDSCI.RES_APPEAL
+		WHERE RECORD_STATUS = 'Y'
+		<if test='operUserFlow != null and operUserFlow != ""'>
+			AND OPER_USER_FLOW = #{operUserFlow}
+		</if>
+		<if test='schDeptFlow != null and schDeptFlow != ""'>
+			AND SCH_DEPT_FLOW = #{schDeptFlow}
+		</if>
+		GROUP BY REC_TYPE_ID
+	</select>
+	
+	<select id="searchNotAuditAppealCount" resultMap="appealCountMap">
+		SELECT RDSP.USER_FLOW APPEAL_KEY,COUNT(*) APPEAL_SUM 
+		FROM PDSCI.RES_APPEAL RA,PDSCI.RES_DOCTOR_SCH_PROCESS RDSP
+		WHERE RA.RECORD_STATUS = 'Y'
+		AND RDSP.RECORD_STATUS = 'Y'
+		AND RA.OPER_USER_FLOW = RDSP.USER_FLOW
+		AND RA.SCH_DEPT_FLOW = RDSP.SCH_DEPT_FLOW
+		AND RDSP.IS_CURRENT_FLAG = 'Y'
+		<if test='schDeptFlow!=null and schDeptFlow!=""'>
+			AND RDSP.SCH_DEPT_FLOW = #{schDeptFlow}
+		</if>
+		<if test='teacherUserFlow!=null and teacherUserFlow!=""'>
+			AND RDSP.TEACHER_USER_FLOW = #{teacherUserFlow}
+		</if>
+		<if test='isAudit!=null and isAudit=="Y"'>
+			AND RA.AUDIT_STATUS_ID IS NOT NULL
+		</if>
+		<if test='isAudit!=null and isAudit=="N"'>
+			AND RA.AUDIT_STATUS_ID IS NULL
+		</if>
+		GROUP BY RDSP.USER_FLOW
+	</select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edc.EdcRandomRecExtMapper" >
+	<resultMap id="BaseResultMap" type="com.pinde.sci.model.edc.RandomDrugGroupForm">
+	    <result  column="drug_group" property="drugGroup" jdbcType="VARCHAR"  />
+ 	 </resultMap>
+	<select id="searchDurgGroups" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select distinct drug_group as drug_group from 
+		PDSCI.EDC_RANDOM_REC 
+		where proj_flow=#{projFlow} and record_status='Y'
+  	</select>
+  	<select id="updateBlock">
+		update  PDSCI.EDC_RANDOM_REC  set org_flow=#{orgFlow} where  
+		 proj_flow=#{projFlow} and record_status='Y' and block_num=#{blockNum}
+  	</select>
+  	<select id="resetBlock">
+		update  PDSCI.EDC_RANDOM_REC  set org_flow='' where  
+		 proj_flow=#{projFlow}  and record_status='Y' and block_num=#{blockNum}
+  	</select>
+  	
+ 	<select id="searchMaxVisit"  parameterType="java.lang.String" resultType="java.lang.Integer">
+		select max(count(*)) from GCP_DRUG_STORE_REC where patient_code is not null and
+			proj_flow=#{projFlow} and record_status='Y'
+			group by patient_code
+			 having count(*)>1
+  	</select>
+  		<select id="searchMaxVisitFollow"  resultType="java.lang.Integer">
+		select count(*) from (
+			select patient_code, count(*) count from GCP_DRUG_STORE_REC where patient_code is not null and
+			proj_flow=#{projFlow} and record_status='Y' 
+			group by patient_code 
+			 having count(*)> #{followNum}
+		 )
+  	</select>
+  	
+</mapper>

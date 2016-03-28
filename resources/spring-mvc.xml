@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/security 
+    http://www.springframework.org/schema/security/spring-security-3.2.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+   	
+   	<aop:aspectj-autoproxy proxy-target-class="true"/>
+        
+    <bean id="aspect" class="com.pinde.sci.biz.aop.EdcAppAspectJLogger" />
+    
+    <!-- 扫描controller（controller层注入） -->
+   	<context:component-scan base-package="com.pinde.*.ctrl">
+   		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> -->
+   		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+   	</context:component-scan>
+    
+   	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+    <mvc:default-servlet-handler />
+	
+	<mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>  
+	<mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>  
+	<mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/> 
+    
+    <!-- 拦截器 -->  
+   	<mvc:interceptors>
+    	<bean class="com.pinde.core.interceptor.WebDefaultInterceptor" />
+    	
+    	<mvc:interceptor>  
+            <mvc:mapping path="/**/**"/>
+            <mvc:exclude-mapping path="/images/**" />
+            <mvc:exclude-mapping path="/js/**" />
+            <mvc:exclude-mapping path="/css/**" />
+            <mvc:exclude-mapping path="/license**/**"/>
+            <mvc:exclude-mapping path="/lic**/**"/>
+            <bean class="com.pinde.sci.common.LicenseInterceptor"></bean>  
+        </mvc:interceptor>      
+    	<mvc:interceptor>  
+            <mvc:mapping path="/**/**"/>
+            <mvc:exclude-mapping path="/**.ico" />
+            <mvc:exclude-mapping path="/images/**" />
+            <mvc:exclude-mapping path="/js/**" />
+            <mvc:exclude-mapping path="/css/**" />
+            <mvc:exclude-mapping path="/jsp/sample/**" />
+            <mvc:exclude-mapping path="/license**/**"/>
+            <mvc:exclude-mapping path="/lic**/**"/>
+            <mvc:exclude-mapping path="/login**/**"/>
+            <mvc:exclude-mapping path="/logout**/**"/> 
+            <mvc:exclude-mapping path="/online**/**"/> 
+            <mvc:exclude-mapping path="/notice**/**"/> 
+            <mvc:exclude-mapping path="/timeout**/**"/>
+            <mvc:exclude-mapping path="/expired**/**"/> 
+            <mvc:exclude-mapping path="/jsp/inx/**"/> 
+            <mvc:exclude-mapping path="/index**/**"/> 
+            <mvc:exclude-mapping path="/inx**/**"/> 
+            <mvc:exclude-mapping path="/reg**/**"/> 
+            <mvc:exclude-mapping path="/captcha"/> 
+            <mvc:exclude-mapping path="/jcaptcha" /> 
+            <mvc:exclude-mapping path="/ueditor/**" />
+            <mvc:exclude-mapping path="/edc/app/**" />
+            <mvc:exclude-mapping path="/jsp/app/crs/images/**" />
+            <mvc:exclude-mapping path="/jsp/app/crs/font.css" />
+            <mvc:exclude-mapping path="/jsp/edu/css/**" />
+            <mvc:exclude-mapping path="/jsp/edu/js/**" />
+            <mvc:exclude-mapping path="/jsp/njmuedu/css/**" />
+            <mvc:exclude-mapping path="/jsp/njmuedu/js/**" />
+            <mvc:exclude-mapping path="/jsp/hbres/css/**" />
+            <mvc:exclude-mapping path="/jsp/hbres/images/**" />
+            <mvc:exclude-mapping path="/jsp/hbres/js/**" />
+            <mvc:exclude-mapping path="/feixin/**" />
+            <mvc:exclude-mapping path="/weixin/**" />
+            <mvc:exclude-mapping path="/app/**" />
+            <mvc:exclude-mapping path="/mobile/**" />
+            <mvc:exclude-mapping path="/edc/oauth/**" />
+            <mvc:exclude-mapping path="/druid/**" />
+            <mvc:exclude-mapping path="/sys/dict/doRefresh" />
+            <mvc:exclude-mapping path="/sys/dict/doRemoteRefresh" />
+            <mvc:exclude-mapping path="/sys/cfg/getErrorMsg" />
+            <mvc:exclude-mapping path="/sys/user/forget/*"/>
+            <mvc:exclude-mapping path="/captchaComplex"/>
+            <mvc:exclude-mapping path="/jsp/cnres/css/**" />
+            <mvc:exclude-mapping path="/jsp/cnres/images/**" />
+            <mvc:exclude-mapping path="/jsp/cnres/js/**" />
+            <mvc:exclude-mapping path="/jsp/jsres/css/**" />
+            <mvc:exclude-mapping path="/jsp/jsres/images/**" />
+            <mvc:exclude-mapping path="/jsp/jsres/js/**" />
+            <mvc:exclude-mapping path="/jsp/sczyres/css/**" />
+            <mvc:exclude-mapping path="/jsp/sczyres/images/**" />
+            <mvc:exclude-mapping path="/jsp/sczyres/js/**" />
+            <mvc:exclude-mapping path="/enso/oauth/**" />
+            
+            <bean class="com.pinde.sci.common.UserInterceptor"></bean>  
+        </mvc:interceptor>       	
+	</mvc:interceptors>    
+    
+    <mvc:annotation-driven>
+    	<mvc:message-converters>
+		    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+		        <property name ="supportedMediaTypes">
+		              <list>   
+		                  <value>text/plain;charset=UTF-8</value> 
+		                   <value>text/html;charset=UTF-8</value>   
+		              </list>   
+		        </property> 
+		    </bean>	
+		    <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
+		        <property name="supportedMediaTypes"> 
+		            <list> 
+		                <value>application/json</value> 
+						<value>text/html;charset=UTF-8</value>
+		            </list> 
+		        </property> 
+		
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	  
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:defaultEncoding="UTF-8"  
+        p:maxUploadSize="5400000"  
+        p:uploadTempDir="fileUpload/temp">
+		
+	</bean> -->
+	
+	
+   <!-- 对模型视图添加前后缀 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+       <property name="prefix">
+           <value>/jsp/</value>
+       </property>
+       <property name="suffix">
+           <value>.jsp</value>
+       </property>
+    </bean>
+     <!-- Configure the multipart resolver for uploading -->
+   <!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />-->
+    
+    <!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+		<property name="defaultErrorView" value="/exception" />  
+		<property name="exceptionMappings">  
+		    <props>  
+				<prop key="java.lang.Exception">/exception</prop>  
+		    </props>  
+		</property>  
+	</bean>   -->
+	
+    <!-- <aop:config proxy-target-class="true"></aop:config>
+	
+
+    Shiro生命周期处理器
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean> -->
+</beans>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.srm.ProjFundExtMapper" >
+	<resultMap type="com.pinde.sci.model.srm.ProjFundDetailExt"  id="ProjFundDetailResultMap" extends="com.pinde.sci.dao.base.SrmProjFundDetailMapper.BaseResultMap">
+		<association property="projFundInfo" column="fundFlow" resultMap="com.pinde.sci.dao.base.SrmProjFundInfoMapper.BaseResultMap"></association>
+		<association property="proj" column="PROJ_FLOW" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap"></association>
+		<association property="schemeDetail" column="item_flow" resultMap="com.pinde.sci.dao.base.SrmFundSchemeDetailMapper.BaseResultMap"></association>
+	</resultMap>
+	<resultMap type="com.pinde.sci.model.srm.PubProjExt" id="ProjFundInfoResultMap" extends="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		<association property="projFundInfo" column="fundFlow" resultMap="com.pinde.sci.dao.base.SrmProjFundInfoMapper.BaseResultMap"></association>
+	    <association property="user" column="userFlow" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"></association>
+	</resultMap>
+	<select id="selectProjFundDetailList" parameterType="com.pinde.sci.model.srm.ProjFundDetailExt" resultMap="ProjFundDetailResultMap">
+		SELECT *  FROM (
+			SELECT * FROM PDSCI.SRM_PROJ_FUND_DETAIL SPFD 
+				<where>
+					<if test='fundTypeId!=null and fundTypeId!=""'>
+						SPFD.FUND_TYPE_ID='${fundTypeId}'
+					</if> 
+					<if test='recordStatus!=null and recordStatus!=""'>
+						 AND SPFD.RECORD_STATUS=#{recordStatus}
+					</if>
+					<if test='operStatusId!=null and operStatusId!=""'>
+						AND SPFD.OPER_STATUS_ID='${operStatusId}'
+					</if>
+					<if test='provideDateTime!=null and provideDateTime!=""'>
+						and to_char(to_date(PROVIDE_DATE_TIME,'yyyyMMddHH24miss'),'yyyy-MM-dd') = #{provideDateTime}
+					</if>
+					<if test="operStatusIds!=null">
+					    and SPFD.OPER_STATUS_ID in <foreach collection="operStatusIds" open="(" close=")" separator="," item="item">#{item}</foreach>
+					</if>
+				</where>
+				) SPFDTEMP , 
+			PDSCI.SRM_PROJ_FUND_INFO SPFI , 
+			PDSCI.SRM_FUND_SCHEME_DETAIL SFSD ,
+			PDSCI.PUB_PROJ PP WHERE SPFDTEMP.FUND_FLOW=SPFI.FUND_FLOW AND SPFI.PROJ_FLOW=PP.PROJ_FLOW AND SPFDTEMP.ITEM_FLOW=SFSD.ITEM_FLOW 
+			<if test='proj.projName!=null and proj.projName!=""'>
+				AND PP.PROJ_NAME LIKE '%${proj.projName}%'
+			</if>
+			<if test='proj.projTypeId!=null and proj.projTypeId!=""'>
+			    AND PP.PROJ_TYPE_ID = '${proj.projTypeId}'
+			</if>
+			<if test='proj.applyUserName!=null and proj.applyUserName!=""'>
+				AND PP.APPLY_USER_NAME LIKE '%${proj.applyUserName}%'
+			</if>
+			<if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+				AND PP.APPLY_ORG_FLOW='${proj.applyOrgFlow}'
+			</if>
+	</select>
+
+	<select id="selectProjFundInfoList" parameterType="com.pinde.sci.model.srm.PubProjExt" resultMap="ProjFundInfoResultMap">
+		SELECT * FROM PDSCI.PUB_PROJ PP , PDSCI.SRM_PROJ_FUND_INFO SPFI , PDSCI.SYS_USER SU WHERE PP.PROJ_FLOW=SPFI.PROJ_FLOW AND PP.APPLY_USER_FLOW=SU.USER_FLOW AND  PP.RECORD_STATUS='Y' AND SPFI.RECORD_STATUS='Y'
+		<if test='projFlow!=null and projFlow!=""'>
+		    AND PP.PROJ_FLOW=#{projFlow}
+		</if>
+		<if test='projCategoryId!=null and projCategoryId!=""'>
+		    AND PP.Proj_Category_Id = '${projCategoryId}'
+		</if>
+		<if test='projTypeId!=null and projTypeId!=""'>
+		    AND PP.PROJ_TYPE_ID = '${projTypeId}'
+		</if>
+		<if test='projName!=null and projName!=""'>
+			AND PP.PROJ_NAME LIKE '%${projName}%'
+		</if>
+		<if test='applyUserName!=null and applyUserName!=""'>
+			AND PP.APPLY_USER_NAME LIKE '%${applyUserName}%'
+		</if>
+		<if test='applyOrgFlow!=null and applyOrgFlow!=""'>
+			AND PP.APPLY_ORG_FLOW = '${applyOrgFlow}'
+		</if>
+		<if test='projFundInfo.budgetStatusId!=null and projFundInfo.budgetStatusId!=""'>
+			AND SPFI.BUDGET_STATUS_ID='${projFundInfo.budgetStatusId}'
+		</if>
+		<if test="statusids!=null">
+			and SPFI.BUDGET_STATUS_ID in <foreach collection="statusids" open="(" close=")" separator="," item="item">#{item}</foreach>
+		</if>
+		ORDER BY SPFI.CREATE_TIME DESC
+	</select>
+	
+	<select id="selectProjFundDetailExt" parameterType="string" resultMap="ProjFundDetailResultMap">
+		SELECT * FROM PDSCI.SRM_PROJ_FUND_DETAIL SPFDTEMP, 
+		    SRM_PROJ_FUND_INFO SPFI, 
+			SRM_FUND_SCHEME_DETAIL SFSD ,
+			PUB_PROJ PP WHERE SPFDTEMP.FUND_FLOW=SPFI.FUND_FLOW AND SPFI.PROJ_FLOW=PP.PROJ_FLOW AND SPFDTEMP.ITEM_FLOW=SFSD.ITEM_FLOW
+			and  SPFDTEMP.fund_detail_flow = #{fundDetailFlow}
+	</select>
+
+</mapper>

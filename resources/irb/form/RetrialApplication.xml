@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查申请表单 -->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/application/retrial_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 修正情况 -->	
+			<item name="item1" remark="完全按照伦理审查意见修改的部分" multiple="N"></item>
+			<item name="item2" remark="参考伦理审查意见修改的部分" multiple="N"></item>
+			<item name="item3" remark="没有按照伦理审查意见进行修改的说明" multiple="N"></item>
+		<!-- 申请人签字/日期 -->	
+			<item name="applyManName" remark="申请人签字" multiple="N"></item>
+			<item name="applyDate" remark="申请人签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.res.ResDoctorSchProcessExtMapper" >
+	<resultMap type="HashMap" id="processCountMap">
+		<result  property="key" column="USER_FLOW" javaType="string"/>
+		<result property="value" column="PROCESS_COUNT" javaType="java.math.BigDecimal"/>
+	</resultMap>
+	
+	<select id="countProcessByUser" resultMap="processCountMap">
+		SELECT USER_FLOW,COUNT(*) PROCESS_COUNT
+		FROM PDSCI.RES_DOCTOR_SCH_PROCESS
+		WHERE USER_FLOW IN
+		<foreach collection="userFlows" item="userFlow" open="(" separator="," close=")">
+			#{userFlow}
+		</foreach>
+		AND RECORD_STATUS = 'Y'
+		GROUP BY USER_FLOW
+	</select>
+	
+	<select id="searchProcessByDoctor" resultMap="com.pinde.sci.dao.base.ResDoctorSchProcessMapper.BaseResultMap">
+		SELECT RDSP.*
+		FROM PDSCI.RES_DOCTOR_SCH_PROCESS RDSP,PDSCI.RES_DOCTOR RD
+		WHERE RDSP.RECORD_STATUS = 'Y'
+		AND RD.RECORD_STATUS = 'Y'
+		AND RDSP.USER_FLOW = RD.DOCTOR_FLOW
+		<if test="doctor!=null">
+			<if test='doctor.doctorName!=null and doctor.doctorName!=""'>
+				AND RD.DOCTOR_NAME LIKE '%${doctor.doctorName}%'
+			</if>
+		</if>
+		<if test="process!=null">
+			<if test='process.teacherUserFlow!=null and process.teacherUserFlow!=""'>
+				AND RDSP.TEACHER_USER_FLOW = #{process.teacherUserFlow}
+			</if>
+			<if test='process.headUserFlow!=null and process.headUserFlow!=""'>
+				AND RDSP.HEAD_USER_FLOW = #{process.headUserFlow}
+			</if>
+			<if test='process.isCurrentFlag!=null and process.isCurrentFlag!=""'>
+				AND RDSP.IS_CURRENT_FLAG = #{process.isCurrentFlag}
+			</if>
+			<if test='process.startDate!=null and process.startDate!=""'>
+				AND RDSP.START_DATE >= #{process.startDate}
+			</if>
+			<if test='process.endDate!=null and process.endDate!=""'>
+				AND RDSP.START_DATE <![CDATA[<]]>= #{process.endDate}
+			</if>
+		</if>
+		<if test='roleFlagMap!=null'>
+			<if test='roleFlagMap.roleFlag!=null and roleFlagMap.roleFlag!="" and roleFlagMap.val!=null and roleFlagMap.val!=""'>
+				<if test='roleFlagMap.roleFlag=="manager"'>
+					AND RDSP.SCH_DEPT_FLOW IN (
+						SELECT SCH_DEPT_FLOW 
+						FROM PDSCI.SCH_DEPT
+						WHERE RECORD_STATUS = 'Y'
+						AND DEPT_FLOW IN (
+							SELECT DEPT_FLOW 
+							FROM SYS_USER_DEPT 
+							WHERE RECORD_STATUS = 'Y'
+							AND USER_FLOW = #{roleFlagMap.val}
+						)
+					)
+				</if>
+				<if test='roleFlagMap.roleFlag=="admin"'>
+					AND RDSP.ORG_FLOW = #{roleFlagMap.val}
+				</if>
+			</if>
+		</if>
+	</select>
+	
+	<select id="searchTeachDept" resultType="string">
+		SELECT DISTINCT SCH_DEPT_FLOW
+		FROM PDSCI.RES_DOCTOR_SCH_PROCESS
+		WHERE RECORD_STATUS = 'Y'
+		<if test='userFlow!=null and userFlow!=""'>
+			AND TEACHER_USER_FLOW = #{userFlow}
+		</if>
+	</select>
+	
+	<select id="searchRotationDoctor" resultType="string">
+		SELECT DISTINCT USER_FLOW
+		FROM PDSCI.RES_DOCTOR_SCH_PROCESS
+		WHERE RECORD_STATUS = 'Y'
+		AND USER_FLOW IN 
+		<foreach collection="doctorFlows" item="doctorFlow" open="(" separator="," close=")">
+			#{doctorFlow}
+		</foreach>
+	</select>
+	
+	<select id="searchCurrentProcessByUserFlow" resultMap="com.pinde.sci.dao.base.ResDoctorSchProcessMapper.BaseResultMap">
+		SELECT RDSP.*
+		FROM PDSCI.RES_DOCTOR_SCH_PROCESS RDSP,PDSCI.SYS_USER_DEPT SUD,PDSCI.SCH_DEPT SD
+		WHERE RDSP.RECORD_STATUS = 'Y'
+		AND SUD.RECORD_STATUS = 'Y'
+		AND SD.RECORD_STATUS = 'Y'
+		AND SUD.DEPT_FLOW = SD.DEPT_FLOW
+		AND SD.SCH_DEPT_FLOW = RDSP.SCH_DEPT_FLOW
+		<if test='isCurrentFlag!=null and isCurrentFlag!=""'>
+			AND RDSP.IS_CURRENT_FLAG = 'Y'
+		</if>
+		<if test='userFlow!=null and userFlow!=""'>
+			AND SUD.USER_FLOW = #{userFlow}
+		</if>
+	</select>
+</mapper>

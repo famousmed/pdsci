@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.njmuedu.NjmuEduUserExtMapper">
+	<resultMap id="extMap" type="com.pinde.sci.model.njmuedu.EduUserExt" extends="com.pinde.sci.dao.base.EduUserMapper.BaseResultMap" >
+		<association property="sysUser" column="user_flow" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+    <select id="selectList" parameterType="com.pinde.sci.model.njmuedu.EduUserExt" resultMap="extMap">
+    	select eu.*,su.* from pdsci.edu_user eu,pdsci.sys_user su,pdsci.sys_user_role sur where eu.RECORD_STATUS = 'Y' and su.RECORD_STATUS = 'Y' and eu.user_flow = su.user_flow
+    	       and su.user_flow = sur.user_flow
+    	<if test="sysUser!=null">
+    		<if test='sysUser.statusId!=null and sysUser.statusId!=""'>
+    			and su.status_id = #{sysUser.statusId}
+    		</if>
+    		<if test='sysUser.orgFlow!=null and sysUser.orgFlow!=""'>
+    			and su.org_flow = #{sysUser.orgFlow}
+    		</if>
+    		<if test='sysUser.userName!=null and sysUser.userName!=""'>
+    			and su.user_name like #{sysUser.userName}
+    		</if>
+    	</if>
+    	<if test="sysRole!=null">
+    		<if test='sysRole.roleFlow!=null and sysRole.roleFlow!=""'>
+    			and sur.role_flow = #{sysRole.roleFlow}
+    		</if>
+    	</if> 
+    	order by eu.create_time desc
+    </select>
+    
+    <resultMap id="eduUserExtMap" type="com.pinde.sci.model.njmuedu.EduUserExt" extends="com.pinde.sci.dao.base.EduUserMapper.BaseResultMap" >
+		<association property="sysUser" column="user_flow" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+		<association property="sysOrg" column="org_flow" resultMap="com.pinde.sci.dao.base.SysOrgMapper.BaseResultMap" />
+	</resultMap>
+	
+	<select id="searchEduUserForManage" parameterType="java.util.Map" resultMap="eduUserExtMap">
+    	select eu.user_flow,eu.major_id,eu.major_name,eu.period,
+    	       eu.sid,eu.credit,eu.intro,
+    	       su.user_name,su.user_code,su.sex_id,su.sex_name,su.status_id,
+    	       su.status_desc,su.user_phone,su.user_email,su.dept_flow,su.dept_name,
+    	       su.id_no,su.user_birthday,su.title_id,su.title_name,
+    	       su.degree_id,su.degree_name,su.education_id,su.education_name,
+    	       su.post_id,su.post_name,su.CREATE_TIME,su.user_head_img,
+    	       so.org_flow,so.org_name
+    	from pdsci.edu_user eu,pdsci.sys_user su,pdsci.sys_org so,pdsci.sys_user_role sur
+    	where eu.RECORD_STATUS = 'Y' and su.RECORD_STATUS = 'Y' 
+    	and so.RECORD_STATUS = 'Y' and sur.RECORD_STATUS = 'Y' 
+    	and eu.user_flow = su.user_flow
+    	and so.org_flow = su.org_flow
+    	and su.user_flow =sur.user_flow
+			<if test="sysUser!=null">
+				<if test='sysUser.orgFlow!=null and sysUser.orgFlow!=""'>
+				    and so.org_flow=#{sysUser.orgFlow}
+				</if>
+				<if test='sysUser.statusId!=null and sysUser.statusId!=""'>
+				    and su.status_id=#{sysUser.statusId}
+				</if>
+			</if>
+    	    <if test='roleFlow!=null and roleFlow!=""'>
+    	     and sur.role_flow=#{roleFlow}
+    	    </if>
+    		<if test='condition!=null and condition!=""'>
+    			and (su.user_name like #{condition}
+    			or so.org_name like #{condition}
+    			or eu.major_name like #{condition}
+    			)
+    		</if>
+            <if test='userFlow!=null and userFlow!=""'>
+                and eu.user_flow=#{userFlow}
+            </if>
+           group by eu.user_flow,eu.major_id,eu.major_name,eu.period,
+    	       eu.sid,su.user_head_img,eu.credit,eu.intro,
+    	       su.user_name,su.user_code,su.sex_id,su.sex_name,su.status_id,
+    	       su.status_desc,su.user_phone,su.user_email,su.dept_flow,su.dept_name,
+    	       su.id_no,su.user_birthday,su.title_id,su.title_name,
+    	       su.degree_id,su.degree_name,su.education_id,su.education_name,
+    	       su.post_id,su.post_name,su.CREATE_TIME,su.user_head_img,
+    	       so.org_flow,so.org_name
+    	   <if test='sort!=null and sort!=""'>
+               order by #{sort}
+           </if>
+    </select>
+    
+    <select id="searchEduUserForCourseDetail" parameterType="java.util.Map" resultMap="eduUserExtMap">
+    	select eu.user_flow,eu.major_id,eu.major_name,eu.period,
+    	       eu.sid,su.user_head_img,eu.credit,eu.intro,
+    	       su.user_name,su.sex_id,su.sex_name,su.status_id,
+    	       su.status_desc,su.user_phone,su.user_email,
+    	       su.id_no,su.user_birthday,su.title_id,su.title_name,
+    	       su.degree_id,su.degree_name,su.education_id,su.education_name,
+    	       su.post_id,su.post_name,
+    	       so.org_flow,so.org_name
+    	from pdsci.edu_user eu,pdsci.sys_user su,pdsci.sys_org so,pdsci.sys_user_role sur
+    	where eu.RECORD_STATUS = 'Y' and su.RECORD_STATUS = 'Y' 
+    	and so.RECORD_STATUS = 'Y' and sur.RECORD_STATUS = 'Y' 
+    	and eu.user_flow = su.user_flow
+    	and so.org_flow = su.org_flow
+    	and su.user_flow =sur.user_flow
+    	    <if test='roleFlow!=null and roleFlow!=""'>
+    	     and sur.role_flow=#{roleFlow}
+    	    </if>
+            <if test='condition!=null and  condition!=""'>
+                and (su.user_Name like #{condition}
+                or so.org_Name like #{condition}
+                or eu.major_Name like #{condition})
+            </if>
+            <if test='courseFlow!=null and courseFlow!=""'>
+                  and eu.user_flow in (
+                    select distinct(user_flow) from pdsci.edu_student_course
+                    where course_flow=#{courseFlow}
+                  )
+            </if>
+            
+            order by su.org_flow asc,eu.major_id asc
+    </select>
+    
+    
+    <resultMap id="eduSysUserExtMap" type="com.pinde.sci.model.njmuedu.EduUserExt" extends="com.pinde.sci.dao.base.EduUserMapper.BaseResultMap" >
+		<association property="sysUser" column="user_flow" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+	<select id="readEduUserInfo" parameterType="string" resultMap="eduUserExtMap">
+    	select eu.*, su.*
+    	from pdsci.EDU_USER eu, pdsci.SYS_USER su
+    	where eu.RECORD_STATUS = 'Y' and su.RECORD_STATUS = 'Y' 
+    	and eu.USER_FLOW = su.user_flow
+		and su.USER_FLOW = #{userFlow}
+    </select>
+    
+     <resultMap id="eduUserAndCourseExtMap" type="com.pinde.sci.model.njmuedu.EduUserExt" extends="com.pinde.sci.dao.base.EduUserMapper.BaseResultMap" >
+		<association property="sysUser" column="user_flow" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+		<association property="sysOrg" column="org_flow" resultMap="com.pinde.sci.dao.base.SysOrgMapper.BaseResultMap" />
+	     <collection property="courseList" ofType="com.pinde.sci.model.mo.EduCourse" column="course_flow">
+	        <id column="course_flow" jdbcType="VARCHAR" property="courseFlow" />
+		    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+	     </collection>
+	</resultMap>
+	
+	<select id="searchEduAndCourseList" parameterType="java.util.Map" resultMap="eduUserAndCourseExtMap">
+    	select eu.user_flow,eu.major_id,eu.major_name,eu.period,
+    	       eu.sid,su.user_head_img,eu.credit,eu.intro,
+    	       su.user_name,su.user_code,su.sex_id,su.sex_name,su.status_id,
+    	       su.status_desc,su.user_phone,su.user_email,
+    	       su.id_no,su.user_birthday,su.title_id,su.title_name,
+    	       su.degree_id,su.degree_name,su.education_id,su.education_name,
+    	       su.post_id,su.post_name,su.CREATE_TIME,
+    	       so.org_flow,so.org_name,ec.course_flow,ec.course_name
+    	from pdsci.edu_user eu,pdsci.sys_user su,pdsci.sys_org so,pdsci.sys_user_role sur,pdsci.edu_course ec
+    	where eu.RECORD_STATUS = 'Y' and su.RECORD_STATUS = 'Y' 
+    	and so.RECORD_STATUS = 'Y' and sur.RECORD_STATUS = 'Y'
+    	and ec.RECORD_STATUS = 'Y'
+    	and eu.user_flow = su.user_flow
+    	and so.org_flow = su.org_flow
+    	and su.user_flow =sur.user_flow
+    	and ec.course_flow in (
+    	<if test='role!=null and role=="teacher"'>
+    	select distinct(course_flow) 
+    	from pdsci.edu_course_chapter 
+    	where RECORD_STATUS = 'Y' and teacher_id=eu.user_flow
+    	</if>
+        <if test='role!=null and role=="student"'>
+    	select distinct(course_flow) 
+    	from pdsci.edu_student_course 
+    	where RECORD_STATUS = 'Y' and user_flow=eu.user_flow 
+    	</if>
+    	)
+			<if test="sysUser!=null">
+				<if test='sysUser.orgFlow!=null and sysUser.orgFlow!=""'>
+				    and so.org_flow=#{sysUser.orgFlow}
+				</if>
+				<if test='sysUser.statusId!=null and sysUser.statusId!=""'>
+				    and su.status_id=#{sysUser.statusId}
+				</if>
+			</if>
+    	    <if test='roleFlow!=null and roleFlow!=""'>
+    	     and sur.role_flow=#{roleFlow}
+    	    </if>
+    		<if test='condition!=null and condition!=""'>
+    			and (su.user_name like #{condition}
+    			or so.org_name like #{condition}
+    			or eu.major_name like #{condition}
+    			or ec.course_name like #{condition}
+    			)
+    		</if>
+            <if test='userFlow!=null and userFlow!=""'>
+                and eu.user_flow=#{userFlow}
+            </if>
+           group by eu.user_flow,eu.major_id,eu.major_name,eu.period,
+    	       eu.sid,su.user_head_img,eu.credit,eu.intro,
+    	       su.user_name,su.user_code,su.sex_id,su.sex_name,su.status_id,
+    	       su.status_desc,su.user_phone,su.user_email,
+    	       su.id_no,su.user_birthday,su.title_id,su.title_name,
+    	       su.degree_id,su.degree_name,su.education_id,su.education_name,
+    	       su.post_id,su.post_name,su.CREATE_TIME,
+    	       so.org_flow,so.org_name,ec.course_flow,ec.course_name
+    	  
+    </select>
+    
+    <resultMap id="eduUserExtTeacherMap" type="com.pinde.sci.model.njmuedu.EduUserExt" extends="com.pinde.sci.dao.base.EduUserMapper.BaseResultMap" >
+		<association property="sysUser" column="user_flow" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+	
+	<select id="searchEduUserList" parameterType="java.util.Map" resultMap="eduUserExtTeacherMap">
+    	select eu.*, su.*
+    	from pdsci.EDU_USER eu, pdsci.SYS_USER su
+    	where eu.RECORD_STATUS = 'Y' and su.RECORD_STATUS = 'Y' 
+    	and eu.USER_FLOW = su.user_flow
+		<if test='teacherFlowList!=null and teacherFlowList.size>0'>
+		   and eu.user_flow in 
+		   <foreach collection="teacherFlowList" open="(" separator="," close=")" item="item">#{item}</foreach>
+		</if>
+    </select>
+</mapper>

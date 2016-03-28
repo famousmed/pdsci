@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<jsp path="res/form/{0}/speAbilityAssess_{1}"></jsp>
+	<product ver="1.0">
+		<page ver="1.0">
+			<item name="name" isView="0" remark="姓名" multiple="N"></item>
+			<item name="titlePost" isView="0" remark="职称(职务)" multiple="N"></item>
+			<item name="attendance" remark="出勤" multiple="N"></item>
+			<item name="assessmentTime" remark="考核时间" multiple="N"></item>
+			<item name="wardTime" remark="病房工作时间" multiple="N"></item>
+			<item name="doorTime" remark="门急诊工作时间" multiple="N"></item>
+			<item name="ptSelfAccess" remark="普通门/急诊量(自我评价)" multiple="N"></item>
+			<item name="ptDirectorAccess" remark="普通门/急诊量(主管评价)" multiple="N"></item>
+			<item name="zkSelfAccess" remark="专科/专家门诊量(自我评价)" multiple="N"></item>
+			<item name="zkDirectorAccess" remark="专科/专家门诊量(主管评价)" multiple="N"></item>
+			<item name="ssSelfAccess" remark="手术/有效操作数量(自我评价)" multiple="N"></item>
+			<item name="ssDirectorAccess" remark="手术/有效操作数量(主管评价)" multiple="N"></item>
+			<item name="cySelfAccess" remark="出院病人数(自我评价)" multiple="N"></item>
+			<item name="cyDirectorAccess" remark="出院病人数(主管评价)" multiple="N"></item>
+			<item name="wzSelfAccess" remark="危重/疑难病例诊疗数量(自我评价)" multiple="N"></item>
+			<item name="wzDirectorAccess" remark="危重/疑难病例诊疗数量(主管评价)" multiple="N"></item>
+			<item name="zySelfAccess" remark="住院病史书写规范(自我评价)" multiple="N"></item>
+			<item name="zyDirectorAccess" remark="住院病史书写规范(主管评价)" multiple="N"></item>
+			<item name="sjSelfAccess" remark="三级查房质量(自我评价)" multiple="N"></item>
+			<item name="sjDirectorAccess" remark="三级查房质量(主管评价)" multiple="N"></item>
+			<item name="hlSelfAccess" remark="合理使用抗菌药物(病房,门诊)(自我评价)" multiple="N"></item>
+			<item name="hlDirectorAccess" remark="合理使用抗菌药物(病房,门诊)(主管评价)" multiple="N"></item>
+			<item name="ynSelfAccess" remark="院内感染控制情况(自我评价)" multiple="N"></item>
+			<item name="ynDirectorAccess" remark="院内感染控制情况(主管评价)" multiple="N"></item>
+			<item name="mzSelfAccess" remark="门诊病史质量(自我评价)" multiple="N"></item>
+			<item name="mzDirectorAccess" remark="门诊病史质量(主管评价)" multiple="N"></item>
+			<item name="cfSelfAccess" remark="合理处方(自我评价)" multiple="N"></item>
+			<item name="cfDirectorAccess" remark="合理处方(主管评价)" multiple="N"></item>
+			<item name="zjSelfAccess" remark="门诊专科/专家预约率(自我评价)" multiple="N"></item>
+			<item name="zjDirectorAccess" remark="门诊专科/专家预约率(主管评价)" multiple="N"></item>
+			<item name="ksSelfAccess" remark="科室业务学习/医疗质量讲评/(主持/参与)情况(自我评价)" multiple="N"></item>
+			<item name="ksDirectorAccess" remark="科室业务学习/医疗质量讲评/(主持/参与)情况(主管评价)" multiple="N"></item>
+			<item name="yySelfAccess" remark="医院业务学习/医疗质量讲评参与情况(自我评价)" multiple="N"></item>
+			<item name="yyDirectorAccess" remark="医院业务学习/医疗质量讲评参与情况(主管评价)" multiple="N"></item>
+			<item name="hzSelfAccess" remark="患者满意度(褒奖情况)(自我评价)" multiple="N"></item>
+			<item name="hzDirectorAccess" remark="患者满意度(褒奖情况)(主管评价)" multiple="N"></item>
+			<item name="ylSelfAccess" remark="医疗投诉/差错/事故(自我评价)" multiple="N"></item>
+			<item name="ylDirectorAccess" remark="医疗投诉/差错/事故(主管评价)" multiple="N"></item>
+			<item name="zhSelfAccess" remark="综合评分(自我评价)" multiple="N"></item>
+			<item name="selfAutograph" remark="本人签名" multiple="N"></item>
+			<item name="selfAutographDate" remark="本人签名日期" multiple="N"></item>
+			<item name="managerAutograph" remark="主管签名" multiple="N"></item>
+			<item name="managerAutographDate" remark="主管签名日期" multiple="N"></item>
+			<item name="year" remark="年度" multiple="N"></item>
+			<item name="schDeptFlow" remark="科室Flow" multiple="N"></item>
+			<item name="department" remark="科室" multiple="N"></item>
+			<item name="medicalDepartment " remark="医务部" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page ver="1.0">
+			<item name="name" isView="0" remark="姓名" multiple="N"></item>
+			<item name="titlePost" isView="0" remark="职称(职务)" multiple="N"></item>
+			<item name="attendance" remark="出勤" multiple="N"></item>
+			<item name="assessmentTime" remark="考核时间" multiple="N"></item>
+			<item name="wardTime" remark="病房工作时间" multiple="N"></item>
+			<item name="doorTime" remark="门急诊工作时间" multiple="N"></item>
+			<item name="ptSelfAccess" remark="普通门/急诊量(自我评价)" multiple="N"></item>
+			<item name="ptDirectorAccess" remark="普通门/急诊量(主管评价)" multiple="N"></item>
+			<item name="zkSelfAccess" remark="专科/专家门诊量(自我评价)" multiple="N"></item>
+			<item name="zkDirectorAccess" remark="专科/专家门诊量(主管评价)" multiple="N"></item>
+			<item name="ssSelfAccess" remark="手术/有效操作数量(自我评价)" multiple="N"></item>
+			<item name="ssDirectorAccess" remark="手术/有效操作数量(主管评价)" multiple="N"></item>
+			<item name="cySelfAccess" remark="出院病人数(自我评价)" multiple="N"></item>
+			<item name="cyDirectorAccess" remark="出院病人数(主管评价)" multiple="N"></item>
+			<item name="wzSelfAccess" remark="危重/疑难病例诊疗数量(自我评价)" multiple="N"></item>
+			<item name="wzDirectorAccess" remark="危重/疑难病例诊疗数量(主管评价)" multiple="N"></item>
+			<item name="zySelfAccess" remark="住院病史书写规范(自我评价)" multiple="N"></item>
+			<item name="zyDirectorAccess" remark="住院病史书写规范(主管评价)" multiple="N"></item>
+			<item name="sjSelfAccess" remark="三级查房质量(自我评价)" multiple="N"></item>
+			<item name="sjDirectorAccess" remark="三级查房质量(主管评价)" multiple="N"></item>
+			<item name="hlSelfAccess" remark="合理使用抗菌药物(病房,门诊)(自我评价)" multiple="N"></item>
+			<item name="hlDirectorAccess" remark="合理使用抗菌药物(病房,门诊)(主管评价)" multiple="N"></item>
+			<item name="ynSelfAccess" remark="院内感染控制情况(自我评价)" multiple="N"></item>
+			<item name="ynDirectorAccess" remark="院内感染控制情况(主管评价)" multiple="N"></item>
+			<item name="mzSelfAccess" remark="门诊病史质量(自我评价)" multiple="N"></item>
+			<item name="mzDirectorAccess" remark="门诊病史质量(主管评价)" multiple="N"></item>
+			<item name="cfSelfAccess" remark="合理处方(自我评价)" multiple="N"></item>
+			<item name="cfDirectorAccess" remark="合理处方(主管评价)" multiple="N"></item>
+			<item name="zjSelfAccess" remark="门诊专科/专家预约率(自我评价)" multiple="N"></item>
+			<item name="zjDirectorAccess" remark="门诊专科/专家预约率(主管评价)" multiple="N"></item>
+			<item name="ksSelfAccess" remark="科室业务学习/医疗质量讲评/(主持/参与)情况(自我评价)" multiple="N"></item>
+			<item name="ksDirectorAccess" remark="科室业务学习/医疗质量讲评/(主持/参与)情况(主管评价)" multiple="N"></item>
+			<item name="yySelfAccess" remark="医院业务学习/医疗质量讲评参与情况(自我评价)" multiple="N"></item>
+			<item name="yyDirectorAccess" remark="医院业务学习/医疗质量讲评参与情况(主管评价)" multiple="N"></item>
+			<item name="hzSelfAccess" remark="患者满意度(褒奖情况)(自我评价)" multiple="N"></item>
+			<item name="hzDirectorAccess" remark="患者满意度(褒奖情况)(主管评价)" multiple="N"></item>
+			<item name="ylSelfAccess" remark="医疗投诉/差错/事故(自我评价)" multiple="N"></item>
+			<item name="ylDirectorAccess" remark="医疗投诉/差错/事故(主管评价)" multiple="N"></item>
+			<item name="zhSelfAccess" remark="综合评分(自我评价)" multiple="N"></item>
+			<item name="zhDirectorAccess" remark="综合评分(主管评价)" multiple="N"></item>
+			<item name="selfAutograph" remark="本人签名" multiple="N"></item>
+			<item name="selfAutographDate" remark="本人签名日期" multiple="N"></item>
+			<item name="managerAutograph" remark="主管签名" multiple="N"></item>
+			<item name="managerAutographDate" remark="主管签名日期" multiple="N"></item>
+			<item name="year" remark="年度" multiple="N"></item>
+			<item name="schDeptFlow" remark="科室Flow" multiple="N"></item>
+			<item name="department" remark="科室" multiple="N"></item>
+			<item name="medicalDepartment " remark="医务部" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page ver="1.0">
+			<item name="name" remark="姓名" multiple="N"></item>
+			<item name="titlePost" remark="职称(职务)" multiple="N"></item>
+			<item name="attendance" remark="出勤" multiple="N"></item>
+			<item name="assessmentTime" remark="考核时间" multiple="N"></item>
+			<item name="wardTime" remark="病房工作时间" multiple="N"></item>
+			<item name="doorTime" remark="门急诊工作时间" multiple="N"></item>
+			<item name="ptSelfAccess" remark="普通门/急诊量(自我评价)" multiple="N"></item>
+			<item name="ptDirectorAccess" remark="普通门/急诊量(主管评价)" multiple="N"></item>
+			<item name="zkSelfAccess" remark="专科/专家门诊量(自我评价)" multiple="N"></item>
+			<item name="zkDirectorAccess" remark="专科/专家门诊量(主管评价)" multiple="N"></item>
+			<item name="ssSelfAccess" remark="手术/有效操作数量(自我评价)" multiple="N"></item>
+			<item name="ssDirectorAccess" remark="手术/有效操作数量(主管评价)" multiple="N"></item>
+			<item name="cySelfAccess" remark="出院病人数(自我评价)" multiple="N"></item>
+			<item name="cyDirectorAccess" remark="出院病人数(主管评价)" multiple="N"></item>
+			<item name="wzSelfAccess" remark="危重/疑难病例诊疗数量(自我评价)" multiple="N"></item>
+			<item name="wzDirectorAccess" remark="危重/疑难病例诊疗数量(主管评价)" multiple="N"></item>
+			<item name="zySelfAccess" remark="住院病史书写规范(自我评价)" multiple="N"></item>
+			<item name="zyDirectorAccess" remark="住院病史书写规范(主管评价)" multiple="N"></item>
+			<item name="sjSelfAccess" remark="三级查房质量(自我评价)" multiple="N"></item>
+			<item name="sjDirectorAccess" remark="三级查房质量(主管评价)" multiple="N"></item>
+			<item name="hlSelfAccess" remark="合理使用抗菌药物(病房,门诊)(自我评价)" multiple="N"></item>
+			<item name="hlDirectorAccess" remark="合理使用抗菌药物(病房,门诊)(主管评价)" multiple="N"></item>
+			<item name="ynSelfAccess" remark="院内感染控制情况(自我评价)" multiple="N"></item>
+			<item name="ynDirectorAccess" remark="院内感染控制情况(主管评价)" multiple="N"></item>
+			<item name="mzSelfAccess" remark="门诊病史质量(自我评价)" multiple="N"></item>
+			<item name="mzDirectorAccess" remark="门诊病史质量(主管评价)" multiple="N"></item>
+			<item name="cfSelfAccess" remark="合理处方(自我评价)" multiple="N"></item>
+			<item name="cfDirectorAccess" remark="合理处方(主管评价)" multiple="N"></item>
+			<item name="zjSelfAccess" remark="门诊专科/专家预约率(自我评价)" multiple="N"></item>
+			<item name="zjDirectorAccess" remark="门诊专科/专家预约率(主管评价)" multiple="N"></item>
+			<item name="ksSelfAccess" remark="科室业务学习/医疗质量讲评/(主持/参与)情况(自我评价)" multiple="N"></item>
+			<item name="ksDirectorAccess" remark="科室业务学习/医疗质量讲评/(主持/参与)情况(主管评价)" multiple="N"></item>
+			<item name="yySelfAccess" remark="医院业务学习/医疗质量讲评参与情况(自我评价)" multiple="N"></item>
+			<item name="yyDirectorAccess" remark="医院业务学习/医疗质量讲评参与情况(主管评价)" multiple="N"></item>
+			<item name="hzSelfAccess" remark="患者满意度(褒奖情况)(自我评价)" multiple="N"></item>
+			<item name="hzDirectorAccess" remark="患者满意度(褒奖情况)(主管评价)" multiple="N"></item>
+			<item name="ylSelfAccess" remark="医疗投诉/差错/事故(自我评价)" multiple="N"></item>
+			<item name="ylDirectorAccess" remark="医疗投诉/差错/事故(主管评价)" multiple="N"></item>
+			<item name="zhSelfAccess" remark="综合评分(自我评价)" multiple="N"></item>
+			<item name="zhDirectorAccess" isView="2" remark="综合评分(主管评价)" multiple="N"></item>
+			<item name="selfAutograph" remark="本人签名" multiple="N"></item>
+			<item name="selfAutographDate" remark="本人签名日期" multiple="N"></item>
+			<item name="managerAutograph" remark="主管签名" multiple="N"></item>
+			<item name="managerAutographDate" remark="主管签名日期" multiple="N"></item>
+			<item name="year" isView="0" remark="年度" multiple="N"></item>
+			<item name="schDeptFlow" remark="科室Flow" multiple="N"></item>
+			<item name="department" isView="1" remark="科室" multiple="N"></item>
+			<item name="medicalDepartment" remark="医务部" multiple="N"></item>
+		</page>
+	</shetyy>
+</jspForm>

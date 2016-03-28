@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 验收申请表单      开始-->
+	<pageGroup name="product" firstPage="step1" view="srm/proj/form/complete/product/view">
+	<!-- step1 -->
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/complete/product/step1">
+			<item name="orgName" remark="单位名称" multiple="N"></item>
+			<item name="orgAddress" remark="通信地址" multiple="N"></item>
+			<item name="userName" remark="联系人" multiple="N"></item>
+			<item name="addressId" remark="邮政编码" multiple="N"></item>
+			<item name="userPhone" remark="联系电话" multiple="N"></item>
+			<item name="userEmail" remark="电子信箱" multiple="N"></item>
+			<item name="chargeOrg" remark="项目主管部门" multiple="N"></item>
+			<item name="projStartTime" remark="项目开始时间" multiple="N"></item>
+			<item name="projEndTime" remark="项目结束时间" multiple="N"></item>
+			<item name="checkType" remark="验收形式" multiple="N"></item>
+			<item name="checkTime" remark="计划验收时间" multiple="N"></item>
+			<item name="checkPlace" remark="验收地点" multiple="N"></item>
+			<item name="resultType" remark="成果形式" multiple="Y"></item>
+			<item name="patentApply" remark="专利申请" multiple="N"></item>
+			<item name="patentAuthorize" remark="专利授权" multiple="N"></item>
+			<item name="thesisCount" remark="论文总数" multiple="N"></item>
+			<item name="sciCount" remark="SCI总数" multiple="N"></item>
+			<item name="eiCount" remark="EI总数" multiple="N"></item>	
+			<item name="projContentContent" remark="主要研究内容机器完成情况" multiple="N"></item>	
+		</page>
+		<!-- step2 -->
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/complete/product/step2">
+		  <itemGroup name="target" remark="指标完成情况" jsp="" flow="" modelStyle="add">
+			<item name="target_name" remark="技术指标名称" multiple="N"></item>
+			<item name="target_org" remark="单位" multiple="N"></item>
+			<item name="target_contract" remark="合同技术指标" multiple="N"></item>
+			<item name="target_complete" remark="实际完成情况" multiple="N"></item>
+		  </itemGroup>
+		  <item name="otherThing" remark="其他情况说明" multiple="N"></item>
+		</page>
+		<!-- step3 -->
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/complete/product/step3">
+		  <itemGroup name="projMainPeop" remark="项目负责人情况表"  flow="" modelStyle="add">
+			<item name="projMainPeop_name" remark="姓名" multiple="N"></item>
+			<item name="projMainPeop_sex" remark="性别" multiple="N"></item>
+			<item name="projMainPeop_birthday" remark="生日" multiple="N"></item>
+			<item name="projMainPeop_degree" remark="学位" multiple="N"></item>
+			<item name="projMainPeop_professional" remark="职称" multiple="N"></item>
+			<item name="projMainPeop_post" remark="职务" multiple="N"></item>
+			<item name="projMainPeop_workOrg" remark="所在单位" multiple="N"></item>
+			<item name="projMainPeop_workTime" remark="为本项目工作时间" multiple="N"></item>
+		  </itemGroup>
+		  
+		   <itemGroup name="projPeop" remark="主要研究人情况表"  flow="" modelStyle="add">
+			<item name="projPeop_name" remark="姓名" multiple="N"></item>
+			<item name="projPeop_sex" remark="性别" multiple="N"></item>
+			<item name="projPeop_birthday" remark="生日" multiple="N"></item>
+			<item name="projPeop_degree" remark="学位" multiple="N"></item>
+			<item name="projPeop_professional" remark="职称" multiple="N"></item>
+			<item name="projPeop_workOrg" remark="所在单位" multiple="N"></item>
+			<item name="projPeop_workTime" remark="为本项目工作时间" multiple="N"></item>
+			<item name="projPeop_post" remark="职务" multiple="N"></item>
+		  </itemGroup>
+		  
+		 <item name="memberBS" remark="博士" multiple="N"></item>
+		 <item name="memberSS" remark="硕士" multiple="N"></item>
+		 <item name="highTitle" remark="高级职称" multiple="N"></item>
+		 <item name="middleTitle" remark="中级职称" multiple="N"></item>
+		</page>
+		<!-- step4 -->
+		<!-- 
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/complete/product/step4">
+			<itemGroup name="complete" remark="验收委员" jsp="srm/proj/form/complete/product/itemGroup_complete" flow="">
+			    <item name="complete_org" remark="单位" multiple="N"></item>
+				<item name="complete_name" remark="姓名" multiple="N"></item>
+				<item name="complete_sex" remark="性别" multiple="N"></item>
+				<item name="complete_birthday" remark="出生年月" multiple="N"></item>
+				<item name="complete_process" remark="专业" multiple="N"></item>
+				<item name="complete_education" remark="学历" multiple="N"></item>
+				<item name="complete_title" remark="职务职称" multiple="N"></item>
+				<item name="complete_orgTel" remark="单位电话" multiple="N"></item>
+				<item name="complete_mobile" remark="手机" multiple="N"></item>
+				<item name="complete_email" remark="电子邮箱" multiple="N"></item>
+				<item name="complete_address" remark="联系地址" multiple="N"></item>
+				<item name="complete_mailCode" remark="邮政编码" multiple="N"></item>
+			</itemGroup>
+		</page > -->
+		<!-- step5 -->
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/complete/product/step5">
+		    <item name="allCostCount" remark="" multiple="N"></item>
+		    <item name="countryCost" remark="" multiple="N"></item>
+		    <item name="provinceCost" remark="" multiple="N"></item>
+		    <item name="cityCost" remark="" multiple="N"></item>
+		    <item name="orgBelongPost" remark="" multiple="N"></item>
+		    <item name="orgDoPost" remark="" multiple="N"></item>
+		    <item name="otherPost" remark="" multiple="N"></item>
+		    
+		   <itemGroup name="cost" remark="项目经纬支出情况" jsp="" flow="" modelStyle="add">
+		    	<item name="cost_costReason" remark="栏目" multiple="N"></item>
+				<item name="cost_costCount" remark="金额" multiple="N"></item>
+		    </itemGroup>
+		</page>
+		
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/complete/product/step6">
+		    <item name="gjzrkxjTe" remark="国家自然科学特等奖" multiple="N"></item>
+		    <item name="gjzrkxjYi" remark="国家自然科学一等奖" multiple="N"></item>
+		    <item name="gjzrkxjEr" remark="国家自然科学二等奖" multiple="N"></item>
+		    <item name="gjzrkxjSan" remark="国家自然科学三等奖" multiple="N"></item>
+		    <item name="gjfmjTe" remark="国家发明特等奖" multiple="N"></item>
+		    <item name="gjfmjYi" remark="国家发明一等奖" multiple="N"></item>
+		    <item name="gjfmjEr" remark="国家发明二等奖" multiple="N"></item>
+		    <item name="gjfmjSan" remark="国家发明三等奖" multiple="N"></item>
+		    <item name="gjkjjbjTe" remark="国家科技进步特等奖" multiple="N"></item>
+		    <item name="gjkjjbjYi" remark="国家科技进步一等奖" multiple="N"></item>
+		    <item name="gjkjjbjEr" remark="国家科技进步二等奖" multiple="N"></item>
+		    <item name="gjkjjbjSan" remark="国家科技进步三等奖" multiple="N"></item>
+		    <item name="gjbmkjjbjTe" remark="国家部门科技进步特等奖" multiple="N"></item>
+		    <item name="gjbmkjjbjYi" remark="国家部门科技进步一等奖" multiple="N"></item>
+		    <item name="gjbmkjjbjEr" remark="国家部门科技进步二等奖" multiple="N"></item>
+		    <item name="gjbmkjjbjSan" remark="国家部门科技进步三等奖" multiple="N"></item>
+		    <item name="skjjbjTe" remark="省科技进步特等奖" multiple="N"></item>
+		    <item name="skjjbjYi" remark="省科技进步一等奖" multiple="N"></item>
+		    <item name="skjjbjEr" remark="省科技进步二等奖" multiple="N"></item>
+		    <item name="skjjbjSan" remark="省科技进步三等奖" multiple="N"></item>
+		</page>
+		
+	    <page name="file" remark="附件上传" jsp="srm/proj/form/complete/product/file">
+			<itemGroup name="fileEdit" remark="附件上传" jsp="srm/proj/form/complete/product/fileEdit" flow="">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+			<itemGroup name="contractEdit" remark="项目合同上传" jsp="srm/proj/form/complete/product/contractEdit" flow="">
+				<item name="contractEdit_fileName" remark="项目合同名称" multiple="N"></item>
+				<item name="contractEdit_file" remark="项目合同" multiple="N" isFile="Y"></item>
+				<item name="contractEdit_fileRemark" remark="项目合同备注" multiple="N"></item>
+			</itemGroup>
+			<itemGroup name="costEdit" remark="项目经费决算表上传" jsp="srm/proj/form/complete/product/costEdit" flow="">
+				<item name="costEdit_fileName" remark="项目经费决算表名称" multiple="N"></item>
+				<item name="costEdit_file" remark="项目经费决算表" multiple="N" isFile="Y"></item>
+				<item name="costEdit_fileRemark" remark="项目经费决算表备注" multiple="N"></item>
+			</itemGroup>
+			<itemGroup name="reportEdit" remark="总结报告上传" jsp="srm/proj/form/complete/product/reportEdit" flow="">
+				<item name="reportEdit_fileName" remark="总结报告名称" multiple="N"></item>
+				<item name="reportEdit_file" remark="总结报告" multiple="N" isFile="Y"></item>
+				<item name="reportEdit_fileRemark" remark="总结报告备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+		</pageGroup>	
+		<!-- 验收申请表单      结束-->
+	   
+	   
+		<!-- 余杭区科技计划项目验收申请书       开始 -->
+		<pageGroup name="yhwsj.zdxm" firstPage="step1" view="srm/proj/form/complete/yhwsj.zdxm/view" printTemeplete="/jsp/srm/proj/form/complete/yhwsj.zdxm/printTemeplete.docx">
+			<page name="step1" remark="步骤1" jsp="srm/proj/form/complete/yhwsj.zdxm/step1">
+				<item name="planNo" remark="计划编号" multiple="N"></item>
+				<item name="projName" remark="项目名称" multiple="N"></item>
+				<item name="planCategory" remark="计划类别" multiple="N"></item>
+				<item name="projStartTime" remark="起止年月1" multiple="N"></item>
+				<item name="projEndTime" remark="起止年月2" multiple="N"></item>
+				<item name="applyOrgName" remark="申请单位" multiple="N"></item>
+				<item name="applyCompleteShape" remark="申请验收形式" multiple="N"></item>
+				<item name="applyCompleteTime" remark="申请验收时间" multiple="N"></item>
+				<item name="applyCompleteAddress" remark="申请验收地点" multiple="N"></item>
+				<item name="userNamePhone" remark="联系人及电话" multiple="N"></item>
+			</page>
+			
+			<page name="step2" remark="步骤1" jsp="srm/proj/form/complete/yhwsj.zdxm/step2">
+				<item name="planIntroduction" remark="项目简介" multiple="N"></item>
+				<item name="contractContent" remark="项目合同规定的主要内容、技术经济指标及完成情况" multiple="N"></item>
+				<item name="technologyContent" remark="关键技术及创新点、获自主知识产权情况、成果应用和产业化情况" multiple="N"></item>
+				<item name="fundUseInfo" remark="项目资金使用情况" multiple="N"></item>
+				<item name="informationCatalogue" remark="提供验收的技术资料目录" multiple="N"></item>
+			</page>
+			
+			<!-- 建议验收组成员名单 -->
+			<page name="step3" remark="步骤3" jsp="srm/proj/form/complete/yhwsj.zdxm/step3">
+				<itemGroup name="member" remark="建议验收组成员名单"  flow="" modelStyle="add">
+					<item name="member_userName" remark="姓名" multiple="N"></item>
+					<item name="member_orgName" remark="工作单位" multiple="N"></item>
+					<item name="member_major" remark="现从事专业" multiple="N"></item>
+					<item name="member_postTitle" remark="职务/职称" multiple="N"></item>
+					<item name="member_phone" remark="电　话" multiple="N"></item>
+				</itemGroup>
+			</page>
+			
+			<!-- 附件信息 -->
+			<page name="step4" remark="步骤4" jsp="srm/proj/form/complete/yhwsj.zdxm/step4">
+				<itemGroup name="fileEdit" remark="附件上传" jsp="" flow=""  modelStyle="add">
+					<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+					<item name="fileEdit_file" remark="文件流水号" multiple="N" isFile="Y"></item>
+					<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+				</itemGroup>
+			</page>
+		</pageGroup>
+		<!-- 余杭区科技计划项目验收申请书       结束 -->		
+</jspForm>
+

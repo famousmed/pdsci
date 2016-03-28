@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edu.EduCourseNoticeExtMapper">
+    <resultMap id="eduCourseNoticeMap" type="com.pinde.sci.model.edu.EduCourseNoticeExt" extends="com.pinde.sci.dao.base.EduCourseNoticeMapper.BaseResultMap" >
+		<association property="eduUser" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.EduUserMapper.BaseResultMap" />
+		<association property="sysUser" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+    
+	<select id="searchCourseNoticeListByCourseFlow" parameterType="string" resultMap="eduCourseNoticeMap">
+    	select eu.*, ecn.*,su.*
+    	from pdsci.edu_user eu,pdsci.EDU_COURSE_NOTICE ecn,pdsci.sys_user su,
+    	where eu.RECORD_STATUS = 'Y' and ecn.RECORD_STATUS = 'Y' 
+    	and eu.user_flow = ecn.user_flow
+    	and eu.user_flow = su.user_flow
+   	   	and ecn.course_Flow = #{courseFlow}
+    	order by ecn.create_time desc	
+    </select>
+    
+    <resultMap id="eduCourseNoticeExtMap" type="com.pinde.sci.model.edu.EduCourseNoticeExt" extends="com.pinde.sci.dao.base.EduCourseNoticeMapper.BaseResultMap" >
+		<association property="sysUser" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+    <select id="searchCourseNoticeListByCourseFlowRes" parameterType="string" resultMap="eduCourseNoticeExtMap">
+    	select su.*, ecn.*
+    	from pdsci.sys_user su,pdsci.EDU_COURSE_NOTICE ecn
+    	where su.RECORD_STATUS = 'Y' and ecn.RECORD_STATUS = 'Y' 
+    	and su.user_flow = ecn.user_flow
+   	   	and ecn.course_Flow = #{courseFlow}
+    	order by ecn.create_time desc	
+    </select>
+</mapper>

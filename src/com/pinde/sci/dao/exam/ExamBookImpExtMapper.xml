@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.exam.ExamBookImpExtMapper">
+	<resultMap id="ExamBookImpExtResultMap" type="com.pinde.sci.model.exam.ExamBookImpExt" extends="com.pinde.sci.dao.base.ExamBookImpMapper.BaseResultMap">
+        <association property="examBook" column="BOOK_FLOW" javaType="com.pinde.sci.model.mo.ExamBook">
+            <id column="EB_BOOK_FLOW" jdbcType="VARCHAR" property="bookFlow" />
+            <result column="EB_BOOK_NAME" jdbcType="VARCHAR" property="bookName" />
+            <result column="BOOK_NUM" jdbcType="VARCHAR" property="bookNum" />
+        </association>
+   	</resultMap>
+	<select id="selectExamBookImp" parameterType="com.pinde.sci.model.exam.ExamBookImpExt" resultMap="ExamBookImpExtResultMap">
+		 SELECT EB.BOOK_FLOW EB_BOOK_FLOW, EB.BOOK_NAME EB_BOOK_NAME , EB.BOOK_NUM , EBI.*
+		     FROM EXAM_BOOK_IMP EBI , EXAM_BOOK EB
+		     WHERE EBI.BOOK_FLOW=EB.BOOK_FLOW
+		     AND EBI.RECORD_STATUS='Y'
+		     <if test='statusId!=null and statusId!=""'>
+		         AND EBI.STATUS_ID=#{statusId}
+		     </if>
+		     <if test='bookImpFlow!=null and bookImpFlow!=""'>
+		         AND EBI.BOOK_IMP_FLOW=#{bookImpFlow}
+		     </if>
+		     <if test='examBook!=null'>
+		        <if test='examBook.bookNum!=null and examBook.bookNum!=""'>
+		         AND EB.BOOK_NUM=#{examBook.bookNum}
+		        </if>
+		     </if>
+		  	ORDER BY EBI.CREATE_TIME DESC
+	</select>
+	
+	<resultMap id="ExamBookImpExtAndDetailsResultMap" type="com.pinde.sci.model.exam.ExamBookImpExt" extends="ExamBookImpExtResultMap">
+        <collection property="examBookImpDetails" column="BOOK_IMP_FLOW" resultMap="com.pinde.sci.dao.base.ExamBookImpDetailMapper.BaseResultMap">
+        </collection>
+   	</resultMap>
+	<select id="selectExamBookImpAndBookImpDetails" parameterType="com.pinde.sci.model.exam.ExamBookImpExt" resultMap="ExamBookImpExtAndDetailsResultMap">
+		 SELECT EB.BOOK_FLOW EB_BOOK_FLOW, EB.BOOK_NAME EB_BOOK_NAME , EB.BOOK_NUM ,  
+		        EBI.* , 
+		        EBID.IMP_DETAIL_FLOW , EBID.QUESTION_TYPE_ID , EBID.QUESTION_TYPE_NAME , EBID.QUESTION_NUM
+		        FROM EXAM_BOOK_IMP EBI LEFT JOIN EXAM_BOOK EB ON EBI.BOOK_FLOW=EB.BOOK_FLOW LEFT JOIN EXAM_BOOK_IMP_DETAIL EBID
+		        ON EBI.BOOK_IMP_FLOW=EBID.BOOK_IMP_FLOW
+		        WHERE EBI.RECORD_STATUS='Y'
+		        <if test='statusId!=null and statusId!=""'>
+		            AND EBI.STATUS_ID=#{statusId}
+		        </if>
+		        <if test='bookImpFlow!=null and bookImpFlow!=""'>
+		            AND EBI.BOOK_IMP_FLOW=#{bookImpFlow}
+		        </if>
+	</select>
+</mapper>

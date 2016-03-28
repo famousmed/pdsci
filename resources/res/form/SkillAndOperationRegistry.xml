@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/skillAndOperation_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="skillName" isView="0" remark="操作名称" multiple="N"></item>
+			<item name="operateDate" remark="操作日期" multiple="N"></item>
+			<item name="operateTime" remark="操作时机" multiple="N"></item>
+			<item name="patientName" isView="0" remark="病人姓名" multiple="N"></item>
+			<item name="caseNo" isView="0" remark="病历号" multiple="N"></item>
+			<item name="objective" remark="目的" multiple="N"></item>
+			<item name="status" remark="状态" multiple="Y"></item>
+			<item name="operateType" remark="操作类别" multiple="N"></item>
+			<item name="diagnosisType" remark="诊断类型" multiple="N"></item>
+			<item name="failReason" remark="失败原因" multiple="N"></item>
+			<item name="remark" remark="备注" multiple="N"></item>
+			<item name="record" remark="记录" multiple="N"></item>
+			<item name="file" remark="附件" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="skillName" isView="0" remark="操作名称" multiple="N"></item>
+			<item name="operateDate" remark="操作日期" multiple="N"></item>
+			<item name="dept" remark="科室" multiple="N"></item>
+			<item name="status" remark="操作方式" multiple="Y"></item>
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page  ver="1.0">
+			<item name="date" remark="日期" multiple="N"></item>
+			<item name="skillName" isView="0" remark="技术操作及手术名称" multiple="N"></item>
+			<!-- <item name="cases" isView="0" remark="例次(份)" multiple="N"></item> -->
+			<item name="status" isView="0" remark="住院号" multiple="Y"></item>
+			<item name="firstAssistant" isView="0" remark="第一助手" multiple="Y"></item>
+			<item name="secondAssistant" isView="0" remark="第二助手" multiple="Y"></item>
+			<item name="assessment" isView="0" remark="考核者" multiple="Y"></item>
+		</page>
+	</shetyy>
+	<nzy ver="1.0">
+		<page  ver="1.0">
+			<item name="date" remark="日期" multiple="N"></item>
+			<item name="skillName" isView="0" remark="技术操作及手术名称" multiple="N"></item>
+			<!-- <item name="cases" isView="0" remark="例次(份)" multiple="N"></item> -->
+			<item name="status" isView="0" remark="住院号" multiple="Y"></item>
+			<item name="firstAssistant" isView="0" remark="第一助手" multiple="Y"></item>
+			<item name="secondAssistant" isView="0" remark="第二助手" multiple="Y"></item>
+			<item name="assessment" isView="0" remark="考核者" multiple="Y"></item>
+		</page>
+	</nzy>
+	
+</jspForm>
+

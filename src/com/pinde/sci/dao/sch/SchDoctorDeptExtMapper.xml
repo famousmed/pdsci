@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.sch.SchDoctorDeptExtMapper" >
+	
+	<select id="countRotationUse" resultType="int">
+		SELECT COUNT(DISTINCT DOCTOR_FLOW)
+		FROM PDSCI.SCH_DOCTOR_DEPT
+		WHERE RECORD_STATUS = 'Y'
+		AND ROTATION_FLOW = #{rotationFlow}
+	</select>
+</mapper>

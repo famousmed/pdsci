@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查申请表单 -->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/application/schedule_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 一、受试者信息 -->	
+			<item name="patientCount" remark="合同研究总例数" multiple="N"></item>
+			<item name="inPatientNum" remark="已入组例数" multiple="N"></item>
+			<item name="finishPatientNum" remark="完成观察例数" multiple="N"></item>
+			<item name="termiPatientNum" remark="提前退出例数" multiple="N"></item>
+			<item name="saeNum" remark="严重不良事件例数" multiple="N"></item>
+			<item name="saeReportNum" remark="已报告的严重不良事件例数" multiple="N"></item>
+		<!-- 二、研究进展情况 -->		
+			<item name="researchProgress1" remark="研究阶段" multiple="N">
+				<code value="0">研究尚未启动</code>
+				<code value="1">正在招募受试者（尚未入组）</code>
+				<code value="2">正在实施研究</code>
+				<code value="3">受试者的试验干预已经完成</code>
+				<code value="4">后期数据处理阶段</code>
+			</item>
+			<item name="researchProgress2" remark="是否存在影响研究进行的情况" multiple="N">
+				<code value="0">否</code>
+				<code value="1">是</code>
+			</item>
+			<item name="factSheets" remark="存在影响研究进行的情况说明" multiple="N"></item>
+			<item name="researchProgress3" remark="是否存在于试验干预相关的、非预期的、严重不良事件" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchProgress4" remark="研究风险是否超过预期" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchProgress5" remark="是否存在影响研究风险与受益的任何新信息、新进展" multiple="N">
+				<code value="0">否</code>
+				<code value="1">是</code>
+			</item>
+			<item name="newInfo" remark="存在影响研究风险与受益的任何新信息、新进展说明" multiple="N"></item>
+			<item name="researchProgress6" remark="研究中是否存在影响受试者权益的问题" multiple="N">
+				<code value="0">否</code>
+				<code value="1">是</code>
+			</item>
+			<item name="quesDesc" remark="研究中是否存在影响受试者权益的问题说明" multiple="N"></item>
+			<item name="researchProgress7" remark="严重不良事件或方案规定必须报告的重要医学事件已经及时报告" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+		<!-- 三、其他 -->		
+			<item name="isExtendDocValid" remark="是否申请延长伦理审查批件的有效期" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+		<!-- 申请人签字/日期 -->		
+			<item name="applyManName" remark="申请人签字" multiple="N"></item>
+			<item name="applyDate" remark="申请人签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

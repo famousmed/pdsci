@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/campaign_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="activeDate" remark="活动日期" multiple="N"></item>
+			<item name="activeType" isView="0" remark="活动形式" multiple="N"></item>
+			<item name="classHour" isView="0" remark="学时(小时)" multiple="N"></item>
+			<item name="lecturer" isView="0" remark="主讲人" multiple="N"></item>
+			<item name="remark" remark="备注" multiple="N"></item>
+			<item name="activeDetail" remark="活动内容" multiple="N"></item>
+			<item name="file" remark="附件" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="activeDate" remark="活动日期" multiple="N"></item>
+			<item name="activeTitle" remark="讲座题目" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+
+	<shetyy ver="1.0">
+		<page  ver="1.0">
+			<item name="title" remark="题目" multiple="N"></item>
+			<item name="articleTitle" isView="0" remark="文章题目" multiple="N"></item>
+			<item name="teaching" remark="教学" multiple="N"></item>
+			<item name="lectureTitle" remark="讲座题目" multiple="N"></item>
+			<item name="assessment" remark="考核者" multiple="N"></item>
+		</page>
+	</shetyy>
+	<nzy ver="1.0">
+		<page  ver="1.0">
+			<item name="title" remark="题目" multiple="N"></item>
+			<item name="articleTitle" isView="0" remark="文章题目" multiple="N"></item>
+			<item name="teaching" remark="教学" multiple="N"></item>
+			<item name="lectureTitle" remark="讲座题目" multiple="N"></item>
+			<item name="assessment" remark="考核者" multiple="N"></item>
+		</page>
+	</nzy>
+</jspForm>
+

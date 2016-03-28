@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.pub.PubPatientVisitExtMapper" >
+  <select id="selectByModuleCode" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.PubPatientVisitMapper.BaseResultMap">
+  	select P_P_V.*
+  	from PDSCI.pub_patient_visit P_P_V,PDSCI.edc_patient_visit E_P_V 
+  	where P_P_V.visit_flow in (select visit_flow from PDSCI.edc_visit_module where proj_flow = #{projFlow} 
+  	and module_code = #{moduleCode} and RECORD_STATUS = 'Y') and P_P_V.RECORD_STATUS = 'Y' and E_P_V.RECORD_STATUS = 'Y'
+  	and E_P_V.RECORD_FLOW = P_P_V.RECORD_FLOW and E_P_V.INPUT_OPER_STATUS_ID = #{inputOperStatusId}
+  </select>
+  <select id="searchPatientVisit" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubPatientVisitMapper.BaseResultMap">
+  	select ppv.*
+  	from PDSCI.pub_patient_visit ppv,PDSCI.pub_patient pp 
+  	where ppv.proj_flow = #{projFlow} and ppv.record_status = 'Y' and ppv.visit_date is not null 
+  	and ppv.patient_flow = pp.patient_flow and pp.patient_type_id='Real' and pp.record_status='Y'
+  	<if test='orgFlow!=null and orgFlow!=""'>
+		and ppv.org_flow = #{orgFlow}
+	</if>
+	<if test='patientStage!=null and patientStage!=""'>
+		and pp.patient_stage_id = #{patientStage}
+	</if>
+	order by ppv.PATIENT_FLOW,ppv.VISIT_DATE
+  </select>
+</mapper>

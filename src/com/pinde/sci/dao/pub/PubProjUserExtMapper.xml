@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.pub.PubProjUserExtMapper" >
+	<resultMap id="extMap" type="com.pinde.sci.model.pub.PubProjUserExt"   extends="com.pinde.sci.dao.base.PubProjUserMapper.BaseResultMap">
+		<association property="user" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"></association>
+		<association property="role" column="ROLE_FLOW" resultMap="com.pinde.sci.dao.base.SysRoleMapper.BaseResultMap"></association>
+	</resultMap>
+	
+	<select id="selectList" parameterType="com.pinde.sci.model.pub.PubProjUserExt" resultMap="extMap">
+		select * from PDSCI.PUB_PROJ_USER pu, PDSCI.SYS_USER su,PDSCI.SYS_ROLE sr
+		    where pu.user_flow = su.user_flow and pu.role_flow = sr.role_flow 
+			<if test='recordStatus!=null and recordStatus!=""'>
+				and pu.RECORD_STATUS = #{recordStatus}
+			</if>
+			<if test='projFlow!=null and projFlow!=""'>
+				and pu.PROJ_FLOW = #{projFlow} 
+			</if>
+			<if test='userFlow!=null and userFlow!=""'>
+				and pu.USER_FLOW = #{userFlow}
+			</if>
+			<if test='roleFlow!=null and roleFlow!=""'>
+				and pu.ROLE_FLOW = #{roleFlow}
+			</if>
+			<if test='user != null and user.deptFlow!=null and user.deptFlow!=""'>
+				and su.DEPT_FLOW = #{user.deptFlow}
+			</if>
+			 order by pu.ORDINAL,pu.CREATE_TIME 
+	</select>
+
+
+</mapper>

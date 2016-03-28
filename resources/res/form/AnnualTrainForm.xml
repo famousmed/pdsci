@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 年度培训记录表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/annualTrain_{1}"></jsp>
+	<product ver="1.0">
+		<page ver="1.0">
+			<item name="studyType" isView="0" remark="学习类型" multiple="N"></item>
+			<item name="trainContent" isView="0" remark="培训内容" multiple="N"></item>
+			<item name="trainDate" remark="培训日期" multiple="N"></item>
+			<item name="academicScore" remark="学分数" multiple="N"></item>
+			<item name="classHourScore" remark="学时数" multiple="N"></item>
+			<item name="remarks" remark="备注" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page ver="1.0">
+			<item name="studyType" isView="0" remark="学习类型" multiple="N"></item>
+			<item name="trainContent" isView="0" remark="培训内容" multiple="N"></item>
+			<item name="trainDate" remark="培训日期" multiple="N"></item>
+			<item name="academicScore" remark="学分数" multiple="N"></item>
+			<item name="classHourScore" remark="学时数" multiple="N"></item>
+			<item name="remarks" remark="备注" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page ver="1.0">
+			<item name="studyType" isView="0" remark="学习类型" multiple="N"></item>
+			<item name="trainContent" isView="0" remark="培训内容" multiple="N"></item>
+			<item name="trainDate" remark="培训日期" multiple="N"></item>
+			<item name="academicScore" remark="学分数" multiple="N"></item>
+			<item name="classHourScore" remark="学时数" multiple="N"></item>
+			<item name="remarks" remark="备注" multiple="N"></item>
+		</page>
+	</shetyy>
+</jspForm>
+

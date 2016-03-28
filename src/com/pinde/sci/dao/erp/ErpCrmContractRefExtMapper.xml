@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.erp.ErpCrmContractRefExtMapper">
+    <resultMap id="refExtMap" type="com.pinde.sci.model.erp.ErpCrmContractRefExt" extends="com.pinde.sci.dao.base.ErpCrmContractRefMapper.BaseResultMap" >
+     <association property="contract" column="contract_flow" resultMap="com.pinde.sci.dao.base.ErpCrmContractMapper.BaseResultMap"></association>
+    </resultMap>
+     <select id="searchContractListByRef" parameterType="java.util.Map" resultMap="refExtMap">
+          <if test='subContractFlow!=null and subContractFlow!=""'>
+          select eccr.record_flow,eccr.contract_flow,eccr.sub_contract_flow,
+          ecc.*
+          from pdsci.erp_crm_contract ecc,pdsci.erp_crm_contract_ref eccr
+          where ecc.record_status='Y' and eccr.record_status='Y'
+             and eccr.sub_contract_flow=#{subContractFlow}
+             and ecc.contract_flow=eccr.contract_flow
+          </if>
+          <if test='contractFlow!=null and contractFlow!=""'>
+          select eccr.record_flow,eccr.contract_flow contractFlow,eccr.sub_contract_flow contract_flow,
+          ecc.*
+          from pdsci.erp_crm_contract ecc,pdsci.erp_crm_contract_ref eccr
+          where ecc.record_status='Y' and eccr.record_status='Y'
+             and eccr.contract_flow=#{contractFlow}
+             and ecc.contract_flow=eccr.sub_contract_flow
+          </if>
+     </select>
+</mapper>

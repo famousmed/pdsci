@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/disease_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="diseaseName" isView="0" remark="病种名称" multiple="N"></item>
+			<item name="patientName" isView="0" remark="病人姓名" multiple="N"></item>
+			<item name="caseNo" isView="0" remark="病历号" multiple="N"></item>
+			<item name="treatMeasure" remark="治疗措施" multiple="N"></item>
+			<item name="recType" remark="类型" multiple="N"></item>
+			<item name="inHosDate" remark="入院日期" multiple="N"></item>
+			<item name="recStatus" remark="状态" multiple="Y"></item>
+			<item name="caseType" remark="病历类型" multiple="Y"></item>
+			<item name="diagnosisType" remark="诊断类型" multiple="N"></item>
+			<item name="remark" remark="备注" multiple="N"></item>
+			<item name="record" remark="记录" multiple="N"></item>
+			<item name="file" remark="附件" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="diseaseName" isView="0" remark="病种名称" multiple="N"></item>
+			<item name="patientName" isView="0" remark="病人姓名" multiple="N"></item>
+			<item name="caseNo" isView="0" remark="病历号" multiple="N"></item>
+			<item name="treatMeasure" remark="治疗措施" multiple="N"></item>
+			<item name="recType" remark="类型" multiple="N"></item>
+			<item name="inHosDate" remark="入院日期" multiple="N"></item>
+			<item name="recStatus" remark="状态" multiple="Y"></item>
+			<item name="caseType" remark="病历类型" multiple="Y"></item>
+			<item name="diagnosisType" remark="诊断类型" multiple="N"></item>
+			<item name="remark" remark="备注" multiple="N"></item>
+			<item name="record" remark="记录" multiple="N"></item>
+			<item name="file" remark="附件" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+</jspForm>
+

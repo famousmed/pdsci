@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry location="D:\Repositories\ojdbc6.jar" />
+	<context id="sciContext">
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@192.168.2.11:1521:orcl" userId="pdsci"
+			password="123456" />
+		<javaModelGenerator targetPackage="com.pinde.sci.model.mo"
+			targetProject="pdsci">
+			<property name="rootClass" value="com.pinde.core.model.MybatisObject"/>	
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="com.pinde.sci.dao.base"
+			targetProject="pdsci" />
+		<javaClientGenerator targetPackage="com.pinde.sci.dao.base"
+			targetProject="pdsci" type="XMLMAPPER" />
+			
+			
+			
+			
+			
+		
+		<table schema="pdsci" tableName="edu_student_course"></table>
+		
+		
+		
+		
+		<!-- <table schema="pdsci" tableName="SYS_ROLE_POPEDOM"></table>               
+		<table schema="pdsci" tableName="PUB_PROJ_SEARCH"></table>                
+		<table schema="pdsci" tableName="SYS_DEPT"></table>                       
+		<table schema="pdsci" tableName="SYS_DICT"></table>                       
+		<table schema="pdsci" tableName="SRM_GRADE_SCHEME"></table>               
+		<table schema="pdsci" tableName="SRM_FUND_ITEM"></table>                  
+		<table schema="pdsci" tableName="SRM_GRADE_ITEM"></table>                 
+		<table schema="pdsci" tableName="SRM_ACH_PATENT"></table>                 
+		<table schema="pdsci" tableName="SRM_ACH_PATENT_AUTHOR"></table>          
+		<table schema="pdsci" tableName="SRM_ACH_THESIS_AUTHOR"></table>          
+		<table schema="pdsci" tableName="SRM_EXPERT_GROUP"></table>               
+		<table schema="pdsci" tableName="SRM_EXPERT_GROUP_USER"></table>          
+		<table schema="pdsci" tableName="PUB_PROJ_PROCESS"></table>               
+		<table schema="pdsci" tableName="IRB_STAMP"></table>                      
+		<table schema="pdsci" tableName="PUB_TRAIN"></table>                      
+		<table schema="pdsci" tableName="PUB_TRAIN_USER"></table>                 
+		<table schema="pdsci" tableName="IRB_REGULATION"></table>                 
+		<table schema="pdsci" tableName="PUB_PROJ_ORG"></table>                   
+		<table schema="pdsci" tableName="SRM_ACH_SAT"></table>                    
+		<table schema="pdsci" tableName="SRM_ACH_SAT_AUTHOR"></table>             
+		<table schema="pdsci" tableName="PUB_PROJ_USER"></table>                  
+		<table schema="pdsci" tableName="SRM_EXPERT_PROJ_EVAL"></table>           
+		<table schema="pdsci" tableName="AID_PROJ"></table>                       
+		<table schema="pdsci" tableName="AID_TALENTS"></table>                    
+		<table schema="pdsci" tableName="SYS_ORG"></table>                        
+		<table schema="pdsci" tableName="PUB_MSG"></table>                        
+		<table schema="pdsci" tableName="PUB_USER_RESUME"></table>                
+		<table schema="pdsci" tableName="IRB_APPLY"></table>                      
+		<table schema="pdsci" tableName="PUB_FILE"></table>                       
+		<table schema="pdsci" tableName="SYS_USER_ROLE"></table>                  
+		<table schema="pdsci" tableName="EDC_PROJ_PARAM"></table>                 
+		<table schema="pdsci" tableName="INX_COLUMN"></table>                     
+		<table schema="pdsci" tableName="INX_INFO"></table>                       
+		<table schema="pdsci" tableName="SRM_ACH_THESIS"></table>                 
+		<table schema="pdsci" tableName="SRM_ACH_FILE"></table>                   
+		<table schema="pdsci" tableName="SRM_ACH_PROCESS"></table>                
+		<table schema="pdsci" tableName="PUB_PATIENT"></table>                    
+		<table schema="pdsci" tableName="GCP_DRUG_STORE_REC"></table>             
+		<table schema="pdsci" tableName="EDC_RANDOM_REC"></table>                 
+		<table schema="pdsci" tableName="EDC_NORMAL_VALUE"></table>               
+		<table schema="pdsci" tableName="EDC_PROJ_ORG"></table>                   
+		<table schema="pdsci" tableName="SRM_ACH_BOOK"></table>                   
+		<table schema="pdsci" tableName="SRM_ACH_BOOK_AUTHOR"></table>            
+		<table schema="pdsci" tableName="SRM_ACH_APPRAISAL_AUTHOR"></table>       
+		<table schema="pdsci" tableName="SRM_ACH_RESEACHREP"></table>             
+		<table schema="pdsci" tableName="SRM_ACH_RESEACHREP_AUTHOR"></table>      
+		<table schema="pdsci" tableName="SRM_ACH_APPRAISAL"></table>              
+		<table schema="pdsci" tableName="EDC_PATIENT_VISIT"></table>              
+		<table schema="pdsci" tableName="SRM_ACH_COPYRIGHT"></table>              
+		<table schema="pdsci" tableName="SRM_ACH_COPYRIGHT_AUTHOR"></table>       
+		<table schema="pdsci" tableName="EDC_QUERY"></table>                      
+		<table schema="pdsci" tableName="EDC_VISIT_DATA_EVENT"></table>           
+		<table schema="pdsci" tableName="SRM_FUND_SCHEME"></table>                
+		<table schema="pdsci" tableName="SRM_FUND_SCHEME_DETAIL"></table>         
+		<table schema="pdsci" tableName="SRM_PROJ_FUND_INFO"></table>             
+		<table schema="pdsci" tableName="SRM_PROJ_FUND_DETAIL"></table>           
+		<table schema="pdsci" tableName="SRM_FUND_PROCESS"></table>               
+		<table schema="pdsci" tableName="SYS_USER"></table>                       
+		<table schema="pdsci" tableName="SYS_ROLE"></table>                       
+		<table schema="pdsci" tableName="SYS_CFG"></table>                        
+		<table schema="pdsci" tableName="SRM_EXPERT"></table>                     
+		<table schema="pdsci" tableName="EDC_DCF"></table>                        
+		<table schema="pdsci" tableName="PUB_PROJ_FUND_PLAN"></table>             
+		<table schema="pdsci" tableName="IRB_INFO"></table>                       
+		<table schema="pdsci" tableName="IRB_INFO_USER"></table>                  
+		<table schema="pdsci" tableName="IRB_CFG"></table>                        
+		<table schema="pdsci" tableName="IRB_PROCESS"></table>                    
+		<table schema="pdsci" tableName="PUB_PROJ"></table>                       
+		<table schema="pdsci" tableName="PUB_IMPACTOR_FACTOR"></table>            
+		<table schema="pdsci" tableName="EDC_VISIT"></table>                      
+		<table schema="pdsci" tableName="IRB_REC"></table>                        
+		<table schema="pdsci" tableName="SRM_EXPERT_PROJ"></table>                
+		<table schema="pdsci" tableName="IRB_MEETING_USER"></table>               
+		<table schema="pdsci" tableName="IRB_USER"></table>                       
+		<table schema="pdsci" tableName="PUB_ELEMENT"></table>                    
+		<table schema="pdsci" tableName="EDC_ELEMENT"></table>                    
+		<table schema="pdsci" tableName="IRB_MEETING"></table>                    
+		<table schema="pdsci" tableName="EDC_VISIT_ELEMENT"></table>              
+		<table schema="pdsci" tableName="PUB_MODULE"></table>                     
+		<table schema="pdsci" tableName="EDC_VISIT_ATTRIBUTE"></table>            
+		<table schema="pdsci" tableName="EDC_ATTR_CODE"></table>                  
+		<table schema="pdsci" tableName="SYS_SUBJ_CODE"></table>                  
+		<table schema="pdsci" tableName="EDC_ATTRIBUTE"></table>                  
+		<table schema="pdsci" tableName="EDC_PATIENT_VISIT_DATA"></table>         
+		<table schema="pdsci" tableName="PUB_PATIENT_VISIT"></table>              
+		<table schema="pdsci" tableName="EDC_MODULE"></table>                     
+		<table schema="pdsci" tableName="EDC_VISIT_MODULE"></table>               
+		<table schema="pdsci" tableName="PUB_PROJ_REC"></table>                   
+		<table schema="pdsci" tableName="PUB_ATTR_CODE"></table>                  
+		<table schema="pdsci" tableName="PUB_ATTRIBUTE"></table>
+		<table schema="pdsci" tableName="GCP_CFG"></table>
+		<table schema="pdsci" tableName="SCH_DEPT"></table> 
+		<table schema="pdsci" tableName="SCH_DOCTOR"></table> 
+		<table schema="pdsci" tableName="SCH_DOCTOR_DEPT"></table> 
+		<table schema="pdsci" tableName="SCH_ROTATION"></table>  
+		<table schema="pdsci" tableName="SCH_ROTATION_DEPT"></table>  
+		<table schema="pdsci" tableName="SCH_ROTATION_GROUP"></table>  
+		<table schema="pdsci" tableName="SCH_ARRANGE"></table>  
+		<table schema="pdsci" tableName="SCH_ARRANGE_DEPT"></table>  
+		<table schema="pdsci" tableName="SCH_ARRANGE_DOCTOR"></table>  
+		<table schema="pdsci" tableName="SCH_ARRANGE_DOCTOR_DEPT"></table>  
+		<table schema="pdsci" tableName="SCH_ARRANGE_PROCESS"></table>  
+		<table schema="pdsci" tableName="SCH_ARRANGE_PROCESS_DEPT"></table>  
+		<table schema="pdsci" tableName="SCH_ARRANGE_PROCESS_DOCTOR"></table>    
+		<table schema="pdsci" tableName="SCH_ARRANGE_RESULT"></table>                 
+		<table schema="pdsci" tableName="PUB_TRAIN_SUMMARY"></table>                  
+		<table schema="pdsci" tableName="GCP_CONTRACT"></table>
+		<table schema="pdsci" tableName="SCH_ARRANGE_RESULT"></table>                
+		<table schema="pdsci" tableName="SYS_USER"></table>
+		<table schema="pdsci" tableName="GCP_DRUG"></table>                  
+		<table schema="pdsci" tableName="GCP_DRUG_IN"></table>                
+		<table schema="pdsci" tableName="GCP_DRUG_OUT"></table> 
+		<table schema="pdsci" tableName="EDU_COLLECTION"></table>                 
+		<table schema="pdsci" tableName="PUB_PATIENT_WINDOW"></table>
+		<table schema="pdsci" tableName="EXAM_QUESTION_DETAIL"></table>  
+		<table schema="pdsci" tableName="EDU_COURSE_FILE"></table>            
+		<table schema="pdsci" tableName="EDU_QUESTION"></table>
+		<table schema="pdsci" tableName="EDU_USER"></table>             
+		<table schema="pdsci" tableName="ERP_CRM_CUSTOMER"></table>
+		<table schema="pdsci" tableName="RES_DOCTOR_PROCESS"></table>
+		<table schema="pdsci" tableName="ERP_DOC"></table>
+		<table schema="pdsci" tableName="ERP_DOC_SHARE"></table>
+		<table schema="pdsci" tableName="ERP_OA_CONTACT_ORDER"></table>
+		<table schema="pdsci" tableName="ERP_CRM_CONTRACT_PAY_BALANCE"></table>
+		<table schema="pdsci" tableName="ERP_CRM_CONTRACT_PAY_PLAN"></table>
+		<table schema="pdsci" tableName="ERP_CRM_CONTRACT"></table>
+		<table schema="pdsci" tableName="RES_DOCTOR"></table>
+		<table schema="pdsci" tableName="ERP_OA_CONTACT_ORDER"></table>-->
+<!-- 			<table schema="pdsci" tableName="SCH_ROTATION"></table> -->
+<!-- 			<table schema="pdsci" tableName="FSTU_CREDIT"></table> -->
+	</context>
+</generatorConfiguration>

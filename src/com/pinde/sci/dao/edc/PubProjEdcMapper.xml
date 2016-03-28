@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edc.PubProjEdcMapper" >
+	
+	<select id="selectUserProjList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		select * from PDSCI.PUB_PROJ pp where exists
+			(select null from PDSCI.PUB_PROJ_USER ppu where pp.PROJ_FLOW=ppu.PROJ_FLOW and ppu.USER_FLOW=#{userFlow} and ppu.RECORD_STATUS='Y' )
+			and pp.RECORD_STATUS='Y' 
+			<if test='projNo != null and projNo!=""'>
+	 			AND pp.PROJ_NO = #{projNo}
+	 		</if>
+	 		<if test='projName != null and projName!=""'>
+	 			AND pp.PROJ_NAME like #{projName}
+	 		</if>
+			order by pp.MODIFY_TIME DESC
+  	</select>
+  	<select id="selectUserProjListForMobile" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		select * from PDSCI.PUB_PROJ pp where exists
+			(select null from PDSCI.PUB_PROJ_USER ppu where pp.PROJ_FLOW=ppu.PROJ_FLOW and ppu.USER_FLOW=#{userFlow} 
+			and ppu.RECORD_STATUS='Y' )
+			and pp.RECORD_STATUS='Y' 
+			and exists(select null from PDSCI.EDC_PROJ_PARAM epp where pp.PROJ_FLOW=epp.PROJ_FLOW  and epp.RECORD_STATUS='Y')
+			order by pp.CREATE_TIME DESC
+  	</select>
+  	<select id="selectUserProjListForAssign" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		select * from PDSCI.PUB_PROJ pp where exists
+			(select null from PDSCI.PUB_PROJ_USER ppu where pp.PROJ_FLOW=ppu.PROJ_FLOW and ppu.USER_FLOW=#{userFlow} and role_flow=#{roleFlow}
+			and ppu.RECORD_STATUS='Y' )
+			and pp.RECORD_STATUS='Y' 
+			and exists(select null from PDSCI.EDC_PROJ_PARAM epp where pp.PROJ_FLOW=epp.PROJ_FLOW and epp.IS_RANDOM='Y' and epp.RECORD_STATUS='Y')
+			order by pp.MODIFY_TIME DESC
+  	</select>
+  	<select id="selectUserProjListForInput" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		select * from PDSCI.PUB_PROJ pp where exists
+			(select null from PDSCI.PUB_PROJ_USER ppu where pp.PROJ_FLOW=ppu.PROJ_FLOW and ppu.USER_FLOW=#{userFlow} and role_flow=#{roleFlow}
+			and ppu.RECORD_STATUS='Y' )
+			and pp.RECORD_STATUS='Y' 
+			order by pp.MODIFY_TIME DESC
+  	</select>
+</mapper>

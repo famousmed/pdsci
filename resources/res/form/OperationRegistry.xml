@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/operation_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="operationName" isView="0" remark="手术名称" multiple="N"></item>
+			<item name="specificName" remark="具体名称" multiple="N"></item>
+			<item name="operationDate" remark="手术日期" multiple="N"></item>
+			<item name="operateTime" remark="操作时机" multiple="N"></item>
+			<item name="patientName" isView="0" remark="病人姓名" multiple="N"></item>
+			<item name="caseNo" isView="0" remark="病历号" multiple="N"></item>
+			<item name="objective" remark="目的" multiple="N"></item>
+			<item name="aroundDiagnosis" remark="术前术后诊断" multiple="N"></item>
+			<item name="operationProcedure" remark="手术过程" multiple="N"></item>
+			<item name="masterStep" remark="掌握情况" multiple="N"></item>
+			<item name="anesthesiaMethod" remark="麻醉方法" multiple="N"></item>
+			<item name="operate" remark="术中操作" multiple="N"></item>
+			<item name="special" remark="特殊情况" multiple="N"></item>
+			<item name="operatePost" remark="术中职务" multiple="N"></item>
+			<item name="diagnosisType" remark="诊断类型" multiple="N"></item>
+			<item name="remark" remark="备注" multiple="N"></item>
+			<item name="record" remark="记录" multiple="N"></item>
+			<item name="file" remark="附件" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="operationName" isView="0" remark="手术名称" multiple="N"></item>
+			<item name="specificName" remark="具体名称" multiple="N"></item>
+			<item name="operationDate" remark="手术日期" multiple="N"></item>
+			<item name="operateTime" remark="操作时机" multiple="N"></item>
+			<item name="patientName" isView="0" remark="病人姓名" multiple="N"></item>
+			<item name="caseNo" isView="0" remark="病历号" multiple="N"></item>
+			<item name="objective" remark="目的" multiple="N"></item>
+			<item name="aroundDiagnosis" remark="术前术后诊断" multiple="N"></item>
+			<item name="operationProcedure" remark="手术过程" multiple="N"></item>
+			<item name="masterStep" remark="掌握情况" multiple="N"></item>
+			<item name="anesthesiaMethod" remark="麻醉方法" multiple="N"></item>
+			<item name="operate" remark="术中操作" multiple="N"></item>
+			<item name="special" remark="特殊情况" multiple="N"></item>
+			<item name="operatePost" remark="术中职务" multiple="N"></item>
+			<item name="diagnosisType" remark="诊断类型" multiple="N"></item>
+			<item name="remark" remark="备注" multiple="N"></item>
+			<item name="record" remark="记录" multiple="N"></item>
+			<item name="file" remark="附件" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+</jspForm>
+

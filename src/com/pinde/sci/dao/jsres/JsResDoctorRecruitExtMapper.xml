@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.jsres.JsResDoctorRecruitExtMapper">
+	
+	<resultMap id="DoctorRecruit" type="com.pinde.sci.model.jsres.JsResDoctorRecruitExt" extends="com.pinde.sci.dao.base.ResDoctorRecruitMapper.BaseResultMap" >
+		<association property="sysUser" column="user_flow"  resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+	
+    <select id="searchJsDoctorRecruitExtList"  parameterType="java.util.Map" resultMap="DoctorRecruit">
+    		select dr.*,
+                  u.USER_FLOW, u.USER_CODE, u.USER_NAME, u.SEX_ID, u.SEX_NAME, u.USER_PHONE, u.USER_EMAIL
+				, u.ID_NO, u.USER_BIRTHDAY, u.TITLE_ID, u.TITLE_NAME, u.DEGREE_ID, u.DEGREE_NAME, u.EDUCATION_ID, u.EDUCATION_NAME, u.POST_ID, u.POST_NAME
+    		from pdsci.RES_DOCTOR_RECRUIT dr 
+    		left join  pdsci.SYS_USER u
+    		on dr.DOCTOR_FLOW =  u.USER_FLOW 
+    		where dr.RECORD_STATUS= 'Y' and u.RECORD_STATUS= 'Y'
+    		
+    		<if test="resDoctorRecruit!=null">
+    			<if test="resDoctorRecruit.sessionNumber!=null and resDoctorRecruit.sessionNumber!=''">
+    				and dr.SESSION_NUMBER = #{resDoctorRecruit.sessionNumber} 
+    			</if>
+    			<if test="resDoctorRecruit.catSpeId!=null and resDoctorRecruit.catSpeId!=''">
+    				and dr.CAT_SPE_ID = #{resDoctorRecruit.catSpeId} 
+    			</if>
+    			<if test="resDoctorRecruit.speId!=null and resDoctorRecruit.speId!=''">
+    				and dr.SPE_ID = #{resDoctorRecruit.speId} 
+    			</if>
+    			<if test='resDoctorRecruit.orgFlow!=null and resDoctorRecruit.orgFlow!=""'>
+    				and dr.ORG_FLOW = #{resDoctorRecruit.orgFlow} 
+    			</if>
+    			
+    			 <if test="resDoctorRecruit.auditStatusId!=null and resDoctorRecruit.auditStatusId!=''">
+    				and dr.AUDIT_STATUS_ID=#{resDoctorRecruit.auditStatusId}
+    			</if> 
+    			<!--
+    			<if test="resDoctorRecruit.placeId!=null and resDoctorRecruit.placeId!=''">
+    				and dr.PLACE_ID=#{resDoctorRecruit.placeId}			地區
+    			</if> 
+    			-->
+    		</if>
+    		<if test="user!=null">
+    			<if test="user.userName!=null and user.userName!=''">
+    				<bind name="userName" value="'%'+user.userName+'%'"/>
+    				and u.USER_NAME like #{userName} 
+    			</if>
+    			<if test="user.idNo!=null and user.idNo!=''">
+    				and u.ID_NO = #{user.idNo} 
+    			</if>
+    		</if>
+    		order by dr.CREATE_TIME desc,
+        	 NLSSORT(dr.SPE_NAME,'NLS_SORT = SCHINESE_PINYIN_M')
+    </select> 
+    
+</mapper>

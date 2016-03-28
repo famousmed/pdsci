@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edc.EdcQueryExtMapper" >
+   <select id="searchUnSolveSdvQuery" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.EdcQueryMapper.BaseResultMap">
+    select
+    <include refid="com.pinde.sci.dao.base.EdcQueryMapper.Base_Column_List" />
+   		 from PDSCI.EDC_QUERY where  RECORD_STATUS='Y' and SOLVE_STATUS_ID ='UnSolve' and
+   		 exists ( select NULL from PDSCI.EDC_VISIT_DATA_EVENT where EDC_QUERY.QUERY_FLOW=QUERY_FLOW AND DATA_RECORD_FLOW = #{dataRecordFlow} and  RECORD_STATUS='Y')
+  </select>
+</mapper>

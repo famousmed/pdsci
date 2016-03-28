@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.pinde.sci.dao.srm.SrmAchCountExtMapper" >
+ <resultMap id="SrmAchCountExtMapper" type="com.pinde.sci.model.srm.SrmAchCountExt">
+  	<result column="srmAchCount" jdbcType="VARCHAR" property="srmAchCount" />
+  	<result column="orgName" jdbcType="VARCHAR"  property="orgName"/>
+  	<result column="orgFlow" jdbcType="VARCHAR"  property="orgFlow"/>
+    <result column="achTypeName" jdbcType="VARCHAR"  property="achTypeName"/>
+    <result column="achTypeId" jdbcType="VARCHAR"  property="achTypeId"/>
+ </resultMap>
+ 
+ <select id="selectSrmAch" parameterType="java.util.Map" resultMap="SrmAchCountExtMapper">
+     select count(*) srmAchCount,
+            sap.type_id achTypeId,
+            sap.type_name achTypeName
+     <if test='sumFlag!=null and sumFlag!=""'>
+      <if test='scope!=null and scope=="global"'>      
+            ,so.charge_org_name orgName,so.charge_ORG_FLOW orgFlow
+      </if>
+       <if test='scope!=null and scope!="global"'>
+           ,so.org_name orgName,so.ORG_FLOW orgFlow
+      </if>
+     </if>       
+     from PDSCI.SRM_ACH_PROCESS sap,sys_org so,
+     ${table} ${tableName} 
+     where sap.ACH_FLOW=${tableName}.${tableName}_FLOW
+     and sap.OPER_STATUS_ID='FirstAudit'
+     and ${tableName}.APPLY_ORG_FLOW=so.ORG_FLOW
+     and 
+     <if test='scope!=null and scope=="global"'>
+     so.charge_org_flow 
+     </if>
+     <if test='scope!=null and scope!="global"'>
+     so.org_flow
+     </if>
+     in (select org_flow from PDSCI.sys_org 
+      start WITH org_flow=#{orgFlow} connect by prior org_flow=charge_org_flow)
+     group by sap.type_id,sap.type_name
+     <if test='sumFlag!=null and sumFlag!=""'>
+     <if test='scope!=null and scope=="global"'>
+     ,so.charge_org_name,so.charge_ORG_FLOW
+     </if>
+     <if test='scope!=null and scope!="global"'>
+     ,so.org_name,so.ORG_FLOW
+     </if>
+     </if>
+ </select>
+</mapper>

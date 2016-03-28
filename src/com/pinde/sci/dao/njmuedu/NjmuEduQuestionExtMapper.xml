@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.njmuedu.NjmuEduQuestionExtMapper">
+	<resultMap id="extMap" type="com.pinde.sci.model.njmuedu.EduQuestionExt" extends="com.pinde.sci.dao.base.EduQuestionMapper.BaseResultMap" >
+		<association property="user" javaType="com.pinde.sci.model.mo.SysUser" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"></association>
+		<collection property="answerList" ofType="com.pinde.sci.model.njmuedu.EduAnswerExt" column="QUESTION_FLOW">
+			<id column="ANSWER_FLOW" jdbcType="VARCHAR" property="answerFlow" />
+		    <result column="ANSWER_CONTENT" jdbcType="VARCHAR" property="answerContent" />
+		    <result column="ANSWER_TIME" jdbcType="VARCHAR" property="answerTime" />
+		    <association property="user" column="ANSWER_USER_FLOW" javaType="com.pinde.sci.model.mo.SysUser">
+		    	<id column="ANSWER_USER_FLOW" jdbcType="VARCHAR" property="userFlow" />
+			    <result column="ANSWER_USER_NAME" jdbcType="VARCHAR" property="userName" />
+		    </association>
+		</collection>
+	</resultMap>
+	<resultMap id="extMap2" type="com.pinde.sci.model.njmuedu.EduQuestionExt" extends="com.pinde.sci.dao.base.EduQuestionMapper.BaseResultMap" >
+		<association property="course" javaType="com.pinde.sci.model.mo.EduCourse" column="COURSE_FLOW" >
+			<id column="EC_COURSE_FLOW" jdbcType="VARCHAR" property="courseFlow" />
+    		<result column="COURSE_NAME" jdbcType="VARCHAR" property="courseName" />
+		</association>
+		<association property="chapterExt" javaType="com.pinde.sci.model.njmuedu.EduCourseChapterExt" column="CHAPTER_FLOW">
+			<id column="ECC_CHAPTER_FLOW" jdbcType="VARCHAR" property="chapterFlow" />
+    		<result column="CHAPTER_NAME" jdbcType="VARCHAR" property="chapterName" />
+    		<association property="teacher" javaType="com.pinde.sci.model.mo.SysUser" column="TEACHER_ID" >
+				<id column="SU_USER_FLOW" jdbcType="VARCHAR" property="userFlow" />
+    			<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+			</association>
+		</association>
+	</resultMap>
+    <resultMap id="answerExtMap" type="com.pinde.sci.model.njmuedu.EduAnswerExt" extends="com.pinde.sci.dao.base.EduAnswerMapper.BaseResultMap" >
+		<association property="user" javaType="com.pinde.sci.model.mo.SysUser" column="USER_FLOW" >
+			<id column="SU_USER_FLOW" jdbcType="VARCHAR" property="userFlow" />
+    		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    		<result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+    		<result column="USER_HEAD_IMG" jdbcType="VARCHAR" property="userHeadImg" />
+		</association>
+		<association property="eduUser" javaType="com.pinde.sci.model.mo.EduUser" column="USER_FLOW" >
+			<id column="EU_USER_FLOW" jdbcType="VARCHAR" property="userFlow" />
+		    <result column="MAJOR_NAME" jdbcType="VARCHAR" property="majorName" />
+		</association>
+	</resultMap>
+    <resultMap id="answerExtMap2" type="com.pinde.sci.model.njmuedu.EduAnswerExt" extends="com.pinde.sci.dao.base.EduAnswerMapper.BaseResultMap" >
+		<association property="questionExt" javaType="com.pinde.sci.model.njmuedu.EduQuestionExt" column="QUESTION_FLOW" >
+			<id column="EQ_QUESTION_FLOW" jdbcType="VARCHAR" property="questionFlow" />
+			<association property="user" javaType="com.pinde.sci.model.mo.SysUser" column="USER_FLOW" >
+				<id column="SU_USER_FLOW" jdbcType="VARCHAR" property="userFlow" />
+	    		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+	    		<result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+	    		<result column="USER_HEAD_IMG" jdbcType="VARCHAR" property="userHeadImg" />
+			</association>
+			<association property="eduUser" javaType="com.pinde.sci.model.mo.EduUser" column="USER_FLOW" >
+				<id column="EU_USER_FLOW" jdbcType="VARCHAR" property="userFlow" />
+			    <result column="MAJOR_NAME" jdbcType="VARCHAR" property="majorName" />
+			</association>
+			<association property="chapterExt" javaType="com.pinde.sci.model.njmuedu.EduCourseChapterExt" column="CHAPTER_FLOW">
+				<id column="ECC_CHAPTER_FLOW" jdbcType="VARCHAR" property="chapterFlow" />
+	    		<result column="CHAPTER_NAME" jdbcType="VARCHAR" property="chapterName" />
+	    		<association property="course" javaType="com.pinde.sci.model.mo.EduCourse" column="COURSE_FLOW" >
+	    			 <id column="EC_COURSE_FLOW" jdbcType="VARCHAR" property="courseFlow" />
+   					 <result column="COURSE_NAME" jdbcType="VARCHAR" property="courseName" />
+	    		</association>
+			</association>
+		</association>
+	</resultMap>
+	<resultMap id="orgExt" type="com.pinde.sci.form.njmuedu.SysOrgExt" extends="com.pinde.sci.dao.base.SysOrgMapper.BaseResultMap" >
+	      <collection property="majorFormList" ofType="com.pinde.sci.form.njmuedu.MajorForm" column="major_id">
+	        <id column="major_id" jdbcType="VARCHAR" property="majorId" />
+		    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+	      </collection>
+	</resultMap>
+	
+	<select id="selectListWithAnswers" parameterType="com.pinde.sci.model.mo.EduQuestion" resultMap="extMap">
+   		 select t1.*,t2.* from (select QUESTION_FLOW, COURSE_FLOW, CHAPTER_FLOW, QUESTION_STATUS_ID, QUESTION_STATUS_NAME, 
+   				QUESTION_CONTENT, QUESTION_TIME, SUBMIT_TEACHER,quintessence,su.USER_FLOW,USER_NAME from  pdsci.edu_question eq,pdsci.sys_user su
+   				where eq.user_flow = su.user_flow and eq.RECORD_STATUS = 'Y' and su.RECORD_STATUS = 'Y'
+   				 <if test='chapterFlow!=null and chapterFlow!=""'>
+    			  	and CHAPTER_FLOW = #{chapterFlow}
+    			  </if>
+          		)t1 left join 
+          			(select ANSWER_FLOW, QUESTION_FLOW,  ANSWER_USER_FLOW, ANSWER_CONTENT, ANSWER_TIME,asu.user_name as ANSWER_USER_NAME from 
+          		pdsci.edu_answer ea,pdsci.sys_user asu where ea.ANSWER_USER_FLOW = asu.user_flow and ea.RECORD_STATUS = 'Y' and asu.RECORD_STATUS = 'Y' 
+          		) t2 on t1.QUESTION_FLOW = t2.QUESTION_FLOW 			  
+   			order  by t1.QUESTION_TIME desc,t2.ANSWER_TIME desc
+	</select>
+
+	
+	<select id="selectOrgOfQuestion" parameterType="java.util.Map" resultMap="orgExt">
+   		 select so.ORG_FLOW,so.ORG_NAME,eu.MAJOR_ID,eu.MAJOR_NAME from pdsci.edu_question qs
+             left join pdsci.edu_user eu on qs.user_flow=eu.user_flow
+             left join pdsci.sys_user su on su.user_flow= eu.user_flow
+             left join pdsci.sys_org so on so.org_flow=su.org_flow
+             where eu.record_status='Y' and eu.record_status='Y'
+             and eu.record_status='Y' and eu.record_status='Y'
+             <if test='courseFlow!=null and courseFlow!=""'>
+              and qs.course_flow=#{courseFlow}
+             </if>
+             <if test='condition!=null and condition!=""'>
+               and (so.org_name like #{condition}
+               or eu.major_name like #{condition})
+             </if>
+             GROUP BY eu.MAJOR_ID,so.ORG_FLOW,so.ORG_NAME,eu.MAJOR_NAME 
+	</select>
+	
+   
+	<select id="selectQuestionCount" parameterType="java.util.Map" resultType="int">
+   		  select count(qs.question_flow) questionCount 
+           from pdsci.edu_question qs,pdsci.edu_user eu, pdsci.sys_user su
+           where qs.user_flow=eu.user_flow
+           and su.user_flow= eu.user_flow
+           and qs.record_status='Y'
+           and su.record_status='Y'
+           and eu.record_status='Y'
+           <if test='courseFlow!=null and courseFlow!=""'>
+              and qs.course_flow = #{courseFlow}
+           </if>
+           <if test='questionStatusId!=null and questionStatusId!=""'>
+             and qs.question_Status_Id = #{questionStatusId}
+           </if>
+           <if test='orgFlow!=null and orgFlow!=""'>
+             and su.org_flow = #{orgFlow}
+           </if>
+           <if test='majorId!=null and majorId!=""'>
+             and eu.major_id = #{majorId}
+           </if>
+	</select>
+	<select id="selectExtList" parameterType="com.pinde.sci.form.njmuedu.EduQuestionForm" resultMap="extMap2">
+		select  QUESTION_FLOW, eq.USER_FLOW, eq.COURSE_FLOW, eq.CHAPTER_FLOW, QUESTION_STATUS_ID, QUESTION_STATUS_NAME, 
+    			QUESTION_CONTENT, QUESTION_TIME, SUBMIT_TEACHER, QUINTESSENCE,COURSE_NAME,CHAPTER_NAME,USER_NAME,ec.course_flow as ec_course_flow,
+    			ecc.chapter_flow as ecc_chapter_flow,su.user_flow as su_user_flow 
+                from pdsci.edu_question eq left join pdsci.edu_course ec on eq.course_flow = ec.course_flow 
+                     left join pdsci.edu_course_chapter ecc on eq.chapter_flow = ecc.chapter_flow
+                     left join pdsci.sys_user su on ecc.teacher_id = su.user_flow
+                      where eq.record_status = 'Y' and ec.record_status = 'Y' and ecc.record_status='Y'
+                <if test='courseName!=null and courseName !=""'>
+                	<bind name="courseNameLike" value="'%'+courseName+'%'"/>
+                	and (course_name like #{courseNameLike} or question_content like #{courseNameLike} )
+                </if>
+                <if test="question!=null">
+                	<if test='question.userFlow!=null and question.userFlow !=""'>
+                		and eq.user_flow = #{question.userFlow}
+                	</if>
+                </if>
+                order by question_time desc   
+	</select>
+	<select id="selectOneWithExt" parameterType="string" resultMap="extMap2">
+		select  QUESTION_FLOW, eq.USER_FLOW, eq.COURSE_FLOW, eq.CHAPTER_FLOW, QUESTION_STATUS_ID, QUESTION_STATUS_NAME, 
+    			QUESTION_CONTENT, QUESTION_TIME, SUBMIT_TEACHER, QUINTESSENCE,COURSE_NAME,CHAPTER_NAME,USER_NAME,ec.course_flow as ec_course_flow,
+    			ecc.chapter_flow as ecc_chapter_flow,su.user_flow as su_user_flow 
+                from pdsci.edu_question eq left join pdsci.edu_course ec on eq.course_flow = ec.course_flow 
+                     left join pdsci.edu_course_chapter ecc on eq.chapter_flow = ecc.chapter_flow
+                     left join pdsci.sys_user su on ecc.teacher_id = su.user_flow
+                      where eq.record_status = 'Y' and ec.record_status = 'Y' and ecc.record_status='Y' and question_flow = #{questionFlow}
+	</select>
+	<select id="selectAnswers" parameterType="string" resultMap="answerExtMap">
+		select  ANSWER_FLOW, QUESTION_FLOW, ANSWER_USER_FLOW, ANSWER_CONTENT, ANSWER_TIME,
+		        su.user_flow as su_user_flow,USER_NAME,ORG_NAME,
+		        eu.user_flow as eu_user_flow,MAJOR_NAME,su.USER_HEAD_IMG
+		from pdsci.edu_answer ea left join pdsci.sys_user su on ea.answer_user_flow = su.user_flow
+			 left join pdsci.edu_user eu on ea.answer_user_flow = eu.user_flow 
+			 where ea.record_status = 'Y'  and eu.record_status = 'Y' and su.record_status = 'Y' 
+			 and question_flow = #{questionFlow}
+			 order by answer_time desc
+	</select>
+	<select id="selectAnswerExt" parameterType="string" resultMap="answerExtMap2">
+		select ANSWER_FLOW, QUESTION_FLOW, ANSWER_USER_FLOW, ANSWER_CONTENT, ANSWER_TIME, eq.question_flow as eq_question_flow ,su.user_flow as su_user_flow
+			   user_name,org_name,eu.user_flow as eu_user_flow,major_name,su.user_head_img,ecc.chapter_flow as ecc_chapter_flow,chapter_name,ec.course_flow as ec_course_flow,course_name
+			from pdsci.edu_answer ea left join  pdsci.edu_question eq on ea.question_flow = eq.question_flow
+			     left join pdsci.sys_user su on eq.user_flow = su.user_flow
+			     left join pdsci.edu_user eu on eq.user_flow = eu.user_flow
+			     left join pdsci.edu_course_chapter ecc on eq.chapter_flow = ecc.chapter_flow
+			     left join pdsci.edu_course ec on ecc.course_flow = ec.course_flow
+			where ea.record_status = 'Y' and   eq.record_status = 'Y' and su.record_status = 'Y' and eu.record_status = 'Y'
+			      and ec.record_status = 'Y' and ecc.record_status = 'Y' and answer_flow = #{answerFlow}
+	</select>
+</mapper>

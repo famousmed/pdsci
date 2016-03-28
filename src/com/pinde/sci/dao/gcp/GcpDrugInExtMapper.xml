@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.gcp.GcpDrugInExtMapper">
+   <resultMap id="GcpDrugInExt" type="com.pinde.sci.model.gcp.GcpDrugInExt" extends="com.pinde.sci.dao.base.GcpDrugInMapper.BaseResultMap" >
+	<result column="drug_name"  property="drugName" />
+	<result column="spec"  property="spec" />
+	<result column="user_name"  property="inOperatorName" />
+ </resultMap>
+     <select id="searchDrugInList" parameterType="java.util.Map" resultMap="GcpDrugInExt">
+         select gd.drug_name drug_name,gd.spec spec,
+                gdi.drug_pack,gdi.in_date,
+                gdi.drug_amount,gdi.lot_no,
+                gdi.record_flow,su.user_name user_name
+           from pdsci.gcp_drug gd,pdsci.gcp_drug_in gdi,pdsci.sys_user su
+           where gdi.RECORD_STATUS ='Y' and gd.drug_flow = gdi.drug_flow
+                 and gdi.in_Operator = su.user_flow
+                 <if test='drugFlow!=null and drugFlow!=""'>
+                   and gdi.drug_flow = #{drugFlow}
+                 </if>    
+     </select>
+     <select id="searchDrugIns" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.GcpDrugInMapper.BaseResultMap">
+         select distinct gdi.* from pdsci.pub_proj pp,pdsci.gcp_drug gd,pdsci.gcp_drug_in gdi
+           where pp.RECORD_STATUS ='Y' and gd.RECORD_STATUS ='Y' and gdi.RECORD_STATUS ='Y'
+            <if test='projName!=null and projName!=""'>
+                and pp.proj_name like '%${projName}%'
+            </if>
+            <if test='drug.drugTypeId!=null and drug.drugTypeId!=""'>
+                and gd.drug_Type_Id=#{drug.drugTypeId}
+            </if>
+            <if test='drug.drugName!=null and drug.drugName!=""'>
+                and gd.drug_Name like '%${drug.drugName}%'
+            </if> 
+            order by gdi.IN_DATE,gdi.CREATE_TIME  
+     </select>
+</mapper>

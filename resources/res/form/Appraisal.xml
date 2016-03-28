@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 实习总鉴定表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/appraisal_{1}"></jsp>
+	<product ver="1.0">
+		<page ver="1.0">
+			<item name="internSubjects" remark="实习科目" multiple="N"></item>
+			<item name="lackTime" remark="共缺时间" multiple="N"></item>
+			<item name="sickLeaveDays" remark="病假（天数）" multiple="N"></item>
+			<item name="leaveDays" remark="事假（天数）" multiple="N"></item>
+			<item name="absentDays" remark="旷实习（天数）" multiple="N"></item>
+			<item name="selfIdentifi" remark="自我鉴定" multiple="N"></item>
+			<item name="groupAppraise" remark="实习大组意见" multiple="N"></item>
+			<item name="groupAuditDate" remark="实习大组审核日期" multiple="N"></item>
+			<item name="orgAppraise" remark="实习单位意见" multiple="N"></item>
+			<item name="orgAuditDate" remark="实习单位审核日期" multiple="N"></item>
+			<item name="collegeAppraise" remark="学校考核意见" multiple="N"></item>
+			<item name="collegeAuditDate" remark="学校考核审核日期" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page ver="1.0">
+			<item name="internSubjects" remark="实习科目" multiple="N"></item>
+			<item name="lackTime" remark="共缺时间" multiple="N"></item>
+			<item name="sickLeaveDays" remark="病假（天数）" multiple="N"></item>
+			<item name="leaveDays" remark="事假（天数）" multiple="N"></item>
+			<item name="absentDays" remark="旷实习（天数）" multiple="N"></item>
+			<item name="selfIdentifi" remark="自我鉴定" multiple="N"></item>
+			<item name="groupAppraise" remark="实习大组意见" multiple="N"></item>
+			<item name="groupAuditDate" remark="实习大组审核日期" multiple="N"></item>
+			<item name="orgAppraise" remark="实习单位意见" multiple="N"></item>
+			<item name="orgAuditDate" remark="实习单位审核日期" multiple="N"></item>
+			<item name="collegeAppraise" remark="学校考核意见" multiple="N"></item>
+			<item name="collegeAuditDate" remark="学校考核审核日期" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+</jspForm>
+

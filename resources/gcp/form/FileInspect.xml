@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>
+	<!-- 初始审查申请表单 -->
+	<!-- {0}:表单所属机构(开关控制) {1}:版本号 -->
+	<jsp ver="1.0" path="gcp/form/{0}/fileInspect_{1}"></jsp>
+	<product>
+		<page ver="1.0">
+			<item name="fileType1.1" remark="研究者手册的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.1" remark="研究者手册的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.1" remark="研究者手册的备注" multiple="N"></item>
+			<item name="fileType1.2" remark="实验方案及其修正案的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.2" remark="实验方案及其修正案的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.2" remark="实验方案及其修正案的备注" multiple="N"></item>
+			<item name="fileType1.3" remark="病例报告(样表)的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.3" remark="病例报告(样表)的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.3" remark="病例报告(样表)的备注" multiple="N"></item>
+			<item name="fileType1.4" remark="知情同意书的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.4" remark="知情同意书的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.4" remark="知情同意书的备注" multiple="N"></item>
+			<item name="fileType1.5" remark="受试者招募广告及其他提供给受试者的书面文件的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.5" remark="受试者招募广告及其他提供给受试者的书面文件的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.5" remark="受试者招募广告及其他提供给受试者的书面文件的备注"
+				multiple="N"></item>
+			<item name="fileType1.6" remark="财务规定的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.6" remark="财务规定的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.6" remark="财务规定的备注" multiple="N"></item>
+			<item name="fileType1.7" remark="保险和赔偿措施或相关文件的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.7" remark="保险和赔偿措施或相关文件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.7" remark="保险和赔偿措施或相关文件的备注" multiple="N"></item>
+			<item name="fileType1.8" remark="多方协议(已签名)(研究者、申办者、合同研究组织)的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.8" remark="多方协议(已签名)(研究者、申办者、合同研究组织)的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.8" remark="多方协议(已签名)(研究者、申办者、合同研究组织)的备注"
+				multiple="N"></item>
+			<item name="fileType1.9" remark="伦理委员会批件的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.9" remark="伦理委员会批件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.9" remark="伦理委员会批件的备注" multiple="N"></item>
+			<item name="fileType1.10" remark="伦理委员会成员表的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.10" remark="伦理委员会成员表的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.10" remark="伦理委员会成员表的备注" multiple="N"></item>
+			<item name="fileType1.11" remark="国家食品药品监督管理局批件的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.11" remark="国家食品药品监督管理局批件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.11" remark="国家食品药品监督管理局批件的备注" multiple="N"></item>
+			<item name="fileType1.12" remark="研究者履历及相关文件的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.12" remark="研究者履历及相关文件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.12" remark="研究者履历及相关文件的备注" multiple="N"></item>
+			<item name="fileType1.13" remark="临床试验有关的实验室检测正常值范围的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.13" remark="临床试验有关的实验室检测正常值范围的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.13" remark="临床试验有关的实验室检测正常值范围的备注" multiple="N"></item>
+			<item name="fileType1.14" remark="医学或实验室操作的质控证明的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.14" remark="医学或实验室操作的质控证明的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.14" remark="医学或实验室操作的质控证明的备注" multiple="N"></item>
+			<item name="fileType1.15" remark="试验用药品与试验相关物资的运货单的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.15" remark="试验用药品与试验相关物资的运货单的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.15" remark="试验用药品与试验相关物资的运货单的备注" multiple="N"></item>
+			<item name="fileType1.16" remark="试验药物的药检证明的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.16" remark="试验药物的药检证明的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.16" remark="试验药物的药检证明的备注" multiple="N"></item>
+			<item name="fileType1.17" remark="设盲试验的破盲规程的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result1.17" remark="设盲试验的破盲规程的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark1.17" remark="设盲试验的破盲规程的备注" multiple="N"></item>
+			<item name="fileType2.1" remark="研究者手册更新件的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.1" remark="研究者手册更新件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.1" remark="研究者手册更新件的备注" multiple="N"></item>
+			<item name="fileType2.2" remark="其他文件的更新的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.2" remark="其他文件的更新的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.2" remark="其他文件的更新的备注" multiple="N"></item>
+			<item name="fileType2.3" remark="试验相关文件修订的伦理委员会批件的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.3" remark="试验相关文件修订的伦理委员会批件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.3" remark="试验相关文件修订的伦理委员会批件的备注" multiple="N"></item>
+			<item name="fileType2.4" remark="新研究者的履历的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.4" remark="新研究者的履历的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.4" remark="新研究者的履历的备注" multiple="N"></item>
+			<item name="fileType2.5" remark="医学、实验室检查的正常值范围更新的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.5" remark="医学、实验室检查的正常值范围更新的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.5" remark="医学、实验室检查的正常值范围更新的备注" multiple="N"></item>
+			<item name="fileType2.6" remark="医学或实验室操作的质控证明的更新的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.6" remark="医学或实验室操作的质控证明的更新的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.6" remark="医学或实验室操作的质控证明的更新的备注" multiple="N"></item>
+			<item name="fileType2.7" remark="试验用药品与试验相关物资的运货单或交接记录的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.7" remark="试验用药品与试验相关物资的运货单或交接记录的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.7" remark="试验用药品与试验相关物资的运货单或交接记录的备注"
+				multiple="N"></item>
+			<item name="fileType2.8" remark="新批号试验药物的药检证明的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.8" remark="新批号试验药物的药检证明的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.8" remark="新批号试验药物的药检证明的备注" multiple="N"></item>
+			<item name="fileType2.9" remark="相关通信记录的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.9" remark="相关通信记录的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.9" remark="相关通信记录的备注" multiple="N"></item>
+			<item name="fileType2.10" remark="已签名的知情同意书的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.10" remark="已签名的知情同意书的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.10" remark="已签名的知情同意书的备注" multiple="N"></item>
+			<item name="fileType2.11" remark="原始医疗文件的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.11" remark="原始医疗文件的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.11" remark="原始医疗文件的备注" multiple="N"></item>
+			<item name="fileType2.12" remark="病例报告表(已填写,签名,注明日期)的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.12" remark="病例报告表(已填写,签名,注明日期)的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.12" remark="病例报告表(已填写,签名,注明日期)的备注" multiple="N"></item>
+			<item name="fileType2.13" remark="病例报告表修改记录的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.13" remark="病例报告表修改记录的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.13" remark="病例报告表修改记录的备注" multiple="N"></item>
+			<item name="fileType2.14" remark="研究者至申办者的严重不良事件报告的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.14" remark="研究者至申办者的严重不良事件报告的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.14" remark="研究者至申办者的严重不良事件报告的备注" multiple="N"></item>
+			<item name="fileType2.15" remark="研究中止/中断报告或终止报告(如果存在)的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.15" remark="研究中止/中断报告或终止报告(如果存在)的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.15" remark="研究中止/中断报告或终止报告(如果存在)的备注"
+				multiple="N"></item>
+			<item name="fileType2.16" remark="申办者和/或研究者致药品监督管理局、伦理委员会的严重不良事件及其他安全信息报告的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.16" remark="申办者和/或研究者致药品监督管理局、伦理委员会的严重不良事件及其他安全信息报告的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.16" remark="申办者和/或研究者致药品监督管理局、伦理委员会的严重不良事件及其他安全信息报告的备注"
+				multiple="N"></item>
+			<item name="fileType2.17" remark="申办者致研究者的安全信息通告的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.17" remark="申办者致研究者的安全信息通告的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.17" remark="申办者致研究者的安全信息通告的备注" multiple="N"></item>
+			<item name="fileType2.18" remark="中期或年度报告的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.18" remark="中期或年度报告的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.18" remark="中期或年度报告的备注" multiple="N"></item>
+			<item name="fileType2.19" remark="受试者鉴认代码表的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.19" remark="受试者鉴认代码表的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.19" remark="受试者鉴认代码表的备注" multiple="N"></item>
+			<item name="fileType2.20" remark="受试者筛选表与入选表的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.20" remark="受试者筛选表与入选表的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.20" remark="受试者筛选表与入选表的备注" multiple="N"></item>
+			<item name="fileType2.21" remark="试用药品登记表的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.21" remark="试用药品登记表的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.21" remark="试用药品登记表的备注" multiple="N"></item>
+			<item name="fileType2.22" remark="研究者签名样张的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.22" remark="研究者签名样张的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.22" remark="研究者签名样张的备注" multiple="N"></item>
+			<item name="fileType2.23" remark="生物样本(体液或组织样本)留存记录的文件形式"
+				multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result2.23" remark="生物样本(体液或组织样本)留存记录的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark2.23" remark="生物样本(体液或组织样本)留存记录的备注" multiple="N"></item>
+			<item name="fileType3.1" remark="剩余试验药物退回或销毁证明的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result3.1" remark="剩余试验药物退回或销毁证明的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark3.1" remark="剩余试验药物退回或销毁证明的备注" multiple="N"></item>
+			<item name="fileType3.2" remark="完成试验受试者编码目录的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result3.2" remark="完成试验受试者编码目录的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark3.2" remark="完成试验受试者编码目录的备注" multiple="N"></item>
+			<item name="fileType3.3" remark="统计报告的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result3.3" remark="统计报告的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark3.3" remark="统计报告的备注" multiple="N"></item>
+			<item name="fileType3.4" remark="总结报告的文件形式" multiple="N">
+				<code value="1">原件</code>
+				<code value="2">扫描版</code>
+				<code value="3">电子档</code>
+				<code value="4">复印件</code>
+			</item>
+			<item name="result3.4" remark="总结报告的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">不确定</code>
+			</item>
+			<item name="remark3.4" remark="总结报告的备注" multiple="N"></item>
+			<item name="problem" remark="问题" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

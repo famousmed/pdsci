@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.test.TestResultExtMapper">
+	<resultMap id="TestResultExtMapper" type="com.pinde.sci.model.test.TestResultExt" extends="com.pinde.sci.dao.base.TestResultMapper.BaseResultMap">
+		<association property="testpaper" column="paper_Flow" resultMap="com.pinde.sci.dao.base.TestPaperMapper.BaseResultMap"/>
+	</resultMap>
+	<select id="searchTestResultExtList" parameterType="java.util.Map" resultMap="TestResultExtMapper">
+		SELECT ts.RESULT_FLOW,
+		ts.PAPER_FLOW,
+		ts.PAPER_NAME,
+		ts.USER_FLOW,
+		ts.USER_CODE,
+		ts.USER_NAME,
+		ts.TEST_SCORE,
+		ts.ADD_SCORE,
+		ts.PASS_FLAG,
+		ts.TEST_TIME,tpt.TOTLE_SCORE, tpt.PASS_SCORE,
+		tpt.PAPER_TYPE_ID,tpt.PAPER_TYPE_NAME,
+		tpt.PAPER_USER_FLOW,tpt.PAPER_USER_CODE,
+		tpt.PAPER_USER_NAME,tpt.PAPER_TIME FROM (select * from TEST_RESULT tr 
+	      where tr.RECORD_STATUS='Y' 
+	      	and tr.paper_flow in (select pf.PAPER_FLOW from test_paper pf  
+	      where pf.RECORD_STATUS='Y' 
+	      	and pf.paper_flow  in (select ectp.paper_flow from edu_course_test_paper ectp 
+	      where ectp.RECORD_STATUS='Y' 
+	       <if test='courseFlow!=null and courseFlow!=""'>
+	      	and ectp.COURSE_FLOW=#{courseFlow}
+	      	</if>	)) 
+	      	<if test='userFlow!=null and userFlow!=""'>
+	      	and tr.USER_FLOW=#{userFlow}
+	      	</if>	)  ts,TEST_PAPER tpt 
+  		  where 
+  		  	 ts.PAPER_FLOW=tpt.PAPER_FLOW
+  		  	<if test="testResult!=null">
+	  		  	<if test='testResult.paperName!=null and testResult.paperName!=""'>
+	  		  	<bind name="paperName" value="'%'+testResult.paperName+'%'"/>
+	  		  		and ts.PAPER_NAME like #{paperName}
+	  		  	</if>
+	  		  	<if test='testResult.passFlag!=null and testResult.passFlag!=""'>
+	  		  		and ts.PASS_FLAG=#{testResult.passFlag}
+	  		  	</if>
+	  		  	
+		  		<if test='testResult.paperTypeId!=null and testResult.paperTypeId!=""'>
+		  		  	and tpt.PAPER_TYPE_ID=#{testResult.paperTypeId}
+		  		</if>
+		  		<if test='testResult.testTime!=null and testResult.testTime!=""'>
+		  			and ts.TEST_TIME<![CDATA[>=]]>#{testResult.testTime}
+		  		</if>
+		  		<if test='testResult.testTimeTwo!=null and testResult.testTimeTwo!=""'>
+		  			and ts.TEST_TIME<![CDATA[<=]]>#{testResult.testTimeTwo}
+		  		</if>
+	  		</if>
+  		  
+		
+	</select>
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edc.PubModuleExtMapper" >
+   <select id="moduleSearch" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.PubModuleMapper.BaseResultMap">
+    select
+    <include refid="com.pinde.sci.dao.base.PubModuleMapper.Base_Column_List" />
+   		 from PDSCI.PUB_MODULE where  RECORD_STATUS='Y' and MODULE_SEARCH LIKE #{keyWord} or MODULE_NAME LIKE #{keyWord} or
+   		 exists ( select NULL from PDSCI.PUB_ELEMENT where ELEMENT_NAME LIKE #{keyWord} and MODULE_CODE=PUB_MODULE.MODULE_CODE)
+  </select>
+</mapper>

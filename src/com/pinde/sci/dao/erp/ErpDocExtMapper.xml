@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.erp.ErpDocExtMapper">
+  
+    <!-- 查询文档类型 -->
+    <select id="searchFileTypeList" resultType="string">
+    	select FILE_TYPE
+		from pdsci.ERP_DOC 
+		where RECORD_STATUS = 'Y'
+		group by FILE_TYPE
+		order by FILE_TYPE
+    </select>
+    
+    <select id="searchErpDocList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.ErpDocMapper.BaseResultMap">
+   		<if test='all==null or all==""'>
+	    	select <include refid="com.pinde.sci.dao.base.ErpDocMapper.Base_Column_List"/>
+	    	from pdsci.ERP_DOC 
+	    	where RECORD_STATUS = 'Y'
+	    	<if test='userName!="" and userName!=null'>
+	    		<bind name="userName" value="'%'+userName+'%'"/>
+	   			and CREATE_USER_FLOW in (
+					select USER_FLOW
+	    			from pdsci.SYS_USER
+	    			where RECORD_STATUS ='Y'
+		   			and USER_NAME like #{userName}
+				)
+	   		</if>
+	    	<if test="erpDoc!=null">
+		    	<if test='erpDoc.docName!=null and erpDoc.docName!=""'>
+		    		<bind name="docName" value="'%'+erpDoc.docName+'%'"/>
+		   			and (
+		   				DOC_NAME like #{docName}
+		   				or FILE_NAME like #{docName}
+		   			)
+		   		</if>
+		    	<if test='erpDoc.docTypeId!=null and erpDoc.docTypeId!=""'>
+		   			and DOC_TYPE_ID = #{erpDoc.docTypeId}
+		   		</if>
+		    	<if test='erpDoc.fileType!=null and erpDoc.fileType!=""'>
+		   			and FILE_TYPE = #{erpDoc.fileType}
+		   		</if>
+		    	<if test='erpDoc.createTime!=null and erpDoc.createTime!=""'>
+		   			and CREATE_TIME >= #{erpDoc.createTime}
+		   		</if>
+		    	<if test='erpDoc.createUserFlow!=null and erpDoc.createUserFlow!=""'>
+	   				and CREATE_USER_FLOW = #{erpDoc.createUserFlow}
+		   		</if>
+		    	<if test='erpDoc.isPublic!=null and erpDoc.isPublic!=""'>
+		   			and IS_PUBLIC = #{erpDoc.isPublic}
+		   		</if>
+	   		</if>
+	   		<if test='userFlow!="" and userFlow!=null'>
+	   			and DOC_FLOW in (
+	   				select DOC_FLOW 
+	   				from pdsci.ERP_DOC_SHARE
+	   				where RECORD_STATUS = 'Y'
+	   				and (SHARE_RECORD_FLOW = #{userFlow}
+	   				<if test='deptFlow!="" and deptFlow!=null'>
+	   					or SHARE_RECORD_FLOW = #{deptFlow}
+	   				</if>)
+	   			)
+	   		</if>
+	   		<if test='afterDate!="" and afterDate!=null'>
+		   		and CREATE_TIME <![CDATA[ <= ]]> #{afterDate}
+	   		</if>
+	   		<if test='sortType!="" and sortType!=null'>
+	   			order by ${sortType}
+	   		</if>
+   		</if>
+   		
+   		<!--  我的全部文档  -->
+   		<if test='all!=null and all!=""'>
+    		select <include refid="com.pinde.sci.dao.base.ErpDocMapper.Base_Column_List"/>
+	    	from pdsci.ERP_DOC 
+	    	where RECORD_STATUS = 'Y'
+	    	<if test='userName!="" and userName!=null'>
+	    		<bind name="userName" value="'%'+userName+'%'"/>
+	   			and CREATE_USER_FLOW in (
+					select USER_FLOW
+	    			from pdsci.SYS_USER
+	    			where RECORD_STATUS ='Y'
+		   			and USER_NAME like #{userName}
+				)
+	   		</if>
+	    	<if test="erpDoc!=null">
+		    	<if test='erpDoc.docName!=null and erpDoc.docName!=""'>
+		    		<bind name="docName" value="'%'+erpDoc.docName+'%'"/>
+		   			and (
+		   				DOC_NAME like #{docName}
+		   				or FILE_NAME like #{docName}
+		   			)
+		   		</if>
+		    	<if test='erpDoc.docTypeId!=null and erpDoc.docTypeId!=""'>
+		   			and DOC_TYPE_ID = #{erpDoc.docTypeId}
+		   		</if>
+		    	<if test='erpDoc.fileType!=null and erpDoc.fileType!=""'>
+		   			and FILE_TYPE = #{erpDoc.fileType}
+		   		</if>
+		    	<if test='erpDoc.createTime!=null and erpDoc.createTime!=""'>
+		   			and CREATE_TIME >= #{erpDoc.createTime}
+		   		</if>
+		    	<if test='erpDoc.createUserFlow!=null and erpDoc.createUserFlow!=""'>
+	   				and CREATE_USER_FLOW = #{erpDoc.createUserFlow}
+		   		</if>
+	   		</if>
+	   		<if test='afterDate!="" and afterDate!=null'>
+		   		and CREATE_TIME <![CDATA[ <= ]]> #{afterDate}
+	   		</if>
+	   		<!-- userFlow /deptFlow  -->
+	   		or DOC_FLOW in(
+	   			SELECT DOC_FLOW
+				FROM pdsci.ERP_DOC
+				WHERE RECORD_STATUS = 'Y'
+	   			<if test='userName!="" and userName!=null'>
+		    		<bind name="userName" value="'%'+userName+'%'"/>
+		   			and CREATE_USER_FLOW in (
+						select USER_FLOW
+		    			from pdsci.SYS_USER
+		    			where RECORD_STATUS ='Y'
+			   			and USER_NAME like #{userName}
+					)
+		   		</if>
+		    	<if test="erpDoc!=null">
+			    	<if test='erpDoc.docName!=null and erpDoc.docName!=""'>
+			    		<bind name="docName" value="'%'+erpDoc.docName+'%'"/>
+			   			and (
+			   				DOC_NAME like #{docName}
+			   				or FILE_NAME like #{docName}
+			   			)
+			   		</if>
+			    	<if test='erpDoc.docTypeId!=null and erpDoc.docTypeId!=""'>
+			   			and DOC_TYPE_ID = #{erpDoc.docTypeId}
+			   		</if>
+			    	<if test='erpDoc.fileType!=null and erpDoc.fileType!=""'>
+			   			and FILE_TYPE = #{erpDoc.fileType}
+			   		</if>
+			    	<if test='erpDoc.createTime!=null and erpDoc.createTime!=""'>
+			   			and CREATE_TIME >= #{erpDoc.createTime}
+			   		</if>
+		   		</if>
+		   		<if test='userFlow!="" and userFlow!=null'>
+		   			and DOC_FLOW in (
+		   				select DOC_FLOW 
+		   				from pdsci.ERP_DOC_SHARE
+		   				where RECORD_STATUS = 'Y'
+		   				and (SHARE_RECORD_FLOW = #{userFlow}
+		   				<if test='deptFlow!="" and deptFlow!=null'>
+		   					or SHARE_RECORD_FLOW = #{deptFlow}
+		   				</if>)
+		   			)
+		   		</if>
+		   		<if test='afterDate!="" and afterDate!=null'>
+			   		and CREATE_TIME <![CDATA[ <= ]]> #{afterDate}
+		   		</if>
+	   		)
+	   		or DOC_FLOW in(
+	   			SELECT DOC_FLOW
+				FROM pdsci.ERP_DOC
+				WHERE RECORD_STATUS = 'Y'
+	   			<if test='userName!="" and userName!=null'>
+		    		<bind name="userName" value="'%'+userName+'%'"/>
+		   			and CREATE_USER_FLOW in (
+						select USER_FLOW
+		    			from pdsci.SYS_USER
+		    			where RECORD_STATUS ='Y'
+			   			and USER_NAME like #{userName}
+					)
+		   		</if>
+		    	<if test="erpDoc!=null">
+			    	<if test='erpDoc.docName!=null and erpDoc.docName!=""'>
+			    		<bind name="docName" value="'%'+erpDoc.docName+'%'"/>
+			   			and (
+			   				DOC_NAME like #{docName}
+			   				or FILE_NAME like #{docName}
+			   			)
+			   		</if>
+			    	<if test='erpDoc.docTypeId!=null and erpDoc.docTypeId!=""'>
+			   			and DOC_TYPE_ID = #{erpDoc.docTypeId}
+			   		</if>
+			    	<if test='erpDoc.fileType!=null and erpDoc.fileType!=""'>
+			   			and FILE_TYPE = #{erpDoc.fileType}
+			   		</if>
+			    	<if test='erpDoc.createTime!=null and erpDoc.createTime!=""'>
+			   			and CREATE_TIME >= #{erpDoc.createTime}
+			   		</if>
+			    	<if test='erpDoc.isPublic!=null and erpDoc.isPublic!=""'>
+			   			and IS_PUBLIC = #{erpDoc.isPublic}
+			   		</if>
+		   		</if>
+		   		<if test='afterDate!="" and afterDate!=null'>
+			   		and CREATE_TIME <![CDATA[ <= ]]> #{afterDate}
+		   		</if>
+	   		)
+	   		<if test='sortType!="" and sortType!=null'>
+	   			order by ${sortType}
+	   		</if>
+   		</if>
+    </select>
+    
+   	<update id="batchDelByDocFlowList" parameterType="java.util.List">
+  		 update PDSCI.ERP_DOC set RECORD_STATUS = 'N' where DOC_FLOW in
+  	     <foreach collection="list" open="(" separator="," close=")" item="item">#{item}</foreach>
+  	</update>
+</mapper>

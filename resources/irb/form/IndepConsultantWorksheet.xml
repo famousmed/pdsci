@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 独立顾问咨询表-->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+<jsp ver="1.0" path="irb/form/{0}/worksheet/indep_{1}"></jsp>
+	<product>
+		<page categroy="all" ver="1.0">
+		<!-- 一、咨询问题 -->
+			<item name="consultQestion" remark="咨询问题" multiple="N"></item>
+			
+		<!-- 二、咨询意见 -->
+			<item name="consultAdvice" remark="咨询意见" multiple="N"></item>
+			
+		<!-- 独立顾问签字/日期 -->	
+			<item name="consultName" remark="独立顾问签字" multiple="N"></item>
+			<item name="signDate" remark="独立顾问签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

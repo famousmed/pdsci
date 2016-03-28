@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查申请表单 -->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/application/violate_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 一、违背方案的情况 -->
+			<item name="majorViolation1" remark="纳入不符合纳入标准的受试者" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="majorViolation2" remark="研究过程中，符合提前中止研究标准而没有让受试者退出" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="majorViolation3" remark="给予受试者错误的治疗或不正确的剂量" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="majorViolation4" remark="给予受试者方案禁用的合并用药" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="majorViolation5" remark="任何偏离研究特定的程序或评估，从而对受试者的权益、安全和健康，或对研究结果产生显著影响的研究行为" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			
+			<item name="violation1" remark="持续违背方案（不属于上述重大违背方案，但反复多次违背方案）" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="violation2" remark="研究者不配合监查／稽查" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="violation3" remark="对违规事件不予以纠正" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="violation4" remark="违背方案事件的描述" multiple="N"></item>
+		<!-- 二、违背方案的影响 -->	
+			<item name="violationAffect1" remark="是否影响受试者的安全" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="violationAffect2" remark="是否影响受试者的权益" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="violationAffect3" remark="是否对研究结果产生显著影响" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+		<!-- 三、违背方案的处理措施 -->		
+			<item name="violateMeasures" remark="违背方案的处理措施" multiple="N"></item>
+		<!-- 申请人签字/日期 -->	
+			<item name="applyManName" remark="申请人签字" multiple="N"></item>
+			<item name="applyDate" remark="申请人签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

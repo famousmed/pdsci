@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.irb.IrbInfoUserExtMapper" >
+	<resultMap id="extMap" type="com.pinde.sci.model.irb.IrbInfoUserExt" >
+		<association property="sysUser" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+	<select id="selectExtList" parameterType="com.pinde.sci.model.mo.IrbInfoUser" resultMap="extMap">
+		select * from PDSCI.irb_info_user iu,PDSCI.sys_user su where iu.record_status = 'Y' 
+			and iu.USER_FLOW = su.USER_FLOW 
+			<if test='irbInfoFlow!=null and irbInfoFlow!=""'>
+				and iu.IRB_INFO_FLOW = #{irbInfoFlow}
+			</if>
+			order by iu.ROLE_NAME desc,iu.USER_NAME asc
+	</select>
+</mapper>

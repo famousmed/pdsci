@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/case_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="patientName" isView="0" remark="病人姓名" multiple="N"></item>
+			<item name="hospitalNumbers" isView="0" remark="住院号" multiple="N"></item>
+			<item name="diseaseName" isView="0" remark="疾病名称" multiple="N"></item>
+			<item name="operTime" remark="操作时间" multiple="N"></item>
+			<item name="diagnoseType" remark="诊断类型" multiple="N"></item>
+			<item name="diagnose" remark="诊断" multiple="N"></item>
+			<item name="saveStep" remark="抢救措施" multiple="N"></item>
+			<item name="dieReasonParse" remark="死亡原因分析" multiple="N"></item>
+			<item name="caseRecord" remark="记录" multiple="N"></item>
+		</page>
+		<page  ver="1.1">
+			<item name="patientName" isView="0" remark="病人姓名" multiple="N"></item>
+			<item name="hospitalNumbers" isView="0" remark="住院号" multiple="N"></item>
+			<item name="diseaseName" isView="0" remark="疾病名称" multiple="N"></item>
+			<item name="operTime" remark="操作时间" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="dept" isView="0" remark="科室" multiple="N"></item>
+			<item name="finishTime" remark="时间" multiple="N"></item>
+			<item name="diseaseName" isView="1" remark="病名" multiple="N"></item>
+			<item name="hospitalNumbers" isView="2" remark="病案号" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+			<page  ver="1.0">
+			<item name="diseaseName" isView="0" remark="疾病名称" multiple="N"></item>
+			<item name="hospitalNumbers" isView="0" remark="住院号" multiple="N"></item>
+			<item name="type" remark="类型" multiple="N"></item>
+			<item name="result" remark="结果" multiple="N"></item>
+			<item name="treatmentWay" remark="治疗方法" multiple="N"></item>
+			<item name="comprehensiveWay" remark="综合方法" multiple="N"></item>
+		</page>
+	</shetyy>
+	<nzy ver="1.0">
+			<page  ver="1.0">
+			<item name="diseaseName" isView="0" remark="疾病名称" multiple="N"></item>
+			<item name="hospitalNumbers" isView="0" remark="住院号" multiple="N"></item>
+			<item name="type" remark="类型" multiple="N"></item>
+			<item name="result" remark="结果" multiple="N"></item>
+			<item name="treatmentWay" remark="治疗方法" multiple="N"></item>
+			<item name="comprehensiveWay" remark="综合方法" multiple="N"></item>
+		</page>
+	</nzy>
+</jspForm>
+

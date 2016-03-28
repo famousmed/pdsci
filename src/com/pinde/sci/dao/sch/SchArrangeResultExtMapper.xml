@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.sch.SchArrangeResultExtMapper" >
+	<resultMap type="HashMap" id="resultCountMap">
+		<result property="key" column="DOCTOR_FLOW" javaType="string"/>
+		<result property="value" column="RESULT_COUNT" javaType="java.math.BigDecimal"/>
+	</resultMap>
+	
+	<resultMap type="HashMap" id="resultDateMap">
+		<result property="min" column="MIN_DATE" javaType="string"/>
+		<result property="max" column="MAX_DATE" javaType="string"/>
+	</resultMap>
+	
+	<resultMap type="HashMap" id="countMonthNumMap">
+		<result property="schDeptFlow" column="SCH_DEPT_FLOW" javaType="string"/>
+		<result property="countNum" column="COUNT_NUM" javaType="java.math.BigDecimal"/>
+	</resultMap>
+	
+	<select id="countResultByUser" resultMap="resultCountMap">
+		SELECT DOCTOR_FLOW,COUNT(*) RESULT_COUNT
+		FROM PDSCI.SCH_ARRANGE_RESULT
+		WHERE DOCTOR_FLOW IN
+		<foreach collection="userFlows" item="userFlow" open="(" separator="," close=")">
+			#{userFlow}
+		</foreach>
+		AND RECORD_STATUS = 'Y'
+		GROUP BY DOCTOR_FLOW
+	</select>
+	
+	<select id="countDateArea" resultMap="resultDateMap">
+		SELECT MIN(SCH_START_DATE) MIN_DATE,MAX(SCH_END_DATE) MAX_DATE
+		FROM PDSCI.SCH_ARRANGE_RESULT
+		WHERE RECORD_STATUS = 'Y'
+		AND DOCTOR_FLOW IN(
+			SELECT DOCTOR_FLOW
+			FROM PDSCI.RES_DOCTOR
+			WHERE RECORD_STATUS = 'Y'
+			AND SCH_STATUS_ID IS NOT NULL
+			<if test='doctor!=null'>
+				<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+					AND ORG_FLOW = #{doctor.orgFlow}
+				</if>
+				<if test='doctor.doctorCategoryId!=null and doctor.doctorCategoryId!=""'>
+					AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+				</if>
+				<if test='doctor.sessionNumber!=null and doctor.sessionNumber!=""'>
+					AND	SESSION_NUMBER = #{doctor.sessionNumber}
+				</if>
+				<if test='doctor.trainingSpeId!=null and doctor.trainingSpeId!=""'>
+					AND	TRAINING_SPE_ID = #{doctor.trainingSpeId}
+				</if>
+				<if test='doctor.doctorName!=null and doctor.doctorName!=""'>
+					AND	DOCTOR_NAME LIKE '%${doctor.doctorName}%'
+				</if>
+			</if>
+		)
+	</select>
+	
+	<select id="countMonthNum" resultMap="countMonthNumMap">
+		SELECT SCH_DEPT_FLOW,COUNT(SCH_DEPT_FLOW) COUNT_NUM
+		FROM PDSCI.SCH_ARRANGE_RESULT
+		WHERE RECORD_STATUS = 'Y'
+		AND DOCTOR_FLOW IN (
+			SELECT DOCTOR_FLOW
+			FROM PDSCI.RES_DOCTOR
+			WHERE RECORD_STATUS = 'Y'
+			<if test='doctor!=null'>
+				<if test='doctor.schStatusId!=null and doctor.schStatusId!=""'>
+					AND SCH_STATUS_ID = #{doctor.schStatusId}
+				</if>
+				<if test='doctor.schStatusId==null or doctor.schStatusId==""'>
+					AND SCH_STATUS_ID IS NOT NULL
+				</if>
+				<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+					AND ORG_FLOW = #{doctor.orgFlow}
+				</if>
+				<if test='doctor.doctorCategoryId!=null and doctor.doctorCategoryId!=""'>
+					AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+				</if>
+				<if test='doctor.sessionNumber!=null and doctor.sessionNumber!=""'>
+					AND	SESSION_NUMBER = #{doctor.sessionNumber}
+				</if>
+				<if test='doctor.trainingSpeId!=null and doctor.trainingSpeId!=""'>
+					AND	TRAINING_SPE_ID = #{doctor.trainingSpeId}
+				</if>
+				<if test='doctor.doctorName!=null and doctor.doctorName!=""'>
+					AND	DOCTOR_NAME LIKE '%${doctor.doctorName}%'
+				</if>
+			</if>
+		)
+		AND SUBSTR(SCH_START_DATE,0,7) <![CDATA[<=]]> #{month}
+		AND SUBSTR(SCH_END_DATE,0,7) >= #{month}
+		GROUP BY SCH_DEPT_FLOW
+	</select>
+	
+	<select id="searchInMonthResult" resultMap="com.pinde.sci.dao.base.SchArrangeResultMapper.BaseResultMap">
+		SELECT *
+		FROM PDSCI.SCH_ARRANGE_RESULT
+		WHERE RECORD_STATUS = 'Y'
+		AND DOCTOR_FLOW IN (
+			SELECT DOCTOR_FLOW
+			FROM PDSCI.RES_DOCTOR
+			WHERE RECORD_STATUS = 'Y'
+			<if test='doctor!=null'>
+				<if test='doctor.schStatusId!=null and doctor.schStatusId!=""'>
+					AND SCH_STATUS_ID = #{doctor.schStatusId}
+				</if>
+				<if test='doctor.schStatusId==null or doctor.schStatusId==""'>
+					AND SCH_STATUS_ID IS NOT NULL
+				</if>
+				<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+					AND ORG_FLOW = #{doctor.orgFlow}
+				</if>
+				<if test='doctor.doctorCategoryId!=null and doctor.doctorCategoryId!=""'>
+					AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+				</if>
+				<if test='doctor.sessionNumber!=null and doctor.sessionNumber!=""'>
+					AND	SESSION_NUMBER = #{doctor.sessionNumber}
+				</if>
+				<if test='doctor.trainingSpeId!=null and doctor.trainingSpeId!=""'>
+					AND	TRAINING_SPE_ID = #{doctor.trainingSpeId}
+				</if>
+				<if test='doctor.doctorName!=null and doctor.doctorName!=""'>
+					AND	DOCTOR_NAME LIKE '%${doctor.doctorName}%'
+				</if>
+			</if>
+		)
+		AND SUBSTR(SCH_START_DATE,0,7) <![CDATA[<=]]> #{month}
+		AND SUBSTR(SCH_END_DATE,0,7) >= #{month}
+		AND SCH_DEPT_FLOW = #{schDeptFlow}
+		ORDER BY SCH_START_DATE
+	</select>
+	
+	<select id="willInDoctor" resultMap="com.pinde.sci.dao.base.SchArrangeResultMapper.BaseResultMap">
+		SELECT *
+		FROM PDSCI.SCH_ARRANGE_RESULT
+		WHERE RECORD_STATUS = 'Y'
+		AND DOCTOR_FLOW IN (
+			SELECT DOCTOR_FLOW
+			FROM PDSCI.RES_DOCTOR
+			WHERE RECORD_STATUS = 'Y'
+			AND SCH_FLAG = 'Y'
+			AND (
+				ORG_FLOW = #{orgFlow}
+				OR ORG_FLOW IN (
+					SELECT ORG_FLOW 
+					FROM PDSCI.SCH_DEPT_EXTERNAL_REL
+					WHERE RECORD_STATUS = 'Y'
+					AND REL_ORG_FLOW = #{orgFlow}
+				)
+			)
+			AND DOCTOR_FLOW NOT IN (
+				SELECT USER_FLOW 
+				FROM PDSCI.RES_DOCTOR_SCH_PROCESS
+				WHERE RECORD_STATUS = 'Y'
+				AND IS_CURRENT_FLAG = 'Y'
+			)
+		)
+		AND RESULT_FLOW NOT IN (
+			SELECT SCH_RESULT_FLOW 
+			FROM PDSCI.RES_DOCTOR_SCH_PROCESS
+			WHERE RECORD_STATUS = 'Y'
+			AND IS_CURRENT_FLAG = 'N'
+			AND SCH_FLAG = 'Y'
+		)
+   		ORDER BY SCH_START_DATE
+	</select>
+	
+	<select id="countRotationUse" resultType="int">
+		SELECT COUNT(DISTINCT DOCTOR_FLOW)
+		FROM PDSCI.SCH_ARRANGE_RESULT
+		WHERE RECORD_STATUS = 'Y'
+		AND DOCTOR_FLOW NOT IN (
+			SELECT DISTINCT DOCTOR_FLOW
+			FROM PDSCI.SCH_DOCTOR_DEPT
+			WHERE RECORD_STATUS = 'Y'
+			AND ROTATION_FLOW = #{rotationFlow}
+		)
+		AND ROTATION_FLOW = #{rotationFlow}
+	</select>
+	
+	<select id="cutAfterResult" resultMap="com.pinde.sci.dao.base.SchArrangeResultMapper.BaseResultMap">
+		SELECT *
+		FROM PDSCI.SCH_ARRANGE_RESULT
+		WHERE RECORD_STATUS = 'Y'
+		AND RESULT_FLOW NOT IN (
+			SELECT SCH_RESULT_FLOW 
+			FROM PDSCI.RES_DOCTOR_SCH_PROCESS
+			WHERE RECORD_STATUS = 'Y'
+			AND SCH_FLAG = 'Y'
+			AND USER_FLOW IN 
+			<foreach collection="doctorFlows" item="doctorFlow" open="(" separator="," close=")">
+				#{doctorFlow}
+			</foreach>
+		)
+		AND DOCTOR_FLOW IN 
+		<foreach collection="doctorFlows" item="doctorFlow" open="(" separator="," close=")">
+			#{doctorFlow}
+		</foreach>
+		ORDER BY SCH_START_DATE
+	</select>
+	
+	<update id="sortResult">
+		UPDATE SCH_ARRANGE_RESULT SARF 
+		SET SCH_DEPT_ORDER = (
+			SELECT RW
+			FROM(
+				SELECT ROWNUM RW,RESULT_FLOW
+				FROM (
+					SELECT SARS.RESULT_FLOW 
+					FROM SCH_ARRANGE_RESULT SARS,SYS_DICT SD
+					WHERE SARS.RECORD_STATUS = 'Y'
+					AND SD.RECORD_STATUS = 'Y'
+					AND DICT_TYPE_ID = 'StandardDept'
+					AND SARS.STANDARD_DEPT_ID = SD.DICT_ID
+					AND SARS.DOCTOR_FLOW = #{doctorFlow}
+					ORDER BY ORDINAL
+				) RES
+			) RESS
+			WHERE SARF.RESULT_FLOW = RESS.RESULT_FLOW
+		) 
+		WHERE RECORD_STATUS = 'Y' AND SARF.DOCTOR_FLOW = #{doctorFlow}
+	</update>
+</mapper>

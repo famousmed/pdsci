@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edc.EdcPatientVisitDataExtMapper" >
+	<resultMap type="com.pinde.sci.form.edc.ElementSerialSeqForm" id="FormResultMap">
+  		<id column="ELEMENT_SERIAL_SEQ" jdbcType="VARCHAR" property="elementSerialSeq" />
+  	</resultMap>
+  	
+  	<resultMap type="com.pinde.sci.form.edc.EdcPatientVisitDataForm" id="visitDataForm">
+  		<id column="VISIT_FLOW" jdbcType="VARCHAR" property="visitFlow" />
+  		<id column="VISIT_NAME" jdbcType="VARCHAR" property="visitName" />
+  		<id column="ORG_FLOW" jdbcType="VARCHAR" property="orgFlow" />
+  		<id column="PATIENT_FLOW" jdbcType="VARCHAR" property="patientFlow" />
+  		<id column="PATIENT_NAME_PY" jdbcType="VARCHAR" property="patientNamePy" />
+  		<id column="PATIENT_SEQ" jdbcType="DECIMAL" property="patientSeq" />
+  		<id column="PATIENT_CODE" jdbcType="VARCHAR" property="patientCode" />
+  		<id column="ELEMENT_SERIAL_SEQ" jdbcType="VARCHAR" property="elementSerialSeq" />
+  		<id column="ATTR_VALUE" jdbcType="VARCHAR" property="attrValue" />
+  		<id column="ATTR_VALUE_TIP" jdbcType="VARCHAR" property="attrValueTip" />
+  		<id column="ELEMENT_CODE" jdbcType="VARCHAR" property="elementCode" />
+  		<id column="ELEMENT_NAME" jdbcType="VARCHAR" property="elementName" />
+  		<id column="ATTR_CODE" jdbcType="VARCHAR" property="attrCode" />
+  		<id column="ATTR_NAME" jdbcType="VARCHAR" property="attrName" />
+  	</resultMap>
+  	
+	<select id="modifyPatientVisitDataValue1" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EdcPatientVisitDataMapper.BaseResultMap">
+		  update PDSCI.EDC_PATIENT_VISIT_DATA SET ATTR_VALUE=ATTR_VALUE1 , ATTR_VALUE_TIP=ATTR_VALUE1_TIP,
+		   MODIFY_TIME = #{modifyTime},
+      MODIFY_USER_FLOW = #{modifyUserFlow}
+    where VISIT_RECORD_FLOW = #{visitRecordFlow} 
+  	</select>
+  	
+  	<select id="modifyPatientVisitDataValue2" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EdcPatientVisitDataMapper.BaseResultMap">
+		  update PDSCI.EDC_PATIENT_VISIT_DATA SET ATTR_VALUE=ATTR_VALUE2 , ATTR_VALUE_TIP=ATTR_VALUE2_TIP,
+		   MODIFY_TIME = #{modifyTime},
+      MODIFY_USER_FLOW = #{modifyUserFlow}
+    where VISIT_RECORD_FLOW = #{visitRecordFlow} 
+  	</select>
+  
+	<select id="selectSeq" parameterType="java.lang.String" resultMap="FormResultMap">
+  		select distinct  ELEMENT_SERIAL_SEQ from PDSCI.EDC_PATIENT_VISIT_DATA where PATIENT_FLOW=#{patientFlow} and VISIT_FLOW=#{visitFlow} and RECORD_STATUS='Y' order by ELEMENT_SERIAL_SEQ
+ 	</select>
+ 	
+ 	<select id="searchVisitDataReport" parameterType="java.lang.String" resultMap="visitDataForm">
+ 		SELECT 
+ 		V.VISIT_FLOW,V.VISIT_NAME,
+ 		P.ORG_FLOW,P.PATIENT_FLOW,P.PATIENT_NAME_PY,P.PATIENT_SEQ,P.PATIENT_CODE,
+ 		DATA.ELEMENT_SERIAL_SEQ,DATA.ATTR_VALUE,DATA.ATTR_VALUE_TIP,
+ 		ATTR.ELEMENT_CODE,ATTR.ELEMENT_NAME,ATTR.ATTR_CODE,ATTR.ATTR_NAME
+ 		FROM
+ 		(SELECT VISIT_FLOW,VISIT_NAME FROM PDSCI.EDC_VISIT WHERE PROJ_FLOW = #{projFlow} AND RECORD_STATUS = 'Y') V,
+ 		(SELECT ORG_FLOW,PATIENT_FLOW,PATIENT_NAME_PY,PATIENT_SEQ,PATIENT_CODE FROM PDSCI.PUB_PATIENT WHERE PROJ_FLOW = #{projFlow} AND RECORD_STATUS = 'Y' 
+	 		<if test="orgFlow != null">
+	 			AND ORG_FLOW = #{orgFlow}
+	 		</if>
+	 		<if test="patientCode != null">
+	 			AND PATIENT_CODE = #{patientCode}
+	 		</if>
+ 		) P,
+ 		(SELECT VISIT_FLOW,PATIENT_FLOW,ELEMENT_SERIAL_SEQ,ATTR_VALUE,ATTR_VALUE_TIP,ELEMENT_CODE,ATTR_CODE,CREATE_TIME FROM PDSCI.EDC_PATIENT_VISIT_DATA WHERE PROJ_FLOW = #{projFlow} AND RECORD_STATUS = 'Y') DATA,
+ 		(SELECT ELEMENT_CODE,ELEMENT_NAME,ATTR_CODE,ATTR_NAME FROM PDSCI.EDC_ATTRIBUTE WHERE PROJ_FLOW = #{projFlow} AND RECORD_STATUS = 'Y') ATTR
+ 		WHERE 
+ 		V.VISIT_FLOW = DATA.VISIT_FLOW AND P.PATIENT_FLOW = DATA.PATIENT_FLOW AND DATA.ATTR_VALUE_TIP LIKE #{attrValueTip} AND DATA.ATTR_CODE = ATTR.ATTR_CODE
+ 		ORDER BY P.PATIENT_SEQ,DATA.CREATE_TIME
+ 	</select>
+ 	
+ 	<select id="searchVisitDataDistinct" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.EdcPatientVisitDataMapper.BaseResultMap">
+ 		SELECT DISTINCT ATTR_VALUE
+		FROM PDSCI.EDC_PATIENT_VISIT_DATA
+		WHERE PROJ_FLOW = #{projFlow} AND ATTR_VALUE IS NOT NULL AND ATTR_CODE = #{attrCode} AND RECORD_STATUS = 'Y'
+		ORDER BY ${attrValue}
+ 	</select>
+</mapper>

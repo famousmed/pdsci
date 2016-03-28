@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查申请表单 -->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0"  path="irb/form/{0}/application/init_{1}_{2}"/>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 方案设计类型 -->	
+			<item name="researchType" remark="研究类型" multiple="N">
+				<code value="1">实验性研究</code>
+				<code value="2">观察性研究</code>
+				<code value="3">利用人的生物标本的研究</code>
+			</item>
+			<item name="obserStudyType" remark="观察性研究类型" multiple="Y">
+				<code value="1">回顾性分析</code>
+				<code value="2">前瞻性研究</code>
+			</item>
+			<item name="pastAcquisition" remark="利用人的生物标本的研究采集类型" multiple="Y">
+				<code value="1">以往采集保存</code>
+				<code value="2">研究采集</code>
+			</item>
+			
+		<!-- 研究信息 -->	
+			<item name="researchInfo1" remark="资金来源" multiple="Y">
+				<code value="1">企业</code>
+				<code value="2">政府</code>
+				<code value="3">学术团体</code>
+				<code value="4">本单位</code>
+				<code value="5">自筹</code>
+			</item>
+			<item name="researchInfo2" remark="数据与安全监察委员会" multiple="N">
+				<code value="1">有</code>
+				<code value="0">无</code>
+			</item>
+			<item name="researchInfo3" remark="其它伦理委员会对该项目的否定性、或提前中止的决定" multiple="N">
+				<code value="1">有</code>
+				<code value="0">无</code>
+			</item>
+			<item name="researchInfo4" remark="研究需要使用人体生物标本" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchInfo41" remark="采集生物标本" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchInfo42" remark="利用以往保存的生物标本" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchInfo5" remark="研究药物/医疗器械的使用超出产品说明书范围，并且没有获得药监管理部门的临床研究批件" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchInfo51" remark="研究结果是否用于注册或修改说明书" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchInfo52" remark="研究是否用于产品的广告" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchInfo53" remark="超出说明书使用该产品，是否显著增加了风险" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchInfo6" remark="医疗器械的类别" multiple="N">
+				<code value="1">Ⅰ类</code>
+				<code value="2">Ⅱ类</code>
+				<code value="3">Ⅲ类</code>
+			</item>
+			
+		<!-- 招募受试者 -->	
+			<item name="recruSubject1" remark="谁负责招募" multiple="Y">
+				<code value="1">医生</code>
+				<code value="2">研究者</code>
+				<code value="3">研究助理</code>
+				<code value="4">研究护士</code>
+				<code value="5">其它</code>
+			</item>
+			<item name="recruSubject2" remark="招募方式" multiple="Y">
+				<code value="1">广告</code>
+				<code value="2">诊疗过程</code>
+				<code value="3">数据库</code>
+				<code value="4">中介</code>
+				<code value="5">其他</code>
+			</item>
+			<item name="recruSubject3" remark="招募人群特征" multiple="Y">
+				<code value="1">健康者</code>
+				<code value="2">患者</code>
+				<code value="3">弱势群体</code>
+				<code value="4">孕妇</code>
+			</item>
+			<item name="recruSubject31" remark="弱势群体的特征" multiple="Y">
+				<code value="1">儿童/未成年人</code>
+				<code value="2">认知障碍或健康状况而没有能力做出知情同意的成人</code>
+				<code value="3">申办者/研究者的雇员或学生</code>
+				<code value="4">教育/经济地位低下的人员</code>
+				<code value="5">疾病终末期患者</code>
+				<code value="6">囚犯</code>
+				<code value="7">其它</code>
+			</item>
+			<item name="recruSubject31_other" remark="其他弱势群体的特征" multiple="N"></item>
+			<item name="recruSubject32" remark="知情同意能力的评估方式" multiple="Y">
+				<code value="1">临床判断</code>
+				<code value="2">量表</code>
+				<code value="3">仪器</code>
+			</item>
+			<item name="recruSubject33" remark="涉及孕妇研究的信息" multiple="Y">
+				<code value="1">不适用</code>
+				<code value="2">没有通过经济利益引诱其中止妊娠</code>
+				<code value="3">研究人员不参与中止妊娠的决策</code>
+				<code value="4">研究人员不参与新生儿生存能力的判断</code>
+			</item>
+			<item name="recruSubject34" remark="涉及特定疾病人群或特定地区人群/族群研究的信息" multiple="Y">
+				<code value="1">是否合理考虑了研究对特殊疾病人群、特定地区人群/族群造成的影响</code>
+				<code value="2">是否合理考虑了外界因素对个人知情同意的影响</code>
+				<code value="3">是否有向该人群/族群进行咨询的计划</code>
+				<code value="4">研究是否包括促进地区医疗保健与研究能力发展的计划</code>
+			</item>
+			<item name="recruSubject35" remark="受试者报酬" multiple="N">
+				<code value="1">有</code>
+				<code value="0">无</code>
+			</item>
+			<item name="sum" remark="报酬金额" multiple="N"></item>
+			<item name="payType" remark="报酬支付方式" multiple="N">
+				<code value="1">按随访观察时点，分次支付</code>
+				<code value="2">按完成的随访观察工作量，一次性支付</code>
+				<code value="3">完成全部随访观察后支付</code>
+			</item>
+			
+		<!-- 知情同意的过程 -->	
+			<item name="informProcess1" remark="谁获取知情同意" multiple="Y">
+				<code value="1">医生/研究者</code>
+				<code value="2">医生</code>
+				<code value="3">研究者</code>
+				<code value="4">研究护士</code>
+				<code value="5">研究助理</code>
+			</item>
+			<item name="informProcess2" remark="获取知情同意地点" multiple="Y">
+				<code value="1">私密房间/受试者接待室</code>
+				<code value="2">诊室</code>
+				<code value="3">病房</code>
+				<code value="4">其它</code>
+			</item>
+			<item name="informProcess3" remark="知情同意签字" multiple="Y">
+				<code value="1">受试者签字</code>
+				<code value="2">法定代理人签字</code>
+			</item>
+			
+		<!-- 知情同意的例外 -->	
+			<item name="informException" remark="知情同意的例外" multiple="N">
+				<code value="A" newLine="Y" remark="§ 申请开展在紧急情况下无法获得知情同意的研究">研究人群处于危及生命的紧急状况，需要在发病后很快进行干预；在该紧急情况下，大部分病人无法给予知情同意，且没有时间找到法定代理人；缺乏已被证实有效的治疗方法，而试验药物或干预有望挽救生命，恢复健康，或减轻病痛</code>
+				<code value="B" newLine="Y" remark="§ 申请免除知情同意">利用在临床诊疗中获得的病历/生物标本的研究</code>
+				<code value="C" newLine="Y">研究病历/生物标本的二次利用</code>
+				<code value="D" newLine="Y" remark="§ 申请免除知情同意签字">签了字的知情同意书会对受试者的隐私构成不正当的威胁，联系受试者真实身份和研究的唯一记录是知情同意文件，并且主要风险就来自于破坏机密</code>
+				<code value="E" newLine="N">研究对受试者的风险不大于最小风险，并且如果脱离“研究”背景，相同情况下的行为或程序不要求签署书面知情同意。如访谈研究，邮件/电话调查</code>
+			</item>
+			<!-- A.申请开展在紧急情况下无法获得知情同意的研究 -->
+			<item name="informException11" remark="处于危及生命的紧急状况，需要在发病后很快进行干预" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException12" remark="在该紧急情况下，大部分病人无法给予知情同意，且没有时间找到合法代表人" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException13" remark="缺乏已被证实有效的治疗方法，而试验药物或干预有望挽救生命，恢复健康，或减轻病痛" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException14" remark="方案根据目前的科学证据，制定了必须给予试验干预的治疗窗；该治疗窗包括了一个合适的联系合法代表人的时间段" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException15" remark="研究者承诺在开始研究之前，在治疗窗的分段时间内，尽力联系患者的合法代表人，并有证明努力尝试联系的文件记录" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException16" remark="方案规定：一旦病人的状态许可，或找到其合法代表人，应告知所有相关信息，并尽可能早地获得其反对或继续参加研究的意见" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException17" remark="研究项目制定了社区咨询计划，向研究人群利益相关方充分告知研究的风险与预期受益，征求他们的意见；伦理委员会部分/全体成员将参加咨询活动" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException18" remark="研究项目制定了在研究开始前公开披露信息计划，以保证更广泛的研究人群利益相关方获知研究计划及其风险与预期受益" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException19" remark="建立了独立的数据与安全监查委员会" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException110" remark="对既未获得受试者个体知情同意，又未得到法定代理人许可，方案规定受试者个体参加研究的最大时限是" multiple="N"></item>
+			<item name="informException111" remark="如果疾病是周期性复发的（如癫痫），是否可能确定将来发生符合研究条件疾病的人群，在其有充分能力给出知情同意的时候与之联系，并请其同意在将来疾病发作、无能力表达同意的时候参加试验" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<!-- B.申请免除知情同意 -->
+			<item name="informException21" remark="本项研究为：利用在临床诊疗中获得的病历/生物标本的观察性研究" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException22" remark="研究对受试者的风险不大于最小风险" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException23" remark="免除知情同意不会对受试者的权利和健康产生不利的影响" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException24" remark="受试者的隐私和身份信息的保密得到保证" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException25" remark="若规定需获取知情同意，将使研究不可行（病人有权知道其病历/标本可能用于研究，其拒绝或不同意参加研究，不是研究无法实施、免除知情同意的证据）" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException26" remark="本研究不利用病人/受试者以前已明确地拒绝利用的医疗记录和标本" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<!-- C.申请免除知情同意 -->
+			<item name="informException31" remark="本项研究为：研究病历与生物标本的二次利用的观察性研究，即利用以往研究项目、经知情同意收集的病历或标本进行研究" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException32" remark="原知情同意书同意其他研究项目利用病历或标本" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException33" remark="本次研究符合原知情同意条件的限制" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException34" remark="方案规定了受试者的隐私和身份信息的保密措施" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<!-- D.申请免除知情同意签字 -->
+			<item name="informException41" remark="本项研究为：当一份签了字的知情同意书会对受试者的隐私构成不正当的威胁，联系受试者真实身份和研究的唯一记录是知情同意文件，并且主要风险就来自于破坏机密" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException42" remark="方案规定应遵循每一位受试者本人的意愿，签署或不签署书面知情同意文件" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException43" remark="方案规定向受试者或其合法代表人提供书面信息告知文件" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException44" remark="方案规定应获得受试者或其合法代表人的口头知情同意" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<!-- E.申请免除知情同意签字 -->
+			<item name="informException51" remark="本项研究为：研究对受试者的风险不大于最小风险，并且如果脱离“研究”背景，相同情况下的行为或程序不要求签署书面知情同意（如访谈研究，邮件/电话调查）" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException52" remark="方案规定向受试者或其合法代表人提供书面信息告知文件" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="informException53" remark="方案规定应获得受试者或其合法代表人的口头知情同意" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			
+		<!-- 主要研究者信息 -->	
+			<item name="researcherDeclare" remark="主要研究者声明" multiple="N">
+				<code value="1">本人与该研究项目不存在利益冲突</code>
+				<code value="2">本人与该研究项目存在利益冲突</code>
+			</item>
+			<item name="inProjNum" remark="主要研究者负责的在研项目数" multiple="N"></item>
+			<item name="targetProjNum" remark="与本项目的目标疾病相同的项目数" multiple="N"></item>
+			
+		<!-- 申请人签字/日期 -->	
+			<item name="applyManName" remark="申请人签字" multiple="N"></item>
+			<item name="applyDate" remark="申请人签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edc.GcpDrugStoreRecExtMapper" >
+	<resultMap id="BaseResultMap" type="com.pinde.sci.model.edc.RandomMinMaxAssignForm">
+	    <result  column="org_flow" property="orgFlow" jdbcType="VARCHAR"  />
+	    <result column="assign_count" property="assignCount" jdbcType="VARCHAR" />
+	    <result column="min_assign_date" property="minAssignDate" jdbcType="VARCHAR" />
+	    <result column="max_assign_date" property="maxAssignDate" jdbcType="VARCHAR" />
+ 	 </resultMap>
+	<select id="selectAssignDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select org_flow,count(*) as assign_count , min(assign_time) as min_assign_date,max(assign_time) as max_assign_date  from 
+		PDSCI.GCP_DRUG_STORE_REC 
+		where proj_flow=#{projFlow} and patient_flow is not null and record_status='Y'  and assign_time is not null group by org_flow
+  	</select>
+  	<select id="selectMaxOrd" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select max(ordinal) from PDSCI.GCP_DRUG_STORE_REC where record_status = 'Y' and org_flow = #{orgFlow} and proj_flow = #{projFlow} and durg_flow = #{drugFlow}
+	</select>
+</mapper>

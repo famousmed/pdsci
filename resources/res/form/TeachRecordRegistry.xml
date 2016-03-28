@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/teachRecord_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="teachDate" remark="教学日期" multiple="N"></item>
+			<item name="teacher" isView="0" remark="教师" multiple="N"></item>
+			<item name="teachType" isView="0" remark="教学形式" multiple="N"></item>
+			<item name="teachDetail" remark="教学内容" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="teachDate" remark="教学日期" multiple="N"></item>
+			<item name="teacher" isView="0" remark="教师" multiple="N"></item>
+			<item name="teachType" isView="0" remark="教学形式" multiple="N"></item>
+			<item name="teachDetail" remark="教学内容" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+</jspForm>
+

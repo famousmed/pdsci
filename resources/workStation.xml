@@ -1,0 +1,1392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workStations>
+	<workStation id='srm' name="科研项目管理系统">
+		<module id='xmgl-global' name="卫生局" remark="卫生局适用"
+			view="/srm/view/list/global" version="global">
+			<menuset id="xmlc" name="科研项目">
+				<menu id="xmck" name="项目查询" url="/srm/proj/search/list/global/ky"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/global/ky?recTypeId=Apply"></menu>
+				<menu id="lxps" name="立项评审"
+					url="/srm/proj/evaluation/approveList/global/ky"></menu>
+				<menu id="lxsp" name="立项审批" url="/srm/proj/approve/list/global/ky"></menu>
+				<menu id="xb" name="拨款计划" url="/srm/proj/approve/fundPlanList"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/global/ky?recTypeId=Contract"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/global/ky?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/global/ky?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/global/ky?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/global/ky?recTypeId=CompleteReport"></menu>
+				<menu id="ysps" name="验收评审"
+					url="/srm/proj/evaluation/completeList/global/ky"></menu>
+				<menu id="yssp" name="验收审批" url="/srm/proj/archive/list/global/ky"></menu>
+			</menuset>
+			<menuset id="zdxk" name="重点学科">
+				<menu id="xmck" name="学科查询" url="/srm/proj/search/list/global/xk"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/global/xk?recTypeId=Apply"></menu>
+				<menu id="lxps" name="立项评审"
+					url="/srm/proj/evaluation/approveList/global/xk"></menu>
+				<menu id="lxsp" name="立项审批" url="/srm/proj/approve/list/global/xk"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/global/xk?recTypeId=Contract"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/global/xk?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/global/xk?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/global/xk?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/global/xk?recTypeId=CompleteReport"></menu>
+				<menu id="ysps" name="验收评审"
+					url="/srm/proj/evaluation/completeList/global/xk"></menu>
+				<menu id="baxm" name="学科备案" 
+					url="/srm/aid/proj/auditAidProjListOfXk/global?projCategoryId=xk"></menu>
+			</menuset>
+			<menuset id="rcpy" name="重点人才">
+				<menu id="zxzjsq" name="专项资金审核" url="/srm/aid/talents/list/global"></menu>
+				<menu id="zxzjsqhz" name="专项资金汇总" url="/srm/aid/talents/list/global?view=Y"></menu>
+				<menu id="xmck" name="人才查询" url="/srm/proj/search/list/global/rc"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/global/rc?recTypeId=Apply"></menu>
+				<menu id="lxps" name="立项评审"
+					url="/srm/proj/evaluation/approveList/global/rc"></menu>
+				<menu id="lxsp" name="立项审批" url="/srm/proj/approve/list/global/rc"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/global/rc?recTypeId=Contract"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/global/rc?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/global/rc?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/global/rc?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/global/rc?recTypeId=CompleteReport"></menu>
+				<menu id="ysps" name="验收评审"
+					url="/srm/proj/evaluation/completeList/global/rc"></menu>
+				<menu id="yssp" name="验收审批" url="/srm/proj/archive/list/global/rc"></menu>
+			</menuset>
+			<menuset id="jxjy" name="继续教育">
+				<menu id="lrcx" name="录入/查询" url="/jsp/srm/conedu/proj/auditList.jsp"></menu>
+				<menu id="jjxf" name="继教学分" url="/jsp/srm/conedu/credit/auditList.jsp"></menu>
+				<menu id="jxgl" name="进修管理" url="/jsp/srm/conedu/study/auditList.jsp"></menu>
+			</menuset>
+			<menuset id="cggl" name="科研成果">
+				<menu id="lw" name="论文" url="/srm/ach/thesis/auditList/global"></menu>
+				<menu id="zl" name="专利" url="/srm/ach/patent/auditList/global"></menu>
+				<menu id="kj" name="科技报奖" url="/srm/ach/sat/auditList/global"></menu>
+				<menu id="jd" name="鉴定" url="/srm/ach/appraisal/auditList/global"></menu>
+				<menu id="zz" name="著作" url="/srm/ach/book/auditList/global"></menu>
+				<menu id="zzq" name="著作权" url="/srm/ach/copyright/auditList/global"></menu>
+				<menu id="yjbg" name="研究报告" url="/srm/ach/reseachrep/auditList/global"></menu>
+			</menuset>
+			<menuset id="cxtj" name="查询统计">
+				<menu id="baxm" name="备案项目" url="/srm/aid/proj/auditAidProjList/global"></menu>
+				<menu id="sbtj" name="统计报表" url="/srm/statement/list"></menu>
+			</menuset>
+		</module>
+		<module id='xmgl-charge' name="主管部门" remark="主管部门适用"
+			view="/srm/view/list/charge" version="charge">
+			<menuset id="xmlc" name="科研项目">
+				<menu id="xmck" name="项目查询" url="/srm/proj/search/list/charge/ky"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/charge/ky?recTypeId=Apply"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/charge/ky?recTypeId=Contract"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/charge/ky?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/charge/ky?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/charge/ky?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/charge/ky?recTypeId=CompleteReport"></menu>
+			</menuset>
+			<menuset id="zdxk" name="重点学科">
+				<menu id="xmck" name="学科查询" url="/srm/proj/search/list/charge/xk"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/charge/xk?recTypeId=Apply"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/charge/xk?recTypeId=Contract"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/charge/xk?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/charge/xk?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/charge/xk?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/charge/xk?recTypeId=CompleteReport"></menu>
+				<menu id="baxm" name="学科备案" 
+					url="/srm/aid/proj/auditAidProjListOfXk/charge?projCategoryId=xk"></menu>
+			</menuset>
+			<menuset id="rcpy" name="重点人才">
+				<menu id="zxzjsqhz" name="专项资金汇总" url="/srm/aid/talents/list/charge?view=Y"></menu>
+				<menu id="xmck" name="人才查询" url="/srm/proj/search/list/charge/rc"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/charge/rc?recTypeId=Apply"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/charge/rc?recTypeId=Contract"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/charge/rc?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/charge/rc?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/charge/rc?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/charge/rc?recTypeId=CompleteReport"></menu>
+			</menuset>
+			<menuset id="cggl" name="科研成果">
+				<menu id="lw" name="论文" url="/srm/ach/thesis/auditList/charge"></menu>
+				<menu id="zl" name="专利" url="/srm/ach/patent/auditList/charge"></menu>
+				<menu id="kj" name="科技报奖" url="/srm/ach/sat/auditList/charge"></menu>
+				<menu id="jd" name="鉴定" url="/srm/ach/appraisal/auditList/charge"></menu>
+				<menu id="zz" name="著作" url="/srm/ach/book/auditList/charge"></menu>
+				<menu id="zzq" name="著作权" url="/srm/ach/copyright/auditList/charge"></menu>
+				<menu id="yjbg" name="研究报告" url="/srm/ach/reseachrep/auditList/charge"></menu>
+			</menuset>
+			<menuset id="cxtj" name="查询统计">
+				<menu id="baxm" name="备案项目" url="/srm/aid/proj/auditAidProjList/charge"></menu>
+			</menuset>
+		</module>
+		<module id='xmgl-local' name="申报单位" remark="医院适用"
+			view="/srm/view/list/local">
+			<menuset id="xmlc" name="科研项目">
+				<menu id="xmck" name="项目查询" url="/srm/proj/search/list/local/ky"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/local/ky?recTypeId=Apply"></menu>
+				<!-- 院版适用 -->
+				<menu id="lxps" name="立项评审"
+					url="/srm/proj/evaluation/approveList/local/ky" version="local"></menu>
+				<menu id="lxsp" name="立项审批" url="/srm/proj/approve/list/local/ky"
+					version="local"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/local/ky?recTypeId=Contract"></menu>
+				<!-- 院版适用 -->
+				<menu id="yusuan" name="预算审核" url="/srm/fund/scheme/auditList/local"
+					version="local"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/local/ky?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/local/ky?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/local/ky?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/local/ky?recTypeId=CompleteReport"></menu>
+				<!-- 院版适用 -->
+				<menu id="ysps" name="验收评审"
+					url="/srm/proj/evaluation/completeList/local/ky" version="local"></menu>
+				<menu id="yssp" name="验收审批" url="/srm/proj/archive/list/local/ky"
+					version="local"></menu>
+			</menuset>
+			<!-- 院版适用 -->
+			<menuset id="cxjfgl" name="经费管理" version="local">
+				<menu id="jffa" name="经费方案" url="/srm/fund/scheme/list"></menu>
+				<menu id="jfsh" name="报销审核" url="/srm/payment/auditList"></menu>
+				<menu id="jfdz" name="经费到账" url="/srm/fund/accountsList/local"></menu>
+				<menu id="jfgl" name="经费管理" url="/srm/fund/list/local"></menu>
+			</menuset>
+			<menuset id="zdxk" name="重点学科">
+				<menu id="xmck" name="学科查询" url="/srm/proj/search/list/local/xk"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/local/xk?recTypeId=Apply"></menu>
+				<!-- 院版适用 -->
+				<menu id="lxps" name="立项评审"
+					url="/srm/proj/evaluation/approveList/local/xk" version="local"></menu>
+				<menu id="lxsp" name="立项审批" url="/srm/proj/approve/list/local/xk"
+					version="local"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/local/xk?recTypeId=Contract"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/local/xk?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/local/xk?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/local/xk?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/local/xk?recTypeId=CompleteReport"></menu>
+				<menu id="ysps" name="验收评审"
+					url="/srm/proj/evaluation/completeList/local/xk" version="local"></menu>
+				<menu id="yssp" name="验收审批" url="/srm/proj/archive/list/local/xk"
+					version="local"></menu>
+				<menu id="baxm" name="学科备案" 
+					url="/srm/aid/proj/auditAidProjListOfXk/local?projCategoryId=xk"></menu>
+			</menuset>
+			<menuset id="rcpy" name="重点人才">
+				<menu id="zxzjsq" name="专项资金管理" url="/srm/aid/talents/list/local"></menu>
+				<menu id="xmck" name="人才查询" url="/srm/proj/search/list/local/rc"></menu>
+				<menu id="sbsh" name="申报审核"
+					url="/srm/proj/apply/list/local/rc?recTypeId=Apply"></menu>
+				<!-- 院版适用 -->
+				<menu id="lxps" name="立项评审"
+					url="/srm/proj/evaluation/approveList/local/rc" version="local"></menu>
+				<menu id="lxsp" name="立项审批" url="/srm/proj/approve/list/local/rc"
+					version="local"></menu>
+				<menu id="htsh" name="合同审核"
+					url="/srm/proj/contract/list/local/rc?recTypeId=Contract"></menu>
+				<menu id="jbsh" name="进展报告审核"
+					url="/srm/proj/schedule/list/local/rc?recTypeId=ScheduleReport"></menu>
+				<menu id="bgsh" name="变更审核"
+					url="/srm/proj/schedule/list/local/rc?recTypeId=ChangeReport"></menu>
+				<menu id="zzsh" name="中止审核"
+					url="/srm/proj/terminate/list/local/rc?recTypeId=TerminateReport"></menu>
+				<menu id="yssh" name="验收审核"
+					url="/srm/proj/complete/list/local/rc?recTypeId=CompleteReport"></menu>
+				<!-- 院版适用 -->
+				<menu id="ysps" name="验收评审"
+					url="/srm/proj/evaluation/completeList/local/rc" version="local"></menu>
+				<menu id="yssp" name="验收审批" url="/srm/proj/archive/list/local/rc"
+					version="local"></menu>
+			</menuset>
+			<menuset id="jxjy" name="继续教育">
+				<menu id="lrcx" name="录入/查询" url="/jsp/srm/conedu/proj/list.jsp"></menu>
+				<menu id="jjxf" name="继教学分" url="/jsp/srm/conedu/credit/list.jsp"></menu>
+				<menu id="jxgl" name="进修管理" url="/jsp/srm/conedu/study/list.jsp"></menu>
+			</menuset>
+			<menuset id="cggl" name="科研成果">
+				<menu id="lw" name="论文审核" url="/srm/ach/thesis/auditList/local"></menu>
+				<menu id="zl" name="专利审核" url="/srm/ach/patent/auditList/local"></menu>
+				<menu id="kj" name="科技报奖审核" url="/srm/ach/sat/auditList/local"></menu>
+				<menu id="jd" name="鉴定审核" url="/srm/ach/appraisal/auditList/local"></menu>
+				<menu id="zz" name="著作审核" url="/srm/ach/book/auditList/local"></menu>
+				<menu id="zzq" name="著作权审核" url="/srm/ach/copyright/auditList/local"></menu>
+				<menu id="yjbg" name="研究报告审核" url="/srm/ach/reseachrep/auditList/local"></menu>
+			</menuset>
+			<menuset id="cxtj" name="查询统计">
+				<menu id="baxm" name="备案项目" url="/srm/aid/proj/auditAidProjList/local"></menu>
+			</menuset>
+		</module>
+		<module id='xmgl-person' name="项目负责人" remark="项目负责人适用"
+			view="/srm/proj/mine/index">
+			<menuset id="xmlc" name="科研项目">
+				<menu id="jgwh" name="我的项目" url="/srm/proj/mine/projList/ky"></menu>
+				<menu id="baxm" name="备案项目" url="/srm/aid/proj/list?projCategoryId=ky"></menu>
+				<!-- 院版适用 -->
+				<menu id="xmys" name="项目预算" url="/srm/fund/scheme/applyList"
+					version="local"></menu>
+			</menuset>
+			<!-- 院版适用 -->
+			<menuset id="fygl" name="经费管理" version="local">
+				<menu id="fybx" name="费用报销" url="/srm/payment/list"></menu>
+				<menu id="fydz" name="经费到账" url="/srm/fund/accountsList/personal"></menu>
+				<menu id="jfgl" name="经费管理" url="/srm/fund/list/personal"></menu>
+			</menuset>
+			<menuset id="zdxk" name="重点学科">
+				<menu id="jgwh" name="我的学科" url="/srm/proj/mine/projList/xk"></menu>
+				<menu id="baxm" name="学科备案" url="/srm/aid/proj/list?projCategoryId=xk&amp;typeId=yhwsj.xkba"></menu>
+			</menuset>
+			<menuset id="rcpy" name="重点人才">
+				<menu id="zxzjsq" name="专项资金申请" url="/srm/aid/talents/list/personal"></menu>
+				<menu id="jgwh" name="我的人才" url="/srm/proj/mine/projList/rc"></menu>
+			</menuset>
+			<menuset id="cggl" name="科研成果">
+				<menu id="lw" name="论文" url="/srm/ach/thesis/list"></menu>
+				<menu id="zl" name="专利" url="/srm/ach/patent/list"></menu>
+				<menu id="kj" name="科技报奖" url="/srm/ach/sat/list"></menu>
+				<menu id="jd" name="鉴定" url="/srm/ach/appraisal/list"></menu>
+				<menu id="zz" name="著作" url="/srm/ach/book/list"></menu>
+				<menu id="zzq" name="著作权" url="/srm/ach/copyright/list"></menu>
+				<menu id="yjbg" name="研究报告" url="/srm/ach/reseachrep/list"></menu>
+			</menuset>
+		</module>
+		<!-- 院版适用 -->
+		<module id='cwgl' name="财务审核" remark="财务科适用" version="local">
+			<menuset id="yssc" name="财务审核">
+				<menu id="bxsh" name="报销审核" url="/srm/payment/auditList"></menu>
+				<menu id="jfdz" name="经费到账" url="/srm/fund/accountsList/local"></menu>
+				<menu id="jfgl" name="经费管理" url="/srm/fund/list/local"></menu>
+			</menuset>
+		</module>
+		<module id='xmgl-expert' name="专家评审" remark="专家适用"
+			view="/srm/expert/proj/confirm">
+			<menuset id="xmps" name="项目评审">
+				<menu id="pslb" name="评审列表" url="/srm/expert/proj/list"></menu>
+				<menu id="zjxx" name="专家信息" url="/srm/expert/editBySelf"></menu>
+			</menuset>
+		</module>
+		<module id='mhwh' name="门户维护">
+			<menuset id="zxlm" name="资讯栏目">
+				<menu id="lmwh" name="栏目维护" url="/inx/manage/column/list"></menu>
+			</menuset>
+			<menuset id="zxgl" name="资讯管理">
+				<menu id="zxwh" name="资讯维护" url="/inx/manage/info/list"></menu>
+				<menu id="zxsh" name="资讯审核"
+					url="/inx/manage/info/list?infoStatusId=Passing"></menu>
+				<menu id="zxsx" name="资讯失效"
+					url="/inx/manage/info/list?infoStatusId=Passed"></menu>
+			</menuset>
+		</module>
+		<module id='psgl' name="评审管理">
+			<menuset id="zjk" name="专家库">
+				<menu id="zjwh" name="专家维护" url="/srm/expert/list"></menu>
+				<!-- <menu id="zjtj" name="专家统计" url="/jsp/srm/expert/report.jsp"></menu> -->
+			</menuset>
+			<menuset id="psfa" name="评审方案">
+				<menu id="fawh" name="方案维护" url="/srm/grade/scheme/list"></menu>
+			</menuset>
+			<menuset id="hyps" name="会议评审">
+				<menu id="hyap" name="会议安排" url="/srm/meeting/plan"></menu>
+			</menuset>
+			<menuset id="wlps" name="网络评审">
+				<menu id="zjzwh" name="专家组维护" url="/srm/expert/group/list"></menu>
+			</menuset>
+		</module>
+		<module id='jghl' name="机构管理" remark="本机构适用">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="dwxx" name="机构信息" url="/sys/org/info"></menu>
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/local"></menu>
+			</menuset>
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+				<menu id="drexcel" name="期刊影响因子" url="/sys/impactorFactor/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xkdm" name="学科代码" url="/sys/subject/tree"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<!-- <menu id="fwxy" name="服务协议" url="/sys/cfg/agreement"></menu> -->
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='edc' name="E-CRF信息管理系统">
+		<module id='xtpz' name="系统配置">
+			<menuset id="xmxx" name="项目信息">
+				<menu id="xmwh" name="项目维护" url="/edc/proj/list"></menu>
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+		<module id='mkk' name="模块库">
+			<menuset id="xtmkk" name="系统模块库">
+				<menu id="mkwh" name="模块维护" url="/pub/module/list"></menu>
+				<menu id="sjwh" name="设计维护" url="/pub/module/design"></menu>
+			</menuset>
+		</module>
+		<module id='xmgl' name="项目管理" view="/edc/proj/view/global">
+			<menuset id="xmgl" name="项目管理">
+			<!-- 
+				<menu id="xmxx" name="项目信息" url="/edc/proj/showInfo"></menu>
+			 -->
+				<menu id="xmgk" name="项目概况" url="/edc/proj/view/global"></menu>
+				<menu id="jgxx" name="研究机构" url="/edc/projOrg/list"></menu>
+				<menu id="yjry" name="研究人员" url="/edc/projUser/list/global"></menu>
+				<menu id="ybgl" name="样本管理" url="/pub/patient/list"></menu>
+			</menuset>
+			<menuset id="yjsj" name="研究设计">
+				<menu id="zbwh" name="组别维护" url="/edc/visit/groupManage"></menu>
+				<menu id="fswh" name="访视维护" url="/edc/visit/visitManage"></menu>
+				<menu id="ecrfsj" name="E-CRF设计" url="/edc/visit/list"></menu>
+				<menu id="sjwh" name="设计维护" url="/edc/visit/designManage"></menu>
+				<menu id="nrpcbzwh" name="纳入排除标准维护" url="/edc/visit/ieList"></menu>
+				<menu id="zczfwgl" name="正常值范围管理" url="/edc/normalvalue/list/global"></menu>
+			</menuset>
+			<menuset id="hcsj" name="核查设计">
+				<menu id="lqgczb" name="观测指标设计" url="/edc/design/observationCfg"></menu>
+				<!-- <menu id="ljjc" name="逻辑检查" url="/edc/visit/visitManage"></menu>
+				<menu id="yjqk" name="研究情况" url="/edc/visit/list"></menu>
+				<menu id="hbyy" name="合并用药" url="/edc/visit/list"></menu>
+				<menu id="blsj" name="不良事件" url="/edc/visit/list"></menu> -->
+			</menuset>
+			<menuset id="edcsszgl" name="受试者管理">
+				<menu id="edcsszgl1" name="受试者管理" url="/pub/patient/manage/global"></menu>
+			</menuset>
+		</module>
+		<module id='yjz' name="研究者">
+			<menuset id="xmgl" name="项目信息">
+				<menu id="xmsq" name="项目申请" url="/edc/proj/applyList"></menu>
+			</menuset>
+			<menuset id="yjsj" name="我的项目">
+				<menu id="edcsszgl1" name="受试者管理" url="/pub/patient/manage/global"></menu>
+			</menuset>
+		</module>
+		<module id='jggl' name="机构管理" view="/edc/proj/view/local">
+			<menuset id="jggl" name="机构管理" >
+				<!-- <menu id="jgxx" name="机构信息" url="/sys/org/info"></menu> -->
+				<menu id="xmgk" name="项目概况" url="/edc/proj/view/local"></menu>
+				<menu id="yjry" name="研究人员" url="/edc/projUser/list/local"></menu>
+				<menu id="zczfwwh" name="正常值范围" url="/edc/normalvalue/list/local"></menu>
+			</menuset>
+			<menuset id="edcsszgl" name="受试者管理">
+				<menu id="jgsszgl" name="受试者管理" url="/pub/patient/manage/local"></menu>
+				<menu id="edcsftx" name="随访提醒" url="/gcp/researcher/followRemind"></menu>
+			</menuset>
+		</module>
+		<module id='sjh' name="随机化" view="/edc/random/view">
+			<menuset id="sjhsj" name="随机化设计">
+				<menu id="cssz" name="参数设置" url="/edc/random/param"></menu>
+				<menu id="sjmd" name="随机盲底" url="/edc/random/randomlist"></menu>
+			</menuset>
+			<menuset id="sjhgl" name="随机化管理">
+				<menu id="sjhyl" name="随机化一览" url="/edc/random/manage"></menu>
+				<menu id="ywkcyl" name="药物库存一览" url="/edc/random/druglist/global"></menu>
+				<menu id="sqsjh" name="申请随机号" url="/edc/random/list"></menu>
+				<menu id="ywgl" name="机构药物管理" url="/edc/random/druglist/local"></menu>
+				<menu id="jgsjjd" name="机构随机进度" url="/edc/random/orgSchedule"></menu>
+				<menu id="sjjdcx" name="随机进度查询" url="/edc/random/schedule"></menu>
+			</menuset>
+		</module>
+		<module id='sfgl' name="随访管理" >
+			<menuset id="jggl" name="患者管理" >
+				<menu id="tjhz" name="添加患者" url="/jsp/fllow/patient/add.jsp"></menu>
+				<menu id="hzgl" name="患者列表" url="/jsp/fllow/patient/list.jsp"></menu>
+				<menu id="yhjl" name="医患交流" url="/jsp/fllow/patient/communicate.jsp"></menu>
+			</menuset>
+			<menuset id="blgl" name="病历管理" >
+				<menu id="fssj" name="访视设计" url="/edc/visit/visitManage"></menu>
+				<menu id="blwh" name="病历维护" url="/edc/visit/list"></menu>
+			</menuset>
+		</module>
+		<!-- <module id='yfgl' name="药房管理"> </module> -->
+		<module id='sjcj' name="数据采集">
+			<menuset id="sszfs" name="受试者访视">
+				<menu id="jgfslr" name="机构访视录入"
+					url="/edc/input/listMain/local?patientType=Real"></menu>
+				<menu id="zzfslr" name="专职访视录入"
+					url="/edc/input/listMain/global?patientType=Real"></menu>
+				<menu id="jgywcq" name="机构疑问澄清" url="/edc/query/patientQueryMain/local"></menu>
+				<menu id="zzywcq" name="专职疑问澄清" url="/edc/query/patientQueryMain/global"></menu>
+				<menu id="yclr" name="异常录入一览" url="/edc/input/abnormalInputMain"></menu>
+				<menu id="sjxggj" name="数据修改轨迹" url="/edc/input/dataTrail"></menu>
+			</menuset>
+			<menuset id="mnlr" name="模拟录入">
+				<menu id="mnjgfslr" name="机构访视录入"
+					url="/edc/input/listMain/local?patientType=Test"></menu>
+				<menu id="mnzzfslr" name="专职访视录入"
+					url="/edc/input/listMain/global?patientType=Test"></menu>
+			</menuset>
+			<menuset id="kslr" name="快速录入">
+				<menu id="ksjgfslr" name="机构访视录入"
+					url="/edc/input/listMain/local?patientType=Test&amp;inputType=Single"></menu>
+				<menu id="kszzfslr" name="专职访视录入"
+					url="/edc/input/listMain/global?patientType=Test&amp;inputType=Single"></menu>
+			</menuset>
+		</module>
+		<module id='sjgl' name="数据管理">
+			<menuset id="sszfs" name="数据核查">
+				<menu id="sdvhc" name="SDV核查" url="/edc/inspect/sdv"></menu>
+				<!-- <menu id="ljhc" name="逻辑核查" url="/edc/inspect/logic"></menu> -->
+				<menu id="sgyw" name="手工疑问" url="/edc/inspect/manual"></menu>
+			</menuset>
+			<menuset id="ywgl" name="疑问管理">
+				<menu id="ywlb" name="疑问列表" url="/edc/query/main"></menu>
+				<menu id="dcf" name="数据澄清表" url="/edc/query/dcflist"></menu>
+			</menuset>
+			<menuset id="sjbb" name="数据报表">
+				<menu id="blqkyl" name="病例情况一览表" url="/edc/report/patientState"></menu>
+				<menu id="tlbl" name="脱落病例详细列表" url="/edc/report/offPatientList"></menu>
+				<!-- <menu id="ie" name="入选/排除标准检查" url="/edc/query/dcflist"></menu> 
+					<menu id="wzxhc" name="完整性检查" url="/edc/query/dcflist"></menu> <menu id="ljjc" 
+					name="逻辑一致性检查" url="/edc/query/dcflist"></menu> -->
+				<menu id="lqz" name="观测指标一览" url="/edc/report/observationList"></menu>
+				<menu id="sjc" name="时间窗一览" url="/edc/report/timeWindowDataMain"></menu>
+				<menu id="sysjc" name="实验室异常值列表" url="/edc/report/abnormalList"></menu>
+				<menu id="ywgl" name=" 疑问管理进度" url="/edc/report/queryManage"></menu>
+				<menu id="hbyy" name="合并用药" url="/edc/report/cmMain"></menu>
+				<menu id="blsj" name="不良事件" url="/edc/report/aeMain"></menu>
+				<menu id="msbg" name="盲审报告" url="/edc/query/dcflist"></menu>
+			</menuset>
+			<menuset id="sjdc" name="数据导出">
+				<menu id="crfdc" name="CRF导出" url="/edc/export/crfExport"></menu>
+				<menu id="sjdc" name="数据导出" url="/edc/export/exportDataList"></menu>
+			</menuset>
+		</module>
+		<!-- <module id='tjbb' name="统计报表"> </module> -->
+	</workStation>
+	<workStation id='gcp' name="药物试验管理系统">
+		<module id='sby' name="申办方/CRO" view="/gcp/declarer/projList">
+			<menuset id="sbxmxxgl" name="项目信息管理">
+				<menu id="sbxmlb" name="项目列表" url="/gcp/declarer/projList"></menu>
+			</menuset>
+			<menuset id="jgxxgl" name="机构信息管理">
+				<menu id="sbxmlb" name="机构维护" url="/gcp/declarer/orgInfo"></menu>
+			</menuset>
+		</module>
+		<module id='yjz' name="研究者" view="/gcp/proj/applyList">
+			<menuset id="xmxxgl" name="项目信息管理">
+				<menu id="xmlb" name="项目列表" url="/gcp/proj/applyList"></menu>
+			</menuset>
+			<menuset id="sszfs" name="受试者访视">
+				<menu id="fscwh" name="访视窗维护" url="/edc/visit/visitManage"></menu>
+				<menu id="sftx" name="随访提醒" url="/gcp/researcher/followRemind"></menu>
+				<menu id="fyysf" name="发药与随访" url="/gcp/researcher/patientList"></menu>
+			</menuset>
+			<menuset id="sszbb" name="受试者报表">
+				<menu id="sszylb" name="受试者一览表" url="/gcp/researcher/patientView"></menu>
+				<menu id="aeylb" name="不良事件一览表" url="/gcp/researcher/patientAeView"></menu>
+			</menuset>
+		</module>
+		<module id='jggl' name="机构管理">
+			<menuset id="bgsgl" name="部门管理">
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="rywh" name="人员管理" url="/sys/user/list/local"></menu>
+				<menu id="jswh" name="申办方维护" url="/gcp/declarer/list"></menu>
+			</menuset>
+			<menuset id="pzgl" name="配置管理">
+				<menu id="sswjqd" name="送审文件清单" url="/gcp/cfg/applyFileList"></menu>
+				<menu id="gdwjqd" name="归档文件清单" url="/gcp/cfg/finishFileList"></menu>
+				<menu id="zktxpz" name="质控提醒配置" url="/gcp/cfg/qcRemindConfig"></menu>
+			</menuset>
+		</module>
+		<module id='xmgl' name="项目管理" view="/gcp/proj/main">
+			<menuset id="xmxigl" name="项目信息管理">
+				<menu id="xmcx" name="机构概况" url="/gcp/proj/main"></menu>
+				<menu id="xmsh" name="项目审核" url="/gcp/proj/checkList"></menu>
+				<menu id="zbjd" name="项目列表" url="/gcp/proj/list"></menu>
+				<!-- <menu id="ssjd" name="实施阶段" url="/gcp/proj/list/Schedule"></menu> 
+					<menu id="jsjd" name="结束阶段" url="/gcp/proj/list/Complete"></menu> <menu id="gd" 
+					name="归档" url="/gcp/proj/list/Archive"></menu> -->
+			</menuset>
+			<menuset id="pxgl" name="培训管理">
+				<menu id="jgnbpx" name="机构内部培训"
+					url="/irb/office/train?trainCategoryId=Inner"></menu>
+				<menu id="wcpx" name="外出培训" url="/irb/office/train?trainCategoryId=Out"></menu>
+				<menu id="pxjhzj" name="培训计划/总结" url="/pub/train/summaryList"></menu>
+			</menuset>
+			<menuset id="hygl" name="会议管理">
+				<menu id="bgshy" name="办公室会议" url="/pub/meeting/Office"></menu>
+				<menu id="ybhy" name="院部会议" url="/pub/meeting/SchoolBoard"></menu>
+				<menu id="yjzhy" name="研究者会议" url="/pub/meeting/Researchers"></menu>
+				<menu id="zjhy" name="总结会议" url="/pub/meeting/Summary"></menu>
+				<menu id="qghy" name="全国会议" url="/pub/meeting/National"></menu>
+			</menuset>
+			<menuset id="xmxicx" name="项目信息查询">
+				<menu id="xmjdyl" name="项目进度一览" url="/gcp/projProgressList"></menu>
+				<menu id="yjjcyl" name="药监检查一览" url="/gcp/qcList"></menu>
+				<menu id="xmjfyl" name="项目经费一览" url="/gcp/fin/projFundList"></menu>
+				<menu id="blsjyl" name="不良事件一览" url="/gcp/aeList"></menu>
+				<menu id="zyzxmyl" name="专业组项目一览" url="/gcp//deptProjView"></menu>
+				<menu id="lcsyxm" name="项目查询" url="/gcp/proj/clinicalTestList"></menu>
+				<menu id="wsszzxm" name="未实施/终止项目" url="/gcp/proj/terminateList"></menu>
+			</menuset>
+		</module>
+		
+		<module id='cwgl' name="财务管理">
+			<menuset id="htgl" name="合同管理">
+				<menu id="htjl" name="合同记录" url="/gcp/fin/deptList?type=contract"></menu>
+				<menu id="htcx" name="合同查询" url="/gcp/fin/contractList"></menu>
+			</menuset>
+			<menuset id="jfgl" name="经费管理">
+				<!-- <menu id="jgzhgk" name="机构账户概况" url="/sys/org/list"></menu> -->
+				<menu id="jfsqzc" name="经费记录" url="/gcp/fin/deptList?type=fund"></menu>
+				<menu id="jfjlcx" name="经费汇总查询" url="/gcp/fin/projFundList"></menu>
+			</menuset>
+		</module>
+			<module id='yfgl' name="药物管理">
+			<menuset id="yk" name="药库">
+				<menu id="ywxx" name="药物信息" url="/gcp/drug/list"></menu>
+				<menu id="ywkc" name="药物库存" url="/gcp/drug/stockList"></menu>
+			</menuset>
+			<menuset id="yf" name="药房">
+				<menu id="sszcffy" name="受试者处方发药" url="/gcp/drug/recipeList"></menu>
+				<menu id="fyjl" name="发药记录" url="/gcp/drug/dispensRecord"></menu>
+				<menu id="kccx" name="库存查询" url="/gcp/drug/storeList"></menu>
+			</menuset>
+		</module>
+		<module id='gzwjmd' name="工作文件">
+			<menuset id="gzwj" name="工作文件">
+				<menu id="gzhb" name="工作汇报"
+					url="/gcp/workFile/workpaperList?workpaperTypeId=WorkReport"></menu>
+				<menu id="gzjh" name="工作计划"
+					url="/gcp/workFile/workpaperList?workpaperTypeId=WorkPlan"></menu>
+				<menu id="nzzj" name="年终总结"
+					url="/gcp/workFile/workpaperList?workpaperTypeId=YearSummary"></menu>
+				<menu id="sbcl" name="申报材料"
+					url="/gcp/workFile/workpaperList?workpaperTypeId=AppMaterial"></menu>
+				<menu id="sqbg" name="申请报告"
+					url="/gcp/workFile/workpaperList?workpaperTypeId=ApplyReport"></menu>
+			</menuset>
+			<menuset id="fgwj" name="法规文件">
+				<menu id="gjwj" name="国家文件"
+					url="/gcp/workFile/regulationFiles?regulationCategoryId=Country"></menu>
+				<menu id="dfwj" name="地方文件"
+					url="/gcp/workFile/regulationFiles?regulationCategoryId=Local"></menu>
+				<menu id="jgwj" name="机构文件"
+					url="/gcp/workFile/regulationFiles?regulationCategoryId=Org"></menu>
+				<menu id="zyzwj" name="专业组文件" url="/gcp/workFile/deptList"></menu>
+			</menuset>
+			<menuset id="jgrz" name="机构日志">
+				<menu id="zyzwj" name="工作日志" url="/gcp/workFile/diaryCalendar"></menu>
+			</menuset>
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='irb' name="伦理审查管理系统">
+		<module id='scsq' name="审查申请" remark="负责人适用" view="/irb/researcher/index">
+			<menuset id="wdsc" name="我的审查">
+				<menu id="xmlb" name="项目列表" url="/irb/researcher/list/local"></menu>
+			</menuset>
+		</module>
+		<module id='llsc' name="伦理审查" remark="秘书适用" view="/irb/secretary/index">
+			<menuset id="sclc" name="审查流程">
+				<menu id="scsqcx" name="审查申请/查询"
+					url="/irb/researcher/list/global?sourse=init"></menu>
+				<menu id="dcsxm" name="受理/处理" url="/irb/secretary/list?irbStageId=Handle"></menu>
+				<menu id="xmsc" name="项目审查" url="/irb/committee/list/secretary"></menu>
+				<menu id="hyap" name="会议安排" url="/irb/meeting/arrange"></menu>
+				<menu id="cdjd" name="传达决定" url="/irb/secretary/list?irbStageId=Decision"></menu>
+				<menu id="wjcd" name="文件存档" url="/irb/secretary/list?irbStageId=Archive"></menu>
+				<menu id="gzsc" name="跟踪审查" url="/irb/secretary/followReview"></menu>
+			</menuset>
+		</module>
+		<module id='wysc' name="委员审查" remark="委员适用" view="/irb/committee/index">
+			<menuset id="wysc" name="委员审查">
+				<menu id="dcsxm" name="主审项目" url="/irb/committee/list/user"></menu>
+				<menu id="hysc" name="会议审查" url="/irb/committee/meetingList"></menu>
+			</menuset>
+		</module>
+		<module id='bgsgl' name="办公室管理">
+			<menuset id="rcgz" name="日常工作">
+				<menu id="gzdj" name="盖章登记" url="/irb/office/seal"></menu>
+			</menuset>
+			<!-- <menuset id="cwgl" name="财务管理"> <menu id="jfdz" name="经费到账" url="/irb/office/fund?type=in"></menu> 
+				<menu id="jfzc" name="经费支出" url="/irb/office/fund?type=out"></menu> </menuset> -->
+			<menuset id="pxgl" name="培训管理">
+				<menu id="wcpx" name="外出培训" url="/irb/office/train?trainCategoryId=Out"></menu>
+				<menu id="jgnbpx" name="机构内部培训"
+					url="/irb/office/train?trainCategoryId=Inner"></menu>
+				<menu id="pxxxcx" name="培训信息查询" url="/irb/office/searchTrain"></menu>
+			</menuset>
+			<menuset id="zdysop" name="制度与SOP">
+				<menu id="llscsop" name="伦理审查SOP" url="/irb/office/regulation?arrange=SOP"></menu>
+				<menu id="flfg" name="法律法规" url="/irb/office/regulation?arrange=LAW"></menu>
+			</menuset>
+		</module>
+		<module id='tjcx' name="统计查询">
+			<menuset id="xmcx" name="项目查询">
+				<menu id="gzsctx" name="跟踪审查提醒" url="/irb/secretary/followReview"></menu>
+				<menu id="pjyxqtx" name="批件有效期提醒" url="/irb/validity"></menu>
+				<menu id="ssxmdj" name="审查项目查询" url="/irb/projIrbList"></menu>
+				<menu id="schycx" name="审查会议查询" url="/irb/meetingSearch"></menu>
+			</menuset>
+			<menuset id="xmtj" name="项目统计">
+				<menu id="sclb" name="分类统计" url="/irb/overview"></menu>
+				<!-- <menu id="ndhyqk" name="年度会议情况" url="/irb/first/list"></menu> <menu 
+					id="pjsczq" name="平均审查周期" url="/irb/first/list"></menu> -->
+				<menu id="wyscxx" name="年度委员审查信息" url="/irb/committeeReview"></menu>
+				<!-- <menu id="dlgwzxxx" name="独立顾问咨询信息" url="/irb/first/list"></menu> -->
+				<menu id="ndgzbg" name="年度工作报告" url="/irb/yearReport"></menu>
+			</menuset>
+		</module>
+		<module id='jggl' name="机构管理" remark="本机构适用">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/local"></menu>
+			</menuset>
+			<menuset id="llpz" name="伦理配置">
+				<menu id="zdwh" name="伦理委员会信息" url="/irb/cfg/info"></menu>
+				<menu id="sswj" name="送审文件清单" url="/irb/cfg/applyFile"></menu>
+			</menuset>
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='aem' name="动物实验管理系统">
+		<module id='syyj' name="研究者">
+			<menuset id="wdsy" name="我的实验">
+				<menu id="sqsp" name="实验申请" url="/jsp/aem/apply/list.jsp"></menu>
+				<menu id="sqyy" name="实验预约" url="/jsp/aem/booking/list.jsp"></menu>
+				<menu id="sqsq" name="手术登记" url="/jsp/aem/surgery/list.jsp"></menu>
+				<menu id="sqjl" name="实验记录" url="/jsp/aem/report/list.jsp"></menu>
+			</menuset>
+		</module>
+		<module id='sysgl' name="实验管理">
+			<menuset id="sygl" name="实验管理">
+				<menu id="sqsp" name="申请审批" url="/jsp/aem/apply/auditList.jsp"></menu>
+				<menu id="yyqr" name="预约排班" url="/jsp/aem/booking/arrange.jsp"></menu>
+				<menu id="yyqr" name="预约确认" url="/jsp/aem/booking/auditList.jsp"></menu>
+				<menu id="sqjl" name="实验进展" url="/jsp/aem/progress/list.jsp"></menu>
+				<menu id="sqjl" name="实验记录" url="/jsp/aem/record/list.jsp"></menu>
+			</menuset>
+		</module>
+		<module id='dwgl' name="实验室管理">
+			<menuset id="dwgl" name="实验室管理">
+				<menu id="dwxx" name="动物管理" url="/jsp/aem/animal/list.jsp"></menu>
+				<menu id="dwxx" name="实验室环境记录" url="/jsp/aem/condition/list.jsp"></menu>
+				<menu id="dwxx" name="SPF级实验室记录" url="/jsp/aem/condition/list2.jsp"></menu>
+				<menu id="gysgl" name="供应商管理" url="/jsp/aem/supplier/list.jsp"></menu>
+				<menu id="dgdj" name="订购登记" url="/jsp/aem/order/list.jsp"></menu>
+			</menuset>
+		</module>
+		<module id='wlgl' name="物料管理">
+			<menuset id="wlgl" name="物料管理">
+				<menu id="wzrk" name="物资入库" url="/jsp/aem/material/list.jsp"></menu>
+				<menu id="wzgl" name="物资领用" url="/jsp/aem/material/list.jsp"></menu>
+			</menuset>
+		</module>
+		<module id='ddafd' name="制度与SOP">
+			<menuset id="wlgl" name="制度与SOP">
+				<menu id="wzrk" name="动物实验室SOP" url="/jsp/aem/sop/list.jsp"></menu>
+			</menuset>
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='sch' name="医院管理排班系统">
+		<module id='zyyspb' name="住院医师排班">
+			<menuset id="lzxxgl" name="轮转管理">
+				<menu id="bzfawh" name="标准方案维护" url="/res/platform/rotation"></menu>
+				<menu id="lzmb" name="轮转方案配置" url="/sch/template/list"></menu>
+				<menu id="zyysdj" name="住院医师登记" url="/res/manager/userList"></menu>
+				<menu id="zyysxk" name="住院医师选科" url="/sch/doc/seldept"></menu>
+				<menu id="zdpb" name="智能排班" url="/sch/arrange"></menu>
+				<menu id="sdpb" name="手动排班" url="/sch/arrange/rosteringHand"></menu>
+				<menu id="kspbb" name="科室轮转查询" url="/sch/doc/schDept"></menu>
+				<menu id="yspbb" name="医师轮转查询" url="/sch/doc/schDoc"></menu>
+				<!-- 
+				<menu id="pxzz" name="培训终止" url="/sch/doc/aid/terminat"></menu>
+				<menu id="qqdj" name="缺勤登记" url="/sch/doc/aid/absence"></menu>
+				 -->
+				 <menu id="yylscx" name="医院历史查询" url="/sch/doc/orgHistory"></menu>
+			</menuset>
+			<menuset id="lzpz" name="轮转配置">
+				<menu id="bmwh" name="职能部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="kslzpz" name="轮转科室维护" url="/sch/cfg/deptcfg"></menu>
+			</menuset>
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='edu' name="教学管理平台">
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+				<menu id="kcwh" name="课程维护" url="/edu/manage/course/courseList"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='njmuedu' name="南医大教学管理平台">
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+				<menu id="kcwh" name="课程维护" url="/njmuedu/manage/course/courseList"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='erp' name="品德信息管理系统">
+		<module id='zjl' name="总经理" view="/erp/view/managerMainView">
+			<menuset id="khgl" name="客户管理">
+				<menu id="khxz" name="客户新增" url="/erp/crm/addCustomer/global"></menu>
+				<menu id="khcx" name="客户查询" url="/erp/crm/searchCustomer/global">
+					<action id="sckh" name="删除客户"></action>
+					<action id="sclxr" name="删除联系人"></action>
+				</menu>
+			</menuset>
+			<menuset id="crmhtgl" name="合同管理">
+				<menu id="crmhtxz" name="合同新增" url="/erp/crm/editContract"></menu>
+				<menu id="crmhtcx" name="合同查询" url="/erp/crm/searchContract/charge?noSecond=Y">
+				    <action id="tblxr" name="同步联系人"></action>
+				    <action id="scht" name="删除合同"></action>
+					<action id="sclxr" name="删除联系人"></action>
+				</menu>
+			</menuset>
+			<menuset id="shgl" name="联系单管理">
+			    <menu id="lxdcx" name="联系单查询" url="/erp/sales/contactOrderList/global"></menu>
+			    <menu id="wdlxd" name="我的联系单" url="/erp/sales/contactOrderList/managerFlag"></menu>
+				<menu id="lxdsqsh" name="申请审核" url="/erp/sales/auditWorkContactList/global"></menu>
+			</menuset>
+			<menuset id="tjbm" name="统计报表">
+				<menu id="khlrqk" name="客户录入情况统计" url="/erp/report/crmInputReport"></menu>
+				<menu id="htwhdqtx" name="合同维护到期提醒" url="/erp/report/contractDateRemind"></menu>
+			</menuset>
+		</module>
+		<module id='xsgl' name="销售管理">
+			<menuset id="xskhxz" name="客户管理">
+				<menu id="xskhxz" name="客户新增" url="/erp/crm/addCustomer/local"></menu>
+				<menu id="xskhcx" name="客户查询" url="/erp/crm/searchCustomer/local">
+				</menu>
+			</menuset>
+			<menuset id="xshtcx" name="合同管理">
+				<menu id="xswdht" name="我的合同" url="/erp/crm/searchContract/personal?noSecond=Y"></menu>
+				<menu id="xshtcx" name="部门合同" url="/erp/crm/searchContract/local?noSecond=Y"></menu>
+				<!-- <menu id="kpsq" name="开票申请" url="/erp/sales/contractList"></menu> -->
+			</menuset>
+			<menuset id="crmxsgzl" name="联系单管理">
+				<menu id="lxdsq" name="部门联系单" url="/erp/sales/contactOrderList/local"></menu>
+				<menu id="wdlxd" name="我的联系单" url="/erp/sales/contactOrderList/personal"></menu>
+				<menu id="lxdsqsh" name="申请审核" url="/erp/sales/auditWorkContactList/personal"></menu>
+				<menu id="lxdhf" name="联系单回访" url="/erp/sales/returnBackContactList/local?type=visit"></menu>
+				<menu id="lddj" name="来电登记" url="/erp/sales/demandResponseList/personal"></menu>
+			</menuset>
+		</module>
+		<module id='swgl' name="商务管理">
+			<menuset id="crmkhxz" name="客户管理">
+				<menu id="khxz" name="客户新增" url="/erp/crm/addCustomer/charge"></menu>
+				<menu id="khcx" name="客户查询" url="/erp/crm/searchCustomer/charge">
+				</menu>
+			</menuset>
+			<menuset id="crmhtgl" name="合同管理">
+				<menu id="crmhtxz" name="合同新增" url="/erp/crm/editContract"></menu>
+				<menu id="crmhtcx" name="合同查询" url="/erp/crm/searchContract/global?noSecond=Y">
+				    <action id="tblxr" name="同步联系人"></action>
+				</menu>
+				<menu id="sqwj" name="授权文件" url="/jsp/erp/crm/lic/licList.jsp"></menu>
+				<menu id="kpsqsh" name="开票申请审核" url="/erp/business/auditBillList/local"></menu>
+			</menuset>
+			<menuset id="shgl" name="联系单管理">
+			    <menu id="lxdcx" name="联系单查询" url="/erp/sales/contactOrderList/global"></menu>
+			    <menu id="lxdsq" name="部门联系单" url="/erp/sales/contactOrderList/businessDeptFlag"></menu>
+			    <menu id="wdlxd" name="我的联系单" url="/erp/sales/contactOrderList/businessFlag"></menu>
+				<menu id="lxdsh" name="审核与关闭" url="/erp/sales/auditWorkContactList/local"></menu>
+			    <menu id="lxdhf" name="联系单回访" url="/erp/sales/returnBackContactList/global?type=visit"></menu>
+			    <menu id="lxdgz" name="联系单跟踪" url="/erp/sales/trackContactList?type=track"></menu>
+			</menuset>
+			<menuset id="tjcx" name="统计查询">
+				<menu id="htwhdqtx" name="合同维护到期提醒" url="/erp/report/contractDateRemind"></menu>
+			</menuset>
+		</module>
+		<module id='crmcwgl' name="财务管理">
+			<menuset id="cwshgl" name="审核管理">
+				<menu id="kpsqsh" name="开票申请审核" url="/erp/business/auditBillList/charge"></menu>
+				<menu id="dzqr" name="到账确认" url="/erp/business/auditPayList/charge"></menu>
+			</menuset>
+		</module>
+		<module id='ssgl' name="实施管理">
+			<menuset id="xskhxz" name="客户管理">
+				<menu id="xskhcx" name="客户查询" url="/erp/crm/searchCustomer/personal"></menu>
+			</menuset>
+			<menuset id="lxdgl" name="联系单管理">
+			    <menu id="ldxy" name="来电响应" url="/erp/sales/demandResponseList/local"></menu>
+				<menu id="lxdjs" name="联系单接收" url="/erp/implement/contactOrderReceiveList/local"></menu>
+				<menu id="lxdpg" name="联系单派工" url="/erp/implement/contactOrders"></menu>
+				<!-- <menu id="khwhcrm" name="客户维护查询" url="/erp/implement/maintainList"></menu> -->
+			</menuset>
+			<menuset id="shgl" name="派工单管理">
+			    <menu id="pgdcx" name="派工单查询" url="/erp/implement/myWorkOrders/local"></menu>
+			    <menu id="mdpgd" name="我的派工单" url="/erp/implement/myWorkOrders/personal"></menu>
+				<menu id="pgdsqsh" name="派工单改派审核" url="/erp/implement/auditWorkOrders/applyAudit"></menu>
+				<menu id="pgdjssh" name="派工单接收审核" url="/erp/implement/auditWorkOrders/applyTargetAudit"></menu>
+				<menu id="pgdwcshzl" name="派工单完成审核[助理]" url="/erp/implement/auditWorkOrders/assistantAudit"></menu>
+				<menu id="pgdwcsh" name="派工单完成审核[经理]" url="/erp/implement/auditWorkOrders/managerAudit"></menu>
+			</menuset>
+		</module>
+		<module id='yfgl' name="研发管理">
+			<menuset id="lxdgl" name="联系单管理">
+				<menu id="lxdjs" name="联系单接收" url="/erp/implement/contactOrderReceiveList/personal"></menu>
+				<menu id="lxdpg" name="联系单派工" url="/erp/implement/contactOrders"></menu>
+			</menuset>
+			<menuset id="shgl" name="派工单管理">
+			    <menu id="pgdcx" name="派工单查询" url="/erp/implement/myWorkOrders/local"></menu>
+			    <menu id="mdpgd" name="我的派工单" url="/erp/implement/myWorkOrders/personal"></menu>
+				<menu id="pgdsqsh" name="派工单改派审核" url="/erp/implement/auditWorkOrders/applyAudit"></menu>
+				<menu id="pgdjssh" name="派工单接收审核" url="/erp/implement/auditWorkOrders/applyTargetAudit"></menu>
+				<menu id="pgdwcshzl" name="派工单完成审核[助理]" url="/erp/implement/auditWorkOrders/assistantAudit"></menu>
+				<menu id="pgdwcsh" name="派工单完成审核[经理]" url="/erp/implement/auditWorkOrders/managerAudit"></menu>
+			</menuset>
+		</module>
+		<module id='rsgl' name="人事管理" hiddenLeft="">
+		</module>
+		<module id='xzgl' name="行政管理">
+		</module>
+		<module id='ggwd' name="公共文档">
+			<menuset id="ggwdgl" name="公共文档">
+				<menu id="cjdwd" name="我创建的文档" url="/erp/doc/list/created"></menu>
+				<menu id="gxdwd" name="共享给我的文档" url="/erp/doc/list/shared"></menu>
+				<menu id="ggdwd" name="公共文档" url="/erp/doc/list/public"></menu>
+				<menu id="qbdwd" name="我的全部文档" url="/erp/doc/list/all"></menu>
+			</menuset>
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/local"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='exam' name="考试题库管理工具">
+		<module id='ztkgl' name="总题库管理">
+			<menuset id="jcsj" name="基础数据">
+				<menu id="kmgl" name="科目管理" url="/exam/manage/subject/main/0"></menu>
+				<menu id="smgl" name="书目管理" url="/exam/manage/book"></menu>
+			</menuset>
+			<menuset id="mzz" name="题目制作">
+				<menu id="tmdj" name="题目登记" url="/exam/manage/imp/register"></menu>
+				<menu id="tmdl" name="题目导入" url="/exam/manage/imp/list"></menu>
+				<menu id="tmjy" name="题目校验" url="/exam/manage/imp/checkList"></menu>
+				<menu id="tmsh" name="题目审核" url="/exam/manage/imp/auditList"></menu>
+				<menu id="tmcc" name="题目重传" url="/jsp/exam/manage/imp/questionreupload.jsp"></menu>
+			</menuset>
+			<menuset id="mbtk" name="模板题库">
+				<menu id="bank1" name="西医分题库" url="/exam/manage/subject/main/1"></menu>
+				<menu id="bank2" name="中医分题库" url="/exam/manage/subject/main/2"></menu>
+				<menu id="bank3" name="护理分题库" url="/exam/manage/subject/main/3"></menu>
+				<menu id="bank4" name="临床医学分题库" url="/exam/manage/subject/main/4"></menu>
+				<menu id="bank5" name="住院医师分题库" url="/exam/manage/subject/main/5"></menu>
+				<menu id="bank6" name="中医住院医师分题库" url="/exam/manage/subject/main/6"></menu>
+				<menu id="bank15" name="住院医师分题库2" url="/exam/manage/subject/main/15"></menu>
+				<menu id="bank16" name="中医住院医师分题库2" url="/exam/manage/subject/main/16"></menu>
+			</menuset>
+			<menuset id="khtk" name="客户题库">
+				<menu id="tkfx" name="题库发行" url="/exam/manage/question/pub"></menu>
+			</menuset>
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<!-- <menu id="jgwh" name="机构维护" url="/sys/org/list"></menu> -->
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/local"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id='res' name="住院医师规范化培训">
+<!-- 		<module id='sxs' name="实习生" view="/res/doc/doctorMain"> -->
+<!-- 			<menuset id="lzpx" name="轮转培训"> -->
+<!-- 				<menu id="lzksxz" name="轮转科室选择" url="/res/doc/selDept"></menu> -->
+<!-- 				<menu id="grpbtb" name="个人排班填报" url="/res/doc/rosteringHandDept"></menu> -->
+<!-- 				<menu id="grlzjh" name="个人轮转计划" url="/res/doc/selDeptAndRosteringHand"></menu> -->
+<!-- 			</menuset> -->
+<!-- 			<menuset id="grxx" name="实习培训"> -->
+<!-- 				<menu id="jgwh" name="个人实习计划" url="/res/doc/searchRotationList"></menu> -->
+<!-- 				<menu id="grxxws" name="个人信息完善" url="/res/doc/user/docEditDoc"></menu> -->
+<!-- 				<menu id="lzksxz" name="轮转科室选择" url="/res/doc/selDept"></menu> -->
+<!-- 				<menu id="grpbtb" name="个人排班填报" url="/res/doc/rosteringHandDept"></menu> -->
+<!-- 			</menuset> -->
+<!-- 			<menuset id="jxjl" name="教学记录"> -->
+<!-- 				<menu id="ydyf" name="医德医风" url="/jsp/res/intern/ydyf.jsp"></menu> -->
+<!-- 				<menu id="yxwa" name="医学文案" url="/jsp/res/intern/yxwa.jsp"></menu> -->
+<!-- 			</menuset> -->
+<!-- 			<menuset id="sxjl" name="实习记录"> -->
+<!-- 				<menu id="nk" name="内科诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="wk" name="外科诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="fck" name="妇产科诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="ek" name="儿科诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="crk" name="传染科诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="yk" name="眼科诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="ebh" name="耳鼻喉科诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="pfk" name="皮肤诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="fsk" name="放射诊疗技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="xdt" name="心电图解毒技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="sqyl" name="社区医疗卫生" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="hlcz" name="护理操作技能" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="lcyy" name="临床英语应用(七年制学生)" url="/jsp/res/intern/deptView.jsp"></menu> -->
+<!-- 				<menu id="xx1" name="选修一" url="/jsp/res/intern/selDeptView.jsp"></menu> -->
+<!-- 				<menu id="xx2" name="选修二" url="/jsp/res/intern/selDeptView.jsp"></menu> -->
+<!-- 			</menuset> -->
+<!-- 			<menuset id="khjl" name="考核记录"> -->
+<!-- 				<menu id="jscz" name="临床技术操作完成情况" url="/jsp/res/intern/operview.jsp"></menu> -->
+<!-- 				<menu id="cjd" name="实习课程成绩单" url="/jsp/res/intern/transcripts.jsp"></menu> -->
+<!-- 				<menu id="sxjd" name="实习鉴定" url="/jsp/res/intern/appraisal.jsp"></menu> -->
+<!-- 				<menu id="qjjl" name="请假记录" url="/res/doc/absenceList"></menu> -->
+<!-- 			</menuset> -->
+<!-- 			<menuset id="kjtz" name="科教通知"> -->
+<!-- 				<menu id="tzgg" name="通知公告" url="/res/doc/noticeList"></menu> -->
+<!-- 			</menuset> -->
+<!-- 		</module> -->
+		<module id='zyys' name="学&#12288;员" view="/res/doc/beforeDoctorMain">
+			<menuset id="grxxgl" name="个人信息管理">
+				<menu id="xxwh" name="学籍信息" url="/edu/user/eduUserFormEdit/doctor?flag=N"></menu>
+				<menu id="ydsh" name="异动申请" url="/xjgl/change/apply/editApply?changeFlag=Y"></menu>
+				<menu id="wsxk" name="网上选课" url="/xjgl/student/course/interCourse"></menu>
+			</menuset>
+			<menuset id="lzpx" name="轮转培训">
+<!-- 				<menu id="lzksxz" name="轮转科室选择" url="/res/doc/selDept"></menu> -->
+<!-- 				<menu id="grpbtb" name="个人排班填报" url="/res/doc/rosteringHandDept"></menu> -->
+<!-- 				<menu id="grlzjh" name="个人轮转计划" url="/res/doc/selDeptAndRosteringHand"></menu> -->
+				<menu id="grlzjh" name="轮转计划" url="/res/doc/doctorMain"></menu>
+				<menu id="pxdj" name="培训登记" url="/res/rec/speRegistry/doctor"></menu>
+				<menu id="cjcx" name="考试查询" url="/res/doc/assessSearch/doctor"></menu>
+				<menu id="qjjl" name="请假登记" url="/res/doc/absenceList"></menu>
+				<menu id="sxzj" name="培训日志" url="/res/log/list?logTypeId=Day"></menu>
+				<!-- 
+					<menu id="pxdj" name="教学登记" url="/res/doc/teachRegistryList"></menu>
+				<menu id="rywh" name="个人信息完善" url="/res/doc/user/docEditDoc"></menu>
+				 -->
+			</menuset>
+<!-- 			<menuset id="grxx" name="轮转培训"> -->
+<!-- 				<menu id="jgwh" name="个人轮转培训" url="/res/doc/searchRotationList"></menu> -->
+<!-- 				<menu id="rywh" name="个人信息完善" url="/res/doc/user/docEditDoc"></menu> -->
+<!-- 				<menu id="kslzpz" name="申述查询" url="/res/rec/appealList"></menu> -->
+<!-- 			</menuset> -->
+			<!-- 
+			<menuset id="lzpx" name="轮转培训">
+				<menu id="bmwh" name="轮转培训明细" url="/jsp/res/doctor/main.jsp"></menu>
+			</menuset>
+			-->
+			<!-- 
+			<menuset id="pxjl" name="教学记录">
+			
+			 
+				
+				 
+				<menu id="zdwh" name="参加科研记录" url="/sys/dict/list"></menu>
+				<menu id="zdwh" name="出勤情况记录" url="/sys/dict/list"></menu>
+				<menu id="zdwh" name="获奖情况记录" url="/sys/dict/list"></menu>
+				<menu id="zdwh" name="理论课学习记录" url="/sys/dict/list"></menu>
+				<menu id="zdwh" name="病例书写不合格记录" url="/sys/dict/list"></menu>
+				<menu id="zdwh" name="医疗差错，事故记录" url="/sys/dict/list"></menu>
+				<menu id="zdwh" name="理论学习及考核记录" url="/sys/dict/list"></menu>
+				<menu id="zdwh" name="读书报告" url="/sys/dict/list"></menu>
+				<menu id="zdwh" name="参与会诊登记" url="/sys/dict/list"></menu>
+				
+			</menuset>
+			-->
+<!-- 			<menuset id="kjtz" name="科教通知"> -->
+<!-- 				<menu id="tzgg" name="科教通知" url="/res/doc/noticeList"></menu> -->
+<!-- 			</menuset> -->
+			<!-- 
+			<menuset id="jxgl" name="教学管理">
+				<menu id="kpkshz" name="考评科室汇总" url="/res/rec/score/dept"></menu>
+				<menu id="kplshz" name="考评老师汇总" url="/res/rec/score/teacher"></menu>
+			</menuset>
+			 -->
+		</module>
+		<module id='ds' name="导&#12288;师" view="/res/teacher/tutorView">
+			<menuset id="khgl" name="培训管理">
+				<menu id="xyxx" name="学员信息" url="/res/teacher/tutorView"></menu>
+<!-- 				<menu id="jgwh" name="培训数据审核" url="/res/teacher/audit/teacher"></menu> -->
+<!-- 				<menu id="ckkh" name="出科考核" url="/res/teacher/afterFormAudit/teacher?isCurrentFlag=Y"></menu> -->
+<!-- 				<menu id="ndpxjlbsh" name="年度培训审核" url="/res/teacher/annualTrainRecords"></menu> -->
+<!-- 			<menu id="sssp" name="申述审批" url="/res/teacher/appealAudit/teacher"></menu> -->
+<!-- 				<menu id="jxjl" name="教学安排" url="/res/teacher/teachPlanList"></menu>	 -->
+<!-- 				<menu id="qjsp" name="请假审批" url="/res/teacher/absenceAudit/teacher"></menu> -->
+<!-- 				<menu id="qqgl" name="缺勤管理" url="/res/teacher/absentManage/teacher"></menu> -->
+			</menuset>
+		</module>
+		<module id='djls' name="带&#12288;教" view="/res/teacher/showView/teacher">
+			<menuset id="khgl" name="培训管理">
+<!-- 				<menu id="gqpxsh" name="岗前培训审核" url="/res/teacher/preTrainRecords"></menu> -->
+				<menu id="xyxx" name="学员信息" url="/res/teacher/showView/teacher"></menu>
+				<menu id="jgwh" name="培训数据审核" url="/res/teacher/audit/teacher"></menu>
+				<menu id="ckkh" name="出科考核" url="/res/teacher/afterFormAudit/teacher?isCurrentFlag=Y"></menu>
+<!-- 				<menu id="ndpxjlbsh" name="年度培训审核" url="/res/teacher/annualTrainRecords"></menu> -->
+<!-- 			<menu id="sssp" name="申述审批" url="/res/teacher/appealAudit/teacher"></menu> -->
+				<menu id="jxjl" name="教学安排" url="/res/teacher/teachPlanList"></menu>	
+				<menu id="qjsp" name="请假审批" url="/res/teacher/absenceAudit/teacher"></menu>
+				<menu id="qqgl" name="缺勤管理" url="/res/teacher/absentManage/teacher"></menu>
+			</menuset>
+			<menuset id="jxgl" name="教学管理">
+				<menu id="wdkc" name="我的课程" url="/resedu/manage/course/courseView"></menu>
+			</menuset>
+			<menuset id="tjcx" name="统计查询">
+<!-- 				<menu id="djtjbb" name="登记统计报表" url="/res/teacher/registryReport/teacher"></menu> -->
+<!-- 				<menu id="sscx" name="申述查询" url="/res/teacher/appealReport/teacher"></menu> -->
+<!-- 				<menu id="ckqkcx" name="出科情况查询" url="/res/teacher/docoutReport/teacher"></menu> -->
+<!-- 				<menu id="drkcx" name="待入科查询" url="/res/teacher/prepareinReport/teacher"></menu>  -->
+				<menu id="djlskpcx" name="带教老师考评查询" url="/res/teacher/teacherScore/teacher"></menu>
+				<menu id="xsqktj" name="学生学习情况统计" url="/resedu/report/studentStatistics/teacher"></menu>
+				<menu id="kcqktj" name="课程情况统计" url="/resedu/report/courseStatistics/teacher"></menu>
+			</menuset>
+		</module>
+		<module id='kzr' name="科&#12288;室" view="/res/teacher/showView/head">
+			<menuset id="khgl" name="培训管理">
+				<menu id="xyxx" name="学员信息" url="/res/teacher/showView/head"></menu>
+<!-- 				<menu id="jgwh" name="培训数据审核" url="/res/teacher/audit/head"></menu> -->
+				<menu id="ckkh" name="出科考核" url="/res/teacher/afterFormAudit/head?isCurrentFlag=Y"></menu>
+				<menu id="djsjsh" name="登记数据审核" url="/res/teacher/globalRegAudit/head"></menu>
+				<menu id="qjsp" name="请假审批" url="/res/teacher/absenceAudit/head"></menu>
+				<menu id="qqgl" name="缺勤管理" url="/res/teacher/absentManage/head"></menu>
+<!-- 				<menu id="sssp" name="申述审批" url="/res/teacher/appealAudit/head"></menu> -->
+			</menuset>
+			<menuset id="jxgl" name="教学管理">
+				<menu id="xxpt" name="学习平台" url="/resedu/manage/course/courseList/personal"></menu>
+				<menu id="cjcx" name="考试查询" url="/res/doc/assessSearch/head"></menu>
+			</menuset>
+			<menuset id="tjcx" name="统计查询">
+<!-- 				<menu id="jgwh" name="登记统计报表" url="/res/teacher/registryReport/head"></menu> -->
+<!-- 				<menu id="sscx" name="申述查询" url="/res/teacher/appealReport/head"></menu> -->
+<!-- 				<menu id="ckqkcx" name="出科情况查询" url="/res/teacher/docoutReport/head"></menu> -->
+<!-- 				<menu id="drkcx" name="待入科查询" url="/res/teacher/prepareinReport/head"></menu> -->
+<!-- 			<menu id="tzgg" name="科教通知" url="/res/doc/noticeList"></menu> -->
+				<menu id="kskhjgcx" name="科室考核结果查询" url="/res/teacher/headScore"></menu>
+				<menu id="djlskpcx" name="带教老师考评查询" url="/res/teacher/teacherScore/head"></menu>
+			    <menu id="xsqktj" name="学生学习情况统计" url="/resedu/report/studentStatistics/head"></menu>
+			    <menu id="kcqktj" name="课程情况统计" url="/resedu/report/courseStatistics/head"></menu>
+<!-- 				<menu id="djlsshqkck" name="带教老师审核情况查看" url="/res/teacher/teacherAudit"></menu> -->
+				
+			</menuset>
+			
+		</module>
+		<module id='jd' name="基&#12288;地" view="/res/teacher/showView/manager">
+			<menuset id="pxgl" name="培训管理">
+				<menu id="xyxx" name="学员信息" url="/res/teacher/showView/manager"></menu>
+<!-- 				<menu id="lzjh" name="轮转计划" url="/res/teacher/showView/manager"></menu> -->
+<!-- 				<menu id="pxsjsh" name="培训数据审核" url="/res/teacher/showView/manager"></menu> -->
+				<menu id="ckkh" name="出科考核" url="/res/teacher/afterFormAudit/manager?isCurrentFlag=Y"></menu>
+				<menu id="djsjsh" name="登记数据审核" url="/res/teacher/globalRegAudit/manager"></menu>
+<!-- 				<menu id="ndzynlpg" name="年度专业能力评估" URL="/RES/TEACHER/GLOBALFORMAUDIT/MANAGER?RECTYPEID=SPEABILITYASSESS"></MENU> -->
+<!-- 				<MENU ID="NDKHDJB" NAME="年度考核登记表" url="/res/teacher/globalFormAudit/manager?recTypeId=RegistryCheckForm"></menu> -->
+			</menuset>
+			<menuset id="jxgl" name="教学管理">
+				<menu id="xxpt" name="学习平台" url="/resedu/manage/course/courseList/personal"></menu>
+				<menu id="cjcx" name="考试查询" url="/res/doc/assessSearch/manager"></menu>
+			</menuset>
+			<menuset id="tjcx" name="统计查询">
+				<menu id="xsqktj" name="学生学习情况统计" url="/resedu/report/studentStatistics/manager"></menu>
+				<menu id="kcqktj" name="课程情况统计" url="/resedu/report/courseStatistics/manager"></menu>
+			</menuset>
+			
+		</module>
+		<module id='yygly' name="医&#12288;院"  view="/res/manager/view">
+			<!-- 
+			<menuset id="rygl" name="人员信息">
+				<menu id="rywh" name="人员维护" url="/res/doc/user/docList"></menu>
+				<menu id="rygl" name="人员管理" url="/jsp/station_ys.jsp"></menu>
+			</menuset>
+			 -->
+			<menuset id="lzxxgl" name="轮转管理">
+<!-- 				<menu id="bmwh" name="职能部门维护" url="/sys/dept/list/local"></menu> -->
+				<menu id="kslzpz" name="科室维护" url="/sch/cfg/deptcfg/local"></menu>
+<!-- 				<menu id="bzfawh" name="培训方案维护" url="/res/platform/rotation"></menu> -->
+				<menu id="lzmb" name="轮转方案配置" url="/sch/template/localList"></menu>
+				<!-- 
+				<menu id="zyysdj" name="住院医师登记" url="/res/doc/user/docList"></menu>
+				 -->
+				 <menu id="rywh" name="学员维护" url="/res/manager/userList"></menu>
+				 <menu id="xygl" name="学员管理" url="/res/platform/stuManaList/local"></menu>
+				<menu id="zyysxk" name="学员选科" url="/sch/doc/seldept"></menu>
+				<menu id="zdpb" name="智能排班" url="/sch/arrange"></menu>
+				<menu id="sdpb" name="手动排班" url="/sch/arrange/rosteringHand"></menu>
+				<menu id="pbbgsh" name="排班/变更审核" url="/sch/arrange/auditResult"></menu>
+				<menu id="pxbg" name="培训变更" url="/res/manager/rotationChangeMain"></menu>
+				<menu id="pxzz" name="培训终止" url="/sch/doc/aid/terminat"></menu>
+<!-- 				<menu id="pbbgsh" name="排班变更审核" url="/sch/arrange/auditResultChange"></menu> -->
+				<menu id="kspbb" name="科室轮转查询" url="/sch/doc/schDept"></menu>
+				<menu id="yspbb" name="医师轮转查询" url="/sch/doc/schDoc"></menu>
+			</menuset>
+			<menuset id="pxgl" name="培训管理">
+					<menu id="jdry" name="人员管理" url="/res/manager/manageUser"></menu>
+					<menu id="djsjsh" name="登记数据审核" url="/res/teacher/globalRegAudit/admin"></menu>
+					<menu id="tzgg" name="科教通知" url="/res/platform/notice/local"></menu>
+				<!-- 
+					<menu id="djtjbb" name="" url="/res/manager/registryReportMain"></menu>
+					<menu id="sscx" name="申述查询" url="/res/manager/appealList"></menu>
+					<menu id="ckkhcx" name="出科考核查询" url="/sch/cfg/deptcfg"></menu>
+				 -->
+<!-- 				<menu id="ckqkcx" name="出科情况查询" url="/res/manager/afterInfoList"></menu> -->
+				<menu id="qjsp" name="请假审批" url="/res/teacher/absenceAudit/manager"></menu>
+				<menu id="qqgl" name="缺勤管理" url="/res/teacher/absentManage/manager"></menu>
+			</menuset>
+			<menuset id="jxgl" name="教学管理">
+				<!-- 
+				<menu id="jgwh" name="活动" url="/sys/org/list"></menu>
+				<menu id="qqdj" name="请假管理" url="/sch/doc/aid/absence"></menu>
+				 -->
+<!-- 				<menu id="jgwh" name="问卷调查" url="/sys/org/list"></menu> -->
+<!-- 				<menu id="czrzcx" name="操作日志查询" url="/sys/log/list"></menu> -->
+				
+<!-- 				<menu id="yygk" name="医院概况" url="/jsp/res/manager/hosInfo.jsp"></menu> -->
+				<menu id="wdkc" name="课程查询/审核" url="/resedu/manage/course/courseList/global"></menu>
+				<menu id="kscj" name="考试成绩" url="/resedu/edu/resultList"></menu>
+				<menu id="wjwh" name="问卷维护" url="/jsp/res/edu/manage/questionList.jsp"></menu>
+			</menuset>
+<!-- 			<menuset id="khgl" name="考核管理"> -->
+<!-- 				<menu id="jgwh" name="科室考核结果查询" url="/sys/org/list"></menu> -->
+<!-- 				<menu id="jgwh" name="带教老师考评查询" url="/sys/org/list"></menu> -->
+<!-- 				<menu id="jgwh" name="带教老师审核情况查看" url="/sys/org/list"></menu> -->
+<!-- 			</menuset> -->
+<!-- 			<menuset id="tjbb" name="统计报表"> -->
+<!-- 				<menu id="jgwh" name="专业人数统计" url="/res/manager/trainingSpeCountList"></menu> -->
+<!-- 				<menu id="jgwh" name="培训进度统计" url="/sys/org/list"></menu> -->
+<!-- 				<menu id="jgwh" name="科室带教统计" url="/sys/org/list"></menu> -->
+<!-- 				<menu id="jgwh" name="老师带教统计" url="/sys/org/list"></menu> -->
+<!-- 			</menuset> -->
+			<menuset id="tjcx" name="统计查询">
+				<menu id="pxxycx" name="培训学员查询" url="/res/manager/registryNote/manager"></menu>
+				<!--<menu id="xsqktj" name="学生学习情况统计" url="/jsp/res/edu/manage/studentStatistics.jsp"></menu> -->
+				  <menu id="xsqktj" name="学生学习情况统计" url="/resedu/report/studentStatistics/admin"></menu> 
+				<menu id="kcqktj" name="课程情况统计" url="/resedu/report/courseStatistics/admin"></menu>
+				<menu id="djlsxx" name="带教老师信息" url="/jsp/res/edu/manage/teacherStatistics.jsp"></menu>
+				<menu id="rzcx" name="日志查询" url="/resedu/report/sysLog"></menu>
+			</menuset>
+		</module>
+		<module id='pt' name="平&#12288;台" version="global">
+			<menuset id="pxgl" name="培训管理">
+				<menu id="tzgg" name="科教通知" url="/res/platform/notice/charge"></menu>
+				<menu id="bzfawh" name="培训方案维护" url="/res/platform/rotation"></menu>
+				<menu id="yygl" name="医院维护" url="/res/platform/hospitalList"></menu>
+<!-- 				<menu id="kslzpz" name="医院科室维护" url="/sch/cfg/deptcfg/global"></menu> -->
+<!-- 				<menu id="lzmb" name="医院方案配置" url="/sch/template/gToLocalList"></menu> -->
+				<menu id="yxwh" name="部门维护" url="/sys/dept/list/local"></menu>
+				<menu id="xyfp" name="学员分配" url="/res/platform/doctorAllot"></menu>
+				<menu id="sxgl" name="学员维护" url="/res/platform/userInfoList"></menu>
+				<menu id="xygl" name="学员管理" url="/res/platform/stuManaList/charge"></menu>
+				<menu id="pxjh" name="培训计划" url="/res/platform/trainPlan"></menu>
+<!-- 				<menu id="pxjd" name="培训进度" url="/jsp/res/college/overview.jsp"></menu> -->
+<!-- 				<menu id="xsgl" name="培训查询" url="/res/manager/registryNote"></menu> -->
+				<menu id="khzbgl" name="考核指标管理" url="/res/cfg/assessCfg"></menu>
+				<menu id="qjsp" name="请假审批" url="/res/platform/absenceAudit"></menu>
+				<menu id="qqgl" name="缺勤管理" url="/res/teacher/absentManage/charge"></menu>
+			</menuset>
+			<menuset id="xygl" name="学院管理">
+				<menu id="pxxycx" name="培训学员查询" url="/res/manager/registryNote/charge"></menu>
+			</menuset>
+			<menuset id="xjgl" name="学籍管理">
+				<menu id="xjgl" name="学籍信息" url="/edu/user/eduUserList"></menu>
+				<menu id="ydsh" name="异动审核" url="/xjgl/change/apply/findChangeInfo?"></menu>
+				<menu id="kcxxwh" name="课程信息维护" url="/xjgl/course/manage/courseList"></menu>
+				<menu id="zykcwh" name="专业课程维护" url="/xjgl/majorCourse/list"></menu>
+				<menu id="kcqkcx" name="课程情况查询" url="/xjgl/course/manage/courseMajor"></menu>
+				<menu id="xysksp" name="选课管理" url="/xjgl/student/course/selectApproval"></menu>
+				<menu id="cjgl" name="成绩管理" url="/edu/user/selectEduUserStudentCourseSun"></menu>
+			</menuset>
+			<menuset id="tjcx" name="统计查询">
+				<menu id="pxxycx" name="培训学员查询" url="/res/manager/registryNote/global"></menu>
+				<menu id="zyystjcx" name="住院医师统计" url="/res/platform/doctorStatistics"></menu>
+				<menu id="zrzccx" name="转入/转出查询" url="/res/platform/turnSearch"></menu>
+			</menuset>
+<!-- 			<menuset id="lzpz" name="配置维护">				 -->
+<!-- 				<menu id="bmwh" name="职能部门维护" url="/sys/dept/list/local"></menu> -->
+<!-- 				<menu id="kslzpz" name="轮转科室维护" url="/sch/cfg/deptcfg"></menu> -->
+<!-- 				<menu id="khzbgl" name="考核指标管理" url="/res/cfg/assessCfg"></menu> -->
+<!-- 			</menuset> -->
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/global"></menu>
+				<menu id="kslzpz" name="医院科室维护" url="/sch/cfg/deptcfg/global"></menu>
+				<menu id="lzmb" name="医院方案配置" url="/sch/template/gToLocalList"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+	<workStation id="test" name="在线考试系统">
+	    <module id="ksgl" name="考试管理">
+	        <menuset id="ksgl" name="考试管理">
+	            <menu id="mjks" name="模拟考试" url="/jsp/test/exammanage/mnkslist.jsp"></menu>
+	        </menuset>
+	    </module>
+	</workStation>
+	<workStation id="fstu" name="继续教育管理系统">
+	   <module id='wsj' name="卫生局" remark="卫生局适用">
+			<menuset id="xmlc" name="继续教育">
+				<menu id="lrcx" name="录入/查询" url="/fstu/dec/projList/charge"></menu>
+				<menu id="jjxf" name="继教学分" url="/fstu/dec/creditList/charge"></menu>
+				<menu id="jxgl" name="进修管理" url="/fstu/dec/fstuStudy/charge"></menu>
+			</menuset>
+		</module>
+		 <module id='sbdw' name="申报单位" >
+			<menuset id="jxjy" name="继续教育">
+				<menu id="lrcx" name="录入/查询" url="/fstu/dec/projList/local"></menu>
+				<menu id="jjxf" name="继教学分" url="/fstu/dec/creditList/local"></menu>
+				<menu id="jxgl" name="进修管理" url="/fstu/dec/fstuStudy/local"></menu>
+			</menuset>
+		</module>
+		<module id='xtpz' name="系统配置">
+			<menuset id="jcxx" name="基础信息">
+				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
+				<menu id="bmwh" name="部门维护" url="/sys/dept/list/global"></menu>
+				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
+				<menu id="jswh" name="角色维护" url="/sys/role/list"></menu>
+			</menuset>
+			<menuset id="xtcs" name="系统参数">
+				<menu id="zdwh" name="字典维护" url="/sys/dict/list"></menu>
+				<menu id="xtpz" name="系统配置" url="/sys/cfg/main"></menu>
+				<menu id="sxnc" name="刷新内存" url="/sys/dict/refresh"></menu>
+				<menu id="dlrz" name="操作日志" url="/sys/log/list"></menu>
+				<menu id="zxyh" name="在线用户" url="/online"></menu>
+			</menuset>
+		</module>
+	</workStation>
+</workStations>

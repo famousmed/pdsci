@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/skill_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			<item name="operateName" remark="操作名称" multiple="N"></item>
+			<item name="operateDate" remark="操作日期" multiple="N"></item>
+			<item name="operateTime" remark="操作时机" multiple="N"></item>
+			<item name="patientName" remark="病人姓名" multiple="N"></item>
+			<item name="caseNo" remark="病历号" multiple="N"></item>
+			<item name="objective" remark="目的" multiple="N"></item>
+			<item name="status" remark="状态" multiple="Y"></item>
+			<item name="operateType" remark="操作类别" multiple="N"></item>
+			<item name="diagnosisType" remark="诊断类型" multiple="N"></item>
+			<item name="failReason" remark="失败原因" multiple="N"></item>
+			<item name="remark" remark="备注" multiple="N"></item>
+			<item name="record" remark="记录" multiple="N"></item>
+			<item name="file" remark="附件" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			<item name="operateName" remark="操作名称" multiple="N"></item>
+			<item name="operateDate" remark="操作日期" multiple="N"></item>
+			<item name="operateTime" remark="操作时机" multiple="N"></item>
+			<item name="patientName" remark="病人姓名" multiple="N"></item>
+			<item name="caseNo" remark="病历号" multiple="N"></item>
+			<item name="objective" remark="目的" multiple="N"></item>
+			<item name="status" remark="状态" multiple="Y"></item>
+			<item name="operateType" remark="操作类别" multiple="N"></item>
+			<item name="diagnosisType" remark="诊断类型" multiple="N"></item>
+			<item name="failReason" remark="失败原因" multiple="N"></item>
+			<item name="remark" remark="备注" multiple="N"></item>
+			<item name="record" remark="记录" multiple="N"></item>
+			<item name="file" remark="附件" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+</jspForm>
+

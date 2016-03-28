@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.pub.PubProjExtMapper" >
+
+	<select id="selectApplyAduitProjList" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		SELECT PROJ_FLOW, PROJ_YEAR, PROJ_NAME, 
+			   PROJ_SHORT_NAME, PROJ_DECLARER, PROJ_SHORT_DECLARER, PROJ_CATEGORY_ID, PROJ_CATEGORY_NAME, 
+			   PROJ_NO, CFDA_NO, PROJ_TYPE_ID, PROJ_TYPE_NAME, PROJ_SUB_TYPE_ID, PROJ_SUB_TYPE_NAME, PROJ_STAGE_ID, 
+	           PROJ_STAGE_NAME, PROJ_STATUS_ID, PROJ_STATUS_NAME, APPLY_USER_FLOW, APPLY_USER_NAME, APPLY_ORG_FLOW, 
+			   APPLY_ORG_NAME, APPLY_DEPT_FLOW, APPLY_DEPT_NAME, PROJ_START_TIME, PROJ_END_TIME, RECORD_STATUS, 
+			   CREATE_TIME, CREATE_USER_FLOW, MODIFY_TIME, MODIFY_USER_FLOW 
+			   FROM PDSCI.PUB_PROJ 
+			   WHERE (RECORD_STATUS = '${proj.recordStatus}' and PROJ_CATEGORY_ID = '${proj.projCategoryId}' and PROJ_STAGE_ID = '${proj.projStageId}' 
+			   			<if test='proj.projName!=null and proj.projName!=""'>
+			   				and proj_name like '%${proj.projName}%'
+			   			</if>
+			   			<if test='proj.projYear!=null and proj.projYear!=""'>
+			   				and proj_year = '${proj.projYear}'
+			   			</if>
+			   			
+			   			<if test='proj.projTypeId!=null and proj.projTypeId!=""'>
+			   				and proj_type_id = '${proj.projTypeId}'
+			   			</if>
+			   			<if test='proj.projCategoryId!=null and proj.projCategoryId!=""'>
+			   			    and proj_category_id = '${proj.projCategoryId}'
+			   			</if>
+
+                        <if test='scope=="local"'>
+			   			    and apply_org_flow='${orgFlow}'  and (
+			   			    proj_status_id= '${status1}' 
+			   			    or (charge_org_flow<![CDATA[ <> ]]>'${chargeOrgFlow}' and proj_status_id= '${status2}')
+			   			    or (charge_org_flow='${chargeOrgFlow}' and proj_status_id= '${status3}')
+			   			    )
+			   			    
+			   			</if>
+
+			   			<if test='scope=="charge"'>
+			   			    <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+			   				    and apply_org_flow = '${proj.applyOrgFlow}'
+			   			    </if>
+			   			    and charge_org_flow='${chargeOrgFlow}'
+			   			    and (proj_status_id= '${status1}' or proj_status_id= '${status2}')
+			   			    
+			   			</if>
+
+			   			<if test='scope=="global"'>
+                            and (proj_status_id='${status1}'
+			   				or (proj_status_id='${status2}' and charge_org_flow='${chargeOrgFlow}'))
+			   			    <if test='proj.chargeOrgFlow!=null and proj.chargeOrgFlow!=""'>
+			   			        and charge_org_flow='${proj.chargeOrgFlow}'
+			   			    </if>
+			   			    <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+			   			        and apply_org_flow='${proj.applyOrgFlow}'
+			   			    </if>
+                            
+			   			</if>
+			   			 ) 
+ 				ORDER BY CREATE_TIME DESC
+	</select>
+	
+	<select id="selectContractAduitProjList" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		SELECT PROJ_FLOW, PROJ_YEAR, PROJ_NAME, 
+			   PROJ_SHORT_NAME, PROJ_DECLARER, PROJ_SHORT_DECLARER, PROJ_CATEGORY_ID, PROJ_CATEGORY_NAME, 
+			   PROJ_NO, CFDA_NO, PROJ_TYPE_ID, PROJ_TYPE_NAME, PROJ_SUB_TYPE_ID, PROJ_SUB_TYPE_NAME, PROJ_STAGE_ID, 
+	           PROJ_STAGE_NAME, PROJ_STATUS_ID, PROJ_STATUS_NAME, APPLY_USER_FLOW, APPLY_USER_NAME, APPLY_ORG_FLOW, 
+			   APPLY_ORG_NAME, APPLY_DEPT_FLOW, APPLY_DEPT_NAME, PROJ_START_TIME, PROJ_END_TIME, RECORD_STATUS, 
+			   CREATE_TIME, CREATE_USER_FLOW, MODIFY_TIME, MODIFY_USER_FLOW 
+			   FROM PDSCI.PUB_PROJ 
+			   WHERE (RECORD_STATUS = '${proj.recordStatus}' and PROJ_CATEGORY_ID = '${proj.projCategoryId}' and PROJ_STAGE_ID = '${proj.projStageId}' 
+			   			<if test='proj.projName!=null and proj.projName!=""'>
+			   				and proj_name like '%${proj.projName}%'
+			   			</if>
+			   			<if test='proj.projYear!=null and proj.projYear!=""'>
+			   				and proj_year = '${proj.projYear}'
+			   			</if>
+			   			
+			   			<if test='proj.projTypeId!=null and proj.projTypeId!=""'>
+			   				and proj_type_id = '${proj.projTypeId}'
+			   			</if>
+			   			<if test='proj.projCategoryId!=null and proj.projCategoryId!=""'>
+			   			    and proj_category_id = '${proj.projCategoryId}'
+			   			</if>
+
+                        <if test='scope=="local"'>
+			   			    and apply_org_flow='${orgFlow}'  and (
+			   			    proj_status_id= '${status1}' 
+			   			    or (charge_org_flow<![CDATA[ <> ]]>'${chargeOrgFlow}' and proj_status_id= '${status2}')
+			   			    or (charge_org_flow='${chargeOrgFlow}' and proj_status_id= '${status3}')
+			   			    )
+			   			    
+			   			</if>
+
+			   			<if test='scope=="charge"'>
+			   			    <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+			   				    and apply_org_flow = '${proj.applyOrgFlow}'
+			   			    </if>
+			   			    and charge_org_flow='${chargeOrgFlow}'
+			   			    and (proj_status_id= '${status1}' or proj_status_id= '${status2}')
+			   			    
+			   			</if>
+
+			   			<if test='scope=="global"'>
+                            and (proj_status_id='${status1}'
+			   				or (proj_status_id='${status2}' and charge_org_flow='${chargeOrgFlow}'))
+			   			    <if test='proj.chargeOrgFlow!=null and proj.chargeOrgFlow!=""'>
+			   			        and charge_org_flow='${proj.chargeOrgFlow}'
+			   			    </if>
+			   			    <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+			   			        and apply_org_flow='${proj.applyOrgFlow}'
+			   			    </if>
+                            
+			   			</if>
+			   			 ) 
+ 				ORDER BY CREATE_TIME DESC
+	</select>
+	
+	<select id="selectSchduleAduitProjList" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+	    SELECT PROJ_FLOW, PROJ_YEAR, PROJ_NAME, 
+			   PROJ_SHORT_NAME, PROJ_DECLARER, PROJ_SHORT_DECLARER, PROJ_CATEGORY_ID, PROJ_CATEGORY_NAME, 
+			   PROJ_NO, CFDA_NO, PROJ_TYPE_ID, PROJ_TYPE_NAME, PROJ_SUB_TYPE_ID, PROJ_SUB_TYPE_NAME, PROJ_STAGE_ID, 
+	           PROJ_STAGE_NAME, PROJ_STATUS_ID, PROJ_STATUS_NAME, APPLY_USER_FLOW, APPLY_USER_NAME, APPLY_ORG_FLOW, 
+			   APPLY_ORG_NAME, APPLY_DEPT_FLOW, APPLY_DEPT_NAME, PROJ_START_TIME, PROJ_END_TIME, RECORD_STATUS, 
+			   CREATE_TIME, CREATE_USER_FLOW, MODIFY_TIME, MODIFY_USER_FLOW 
+			   FROM PDSCI.PUB_PROJ 
+			   WHERE (RECORD_STATUS = '${proj.recordStatus}' and PROJ_CATEGORY_ID = '${proj.projCategoryId}' and PROJ_STAGE_ID = '${proj.projStageId}' 
+			   			<if test='proj.projName!=null and proj.projName!=""'>
+			   				and proj_name like '%${proj.projName}%'
+			   			</if>
+			   			<if test='proj.projYear!=null and proj.projYear!=""'>
+			   				and proj_year = '${proj.projYear}'
+			   			</if>
+			   			
+			   			<if test='proj.projTypeId!=null and proj.projTypeId!=""'>
+			   				and proj_type_id = '${proj.projTypeId}'
+			   			</if>
+			   			<if test='proj.projCategoryId!=null and proj.projCategoryId!=""'>
+			   			    and proj_category_id = '${proj.projCategoryId}'
+			   			</if>
+
+                        <if test='scope=="local"'>
+			   			    and apply_org_flow='${orgFlow}'  and (
+			   			    proj_status_id= '${status1}' 
+			   			    or (charge_org_flow<![CDATA[ <> ]]>'${chargeOrgFlow}' and proj_status_id= '${status2}')
+			   			    or (charge_org_flow='${chargeOrgFlow}' and proj_status_id= '${status3}')
+			   			    )
+			   			    AND (EXISTS	
+			   			    (SELECT null 
+			   			        FROM PDSCI.PUB_PROJ_REC PPR 
+			   			        WHERE PUB_PROJ.PROJ_FLOW = PPR.PROJ_FLOW AND PPR.REC_TYPE_ID='${recTypeId}' AND PPR.RECORD_STATUS='Y' and PPR.PROJ_STAGE_ID='${proj.projStageId}' AND  (PPR.PROJ_STATUS_ID in ('${status1}' , '${status2}' , '${status3}')))))
+			   			    
+			   			</if>
+
+			   			<if test='scope=="charge"'>
+			   			    <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+			   				    and apply_org_flow = '${proj.applyOrgFlow}'
+			   			    </if>
+			   			    and charge_org_flow='${chargeOrgFlow}'
+			   			    and (proj_status_id= '${status1}' or proj_status_id= '${status2}')
+			   			   AND (EXISTS	
+			   			    (SELECT null 
+			   			        FROM PDSCI.PUB_PROJ_REC PPR 
+			   			        WHERE PUB_PROJ.PROJ_FLOW = PPR.PROJ_FLOW AND PPR.REC_TYPE_ID='${recTypeId}' AND PPR.RECORD_STATUS='Y' and PPR.PROJ_STAGE_ID='${proj.projStageId}' AND  (PPR.PROJ_STATUS_ID in ('${status1}' , '${status2}')))))
+			   			</if>
+
+			   			<if test='scope=="global"'>
+                            and (proj_status_id='${status1}'
+			   				or (proj_status_id='${status2}' and charge_org_flow='${chargeOrgFlow}'))
+			   			    <if test='proj.chargeOrgFlow!=null and proj.chargeOrgFlow!=""'>
+			   			        and charge_org_flow='${proj.chargeOrgFlow}'
+			   			    </if>
+			   			    <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+			   			        and apply_org_flow='${proj.applyOrgFlow}'
+			   			    </if>
+			   			    AND (EXISTS	
+			   			    (SELECT null 
+			   			        FROM PDSCI.PUB_PROJ_REC PPR 
+			   			        WHERE PUB_PROJ.PROJ_FLOW = PPR.PROJ_FLOW AND PPR.REC_TYPE_ID='${recTypeId}' AND PPR.RECORD_STATUS='Y' and PPR.PROJ_STAGE_ID='${proj.projStageId}' AND  (PPR.PROJ_STATUS_ID in ('${status1}' , '${status2}')))))
+                            
+			   			</if>
+			   			 
+ 				ORDER BY CREATE_TIME DESC
+	</select>
+	
+	<select id="selectCompleteAduitProjList" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+	    SELECT PROJ_FLOW, PROJ_YEAR, PROJ_NAME, 
+			   PROJ_SHORT_NAME, PROJ_DECLARER, PROJ_SHORT_DECLARER, PROJ_CATEGORY_ID, PROJ_CATEGORY_NAME, 
+			   PROJ_NO, CFDA_NO, PROJ_TYPE_ID, PROJ_TYPE_NAME, PROJ_SUB_TYPE_ID, PROJ_SUB_TYPE_NAME, PROJ_STAGE_ID, 
+	           PROJ_STAGE_NAME, PROJ_STATUS_ID, PROJ_STATUS_NAME, APPLY_USER_FLOW, APPLY_USER_NAME, APPLY_ORG_FLOW, 
+			   APPLY_ORG_NAME, APPLY_DEPT_FLOW, APPLY_DEPT_NAME, PROJ_START_TIME, PROJ_END_TIME, RECORD_STATUS, 
+			   CREATE_TIME, CREATE_USER_FLOW, MODIFY_TIME, MODIFY_USER_FLOW 
+			   FROM PDSCI.PUB_PROJ 
+			   WHERE (RECORD_STATUS = '${proj.recordStatus}' and PROJ_CATEGORY_ID = '${proj.projCategoryId}' and PROJ_STAGE_ID = '${proj.projStageId}' 
+			   			<if test='proj.projName!=null and proj.projName!=""'>
+			   				and proj_name like '%${proj.projName}%'
+			   			</if>
+			   			<if test='proj.projYear!=null and proj.projYear!=""'>
+			   				and proj_year = '${proj.projYear}'
+			   			</if>
+			   			
+			   			<if test='proj.projTypeId!=null and proj.projTypeId!=""'>
+			   				and proj_type_id = '${proj.projTypeId}'
+			   			</if>
+			   			<if test='proj.projCategoryId!=null and proj.projCategoryId!=""'>
+			   			    and proj_category_id = '${proj.projCategoryId}'
+			   			</if>
+
+                        <if test='scope=="local"'>
+			   			    and apply_org_flow='${orgFlow}'  and (
+			   			    proj_status_id= '${status1}' 
+			   			    or (charge_org_flow<![CDATA[ <> ]]>'${chargeOrgFlow}' and proj_status_id= '${status2}')
+			   			    or (charge_org_flow='${chargeOrgFlow}' and proj_status_id= '${status3}')
+			   			    )
+			   			    AND (EXISTS	
+			   			    (SELECT null 
+			   			        FROM PDSCI.PUB_PROJ_REC PPR 
+			   			        WHERE PUB_PROJ.PROJ_FLOW = PPR.PROJ_FLOW AND PPR.REC_TYPE_ID='${recTypeId}' AND PPR.RECORD_STATUS='Y' and PPR.PROJ_STAGE_ID='${proj.projStageId}' AND  (PPR.PROJ_STATUS_ID in ('${status1}' , '${status2}' , '${status3}')))))
+			   			    
+			   			</if>
+
+			   			<if test='scope=="charge"'>
+			   			    <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+			   				    and apply_org_flow = '${proj.applyOrgFlow}'
+			   			    </if>
+			   			    and charge_org_flow='${chargeOrgFlow}'
+			   			    and (proj_status_id= '${status1}' or proj_status_id= '${status2}')
+			   			   AND (EXISTS	
+			   			    (SELECT null 
+			   			        FROM PDSCI.PUB_PROJ_REC PPR 
+			   			        WHERE PUB_PROJ.PROJ_FLOW = PPR.PROJ_FLOW AND PPR.REC_TYPE_ID='${recTypeId}' AND PPR.RECORD_STATUS='Y' and PPR.PROJ_STAGE_ID='${proj.projStageId}' AND  (PPR.PROJ_STATUS_ID in ('${status1}' , '${status2}')))))
+			   			</if>
+
+			   			<if test='scope=="global"'>
+                            and (proj_status_id='${status1}'
+			   				or (proj_status_id='${status2}' and charge_org_flow='${chargeOrgFlow}'))
+			   			    <if test='proj.chargeOrgFlow!=null and proj.chargeOrgFlow!=""'>
+			   			        and charge_org_flow='${proj.chargeOrgFlow}'
+			   			    </if>
+			   			    <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+			   			        and apply_org_flow='${proj.applyOrgFlow}'
+			   			    </if>
+			   			    AND (EXISTS	
+			   			    (SELECT null 
+			   			        FROM PDSCI.PUB_PROJ_REC PPR 
+			   			        WHERE PUB_PROJ.PROJ_FLOW = PPR.PROJ_FLOW AND PPR.REC_TYPE_ID='${recTypeId}' AND PPR.RECORD_STATUS='Y' and PPR.PROJ_STAGE_ID='${proj.projStageId}' AND  (PPR.PROJ_STATUS_ID in ('${status1}' , '${status2}')))))
+                            
+			   			</if>
+			   			 
+ 				ORDER BY CREATE_TIME DESC
+	</select>
+	
+	<select id="selectProjList" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		SELECT
+		<include refid="com.pinde.sci.dao.base.PubProjMapper.Base_Column_List" /> 
+		FROM PDSCI.PUB_PROJ 
+		<if test="_parameter != null" > 
+      		<include refid="com.pinde.sci.dao.base.PubProjMapper.Update_By_Example_Where_Clause" />   
+    	</if>    
+		AND	EXISTS (SELECT  null FROM (
+				SELECT so.org_flow 
+					FROM PDSCI.sys_org so START WITH so.org_flow=#{orgFlow} CONNECT BY PRIOR so.org_flow=so.CHARGE_ORG_FLOW) t1 
+				WHERE PUB_PROJ.apply_org_flow=t1.org_flow)
+		AND  
+		(EXISTS	(SELECT null FROM PDSCI.PUB_PROJ_REC WHERE 
+			<choose>
+				<when test='_statusEnumIdForEditing!=null and _statusEnumIdForEditing!=""'>
+						PROJ_STATUS_ID=#{_statusEnumIdForEditing} AND
+				</when>
+				<otherwise>
+					PROJ_STATUS_ID!=#{statusEnumIdForNoSearch1} and PROJ_STATUS_ID!=#{statusEnumIdForNoSearch2} AND
+				</otherwise>
+			</choose>
+    		rec_type_id=#{recTypeId} 
+			AND PUB_PROJ.PROJ_FLOW = PROJ_FLOW))
+			ORDER BY CREATE_TIME DESC
+	</select>
+	
+	<select id="selectChargeProjList" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+		select * from PDSCI.PUB_PROJ pp where pp.APPLY_ORG_FLOW in 
+			(select SYS_ORG.ORG_FLOW from PDSCI.SYS_ORG where CHARGE_ORG_FLOW=#{param2} or ORG_FLOW=#{param2})
+			and pp.RECORD_STATUS='Y' 
+			<if test='param1.projStageId!=null and param1.projStageId!=""'>
+				and pp.PROJ_STAGE_ID=#{param1.projStageId}
+			</if>	
+			<if test='param1.projStatusId!=null and param1.projStatusId!=""'>
+				and pp.PROJ_STATUS_ID=#{param1.projStatusId}
+			</if>		
+			order by pp.MODIFY_TIME DESC
+  	</select>
+   <select id="selectChargeProj" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+    <!--
+      自定义查询主管部门下属单位项目，包含主管部门
+    -->
+    select
+    <include refid="com.pinde.sci.dao.base.PubProjMapper.Base_Column_List" />
+   		 from PDSCI.PUB_PROJ 
+	<if test="_parameter != null" > 
+      <include refid="com.pinde.sci.dao.base.PubProjMapper.Update_By_Example_Where_Clause" />   
+    </if>   
+   and  (exists (select null from PDSCI.sys_org where (sys_org.CHARGE_ORG_FLOw=#{currentOrgFlow}  or ORG_FLOW=#{currentOrgFlow})
+	and PDSCI.PUB_PROJ.APPLY_ORG_FLOW = ORG_FLOW )) and 
+	(exists	( select null from PDSCI.PUB_PROJ_REC where PROJ_STATUS_ID=#{_statusEnumIdForEditing}
+    and rec_type_id=#{recTypeId} 
+	and PDSCI.PUB_PROJ.PROJ_FLOW = PROJ_FLOW))
+     <if test="example.orderByClause != null">   
+      order by ${example.orderByClause}   
+    </if>  
+  </select>
+   <select id="searchProjByProjFlows" parameterType="java.util.List" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+    <!--
+    -->
+    select
+    <include refid="com.pinde.sci.dao.base.PubProjMapper.Base_Column_List" />
+   		 from PDSCI.PUB_PROJ where  RECORD_STATUS='Y' and PROJ_FLOW IN 
+   		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  	#{item}  
+		 </foreach> 
+  </select>
+  <select id="selectLocalProj" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+    select
+    <include refid="com.pinde.sci.dao.base.PubProjMapper.Base_Column_List" />
+   		 from PDSCI.PUB_PROJ 
+	<if test="_parameter != null" > 
+      <include refid="com.pinde.sci.dao.base.PubProjMapper.Update_By_Example_Where_Clause" />   
+    </if>   
+   and  exists (select null from PDSCI.PUB_PROJ_REC where PROJ_STATUS_ID=#{_statusEnumIdForEditing}
+    and rec_type_id=#{recTypeId} 
+	and PDSCI.PUB_PROJ.PROJ_FLOW = PROJ_FLOW )
+     <if test="example.orderByClause != null">   
+      order by ${example.orderByClause}   
+    </if>  
+  </select>
+  
+  
+  <select id="selectGlobalProj" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+    select
+    <include refid="com.pinde.sci.dao.base.PubProjMapper.Base_Column_List" />
+   		 from PDSCI.PUB_PROJ 
+	<if test="_parameter != null" > 
+      <include refid="com.pinde.sci.dao.base.PubProjMapper.Update_By_Example_Where_Clause" />   
+    </if>   
+   and  exists (select null from PUB_PROJ_REC where PROJ_STATUS_ID!=#{_statusEnumIdForEditing} and PROJ_STATUS_ID!=#{_statusEnumIdForThrirdAudit}
+    and rec_type_id=#{recTypeId} 
+	and PDSCI.PUB_PROJ.PROJ_FLOW = PROJ_FLOW )
+     <if test="example.orderByClause != null">   
+      order by ${example.orderByClause}   
+    </if>  
+  </select>
+  
+  <resultMap id="EvaluationProjResultMap" type="com.pinde.sci.model.srm.PubProjExt" extends="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap" >
+	<association property="srmExpertGroupProj" column="PROJ_FLOW"  resultMap="com.pinde.sci.dao.base.SrmExpertProjEvalMapper.BaseResultMap"></association>
+ </resultMap>
+  
+   <select id="selectEvaluationProjList" parameterType="com.pinde.sci.model.srm.PubProjExt" resultMap="EvaluationProjResultMap">
+  	select * from (
+  	select proj_flow , proj_year , proj_type_id , proj_type_name , proj_start_time , proj_end_time , proj_name , apply_user_flow , apply_user_name , apply_org_flow , apply_org_name , create_time ct
+  			from PDSCI.pub_proj pp
+  			where RECORD_STATUS='Y' and PROJ_CATEGORY_ID = #{projCateScope}
+  			<if test='projFlow!=null and projFlow!=""'>
+  			    and pp.PROJ_FLOW=#{projFlow}
+  			</if> 
+  			<if test='projStageId!=null and projStageId!=""'>
+  				and pp.PROJ_STAGE_ID=#{projStageId}
+  			</if>
+  			<if test='projStatusId!=null and projStatusId!=""'>
+  				and pp.PROJ_STATUS_ID=#{projStatusId} 
+  			</if>
+  			<if test='projYear!=null and projYear!=""'>
+  				and pp.PROJ_YEAR=#{projYear}
+  			</if>
+  			<if test='projTypeId!=null and projTypeId!=""'>
+  				and pp.PROJ_TYPE_ID=#{projTypeId}
+  			</if>
+  			<if test='projName!=null and projName!=""'>
+  				and pp.PROJ_NAME LIKE '%${projName}%'
+  			</if>
+  			<if test='applyOrgFlow!=null and applyOrgFlow!=""'>
+  			    and pp.APPLY_ORG_FLOW = '${applyOrgFlow}'
+  			</if>
+  			<if test='chargeOrgFlow!=null and chargeOrgFlow!=""'>
+  			    and pp.CHARGE_ORG_FLOW = '${chargeOrgFlow}'
+  			</if>
+  			<!-- 
+  			<if test='applyOrgFlow!=null and applyOrgFlow!=""'>
+  				and pp.APPLY_ORG_FLOW in (select org_flow from PDSCI.sys_org start WITH org_flow=#{applyOrgFlow} connect by prior org_flow=charge_org_flow)
+  			</if> -->
+  			<if test='recTypeId!=null and recTypeId!=""'>
+  			    and (EXISTS	(SELECT null FROM PDSCI.PUB_PROJ_REC WHERE rec_type_id=#{recTypeId} 
+			    AND pp.PROJ_FLOW = PROJ_FLOW))
+  			</if>
+			) t left join PDSCI.SRM_EXPERT_PROJ_EVAL segp on t.proj_flow=segp.PROJ_FLOW AND SEGP.EVALUATION_ID=#{srmExpertGroupProj.evaluationId}  ORDER BY ct DESC
+  </select>
+  <select id="selectCommonProjList" parameterType="com.pinde.sci.model.mo.PubProj" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+  		select proj_flow , proj_year ,proj_stage_id, proj_stage_name,proj_status_id, proj_status_name,proj_type_id , proj_type_name , proj_start_time , proj_end_time , proj_name , apply_user_flow , apply_user_name , apply_org_flow , apply_org_name
+  			from PDSCI.pub_proj
+  			where RECORD_STATUS='Y' 
+  			<if test='projStageId!=null and projStageId!=""'>
+  				and PROJ_STAGE_ID=#{projStageId}
+  			</if>
+  			<if test='projCategoryId!=null and projCategoryId!=""'>
+  			    and proj_category_id=#{projCategoryId}
+  			</if>
+  			<if test='projStatusId!=null and projStatusId!=""'>
+  				and PROJ_STATUS_ID=#{projStatusId} 
+  			</if>
+  			<if test='projYear!=null and projYear!=""'>
+  				and PROJ_YEAR=#{projYear}
+  			</if>
+  			<if test='projTypeId!=null and projTypeId!=""'>
+  				and PROJ_TYPE_ID=#{projTypeId}
+  			</if>
+  			<if test='projName!=null and projName!=""'>
+  				and PROJ_NAME LIKE '%${projName}%'
+  			</if>
+  			<if test='applyOrgFlow!=null and applyOrgFlow!=""'>
+  			    and APPLY_ORG_FLOW = '${applyOrgFlow}'
+  			</if>
+  			<if test='chargeOrgFlow!=null and chargeOrgFlow!=""'>
+  			    and CHARGE_ORG_FLOW = '${chargeOrgFlow}'
+  			</if>
+  			<!-- 
+  			<if test='applyOrgFlow!=null and applyOrgFlow!=""'>
+  				and APPLY_ORG_FLOW in (select org_flow from PDSCI.sys_org start WITH org_flow=#{applyOrgFlow} connect by prior org_flow=charge_org_flow)
+  			</if> -->
+  </select>
+  
+   <select id="selectCountProj" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(*)
+  			from 
+  			<if test='recFlag!=null and recFlag!=""'>
+  			PDSCI.pub_proj_rec pr,
+  			</if>
+  			PDSCI.pub_proj pp
+  			where pp.RECORD_STATUS='Y' 
+  			<if test='projCategoryId!=null and projCategoryId!=""'>
+  			   and pp.proj_Category_Id=#{projCategoryId}
+  			</if>
+  			<if test='recFlag!=null and recFlag!=""'>
+  			and pr.PROJ_FLOW=pp.PROJ_FLOW 
+  			</if>
+  			<if test='recFlag!=null and recFlag!=""'>
+  			  <if test='recTypeId!=null and recTypeId!=""'>
+  			    and pr.REC_TYPE_ID=#{recTypeId}
+  			  </if>
+  			</if>
+  			<if test='projStageId!=null and projStageId!=""'>
+  			  <if test='recFlag!=null and recFlag!=""'>
+  			   and pr.PROJ_STAGE_ID=#{projStageId}
+  			   </if>
+  			   and pp.PROJ_STAGE_ID=#{projStageId}
+  			</if>
+  			<if test='projStatusId!=null and projStatusId!=""'>
+  			  <if test='recFlag!=null and recFlag!=""'>
+  			   and pr.PROJ_STATUS_ID in 
+  			   <foreach close=")" collection="projStatusId" item="status" open="(" separator=",">
+                    #{status}
+                </foreach>
+              </if>
+              <if test='recFlag==null or recFlag==""'>
+               and pp.PROJ_STATUS_ID in 
+  			   <foreach close=")" collection="projStatusId" item="status" open="(" separator=",">
+                    #{status}
+                </foreach>
+              </if>
+  			</if>
+  			<if test='chargeOrgFlow!=null and chargeOrgFlow!=""'>
+  				and pp.APPLY_ORG_FLOW in (select org_flow from PDSCI.sys_org start WITH org_flow=#{chargeOrgFlow} connect by prior org_flow=charge_org_flow)
+  			</if>
+  			<if test='processApproveStageId!=null and processApproveStageId!="" and processApproveStatusId!=null and processApproveStatusId!=""'>
+  			   and pp.PROJ_FLOW not in (select PROJ_FLOW from PDSCI.pub_proj_process where PROJ_STAGE_ID=#{processApproveStageId} and PROJ_STATUS_ID=#{processApproveStatusId})
+  			</if>
+  		    <if test='processCompleteStageId!=null and processCompleteStageId!="" and processCompleteStatusId!=null and processCompleteStatusId!=""'>
+  			   and pp.PROJ_FLOW not in (select PROJ_FLOW from PDSCI.pub_proj_process where PROJ_STAGE_ID=#{processCompleteStageId} and PROJ_STATUS_ID=#{processCompleteStatusId})
+  			</if>
+  			
+  </select>
+  
+   <select id="selectCountProjFundDown" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(*)
+  			from PDSCI.pub_proj pp
+  			where pp.RECORD_STATUS='Y'
+  			<if test='projStageList!=null and projStageList!=""'>
+  			   and pp.PROJ_STAGE_ID not in
+  			    <foreach close=")" collection="projStageList" item="stage" open="(" separator=",">
+                    #{stage}
+                </foreach>
+  			</if>
+  			and pp.proj_category_id='ky'
+  			<if test='projStageId!=null and projStageId!="" and projStatusId!=null and projStatusId!=""'>
+  			   or (pp.PROJ_STAGE_ID=#{projStageId} and pp.PROJ_STATUS_Id not in
+  			   <foreach close=")" collection="projStatusId" item="status" open="(" separator=",">
+                    #{status}
+                </foreach>
+  			   )
+  			</if>
+  			
+  			<if test='chargeOrgFlow!=null and chargeOrgFlow!=""'>
+  				and pp.APPLY_ORG_FLOW in (select org_flow from PDSCI.sys_org start WITH org_flow=#{chargeOrgFlow} connect by prior org_flow=charge_org_flow)
+  			</if>
+  </select>
+  
+  
+    <select id="selectCountSrmAch" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) from ${tableName} where RECORD_STATUS='Y'
+        <if test='operStatusId!=null and operStatusId!=""'>
+           and OPER_STATUS_ID in
+           <foreach close=")" collection="operStatusId" item="status" open="(" separator=",">
+                    #{status}
+           </foreach>
+        </if>
+        <if test='applyOrgFlow!=null and applyOrgFlow!=""'>
+           and APPLY_ORG_FLOW=#{applyOrgFlow}
+        </if>
+          
+    </select>
+   <select id="selectCountProjFund" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		select count(*)
+  			from PDSCI.pub_proj pp
+  			where pp.RECORD_STATUS='Y'
+  			<if test='projStageId!=null and projStageId!=""'>
+  			   and pp.PROJ_STAGE_ID=#{projStageId}
+  			</if>
+  			<if test='projStatusId!=null and projStatusId!=""'>
+  			   and pp.PROJ_STATUS_ID in 
+  			   <foreach close=")" collection="projStatusId" item="status" open="(" separator=",">
+                    #{status}
+                </foreach>
+  			</if>
+  			<if test='chargeOrgFlow!=null and chargeOrgFlow!=""'>
+  				and pp.APPLY_ORG_FLOW in (select org_flow from PDSCI.sys_org start WITH org_flow=#{chargeOrgFlow} connect by prior org_flow=charge_org_flow)
+  			</if>
+  			<if test='budgetStatusId!=null and budgetStatusId!=""'>
+  			    and pp.PROJ_FLOW in (select proj_flow from PDSCI.srm_proj_fund_info where budget_status_id=#{budgetStatusId})
+  			</if>
+  		    
+  </select>
+  
+  <select id="selectProjListForFundPlan" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+  	select proj_flow , proj_year ,proj_stage_id, proj_stage_name,proj_status_id, proj_status_name,proj_type_id , proj_type_name , proj_start_time , proj_end_time , proj_name , apply_user_flow , apply_user_name , apply_org_flow , apply_org_name
+  			from PDSCI.pub_proj
+  			where RECORD_STATUS='Y' and PROJ_CATEGORY_ID='ky'
+  			<if test='proj.projYear!=null and proj.projYear!=""'>
+  				and PROJ_YEAR=#{proj.projYear}
+  			</if>
+  			<if test='proj.projTypeId!=null and proj.projTypeId!=""'>
+  				and PROJ_TYPE_ID=#{proj.projTypeId}
+  			</if>
+  			<if test='proj.projName!=null and proj.projName!=""'>
+  				and PROJ_NAME LIKE '%${proj.projName}%'
+  			</if>
+  			<if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+  			    and APPLY_ORG_FLOW = '${proj.applyOrgFlow}'
+  			</if>
+  			<if test='proj.chargeOrgFlow!=null and proj.chargeOrgFlow!=""'>
+  			    and CHARGE_ORG_FLOW = '${proj.chargeOrgFlow}'
+  			</if>
+  			<!--  
+  			<if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+  				and APPLY_ORG_FLOW in (select org_flow from PDSCI.sys_org start WITH org_flow=#{proj.applyOrgFlow} connect by prior org_flow=charge_org_flow)
+  			</if>-->
+  			AND (EXISTS	(SELECT null FROM PDSCI.PUB_PROJ_PROCESS PPP WHERE PUB_PROJ.PROJ_FLOW = PPP.PROJ_FLOW AND PPP.PROJ_STAGE_ID=#{stage} AND PPP.PROJ_STATUS_ID=#{status})) 
+  </select>
+  
+  <resultMap id="PubProjCountExtMapper" type="com.pinde.sci.model.pub.PubProjCountExt">
+  	<result column="projCount" jdbcType="VARCHAR" property="projCount" />
+  	<result column="orgName" jdbcType="VARCHAR"  property="orgName"/>
+  	<result column="orgFlow" jdbcType="VARCHAR"  property="orgFlow"/>
+ </resultMap>
+  
+  <select id="selectProjCountInExpert"  resultMap="PubProjCountExtMapper">
+       select count(*) projCount,so.org_name orgName,so.org_flow orgFlow
+       from PDSCI.SRM_EXPERT_PROJ_EVAL segp,PDSCI.pub_proj pp,PDSCI.sys_org so 
+       where segp.proj_flow=pp.proj_flow 
+       and so.ORG_FLOW=pp.apply_org_flow
+       <if test='orgFlow!=null and orgFlow!=""'>
+       and so.org_flow in (select org_flow from PDSCI.sys_org start WITH org_flow=#{orgFlow} connect by prior org_flow=charge_org_flow)
+      </if>
+       group by so.org_name,so.org_flow
+  </select>
+  
+  <select id="selectRoundStageStatus" parameterType="java.util.Map" resultMap="PubProjCountExtMapper">
+       select count(*) projCount,
+       <if test='scope!=null and scope=="global"'>
+       so.charge_org_name orgName,so.charge_org_flow orgFlow
+       </if>
+       <if test='scope!=null and scope!="global"'>
+       so.org_name orgName,so.org_flow orgFlow
+       </if>
+       from PDSCI.sys_org so,PDSCI.pub_proj pp
+       <if test='processFlag!=null and processFlag=="Y"'>
+       ,PDSCI.pub_proj_process ppp
+       </if>
+       where pp.apply_org_flow=so.org_Flow
+       <if test='projStageId!=null and projStageId!=""'>
+        and ppp.proj_stage_id=#{projStageId}
+       </if>
+       <if test='projCategoryId!=null and projCategoryId!=""'>
+         and pp.proj_category_id=#{projCategoryId}
+       </if>
+       <if test='projStatusId!=null and projStatusId!=""'>
+       and ppp.proj_status_id=#{projStatusId}
+       </if>
+       <if test='processFlag!=null and processFlag=="Y"'>
+       and ppp.proj_flow=pp.proj_Flow
+       </if>
+       <if test='scope!=null and scope=="global"'>
+       and so.charge_org_flow
+       </if>
+       <if test='scope!=null and scope!="global"'>
+       and so.org_flow
+       </if>
+       <if test='orgFlow!=null and orgFlow!=""'>
+        in (select org_flow from sys_org 
+        <if test='scope!=null and scope!="local"'>
+        where level='2'
+        </if>
+         start WITH org_flow=#{orgFlow} connect by prior org_flow=charge_org_flow)
+       </if>
+       <if test='scope!=null and scope=="global"'>
+         group by so.charge_org_name,so.charge_org_flow
+       </if>
+       <if test='scope!=null and scope!="global"'>
+         group by so.org_name,so.org_flow
+       </if>
+  </select>
+  
+  <select id="selectProjDirect" parameterType="java.util.Map" resultMap="PubProjCountExtMapper">
+       select count(*) projCount,so.org_name orgName,so.org_flow orgFlow
+       from PDSCI.sys_org so,PDSCI.pub_proj pp
+       <if test='processFlag!=null and processFlag=="Y"'>
+       ,PDSCI.pub_proj_process ppp
+       </if>
+       where pp.apply_org_flow=so.org_Flow
+       <if test='projStageId!=null and projStageId!=""'>
+        and ppp.proj_stage_id=#{projStageId}
+       </if>
+       <if test='projCategoryId!=null and projCategoryId!=""'>
+         and pp.proj_category_id=#{projCategoryId}
+       </if>
+       <if test='projStatusId!=null and projStatusId!=""'>
+       and ppp.proj_status_id=#{projStatusId}
+       </if>
+       <if test='processFlag!=null and processFlag=="Y"'>
+       and ppp.proj_flow=pp.proj_Flow
+       </if>
+       <if test='orgFlow!=null and orgFlow!=""'>
+       and so.charge_org_flow=#{orgFlow}
+       </if>
+         group by so.org_name,so.org_flow
+      
+  </select>
+  <select id="selectList" parameterType="com.pinde.sci.model.srm.PubProjExt" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+  	select <include refid="com.pinde.sci.dao.base.PubProjMapper.Base_Column_List" />
+   		 from PDSCI.PUB_PROJ where record_status='Y'
+   		 <if test='keyword!=null and keyword!=""'>
+   		 	and (PROJ_SHORT_NAME like #{keyword} or PROJ_NO like #{keyword} )
+   		 </if> 
+   		 <if test='applyOrgFlow!=null and applyOrgFlow!=""'>
+   		 	and APPLY_ORG_FLOW = #{applyOrgFlow}
+   		 </if>
+   		 order by  NLSSORT(PROJ_SHORT_NAME,'NLS_SORT = SCHINESE_PINYIN_M')
+  </select>
+  <select id="selectTerminateProj" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap">
+  	select * from PDSCI.PUB_PROJ where RECORD_STATUS='Y' and (proj_status_id = #{projStatusId} or proj_stage_id = #{projStageId}) ORDER BY CREATE_TIME DESC, PROJ_START_TIME DESC, PROJ_END_TIME
+  </select>
+  
+  <select id="selectReportFormData" parameterType="java.util.Map" resultType="com.pinde.sci.model.srm.ReportForm">
+      select t1.org_flow orgFlow , t1.org_name orgName , nvl(t2.projCount , 0) projCount from (
+          select org_flow , org_name 
+          from PDSCI.sys_org 
+          where org_flow not in 
+                    (select distinct charge_org_flow 
+                        from PDSCI.sys_org 
+                        where charge_org_flow is not null) 
+                and record_status='Y' 
+                <if test='proj.chargeOrgFlow!=null and proj.chargeOrgFlow!=""'>
+                    and charge_org_flow='${proj.chargeOrgFlow}'
+                </if>
+                ) t1
+      left join (
+          select apply_org_flow , count(apply_org_flow) projCount
+          from pub_proj 
+          where 
+          <if test='factor=="applyCount"'>
+             ((proj_stage_id='Apply' and proj_status_id!='Apply') or proj_stage_id!='Apply')
+          </if>
+          <if test='factor=="evalCount"'>
+              proj_stage_id!='Apply'
+          </if>
+          <if test='factor=="approveCount"'>
+              proj_no is not null
+          </if>
+          <if test='factor=="notApproveCount"'>
+              proj_stage_id='Approve' and proj_status_id='NotApprove'
+          </if>
+          <if test='proj.projTypeId!=null and proj.projTypeId!=""'>
+              and proj_type_id='${proj.projTypeId}'
+          </if>
+          <if test='proj.projYear!=null and proj.projYear!=""'>
+               and pub_proj.PROJ_YEAR='${proj.projYear}'
+          </if>
+            
+          <if test='proj.chargeOrgFlow!=null and proj.chargeOrgFlow!=""'>
+              and charge_org_flow='${proj.chargeOrgFlow}'
+          </if>
+          <if test='proj.projCategoryId!=null and proj.projCategoryId!=""'>
+              and proj_category_id = '${proj.projCategoryId}'
+          </if>
+             group BY apply_org_flow) t2
+    on t1.org_flow = t2.apply_org_flow
+  </select>
+  
+  <select id="selectOrgHavingProjCount" resultType="java.util.HashMap">
+  select pp.APPLY_ORG_FLOW orgflow, count(*) num
+  from pub_proj pp , pub_proj_rec ppr 
+  where pp.PROJ_FLOW=ppr.PROJ_FLOW 
+  and  pp.PROJ_CATEGORY_ID='ky' 
+  and pp.RECORD_STATUS='Y'
+  and ppr.RECORD_STATUS='Y'
+  and ppr.REC_TYPE_ID=#{recTypeId} 
+  and ppr.PROJ_STATUS_ID=#{status}
+  group by pp.APPLY_ORG_FLOW 
+  </select>
+  
+  <select id="searchAuditCount" parameterType="java.util.Map"  resultType="int">
+	  select count(*)
+	  from pdsci.PUB_PROJ p
+	  where p.RECORD_STATUS='Y'
+	  <if test="pubProj!=null">
+	  		<if test='pubProj.projYear!=null and pubProj.projYear!=""'>
+		  		  and p.PROJ_YEAR = #{pubProj.projYear}
+		 	</if>
+    		<if test='pubProj.applyOrgFlow!=null and pubProj.applyOrgFlow!=""'>
+    			and p.APPLY_ORG_FLOW = #{pubProj.applyOrgFlow}
+    		</if>
+    		<if test='pubProj.projCategoryId!=null and pubProj.projCategoryId!=""'>
+    			and p.PROJ_CATEGORY_ID = #{pubProj.projCategoryId}
+    		</if>
+    		<if test='pubProj.projTypeId!=null and pubProj.projTypeId!=""'>
+    			and p.PROJ_TYPE_ID = #{pubProj.projTypeId}
+    		</if>
+    		and proj_flow not in ( select proj_flow from pub_proj where  PROJ_STAGE_ID=#{projStageId} and (PROJ_STATUS_ID = #{projApplyStatusId1} or PROJ_STATUS_ID = #{projApplyStatusId2}))
+		</if>
+  </select>
+</mapper>

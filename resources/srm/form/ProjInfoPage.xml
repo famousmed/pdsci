@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- pageGroup 定义
+	product. 产品默认项目类型
+	 -->
+	<!-- 项目基本信息表单 -->
+	<pageGroup name="product" firstPage="step1" view="srm/proj/form/info/product/projInfo_view">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/info/product/projInfo">
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="subjectCode" remark="学科代码" multiple="N"></item>
+			<item name="subjectName" remark="学科代码名称" multiple="N"></item>
+			<item name="projType" remark="项目类别" multiple="N"></item>
+			<item name="projStartTime" remark="开始时间" multiple="N"></item>
+			<item name="projEndTime" remark="结束时间" multiple="N"></item>
+			<item name="impTime" remark="引进时间" multiple="N"></item>
+			     
+			 <item name="memberSum" remark="总数" multiple="N"></item>
+			 <item name="memberUnderThirtyFive" remark="其中35岁以下" multiple="N"></item>
+			 <item name="memberPrimary" remark="初级" multiple="N"></item>
+			 <item name="memberMiddleGrade" remark="中级" multiple="N"></item>
+			 <item name="memberHighGrade" remark="高级" multiple="N"></item>
+			 <item name="memberOther" remark="其他" multiple="N"></item>
+			    
+			 <item name="ach" remark="成果" multiple="Y"></item>
+			
+			<itemGroup name="projMainPeop" remark="主要完成人情况表" jsp="" flow="" modelStyle="add">
+				<item name="projMainPeop_name" remark="姓名" multiple="N"></item>
+				<item name="projMainPeop_sex" remark="性别" multiple="N"></item>
+				<item name="projMainPeop_degree" remark="学位" multiple="N"></item>
+				<item name="projMainPeop_education" remark="学历" multiple="N"></item>
+				<item name="projMainPeop_phone" remark="电话" multiple="N"></item>
+				<item name="projMainPeop_email" remark="邮件" multiple="N"></item>
+				<item name="projMainPeop_professional" remark="职称" multiple="N"></item>
+				<item name="projMainPeop_post" remark="职务" multiple="N"></item>
+				<item name="projMainPeop_birthday" remark="出生日期" multiple="N"></item>
+				<item name="projMainPeop_workOrg" remark="工作单位" multiple="N"></item>
+			</itemGroup>
+			
+			<!--  
+			<itemGroup name="projPeop" remark="项目成员" jsp="" flow="" modelStyle="add">
+				<item name="projPeop_name" remark="姓名" multiple="N"></item>
+				<item name="projPeop_sex" remark="性别" multiple="N"></item>
+				<item name="projPeop_nation" remark="民族" multiple="N"></item>
+				<item name="projPeop_degree" remark="学位" multiple="N"></item>
+				<item name="projPeop_education" remark="学历" multiple="N"></item>
+				<item name="projPeop_phone" remark="电话" multiple="N"></item>
+				<item name="projPeop_email" remark="邮件" multiple="N"></item>
+				<item name="projPeop_professional" remark="职称" multiple="N"></item>
+				<item name="projPeop_birthday" remark="出生日期" multiple="N"></item>
+				<item name="projPeop_workOrg" remark="工作单位" multiple="N"></item>
+			</itemGroup>
+			 -->
+			
+			 
+			 
+			<itemGroup name="projCooperationOrg" remark="合作单位" jsp="" flow="" modelStyle="add">
+				<item name="projCooperationOrg_orgName" remark="合作单位名称" multiple="N"></item>
+			</itemGroup>
+			
+			<item name="projContentInfo" remark="项目概况" multiple="N"></item>
+			<item name="projContentContent" remark="主要研究内容" multiple="N"></item>
+			<item name="projContentTarget" remark="考核指标" multiple="N"></item>
+			  
+			<itemGroup name="projFund" remark="项目经费" jsp="" flow="" modelStyle="add">
+				<item name="projFund_sum" remark="项目总投入" multiple="N"></item>
+				<item name="projFund_early" remark="前期投入" multiple="N"></item>
+				<item name="projFund_add" remark="新增投入" multiple="N"></item>
+				<item name="projFund_finance" remark="市财政拨款" multiple="N"></item>
+				<item name="projFund_charge" remark="主管部门配套" multiple="N"></item>
+				<item name="projFund_selfOrg" remark="承担单位自筹" multiple="N"></item>
+				<item name="projFund_other" remark="其他" multiple="N"></item>
+				<item name="projFund_self" remark="单位自筹" multiple="N"></item>
+				<item name="projFund_gov" remark="政府拨其他款" multiple="N"></item>
+				<item name="projFund_other2" remark="其他" multiple="N"></item>
+				<item name="projFund_blank" remark="总投入银行贷款" multiple="N"></item>
+			</itemGroup>
+			
+			<!--
+			<itemGroup name="projBudget" remark="项目预算" jsp="" flow="" modelStyle="add">
+				<item name="projBudget_type" remark="经费类型" multiple="N"></item>
+				<item name="projBudget_name" remark="计费名称" multiple="N"></item>
+				<item name="projBudget_price" remark="单价" multiple="N"></item>
+				<item name="projBudget_count" remark="数量" multiple="N"></item>
+				<item name="projBudget_sum" remark="总额" multiple="N"></item>
+			</itemGroup>
+			--> 
+			<!-- 对于附件该名称必须定义成file -->
+			<item name="file" remark="附件" multiple="Y" isFile="Y"></item>
+		</page>
+	</pageGroup>
+	<!-- 项目基本信息表单 -->
+	<pageGroup name="xkInfo" firstPage="step1" view="srm/proj/form/info/product/xkInfo_view">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/info/product/xkInfo">
+			<item name="projName" remark="重点学科名称" multiple="N"></item>
+			<item name="subjectCode" remark="学科代码" multiple="N"></item>
+			<item name="subjectName" remark="学科代码名称" multiple="N"></item>
+			<item name="projType" remark="学科类别" multiple="N"></item>
+		</page>
+	</pageGroup>
+</jspForm>
+

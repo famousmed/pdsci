@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.pub.PubPatientRecipeExtMapper" >
+<resultMap id="PubPatientRecipeExt" type="com.pinde.sci.model.pub.PubPatientRecipeExt" extends="com.pinde.sci.dao.base.PubPatientRecipeMapper.BaseResultMap" >
+	<result column="patient_name"  property="patientName" />
+	<result column="sex_name"  property="sexName" />
+	<result column="patient_age"  property="patientAge" />
+	<result column="proj_name"  property="projName" />
+	<result column="apply_dept_name"  property="applyDeptName" />
+ </resultMap>
+ 
+  <select id="searchPatientRecipe" parameterType="java.util.Map" resultMap="PubPatientRecipeExt">
+     select ppr.RECIPE_FLOW,ppr.PATIENT_FLOW,ppr.PATIENT_CODE,ppr.PATIENT_NAME_PY,ppr.ORG_FLOW,ppr.PROJ_FLOW,ppr.RECIPE_DATE,
+     ppr.RECIPE_DOCTOR_FLOW,ppr.RECIPE_DOCTOR_NAME,ppr.SEND_DATE,ppr.SEND_USER_FLOW,ppr.SEND_USER_NAME,
+     pp.proj_name,pp.apply_dept_name,pa.patient_Name,pa.sex_name,pa.patient_age from pdsci.pub_proj pp,pdsci.pub_patient pa,pdsci.pub_patient_recipe ppr
+       where ppr.proj_flow=pp.proj_flow and ppr.patient_flow=pa.patient_flow and pp.RECORD_STATUS ='Y' and pa.RECORD_STATUS ='Y' and ppr.RECORD_STATUS ='Y' 
+        <if test='patientName!=null and patientName!=""'>
+            and pa.patient_name like '%${patientName}%'
+        </if>
+        <if test='projName!=null and projName!=""'>
+            and pp.proj_name like '%${projName}%'
+        </if>
+        <if test='orgFlow!=null and orgFlow!=""'>
+            and pa.org_flow = '${orgFlow}'
+        </if>
+        <if test='recipeStatusId!=null and recipeStatusId!=""'>
+            and ppr.recipe_Status_Id = '${recipeStatusId}'
+        </if>
+        order by ppr.SEND_DATE,ppr.CREATE_TIME  
+   </select>
+</mapper>

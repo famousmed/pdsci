@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.gcp.GcpDrugExtMapper">
+<resultMap id="GcpDrugExt" type="com.pinde.sci.model.gcp.GcpDrugExt" extends="com.pinde.sci.dao.base.GcpDrugMapper.BaseResultMap" >
+	<result column="drug_flow"  property="drugFlow" />
+	<result column="drug_name"  property="drugName" />
+	<result column="drug_type_name"  property="drugTypeName" />
+	<result column="spec"  property="spec" />
+	<result column="min_Pack_Unit_name"  property="minPackUnitName" />
+	<result column="STORAGE_CONDITION"  property="storageCondition" />
+	<result column="manufacturer"  property="manufacturer" />
+	<result column="recipe_Usage"  property="recipeUsage" />
+	<result column="projName"  property="projName" />
+	<result column="proj_Flow"  property="projFlow" />
+	
+ </resultMap>
+
+      <select id="searchGcpDrugList" parameterType="java.util.Map" resultMap="GcpDrugExt">
+         select  gd.drug_flow,gd.drug_name,gd.drug_type_name,gd.spec,
+                 gd.min_Pack_Unit_name,gd.STORAGE_CONDITION,gd.manufacturer,
+                 gd.recipe_Usage,pp.proj_Name projName,gd.proj_Flow projFlow
+         from pdsci.pub_proj pp,pdsci.gcp_drug gd
+          where gd.RECORD_STATUS='Y' and pp.proj_flow=gd.proj_flow and pp.PROJ_STATUS_ID='Passed' and pp.RECORD_STATUS='Y'
+            <if test='projName!=null and projName!=""'>
+                and pp.proj_name like '%${projName}%'
+            </if>
+            <if test='drug.drugTypeId!=null and drug.drugTypeId!=""'>
+                and gd.drug_Type_Id=#{drug.drugTypeId}
+            </if>
+            <if test='drug.drugName!=null and drug.drugName!=""'>
+                and gd.drug_Name like '%${drug.drugName}%'
+            </if>
+            <if test='drug.projFlow!=null and drug.projFlow!=""'>
+                and gd.proj_flow=#{drug.projFlow}
+            </if>
+             order by pp.proj_Flow
+      </select>
+      <select id="searchDrugPacks" parameterType="java.util.Map" resultType="String">
+         select distinct drug_pack from pdsci.pub_patient_recipe ppr,pdsci.pub_patient_recipe_drug prd
+          where ppr.recipe_flow=prd.recipe_flow and ppr.RECORD_STATUS='Y' and prd.RECORD_STATUS='Y'
+            <if test='projFlow!=null and projFlow!=""'>
+                and ppr.proj_flow=#{projFlow}
+            </if>
+            <if test='orgFlow!=null and orgFlow!=""'>
+                and ppr.org_flow=#{orgFlow}
+            </if>
+            <if test='recipeStatusId!=null and recipeStatusId!=""'>
+                and ppr.recipe_status_Id=#{recipeStatusId}
+            </if>
+      </select>
+</mapper>

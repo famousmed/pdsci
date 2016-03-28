@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 延期申请表单 -->
+	<pageGroup name="product" firstPage="step1" view="srm/proj/form/delay/product/view">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/delay/product/step1">
+			<item name="zhcnName" remark="中文名" multiple="N"></item>
+			<item name="pinzhong" remark="品种" multiple="N"></item>
+		</page>
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/delay/product/step2">
+			<item name="info" remark="说明" multiple="N"></item>
+			<item name="sex" remark="性别" multiple="N"></item>
+			<item name="finish1" remark="完成人1" multiple="N"></item>
+			<item name="finish2" remark="完成人2" multiple="N"></item>
+		</page>
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/delay/product/step3">
+			<item name="interest" remark="兴趣" multiple="Y"></item>
+		</page>
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/delay/product/step4">
+			<item name="usName" remark="英文名" multiple="N"></item>
+			<itemGroup name="wcr" remark="主要完成人情况表" jsp="srm/proj/form/delay/product/itemGroup1" flow="">
+				<item name="userName" remark="姓名" multiple="N"></item>
+				<item name="sex" remark="性别" multiple="N"></item>
+				<item name="birthday" remark="出生日期" multiple="N"></item>
+			</itemGroup>
+		</page>
+		<!-- 用于文件上传 -->
+		<page name="file" remark="附件上传" jsp="srm/proj/form/product/delay/file">
+			<itemGroup name="fileEdit" remark="附件上传" jsp="srm/proj/form/product/delay/fileEdit" flow="">
+			</itemGroup>
+		</page>
+	</pageGroup>
+</jspForm>
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.sch.SchDoctorAbsenceExtMapper" >
+
+	<select id="searchDoctorAbsence" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SchDoctorAbsenceMapper.BaseResultMap">
+		select * from sch_doctor_absence where RECORD_STATUS = 'Y'
+		<if test='doctorAbsence != null'>
+			<if test='doctorAbsence.doctorFlow!=null and doctorAbsence.doctorFlow!=""'>
+				AND doctor_FLOW = #{doctorAbsence.doctorFlow}
+			</if>
+			<if test='doctorAbsence.orgFlow!=null and doctorAbsence.orgFlow!=""'>
+				AND ORG_FLOW = #{doctorAbsence.orgFlow}
+			</if>
+			<if test='doctorAbsence.sessionNumber != null and doctorAbsence.sessionNumber != ""'>
+				AND SESSION_NUMBER = #{doctorAbsence.sessionNumber}
+			</if>
+			<if test='doctorAbsence.trainingSpeId != null and doctorAbsence.trainingSpeId != ""'>
+				AND TRAINING_SPE_ID = #{doctorAbsence.trainingSpeId}
+			</if>
+			<if test='doctorAbsence.doctorCategoryId != null and doctor.doctorCategoryId != ""'>
+				AND DOCTOR_CATEGORY_ID = #{doctorAbsence.doctorCategoryId}
+			</if>
+			<if test="doctorAbsence.doctorName != null and doctorAbsence.doctorName != ''">
+				AND doctor_Name = #{doctorAbsence.doctorName}
+			</if>
+			<if test='doctorAbsence.schDeptFlow != null and doctor.schDeptFlow != ""'>
+				AND sch_dept_flow = #{doctorAbsence.schDeptFlow}
+			</if>
+			<if test='doctorAbsence.teacherFlow != null and doctor.teacherFlow != ""'>
+				AND teacher_flow = #{doctorAbsence.teacherFlow}
+			</if>
+			<if test='doctorAbsence.headFlow != null and doctor.headFlow != ""'>
+				AND head_flow = #{doctorAbsence.headFlow}
+			</if>
+			<if test='doctorAbsence.isRegister != null and doctor.isRegister != ""'>
+				AND is_register = #{doctorAbsence.isRegister}
+			</if>
+			AND (INTERVAL_DAY <![CDATA[ < ]]> #{absenceTeacherDay} or 'Y' = TEACHER_AGREE_FLAG or 'Y' = is_register)
+			AND (INTERVAL_DAY <![CDATA[ < ]]> #{absenceHeadDay} or 'Y' = HEAD_AGREE_FLAG or 'Y' = is_register)
+			AND (INTERVAL_DAY <![CDATA[ < ]]> #{absenceManageDay} or 'Y' = MANAGER_AGREE_FLAG or 'Y' = is_register)
+		</if>
+		ORDER BY START_DATE DESC
+	</select>
+	
+	
+	<resultMap type="HashMap" id="countAbsenceMap">
+		<result property="doctorFlow" column="DOCTOR_FLOW" javaType="string"/>
+		<result property="countDay" column="COUNT_DAY" javaType="string"/>
+	</resultMap>
+	
+	<select id="countAbsenceDays" resultMap="countAbsenceMap">
+		SELECT DOCTOR_FLOW,SUM(INTERVAL_DAY) COUNT_DAY
+		FROM SCH_DOCTOR_ABSENCE
+		WHERE RECORD_STATUS = 'Y'
+		AND DOCTOR_FLOW IN 
+		<foreach collection="doctorFlows" item="doctorFlow" open="(" separator="," close=")">
+			#{doctorFlow}
+		</foreach>
+		GROUP BY DOCTOR_FLOW
+	</select>
+</mapper>

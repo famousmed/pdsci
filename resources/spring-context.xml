@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd    
+    http://www.springframework.org/schema/security 
+    http://www.springframework.org/schema/security/spring-security-3.2.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+   
+    <!-- 加载属性文件 -->
+	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+				<value>classpath:pdsci.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties" />
+    </bean>    
+    
+    <!-- 调度注解支持 -->
+    <task:executor id="executor" keep-alive="3600" pool-size="100-200" queue-capacity="500" rejection-policy="CALLER_RUNS" />
+    <task:scheduler id="scheduler" pool-size="1000" />  
+    <task:annotation-driven executor="executor" scheduler="scheduler" />
+    
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- 引入mybatis配置文件 -->
+	<import resource="classpath:/spring-mybatis.xml" />	
+	<!-- 引入shiro配置文件 -->
+	<!-- <import resource="classpath:/spring-shiro.xml" /> -->   
+    <!-- 扫描文件（自动将biz层注入） -->
+    <context:component-scan base-package="com.pinde.*.biz"/>
+    <!-- spring context -->
+    <bean id="springUtil" class="com.pinde.core.util.ApplicationContextRegister" />
+    <!-- 使用国际化消息 -->  
+   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">   
+     	<property name="basename" value="messages"/>  
+   </bean>   
+	<!-- 获取本地区的语言消息 -->  
+   <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/> 
+   <bean id="multipartResolver" class="com.pinde.sci.common.PdsciMultipartResolver">
+		<property name="maxUploadSize" value="10737418240" />
+   </bean>
+      
+   <!--  
+   <bean name="adviceJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean"
+   p:jobClass="com.pinde.sci.biz.srm.impl.AdviceJob"
+   p:applicationContextJobDataKey="applicationContext">
+   </bean>
+
+   <bean id="completeProjAdviceForApplyUserTrigger"
+   class="org.springframework.scheduling.quartz.CronTriggerBean"
+   p:jobDetail-ref="adviceJobDetail"
+   p:cronExpression="0/60 19 17 ? * FRI">
+       <property name="jobDataAsMap">
+           <map>
+               <entry key="completeAdviceNumberOfDays" value="30"></entry>
+           </map>
+       </property>
+   </bean>
+   
+   <bean id="srmScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+       <property name="triggers">
+           <list>
+               <ref bean="completeProjAdviceForApplyUserTrigger"></ref>
+           </list>
+       </property>
+       <property name="autoStartup" value="true"/>  
+       <property name="startupDelay" value="5"/> 
+   </bean>
+   -->
+</beans>

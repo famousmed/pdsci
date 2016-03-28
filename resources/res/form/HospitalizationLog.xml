@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>
+	<jsp path="res/form/{0}/hospitalizationLog_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page  ver="1.0">
+		</page>
+	</shetyy>
+	<nzy ver="1.0">
+		<page  ver="1.0">
+		</page>
+	</nzy>
+</jspForm>
+

@@ -1,0 +1,58 @@
+/* CSS Document */
+.teacher-list-top { padding: 68px 0px;}
+.text-center { text-align: center;}
+.teacher-list-top h1 { color: #5C6166; font-size: 40px; margin:20px 0 28px; font-weight:500; line-height:1.1;}
+.teacher-list-top h1 span{color:#aaaeb2;font-weight:400}
+.teacher-list-top div{color:#5c6166;font-size:18px}
+.teacher-list { margin-bottom: 25px;}
+.col-xs-3 { float:left; width:256px;position: relative;padding:0 15px;}
+.teacher-list .kkb-lnk { position: relative; text-decoration: none; display: block; overflow: hidden; margin-bottom: 40px;}
+.teacher-list .kkb-lnk .first {border: 1px solid #C2C7CC; padding: 45px 0px 0px; background: #FFF; border-radius: 6px;}
+.teacher-list .kkb-lnk .first img { border-radius: 140px;}
+.teacher-list .kkb-lnk .first strong { display: block; color: #17181A; font-size: 24px; margin: 26px auto 12px;}
+.teacher-list .kkb-lnk .first p {color: #5C6166; padding: 0px 40px; margin-bottom:10px; font-weight:bold;}
+.teacher-list .kkb-lnk .second { position: absolute;top: -345px; left: 0px; z-index: 1; width:200px; color: #FFF; background: none repeat scroll 0% 0% #5C6166; text-align: left; padding: 45px 28px 0px; line-height: 24px; border-radius: 6px; transition: all 0.2s ease 0s;}
+.teacher-list .kkb-lnk .level { height: 298px; border-radius: 6px; overflow: hidden;}
+.teacher-list .kkb-lnk .second strong { font-size: 24px;}
+.teacher-list .kkb-lnk .second p { margin: 6px auto 38px;}
+.teacher-list .kkb-lnk:hover .second{top:1px;}
+.pagination { display: inline-block; padding-left: 0px; margin: 20px 0px; border-radius: 4px;}
+.pagination > li {display: inline;}
+.pagination > li:first-child > a { margin-left: 0px; border-bottom-left-radius: 4px; border-top-left-radius: 4px;}
+.pagination > .active > a { z-index: 2; color: #FFF; background-color: #428BCA; border-color: #428BCA;cursor: default;}
+.pagination > li > a:hover { color: #2A6496;background-color: #EEE; border-color: #DDD;}
+.pagination > li:last-child > a { border-bottom-right-radius: 4px; border-top-right-radius: 4px;}
+.pagination > li > a {position: relative; float: left; padding: 6px 12px; line-height: 1.42857; text-decoration: none;  border: 1px solid #DDD; margin-left: -1px;}
+
+
+.teacher-detail-pic-bg { position: relative;height: 416px;background-color: rgba(0, 0, 0, 0.3); background-repeat: no-repeat; background-position: center top; background:url(images/teacher-bg.jpg); background-size: cover;}
+.teacher-detail-breadcrumb-bg { background: rgba(0, 0, 0, 0.3);}
+.breadcrumb > li { display: inline-block; line-height:36px;}
+.breadcrumb > li a{ color:#fff;}
+.teacher-detail-pic-bg .main {  width: 640px; color: #FFF; padding-top: 88px; margin: 0px auto; text-align:left;}
+.pull-left { float: left;}
+.teacher-detail-pic-bg .main .pic { display: block; width: 98px; height: 98px; border: 1px solid #FFF; margin-right: 16px; border-radius: 98px; vertical-align:middle;}
+.teacher-detail-pic-bg .main .info { width:480px;}
+.teacher-detail-pic-bg .main .name { line-height: 30px;  margin-bottom: 28px;}
+.teacher-detail-pic-bg .main .name strong { font-size: 24px;}
+.teacher-detail-pic-bg .main .chen { margin-bottom: 6px;}
+.teacher-detail-pic-bg .main .mess { word-break: break-all; margin-bottom: 20px; text-align:justify; text-justify:distribute;}
+.teacher-detail-pic-bg .main .tag{background-color: rgba(0, 0, 0, 0.3); line-height:24px; padding:0 5px; float:left;}
+.teacher-detail-pic-bg .main .tag a { color: inherit; transition: all 0.2s ease 0s; font-style:italic}
+.teacher-detail-pic-bg .main .tag a:hover{ color:#2a6496}
+.teacher-detail-content-bg{ padding-top:28px; overflow:hidden;}
+.teacher-detail-title { color: #17181A; font-size: 24px;  margin-bottom: 24px;}
+.teacher-detail-content-bg li{ width:218px; float:left; border-bottom:1px solid #ddd; margin-right:14px;}
+.teacher-detail-content-bg li dl{border:1px solid #eee; margin-top:-4px; border-top:0; width:196px; height:122px; padding:0 10px; color:#545454; background:#fff;}
+.teacher-detail-content-bg li dl dd.countC{  color:#3e3e3e; }
+.teacher-detail-content-bg li dl dd{font-size:12px;}
+.teacher-detail-content-bg li dt{height:30px; padding-top:10px; color:#000; font-size:14px;}
+.teacher-detail-content-bg li dt a{ color:#000;}
+.teacher-detail-content-bg li dd{line-height:26px;}
+.teacher-detail-content-bg li dd.on000{ color:#000;}
+.teacher-detail-content-bg li .i-bnt{ background:#f7a947; height:26px; line-height:21px; padding:0 12px; margin:2px 0; font-size:13px;}
+.teacher-detail-content-bg li dd img{ vertical-align:-2px;}
+.container{ background:#fff; margin-top:30px;}
+.teacher-detail-article{ padding:60px 0 60px 0;}
+.teacher-detail-article dl { color: #17181A; margin-bottom:20px;}
+.teacher-detail-article dt { font-size: 24px; margin-bottom: 30px;}

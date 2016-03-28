@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/evaluation_{1}"></jsp>
+	<product ver="1.0">
+		<page ver="1.0">
+			<item name="fault" remark="操作事故" multiple="N"></item>
+			<item name="ljxy" remark="廉洁行医" multiple="N"></item>
+			<item name="gztdjzrx" remark="工作态度及责任心" multiple="N"></item>
+			<item name="ylccsg" remark="医疗差错，事故" multiple="N"></item>
+			<item name="yhgtnl" remark="医患沟通能力" multiple="N"></item>
+			<item name="bjsj" remark="病假  事假 " multiple="N"></item>
+			<item name="bszlwbjbl" remark="病史质量无丙级病历" multiple="N"></item>
+			<item name="djzl" remark="带教质量" multiple="N"></item>
+			<item name="glbzsywcbl" remark="管理病种数应完成比例 " multiple="N"></item>
+			<item name="glblsywcbl" remark="管理病例数应完成比例" multiple="N"></item>
+			<item name="czhssywcbl" remark="操作/手术 应完成比例" multiple="N"></item>
+			<item name="jbll" remark="基本理论" multiple="N"></item>
+			<item name="jbjn" remark="基本技能" multiple="N"></item>
+			<item name="jbcz" remark="基本操作" multiple="N"></item>
+			<item name="tgjc" remark="体格检查" multiple="N"></item>
+			<item name="zyll" remark="专业理论" multiple="N"></item>
+			<item name="clcjbrdnl" remark="处理常见病人的能力" multiple="N"></item>
+			<item name="clwzynbrdnl" remark="处理危重疑难病人的能力" multiple="N"></item>
+			<item name="syjc" remark="实验检查" multiple="N"></item>
+			<item name="lcswhbdbl" remark="临床思维和表达能力" multiple="N"></item>
+			<item name="xshyxsjzbltl" remark="学术会议、学术讲座、病例讨论" multiple="N"></item>
+			<item name="theory" remark="理论分数" multiple="N"></item>
+			<item name="real" remark="实际分数" multiple="N"></item>
+			<item name="totalScore" remark="总分" multiple="N"></item>
+			<item name="headName" remark="科主任签名" multiple="N"></item>
+			<item name="nameTime" remark="时间" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page ver="1.0">
+			<item name="fault" remark="操作事故" multiple="N"></item>
+			<item name="ljxy" remark="廉洁行医" multiple="N"></item>
+			<item name="gztdjzrx" remark="工作态度及责任心" multiple="N"></item>
+			<item name="ylccsg" remark="医疗差错，事故" multiple="N"></item>
+			<item name="yhgtnl" remark="医患沟通能力" multiple="N"></item>
+			<item name="bjsj" remark="病假  事假 " multiple="N"></item>
+			<item name="bszlwbjbl" remark="病史质量无丙级病历" multiple="N"></item>
+			<item name="djzl" remark="带教质量" multiple="N"></item>
+			<item name="glbzsywcbl" remark="管理病种数应完成比例 " multiple="N"></item>
+			<item name="glblsywcbl" remark="管理病例数应完成比例" multiple="N"></item>
+			<item name="czhssywcbl" remark="操作/手术 应完成比例" multiple="N"></item>
+			<item name="jbll" remark="基本理论" multiple="N"></item>
+			<item name="jbjn" remark="基本技能" multiple="N"></item>
+			<item name="jbcz" remark="基本操作" multiple="N"></item>
+			<item name="tgjc" remark="体格检查" multiple="N"></item>
+			<item name="zyll" remark="专业理论" multiple="N"></item>
+			<item name="clcjbrdnl" remark="处理常见病人的能力" multiple="N"></item>
+			<item name="clwzynbrdnl" remark="处理危重疑难病人的能力" multiple="N"></item>
+			<item name="syjc" remark="实验检查" multiple="N"></item>
+			<item name="lcswhbdbl" remark="临床思维和表达能力" multiple="N"></item>
+			<item name="xshyxsjzbltl" remark="学术会议、学术讲座、病例讨论" multiple="N"></item>
+			<item name="theory" remark="理论分数" multiple="N"></item>
+			<item name="real" remark="实际分数" multiple="N"></item>
+			<item name="totalScore" remark="总分" multiple="N"></item>
+			<item name="headName" remark="科主任签名" multiple="N"></item>
+			<item name="nameTime" remark="时间" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page ver="1.0">
+			<item name="userName" remark="姓名" multiple="N"></item>
+			<item name="turnMajor" remark="轮转专业" multiple="N"></item>
+			<item name="turnTime" remark="轮转时间" multiple="N"></item>
+			<item name="rydbl" remark="入院大病历" multiple="N"></item>
+			<item name="yszyddkh" remark="医师职业道德考核" multiple="N"></item>
+			<item name="cqzk" remark="出勤情况" multiple="N"></item>
+			<item name="lzqjljqjsj" remark="轮转期间累计请假时间" multiple="N"></item>
+			<item name="ywxlqk" remark="有无下列情况" multiple="N"></item>
+			<item name="ywxlqk_qt" remark="有无下列情况_其它" multiple="N"></item>
+			<item name="zyysgfhdjsc" remark="住院医师规范化培训登记手册" multiple="N"></item>
+			<item name="llks" remark="理论考试" multiple="N"></item>
+			<item name="blfxkh" remark="病例分析考核" multiple="N"></item>
+			<item name="tgjc" remark="体格检查" multiple="N"></item>
+			<item name="lccz" remark="临床操作" multiple="N"></item>
+			<item name="totalScore" remark="合计" multiple="N"></item>
+			<item name="jxgs" remark="教学干事" multiple="N"></item>
+			<item name="kzr" remark="科主任" multiple="N"></item>
+			<item name="jxgsrq" remark="日  期" multiple="N"></item>
+			<item name="kzrrq" remark="日  期" multiple="N"></item>
+			<item name="ckkhrd" remark="出科考核认定" multiple="N"></item>
+			<item name="ckkhrd_qt" remark="其它" multiple="N"></item>
+			<item name="jys" remark="教研室" multiple="N"></item>
+			<item name="reason" remark="不合格原因" multiple="N"></item>
+			<item name="jysrq" remark="日  期" multiple="N"></item>
+		</page>
+	</shetyy>
+	<nzy ver="1.0">
+		<page ver="1.0">
+			<item name="departmentName" remark="轮转科室名称" multiple="N"></item>
+			<item name="april" remark="月" multiple="N"></item>
+			<item name="responsibility" remark="工作责任心,无差错" multiple="N"></item>
+			<item name="attitude" remark="服务态度,沟通能力" multiple="N"></item>
+			<item name="doctor" remark="医德医风,廉洁行医" multiple="N"></item>
+			<item name="unite" remark="团结协作,遵守制度" multiple="N"></item>
+			<item name="subject" remark="轮转时间和科目" multiple="N"></item>
+			<item name="disease" remark="掌握病症数量" multiple="N"></item>
+			<item name="diseases" remark="掌握病种数量" multiple="N"></item>
+			<item name="quality" remark="医疗文书书写质量" multiple="N"></item>
+			<item name="skill" remark="掌握轮转科室要求的基本技能" multiple="N"></item>
+			<item name="theoryAssessment" remark="出科理论考核" multiple="N"></item>
+			<item name="readingNotes" remark="读书笔记(《培训细则》规定数目)" multiple="N"></item>
+			<item name="activity" remark="参加医院规定的培训和学术活动" multiple="N"></item>
+			<item name="attendance" remark="考勤" multiple="N"></item>
+			<item name="ability" remark="教学能力" multiple="N"></item>
+			<item name="situation" remark="参加各种科研情况" multiple="N"></item>
+			<item name="opinion" remark="所在科室意见" multiple="N"></item>
+			<item name="guideTeacher" remark="指导老师签名" multiple="N"></item>
+			<item name="branchDirector" remark="科主任签名" multiple="N"></item>
+			<item name="date" remark="时间" multiple="N"></item>
+		</page>
+	</nzy>
+</jspForm>
+

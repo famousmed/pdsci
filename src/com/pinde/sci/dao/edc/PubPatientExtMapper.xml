@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edc.PubPatientExtMapper" >
+	<resultMap id="BaseResultMap" type="com.pinde.sci.model.edc.PatientMinMaxIndateForm">
+	    <result  column="org_flow" property="orgFlow" jdbcType="VARCHAR"  />
+	    <result column="in_count" property="inCount" jdbcType="VARCHAR" />
+	    <result column="min_in_date" property="minInDate" jdbcType="VARCHAR" />
+	    <result column="max_in_date" property="maxInDate" jdbcType="VARCHAR" />
+ 	 </resultMap>
+	<select id="selectInDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select org_flow,count(*) as in_count , min(IN_DATE) as min_in_date,max(IN_DATE) as max_in_date  from 
+		PDSCI.PUB_PATIENT 
+		where proj_flow=#{projFlow} and patient_type_id='Real' and record_status='Y'  and in_date is not null group by org_flow
+  	</select>
+  	<select id="searchPatientByGroup" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubPatientMapper.BaseResultMap">
+		select * from PDSCI.PUB_PATIENT a where proj_flow=#{projFlow} and org_flow=#{orgFlow} and patient_type_id='Real' and record_status='Y' 
+		<if test='isRandom'>
+			and in_date is not null 
+		</if>
+		 and patient_flow in(select patient_flow from PDSCI.edc_random_rec where patient_flow = a.patient_flow 
+		 and drug_group=#{groupName} and record_status='Y')
+		 order by patient_seq
+  	</select>
+  	<select id="searchAssignPatientByGroup" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubPatientMapper.BaseResultMap">
+		select * from PDSCI.PUB_PATIENT a where proj_flow=#{projFlow} and org_flow=#{orgFlow} and patient_type_id='Real' and record_status='Y' 
+		 and in_date is not null
+		 and patient_flow in(select patient_flow from PDSCI.edc_random_rec where patient_flow = a.patient_flow 
+		 and drug_group=#{groupName} and record_status='Y')
+		 order by patient_seq
+  	</select>
+</mapper>

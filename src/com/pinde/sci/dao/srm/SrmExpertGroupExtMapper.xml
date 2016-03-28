@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.srm.SrmExpertGroupExtMapper" >
+   <select id="searchGroupProjByCurrExpert" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SrmExpertProjEvalMapper.BaseResultMap">
+    <!--
+    当前专家查询关联组别
+    -->
+    select
+    <include refid="com.pinde.sci.dao.base.SrmExpertProjEvalMapper.Base_Column_List" />
+   		 from PDSCI.SRM_EXPERT_PROJ_EVAL
+	<if test="_parameter != null" > 
+      <include refid="com.pinde.sci.dao.base.SrmExpertProjEvalMapper.Update_By_Example_Where_Clause" />   
+    </if>   
+   and  exists ( select null from PDSCI.srm_expert_group_user where group_flow=SRM_EXPERT_PROJ_EVAL.group_flow and user_flow=#{userFlow} )
+     <if test="example.orderByClause != null">   
+      order by ${example.orderByClause}   
+    </if>  
+  </select>
+    <select id="searchExpertGroupByCurrProj" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SrmExpertGroupMapper.BaseResultMap">
+    <!--
+    当前专家查询关联组别
+    -->
+    select
+    <include refid="com.pinde.sci.dao.base.SrmExpertGroupMapper.Base_Column_List" />
+   		 from PDSCI.SRM_EXPERT_GROUP 
+	<if test="_parameter != null" > 
+      <include refid="com.pinde.sci.dao.base.SrmExpertGroupMapper.Update_By_Example_Where_Clause" />   
+    </if>   
+   and  exists ( select null from PDSCI.SRM_EXPERT_PROJ_EVAL where group_flow=SRM_EXPERT_GROUP.group_flow and proj_flow=#{projFlow} )
+     <if test="example.orderByClause != null">   
+      order by ${example.orderByClause}   
+    </if>  
+  </select>
+  
+  <resultMap type="com.pinde.sci.model.srm.SrmExpertGroupProjExt" id="SrmExpertGroupProjExtMap" extends="com.pinde.sci.dao.base.SrmExpertProjEvalMapper.BaseResultMap">
+		<association property="pubProj" column="PROJ_FLOW" resultMap="com.pinde.sci.dao.base.PubProjMapper.BaseResultMap"></association>
+	</resultMap>
+	
+  <select id="selectExpertGroupProjList" parameterType="com.pinde.sci.model.srm.SrmExpertGroupProjExt" resultMap="SrmExpertGroupProjExtMap">
+  	SELECT SEGP.EVAL_SET_FLOW , SEGP.GROUP_FLOW , SEGP.GROUP_NAME , SEGP.EVALUATION_ID , SEGP.EVALUATION_NAME , SEGP.EVAL_STATUS_ID , SEGP.EVAL_STATUS_NAME , SEGP.SCHEME_FLOW , SEGP.SCHEME_NAME , 
+  	PP.PROJ_FLOW , PP.PROJ_NAME , PP.PROJ_TYPE_NAME , PP.APPLY_USER_FLOW , PP.APPLY_USER_NAME  , PP.APPLY_ORG_FLOW , PP.APPLY_ORG_NAME 
+  	FROM PDSCI.SRM_EXPERT_PROJ_EVAL SEGP , PDSCI.PUB_PROJ PP WHERE SEGP.PROJ_FLOW=PP.PROJ_FLOW
+  	<if test='groupFlow!=null and groupFlow!="" and groupFlow!="NULL"'>
+  		AND SEGP.GROUP_FLOW=#{groupFlow}
+  	</if>
+  	<if test='groupFlow=="NULL"'>
+  		AND SEGP.GROUP_FLOW IS NULL
+  	</if>
+  	<if test='evaluationWayId!=null and evaluationWayId!=""'>
+  		AND SEGP.EVALUATION_WAY_ID = #{evaluationWayId}
+  	</if>
+  	<if test='evalStatusId!=null and evalStatusId!=""'>
+  		AND SEGP.EVAL_STATUS_ID = #{evalStatusId}
+  	</if>
+  	<if test='recordStatus!=null and recordStatus!=""'>
+  		AND SEGP.RECORD_STATUS=#{recordStatus}
+  	</if>
+  </select>
+  
+  <resultMap type="com.pinde.sci.model.srm.ExpertGroupUserExt" id="ExpertGroupUserExtMap" extends="com.pinde.sci.dao.base.SrmExpertGroupUserMapper.BaseResultMap">
+		<association property="user" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"></association>
+		<association property="expert" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SrmExpertMapper.BaseResultMap"></association>
+	</resultMap>
+  <select id="selectExpertGroupExtByGroupFlow" parameterType="string" resultMap="ExpertGroupUserExtMap">
+  	SELECT * 
+  		FROM PDSCI.SRM_EXPERT_GROUP_USER SEGU  
+  		LEFT JOIN PDSCI.SYS_USER SU ON SEGU.USER_FLOW=SU.USER_FLOW  AND SU.RECORD_STATUS='Y'
+  		LEFT JOIN PDSCI.SRM_EXPERT SE ON SU.USER_FLOW=SE.USER_FLOW AND SE.RECORD_STATUS='Y' 
+  		WHERE SEGU.GROUP_FLOW='${groupFlow}' AND SEGU.RECORD_STATUS='Y' 
+  </select>
+  
+</mapper>

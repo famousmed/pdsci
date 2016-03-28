@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查工作表-->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/worksheet/schedule_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 审查要素 -->
+			<item name="reviewElement1" remark="是否存在影响研究进行的情况" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement2" remark="严重不良事件或方案规定必须报告的重要医学事件已经及时报告" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="reviewElement3" remark="与药物相关的、非预期的、严重不良事件是否影响研究的风险与受益" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="reviewElement4" remark="研究的风险是否超过预期" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement5" remark="是否存在影响研究风险与受益的任何新信息、新进展" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement6" remark="研究中是否存在影响受试者权益的问题" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+		
+		<!-- 审查意见 -->
+			<item name="suggest" remark="建议" multiple="N"></item>
+			<item name="decision" remark="决定" multiple="N"></item>
+			<item name="submitMeetingReview" remark="提交会议审查" multiple="N"></item>
+			<item name="preCommitteeName" remark="主审委员签名" multiple="N"></item>
+			<item name="signDate" remark="主审委员签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

@@ -1,0 +1,56 @@
+/* CSS Document */
+
+/*index.html*/
+#top-text{ position:absolute; width:1144px; height:63px; left:50%; top:16px; margin-left:-572px; z-index:1000;color:#fff;}
+#top-text .logo{ margin-right:25px;}
+#top-text a{ color:#fff;}
+#top-text .top-left dl{ margin-right:13px; padding:10px 15px; border:2px solid #fff; border-radius:2px; margin-top:8px;}
+#top-text .top-left dt a{ font-size:#16px;}
+#top-text .top-left dl dt img{ vertical-align:-2px; margin-right:5px;}
+#top-text .top-right{ line-height:55px;}
+#top-text .top-right img{ vertical-align:middle;}
+#top-text .top-right .top-login{margin-right:10px; font-size:16px; vertical-align:middle;}
+#top-text .top-right .top-register{margin-right:15px; margin-left:10px; font-size:16px; vertical-align:middle;}
+#banner{height:494px; background:url("images/topbg.png"); position:relative; margin:0 auto; overflow:hidden;}
+.itagBox { margin: 28px auto 0px; clear: both; width: 1140px; overflow: hidden; }
+.itagBox ul { width: 1172px; }
+.itagBox ul li { position: relative; float: left; width: 261px; height: 250px; color: #FFF; font-weight:400; overflow: hidden; margin-right:32px; }
+.itagBox ul li a { overflow: hidden; position: absolute; left: 0px; top: 0px;  width: 100%; height: 166px;}
+.itagBox ul li span{ display:block; text-align:center; line-height:84px; font-size:18px; color:#2078c0; margin-top:166px;}
+.fCourse{ background:#f5f5f5; height:104px; margin-top:24px;}
+.fCourse h2{ text-align:center; font-size:48px; color:#000; line-height:104px; font-weight:normal;}
+/* tabs */
+.module-tabs{ height:102px; line-height:102px; background:#f5f5f5; border-bottom:1px solid #dcdcdc;}
+.module-tabs li{float:left; padding:0 35px; text-align:center;cursor:pointer; font-size:16px; color:#010101;}
+.module-tabs li.on{ height:102px; background: url(images/tabs-on.png) no-repeat center bottom;color:#009fff;}
+.module-content div{ height:396px; padding:55px 0;display:none;}
+.module-content div  ul{width:480px;}
+.module-content div li{ height:100px;border-bottom:1px solid #e6e6e6;padding:23px 0;}
+.module-content div li:first-child{ padding-top:0;}
+.module-content div li:last-child{ border:none; padding-top:24px;}
+.module-content div li img{ margin-right:15px;}
+.module-content div dt{ font-size:18px; color:#000;}
+.module-content div dd{ color:#787777; }
+.module-content div dd input{margin:15px 0 15px 234px;}
+/*end-tabs */
+.lookall{ display:block; height:61px; background:#009fff; text-align:center; line-height:61px; font-size:28px; color:#fff; margin-bottom:22px;}
+.lookall img{ vertical-align:-9px; margin-left:10px;}
+.threeWay{ background:#f5f5f5; height:300px;border-top:1px solid #e1e1e1;}
+.threeWay h2{ line-height:100px; font-size:36px; text-align:center; font-weight:normal;}
+.threeWay ul{ padding:0 80px;}
+.threeWay ul li{ float:left; width:141px; height:200px; overflow:hidden; margin-right:280px;}
+.threeWay ul li p{ text-align:center; font-size:24px; line-height:50px;}
+.way{ height:458px; background:#fff;}
+.courseBox{padding:0px 60px; height:500px;}
+.courseBox img{ margin-top:40px;}
+.courseBox dt{ line-height:140px; font-size:36px; color:#ffb433;}
+.courseBox dd  li{line-height:30px; background:url(images/bxk-icon.png) no-repeat 10px 10px;text-align:left; text-indent:45px;}
+.course2 dl dt{ line-height:140px; font-size:36px; color:#7f64b5;}
+.course2 dd li{background:url(images/xxk-icon.png) no-repeat 10px 10px;}
+.course2 .btn{background:#7f64b5;}
+.course3 dl dt{ line-height:140px; font-size:36px; color:#308ee3;}
+.course3 dd li{background:url(images/gkk-icon.png) no-repeat 10px 10px;}
+.course3 .btn{background:#308ee3;}
+.egisterNow{height:465px;background:#f5f5f5  url(images/egisterNow-bg.jpg)}
+.egisterNow-inner{ height:465px;background:url(images/egisterNow.jpg) no-repeat center top;}
+.egisterNow .btn{ margin-top:335px; margin-left:665px; font-size:36px; padding:0 137px;height:63px; line-height:63px;}

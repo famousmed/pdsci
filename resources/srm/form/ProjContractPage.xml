@@ -1,0 +1,1244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 合同表单 -->
+	<!-- pageGroup 定义
+		product. 产品默认项目类型
+		
+		szwsj.lczcbzzljs 苏州市临床重点病种诊疗技术专项
+		szwsj.yxxjs 苏州市医学新技术项目
+		szwsj.qnkj 苏州市青年科技
+		
+		jsswst.zdxk 江苏省卫生厅重点学科
+		jsswst.zdrc 江苏省卫生厅重点人才
+		
+		wxwsj.zdxm 无锡卫生局重大项目
+		wxwsj.msxm 无锡卫生局面上项目
+		wxwsj.qnxm 无锡卫生局青年项目
+		
+		yhwsj.zdxm 余杭区医疗卫生科研重点项目
+		yhwsj.ybxm 余杭区医疗卫生科研一般项目
+		yhwsj.ydxm 余杭区医疗卫生科研引导项目；
+	 -->
+	
+	<pageGroup name="product" firstPage="step1" view="srm/proj/form/contract/product/view">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/contract/product/step1">
+			<item name="projNo" remark="项目立项编号" multiple="N"></item>
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="projType" remark="项目类别" multiple="N"></item>
+			<item name="invoJia" remark="委托部门(甲方)" multiple="N"></item>
+			<item name="optionYi" remark="承办单位(乙方)" multiple="N"></item>
+			<item name="chargeOrg" remark="主管部门(丙方)" multiple="N"></item>
+			<item name="orgAddress" remark="承办单位地址" multiple="N"></item>
+			<item name="addressId" remark="邮编" multiple="N"></item>
+			<item name="moneyManager" remark="财务负责人" multiple="N"></item>
+			<item name="tel" remark="电话" multiple="N"></item>
+			<item name="projStartTime" remark="项目合同开始时间" multiple="N"></item>
+			<item name="projEndTime" remark="项目合同结束时间" multiple="N"></item>
+			<item name="friendOrg" remark="参加单位" multiple="N"></item>
+			<item name="chargeMoneyOrg" remark="主管财政局" multiple="N"></item>
+		</page>
+		
+<!-- step2 -->
+<!-- step2 项目负责人情况表  -->
+		
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/contract/product/step2">
+		 <itemGroup name="projMainPeop" remark="项目负责人情况表" jsp="srm/proj/form/contract/product/itemGroup_applyUser" flow="" modelStyle="add">
+			<item name="projMainPeop_name" remark="姓名" multiple="N"></item>
+			<item name="projMainPeop_sex" remark="性别" multiple="N"></item>
+			<item name="projMainPeop_birthday" remark="生日" multiple="N"></item>
+			<item name="projMainPeop_degree" remark="学位" multiple="N"></item>
+			<item name="projMainPeop_professional" remark="职称" multiple="N"></item>
+			<item name="projMainPeop_post" remark="职务" multiple="N"></item>
+			<item name="projMainPeop_workOrg" remark="所在单位" multiple="N"></item>
+			<item name="projMainPeop_workTime" remark="为本项目工作时间" multiple="N"></item>
+		  </itemGroup>
+		  
+<!-- step2 主要研究人情况表 -->
+		  
+		  <itemGroup name="projPeop" remark="主要研究人情况表" jsp="srm/proj/form/contract/product/itemGroup_developUser" flow="" modelStyle="add">
+			<item name="projPeop_name" remark="姓名" multiple="N"></item>
+			<item name="projPeop_sex" remark="性别" multiple="N"></item>
+			<item name="projPeop_birthday" remark="生日" multiple="N"></item>
+			<item name="projPeop_degree" remark="学位" multiple="N"></item>
+			<item name="projPeop_professional" remark="职称" multiple="N"></item>
+			<item name="projPeop_workOrg" remark="所在单位" multiple="N"></item>
+			<item name="projPeop_workTime" remark="为本项目工作时间" multiple="N"></item>
+			<item name="projPeop_post" remark="职务" multiple="N"></item>
+		  </itemGroup>
+		</page>
+		
+<!-- step3 -->
+<!-- step3 计划指标 -->
+		
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/contract/product/step3">
+		  <itemGroup name="planRule" remark="计划指标" jsp="srm/proj/form/contract/product/itemGroup_planRule" flow="" modelStyle="add">
+			<item name="planRule_steps" remark="阶段" multiple="N"></item>
+			<item name="planRule_moneyPlanAndTestRule" remark="财务计划及考核指标" multiple="N"></item>
+		  </itemGroup>
+		  <item name="mainTarget" remark="项目目标任务" multiple="N"></item>
+		  <item name="projContentContent" remark="项目主要研究内容" multiple="N"></item>
+		  <item name="projContentTarget" remark="验收内容和考核指标" multiple="N"></item>
+		</page>
+		
+<!-- step4 -->
+		
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/contract/product/step4">
+<!-- 经费来源总览 -->
+			<item name="projFundSum" remark="项目总投入" multiple="N"></item>
+			<item name="projFundEarly" remark="前期投入" multiple="N"></item>
+<!-- 经费来源第一行 -->
+			<item name="allCount" remark="合计" multiple="N"></item>
+			<item name="newFirstYear" remark="第一年新增投入" multiple="N"></item>
+			<item name="newSecondYear" remark="第二年新增投入" multiple="N"></item>
+			<item name="newThirdYear" remark="第三年新增投入" multiple="N"></item>
+			<item name="newInfo" remark="新增备注" multiple="N"></item>
+<!-- 经费来源第二行 -->
+            <item name="govTrCount" remark="市财政拨款" multiple="N"></item>
+			<item name="govTrFirstYear" remark="第一年市财政拨款" multiple="N"></item>
+			<item name="govTrSecondYear" remark="第二年市财政拨款" multiple="N"></item>
+			<item name="govTrThirdYear" remark="第三年市财政拨款" multiple="N"></item>
+			<item name="govTrInfo" remark="市财政拨款备注" multiple="N"></item>
+<!-- 经费来源第三行 -->
+            <item name="orgBelongTrCount" remark="主管部门配套" multiple="N"></item>
+			<item name="orgBelongTrFirstYear" remark="第一年主管部门配套" multiple="N"></item>
+			<item name="orgBelongTrSecondYear" remark="第二年主管部门配套" multiple="N"></item>
+			<item name="orgBelongTrThirdYear" remark="第三年主管部门配套" multiple="N"></item>
+			<item name="orgBelongTrInfo" remark="主管部门配套备注" multiple="N"></item>
+<!-- 经费来源第四行 -->
+			<item name="orgDoTrCount" remark="承办单位自筹" multiple="N"></item>
+			<item name="orgDoTrFirstYear" remark="第一年承办单位自筹" multiple="N"></item>
+			<item name="orgDoTrSecondYear" remark="第二年承办单位自筹" multiple="N"></item>
+			<item name="orgDoTrThirdYear" remark="第三年承办单位自筹" multiple="N"></item>
+			<item name="orgDoTrInfo" remark="承办单位自筹备注" multiple="N"></item>
+<!-- 经费来源第五行 -->
+			<item name="bankTrCount" remark="银行贷款" multiple="N"></item>
+			<item name="bankTrFirstYear" remark="第一年银行贷款" multiple="N"></item>
+			<item name="bankTrSecondYear" remark="第二年银行贷款" multiple="N"></item>
+			<item name="bankTrThirdYear" remark="第三年银行贷款" multiple="N"></item>
+			<item name="bankTrInfo" remark="银行贷款备注" multiple="N"></item>
+<!-- step4 项目经费支出预算 -->
+			<itemGroup name="projBudget" remark="项目经费支出预算" jsp="srm/proj/form/product/contract/itemGroup_moneyFrom" flow="" modelStyle="add">
+				<item name="projBudget_name" remark="计费名称" multiple="N"></item>
+				<item name="projBudget_sum" remark="总额" multiple="N"></item>
+				<item name="projBudget_govPostPlan" remark="财政拨款" multiple="N"></item>
+				<item name="projBudget_remark" remark="备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+<!-- 用于文件上传 -->
+		<page name="file" remark="附件上传" jsp="srm/proj/form/contract/product/file">
+			<itemGroup name="fileEdit" remark="附件上传" jsp="srm/proj/form/contract/product/fileEdit" flow="">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+	</pageGroup>
+	
+	<!-- 苏州市临床重点病种诊疗技术专项 开始-->
+	<pageGroup name="szwsj.lczcbzzljs" firstPage="step1" view="srm/proj/form/contract/szwsj.lczcbzzljs/view" printTemeplete="/jsp/srm/proj/form/contract/szwsj.lczcbzzljs/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/contract/szwsj.lczcbzzljs/step1">
+			<item name="projNo" remark="项目立项编号" multiple="N"></item>
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="orgName" remark="承担单位" multiple="N"></item>
+			<item name="chargeOrgName" remark="承担单位主管部门" multiple="N"></item>
+			<item name="applyUserName" remark="项目负责人" multiple="N"></item>
+			<item name="startYear" remark="开始年限" multiple="N"></item>
+			<item name="endYear" remark="结束年限" multiple="N"></item>
+		</page>
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/contract/szwsj.lczcbzzljs/step2">
+			<item name="contentAndTarget" remark="项目内容和目标（包括阶段性目标、年度目标和最终目标）及主要技术经济指标" multiple="N"></item>
+		</page>
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/contract/szwsj.lczcbzzljs/step3">	
+			<item name="planSchedule" remark="计划进度（项目总期限，进度及分年度计划）" multiple="N"></item>
+		</page>
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/contract/szwsj.lczcbzzljs/step4">		
+			<itemGroup name="projMainPeop" remark="项目负责人情况表" jsp="" flow="" modelStyle="add">
+				<item name="projMainPeop_name" remark="姓名" multiple="N"></item>
+				<item name="projMainPeop_sex" remark="性别" multiple="N"></item>
+				<item name="projMainPeop_birthday" remark="出生年月" multiple="N"></item>
+				<item name="projMainPeop_postAndTitle" remark="职务/职称" multiple="N"></item>
+				<item name="projMainPeop_major" remark="业务专业" multiple="N"></item>
+				<item name="projMainPeop_workTime" remark="为本项目工作时间" multiple="N"></item>
+				<item name="projMainPeop_workOrg" remark="所在单位" multiple="N"></item>
+		  	</itemGroup>
+		  	
+		  	<itemGroup name="projPeop" remark="主要研究人情况表" jsp="" flow="" modelStyle="add">
+				<item name="projPeop_name" remark="姓名" multiple="N"></item>
+				<item name="projPeop_sex" remark="性别" multiple="N"></item>
+				<item name="projPeop_birthday" remark="出生年月" multiple="N"></item>
+				<item name="projPeop_postAndTitle" remark="职务/职称" multiple="N"></item>
+				<item name="projPeop_major" remark="业务专业" multiple="N"></item>
+				<item name="projPeop_workTime" remark="为本项目工作时间" multiple="N"></item>
+				<item name="projPeop_workOrg" remark="所在单位" multiple="N"></item>
+		  </itemGroup>
+		  </page>
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/contract/szwsj.lczcbzzljs/step5">		
+		    <item name="supportPlan" remark="承建单位支撑计划。须列出具体支持措施，含业务条件改善、人才梯队建设、配套资金落实等" multiple="N"></item>
+		</page>
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/contract/szwsj.lczcbzzljs/step6">		
+		  <item name="jiaFund" remark="甲方资助金额" multiple="N"></item>
+		  <item name="yiFund" remark="乙方匹配经费" multiple="N"></item>
+		  <item name="bingFund" remark="丙方资助经费" multiple="N"></item>
+		  <item name="otherFund" remark="其他来源经费" multiple="N"></item>
+		  <item name="sumFund" remark="合计" multiple="N"></item>
+		  
+		  <item name="year1" remark="年份1" multiple="N"></item>
+		  <item name="cost1year1" remark="国内外进修费用(第一年)" multiple="N"></item>
+		  <item name="cost2year1" remark="学术交流费用(第一年)" multiple="N"></item>
+		  <item name="cost3year1" remark="仪器设备费(第一年)" multiple="N"></item>
+		  <item name="cost4year1" remark="实验材料费(第一年)" multiple="N"></item>
+		  <item name="cost5year1" remark="购买图书、资料费(第一年)" multiple="N"></item>
+		  <item name="cost6year1" remark="项目研究费用(第一年)" multiple="N"></item>
+		  <item name="cost7year1" remark="其他费用(第一年)" multiple="N"></item>
+		  <item name="sumyear1" remark="合计(第一年)" multiple="N"></item>
+		  <item name="year2" remark="年份2" multiple="N"></item>
+		  <item name="cost1year2" remark="国内外进修费用(第二年)" multiple="N"></item>
+		  <item name="cost2year2" remark="学术交流费用(第二年)" multiple="N"></item>
+		  <item name="cost3year2" remark="仪器设备费(第二年)" multiple="N"></item>
+		  <item name="cost4year2" remark="实验材料费(第二年)" multiple="N"></item>
+		  <item name="cost5year2" remark="购买图书、资料费(第二年)" multiple="N"></item>
+		  <item name="cost6year2" remark="项目研究费用(第二年)" multiple="N"></item>
+		  <item name="cost7year2" remark="其他费用(第二年)" multiple="N"></item>
+		  <item name="sumyear2" remark="合计(第二年)" multiple="N"></item>
+		  <item name="year3" remark="年份3" multiple="N"></item>
+		  <item name="cost1year3" remark="国内外进修费用(第三年)" multiple="N"></item>
+		  <item name="cost2year3" remark="学术交流费用(第三年)" multiple="N"></item>
+		  <item name="cost3year3" remark="仪器设备费(第三年)" multiple="N"></item>
+		  <item name="cost4year3" remark="实验材料费(第三年)" multiple="N"></item>
+		  <item name="cost5year3" remark="购买图书、资料费(第三年)" multiple="N"></item>
+		  <item name="cost6year3" remark="项目研究费用(第三年)" multiple="N"></item>
+		  <item name="cost7year3" remark="其他费用(第三年)" multiple="N"></item>
+		  <item name="sumyear3" remark="合计(第三年)" multiple="N"></item>
+		</page>
+	</pageGroup>
+	<!-- 苏州市临床重点病种诊疗技术专项 结束-->
+	
+	<!-- 青年科技开始 -->
+	<pageGroup name="szwsj.qnkj" firstPage="step1" view="srm/proj/form/contract/szwsj.qnkj/view" printTemeplete="/jsp/srm/proj/form/contract/szwsj.qnkj/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/contract/szwsj.qnkj/step1">
+			<item name="projNo" remark="项目立项编号" multiple="N"></item>
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="orgName" remark="承担单位" multiple="N"></item>
+			<item name="orgAddress" remark="单位地址" multiple="N"></item>
+			<item name="applyUserName" remark="项目负责人" multiple="N"></item>
+			<item name="applyUserPhone" remark="联系电话" multiple="N"></item>
+			<item name="startYear" remark="开始年限" multiple="N"></item>
+			<item name="endYear" remark="结束年限" multiple="N"></item>
+		</page>
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/contract/szwsj.qnkj/step2">	
+			<item name="targetAndContent1" remark="项目的目标、任务" multiple="N"></item>
+			<item name="targetAndContent2" remark="项目研发内容和创新点" multiple="N"></item>
+		</page>
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/contract/szwsj.qnkj/step3">	
+			<item name="checkContentAndTarget" remark="项目验收内容和考核指标" multiple="N"></item>
+		</page>
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/contract/szwsj.qnkj/step4">	
+			<itemGroup name="planScheduleAndTarget" remark="计划进度安排与考核指标" jsp="" flow="" modelStyle="add">
+				<item name="planScheduleAndTarget_schedule" remark="阶段" multiple="N"></item>
+				<item name="planScheduleAndTarget_content" remark="项目进度计划与考核指标" multiple="N"></item>
+			</itemGroup>
+		</page>
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/contract/szwsj.qnkj/step5">		
+			<itemGroup name="projMainPeop" remark="项目负责人情况表" jsp="" flow="" modelStyle="add">
+				<item name="projMainPeop_name" remark="姓名" multiple="N"></item>
+				<item name="projMainPeop_sex" remark="性别" multiple="N"></item>
+				<item name="projMainPeop_age" remark="年龄" multiple="N"></item>
+				<item name="projMainPeop_postAndTitle" remark="职务/职称" multiple="N"></item>
+				<item name="projMainPeop_major" remark="从事专业" multiple="N"></item>
+				<item name="projMainPeop_workTime" remark="为本项目工作时间" multiple="N"></item>
+				<item name="projMainPeop_workOrg" remark="所在单位" multiple="N"></item>
+		  	</itemGroup>
+		  	
+		  	<itemGroup name="projPeop" remark="项目主要研究人员" jsp="" flow="" modelStyle="add">
+				<item name="projPeop_name" remark="姓名" multiple="N"></item>
+				<item name="projPeop_sex" remark="性别" multiple="N"></item>
+				<item name="projPeop_age" remark="年龄" multiple="N"></item>
+				<item name="projPeop_postAndTitle" remark="职务/职称" multiple="N"></item>
+				<item name="projPeop_major" remark="从事专业" multiple="N"></item>
+				<item name="projPeop_workTime" remark="为本项目工作时间" multiple="N"></item>
+				<item name="projPeop_workOrg" remark="所在单位" multiple="N"></item>
+		  	</itemGroup>
+		</page> 
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/contract/szwsj.qnkj/step6">		 	
+		  	<!-- <itemGroup name="fundSourceBudget" remark="项目经费来源预算" jsp="" flow="" modelStyle="add"> -->
+			  	<item name="fundSourceBudgetProjSumFund" remark="项目总投入" multiple="N"></item>
+			  	<item name="fundSourceBudgetEarlyFund" remark="前期已投入" multiple="N"></item>
+			  	<item name="fundSourceBudgetSumFund1" remark="新增投入合计" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund1year1" remark="新增投入第一年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund1year2" remark="新增投入第二年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund1year3" remark="新增投入第三年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund1remark" remark="新增投入备注" multiple="N"></item>
+			  	<item name="fundSourceBudgetSumFund2" remark="市财政拨款合计" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund2year1" remark="市财政拨款第一年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund2year2" remark="市财政拨款第二年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund2year3" remark="市财政拨款第三年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund2remark" remark="市财政拨款备注" multiple="N"></item>
+			  	<item name="fundSourceBudgetSumFund3" remark="承担单位配套合计" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund3year1" remark="承担单位配套第一年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund3year2" remark="承担单位配套第二年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund3year3" remark="承担单位配套第三年" multiple="N"></item>
+			  	<item name="fundSourceBudgetFund3remark" remark="承担单位配套备注" multiple="N"></item>
+			  	
+			  	<item name="fundSourceBudgetJiaGiveYiFund" remark="甲方核拨乙方科技经费" multiple="N"></item>
+			  	<item name="fundSourceBudgetYearFund" remark="计划于某年拨款" multiple="N"></item>
+			  	<item name="fundSourceBudgetYear" remark="年份" multiple="N"></item>
+		  	<!-- </itemGroup> -->
+		  	
+		  	<!-- <itemGroup name="fundPaymentBudget" remark="项目经费支出预算" jsp="" flow="" modelStyle="add">-->
+		  		<item name="fundPaymentBudgetBudgetCount1" remark="人员费预算数" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFund1" remark="人员费其中:财政拨款" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemark1" remark="人员费备注" multiple="N"></item>
+		  		
+		  		<item name="fundPaymentBudgetBudgetCount2" remark="设备费预算数" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFund2" remark="设备费其中:财政拨款" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemark2" remark="设备费备注" multiple="N"></item>
+		  		
+		  		<item name="fundPaymentBudgetBudgetCount3" remark="能源费预算数" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFund3" remark="能源费其中:财政拨款" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemark3" remark="能源费备注" multiple="N"></item>
+		  		
+		  		<item name="fundPaymentBudgetBudgetCount4" remark="实验外协费预算数" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFund4" remark="实验外协费其中:财政拨款" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemark4" remark="实验外协费备注" multiple="N"></item>
+		  		
+		  		<item name="fundPaymentBudgetBudgetCount5" remark="差旅费预算数" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFund5" remark="差旅费其中:财政拨款" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemark5" remark="差旅费备注" multiple="N"></item>
+		  		
+		  		<item name="fundPaymentBudgetBudgetCount6" remark="会议费预算数" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFund6" remark="会议费其中:财政拨款" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemark6" remark="会议费备注" multiple="N"></item>
+		  		
+		  		<item name="fundPaymentBudgetBudgetCount7" remark="管理费预算数" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFund7" remark="管理费其中:财政拨款" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemark7" remark="管理费备注" multiple="N"></item>
+		  		
+		  		<item name="fundPaymentBudgetBudgetCount8" remark="其他费预算数" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFund8" remark="其他费其中:财政拨款" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemark8" remark="其他费备注" multiple="N"></item>
+		  		
+		  		<item name="fundPaymentBudgetBudgetCountSum" remark="人员费预算数合计" multiple="N"></item>
+		  		<item name="fundPaymentBudgetOneOfFundSum" remark="其中:财政拨款合计" multiple="N"></item>
+		  		<item name="fundPaymentBudgetRemarkSum" remark="备注合计" multiple="N"></item>
+		  	<!-- </itemGroup> -->
+		  	<item name="fundManage" remark="项目实施的组织管理措施和项目资金的管理办法" multiple="N"></item>
+		  	
+		</page>
+	</pageGroup>
+	<!-- 青年科技结束 -->
+	
+	<!-- 苏州重点学科开始 -->
+	<pageGroup name="szwsj.zdxk" firstPage="homePage" view="srm/proj/form/contract/szwsj.zdxk/view" printTemeplete="/jsp/srm/proj/form/contract/szwsj.zdxk/printTemeplete.docx">
+		<page name="homePage" remark="基本信息" jsp="srm/proj/form/contract/szwsj.zdxk/homePage">
+			<item name="projName" remark="学科名称" multiple="N"></item>
+			<item name="subjectDirector" remark="学科主任" multiple="N"></item>
+			<item name="constructOrg" remark="建设单位（甲方）" multiple="N"></item>
+			<item name="orgName" remark="承担单位（乙方）" multiple="N"></item>
+			<item name="chargeOrgName" remark="承担单位主管部门（丙方）" multiple="N"></item>
+			<item name="contractStartTime" remark="合同起时年份" multiple="N"></item>
+			<item name="contractEndTime" remark="合同终止年份" multiple="N"></item>
+		</page>
+		
+		<page name="step2" remark="基本信息" jsp="srm/proj/form/contract/szwsj.zdxk/step2">
+			<item name="attackDirection" remark="学术主攻方向" multiple="N"></item>
+        	<item name="mainTarget" remark="主要目标" multiple="N"></item>
+        	<item name="assessIndicators" remark="考核指标" multiple="N"></item>
+        	<item name="supportPlanning" remark="支撑计划" multiple="N"></item>
+		</page>
+		
+		<page name="subjectUserList" remark="学科人员名单" jsp="srm/proj/form/contract/szwsj.zdxk/subjectUserList">
+			 <itemGroup name="director" remark="学科主任（限1人）" jsp="" flow="" modelStyle="add">
+				<item name="director_name" remark="姓名" multiple="N"></item>
+				<item name="director_sex" remark="性别" multiple="N"></item>
+				<item name="director_birthday" remark="出生年月" multiple="N"></item>
+				<item name="director_title" remark="职称" multiple="N"></item>
+				<item name="director_major" remark="专业" multiple="N"></item>
+				<item name="director_mainTask" remark="主要任务" multiple="N"></item>
+				<item name="director_workOrg" remark="所在单位" multiple="N"></item>
+			  </itemGroup>
+			  
+			 <itemGroup name="deputy" remark="学科副主任（限2人）" jsp="" flow="" modelStyle="add">
+				<item name="deputy_name" remark="姓名" multiple="N"></item>
+				<item name="deputy_sex" remark="性别" multiple="N"></item>
+				<item name="deputy_birthday" remark="出生年月" multiple="N"></item>
+				<item name="deputy_title" remark="职称" multiple="N"></item>
+				<item name="deputy_major" remark="专业" multiple="N"></item>
+				<item name="deputy_mainTask" remark="主要任务" multiple="N"></item>
+				<item name="deputy_workOrg" remark="所在单位" multiple="N"></item>
+			  </itemGroup>
+			  
+			 <itemGroup name="other" remark="其他人员（限17人）" jsp="" flow="" modelStyle="add">
+				<item name="other_name" remark="姓名" multiple="N"></item>
+				<item name="other_sex" remark="性别" multiple="N"></item>
+				<item name="other_birthday" remark="出生年月" multiple="N"></item>
+				<item name="other_title" remark="职称" multiple="N"></item>
+				<item name="other_major" remark="专业" multiple="N"></item>
+				<item name="other_mainTask" remark="主要任务" multiple="N"></item>
+				<item name="other_workOrg" remark="所在单位" multiple="N"></item>
+			  </itemGroup>
+		 </page>
+		 
+		 <page name="fundsBudget" remark="经费预算" jsp="srm/proj/form/contract/szwsj.zdxk/fundsBudget">
+			<item name="constructOrgFund" remark="甲方资助金额" multiple="N"></item>
+			<item name="assumeOrgFund" remark="乙方匹配经费" multiple="N"></item>
+			<item name="assumeOrgChargeOrgFund" remark="丙方匹配经费" multiple="N"></item>
+			<item name="otherFund" remark="其他来源经费" multiple="N"></item>
+			<item name="amountFund" remark="合      计" multiple="N"></item>
+			
+			<item name="year1" remark="第一年" multiple="N"></item>
+			<item name="year2" remark="第二年" multiple="N"></item>
+			<item name="year3" remark="第三年" multiple="N"></item>
+			
+			<item name="inlandFirstYear" remark="国内外进修费用第一年" multiple="N"></item>
+			<item name="inlandSecondYear" remark="国内外进修费用第二年" multiple="N"></item>
+			<item name="inlandThirdYear" remark="国内外进修费用第三年" multiple="N"></item>
+			
+			<item name="communicationFirstYear" remark="学术交流费用第一年" multiple="N"></item>
+			<item name="communicationSecondYear" remark="学术交流费用第二年" multiple="N"></item>
+			<item name="communicationThirdYear" remark="学术交流费用第三年" multiple="N"></item>
+			
+			<item name="equipmentFirstYear" remark="仪器设备费第一年" multiple="N"></item>
+			<item name="equipmentSecondYear" remark="仪器设备费第二年" multiple="N"></item>
+			<item name="equipmentThirdYear" remark="仪器设备费第三年" multiple="N"></item>
+			
+			<item name="materialFirstYear" remark="实验材料费第一年" multiple="N"></item>
+			<item name="materialSecondYear" remark="实验材料费第二年" multiple="N"></item>
+			<item name="materialThirdYear" remark="实验材料费第三年" multiple="N"></item>
+			
+			<item name="animalFirstYear" remark="实验动物费第一年" multiple="N"></item>
+			<item name="animalSecondYear" remark="实验动物费第二年" multiple="N"></item>
+			<item name="animalThirdYear" remark="实验动物费第三年" multiple="N"></item>
+			
+			<item name="trainFirstYear" remark="人员培养费用第一年" multiple="N"></item>
+			<item name="trainSecondYear" remark="人员培养费用第二年" multiple="N"></item>
+			<item name="trainThirdYear" remark="人员培养费用第三年" multiple="N"></item>
+			
+			<item name="bookTrFirstYear" remark="购买图书资料费第一年" multiple="N"></item>
+			<item name="bookTrSecondYear" remark="购买图书资料费第二年" multiple="N"></item>
+			<item name="bookTrThirdYear" remark="购买图书资料费第三年" multiple="N"></item>
+			
+			<item name="researchFirstYear" remark="研究项目费用第一年" multiple="N"></item>
+			<item name="researchSecondYear" remark="研究项目费用第二年" multiple="N"></item>
+			<item name="researchThirdYear" remark="研究项目费用第三年" multiple="N"></item>
+			
+			<item name="otherFirstYear" remark="其他费用第一年" multiple="N"></item>
+			<item name="otherSecondYear" remark="其他费用第二年" multiple="N"></item>
+			<item name="otherThirdYear" remark="其他费用第三年" multiple="N"></item>
+			
+			<item name="amountFirstYear" remark="合     计第一年" multiple="N"></item>
+			<item name="amountSecondYear" remark="合     计第二年" multiple="N"></item>
+			<item name="amountThirdYear" remark="合     计第三年" multiple="N"></item>
+		</page>
+	</pageGroup>
+	<!-- 苏州重点学科结束-->
+	<!-- 江苏省卫生厅重点人才合同书 -->
+	    <pageGroup name="jsswst.zdrc" firstPage="step1" view="srm/proj/form/contract/jsswst.zdrc/view"  printTemeplete="">
+	        <page name="step1"  remark="步骤1" jsp="srm/proj/form/contract/jsswst.zdrc/step1">
+	        	<item name="name" remark="人才姓名" multiple="N"></item>
+	        	<item name="baseTaskName" remark="课题名称" multiple="N"></item>
+	        	<item name="approveNo" remark="立项编号" multiple="N"></item>
+	        	<item name="orgName" remark="所在单位" multiple="N"></item>
+	        	<item name="chargeOrgName" remark="主管单位" multiple="N"></item>
+	        	<item name="beginEndYear" remark="起止年限" multiple="N"></item>
+	        	
+	        	<item name="attackDirection" remark="学术主攻方向" multiple="N"></item>
+	        	<item name="mainTarget" remark="主要目标" multiple="N"></item>
+	        	<item name="characteristic" remark="优势特色" multiple="N"></item>
+	        	<item name="planning" remark="实施规划" multiple="N"></item>
+	        </page>
+	        <page name="step2"  remark="步骤2" jsp="srm/proj/form/contract/jsswst.zdrc/step2">
+	        	<item name="firstYearExamineNorm" remark="第一年考核指标" multiple="N"></item>
+	        	<item name="secondYearExamineNorm" remark="第二年考核指标" multiple="N"></item>
+	        	<item name="thirdYearExamineNorm" remark="第三年考核指标" multiple="N"></item>
+	        	<item name="fourthYearExamineNorm" remark="第四年考核指标" multiple="N"></item>
+	        	<item name="fifthYearExamineNorm" remark="第五年考核指标" multiple="N"></item>
+	        </page>
+	        <page name="step3"  remark="步骤3" jsp="srm/proj/form/contract/jsswst.zdrc/step3">
+	        	<item name="taskName" remark="课题名称" multiple="N"></item>
+	        	<item name="researchContentTarget" remark="研究内容和目标" multiple="N"></item>
+	        	<item name="researchSchedule" remark="研究进度" multiple="N"></item>
+	        </page>
+	        <page name="step4"  remark="步骤4" jsp="srm/proj/form/contract/jsswst.zdrc/step4">
+	        	<item name="applySubsidizeFund" remark="申请资助经费" multiple="N"></item>
+				<item name="orgMatchFund" remark="单位匹配金额" multiple="N"></item>
+				<item name="binMatchFund" remark="丙方匹配金额" multiple="N"></item>
+				<item name="otherFund" remark="其他来源经费" multiple="N"></item>
+				<item name="amountFund" remark="合      计" multiple="N"></item>
+				
+				<item name="inlandFirstYear" remark="国内外进修费用第一年" multiple="N"></item>
+				<item name="inlandSecondYear" remark="国内外进修费用第二年" multiple="N"></item>
+				<item name="inlandThirdYear" remark="国内外进修费用第三年" multiple="N"></item>
+				<item name="inlandFourthYear" remark="国内外进修费用第四年" multiple="N"></item>
+				<item name="inlandFifthYear" remark="国内外进修费用第五年" multiple="N"></item>
+				
+				<item name="communicationFirstYear" remark="学术交流费用第一年" multiple="N"></item>
+				<item name="communicationSecondYear" remark="学术交流费用第二年" multiple="N"></item>
+				<item name="communicationThirdYear" remark="学术交流费用第三年" multiple="N"></item>
+				<item name="communicationFourthYear" remark="学术交流费用第四年" multiple="N"></item>
+				<item name="communicationFifthYear" remark="学术交流费用第五年" multiple="N"></item>
+			
+				<item name="instrumentFirstYear" remark="仪器设备费第一年" multiple="N"></item>
+				<item name="instrumentSecondYear" remark="仪器设备费第二年" multiple="N"></item>
+				<item name="instrumentThirdYear" remark="仪器设备费第三年" multiple="N"></item>
+				<item name="instrumentFourthYear" remark="仪器设备费第四年" multiple="N"></item>
+				<item name="instrumentFifthYear" remark="仪器设备费第五年" multiple="N"></item>
+				
+				<item name="experimentMaterialFirstYear" remark="实验材料费第一年" multiple="N"></item>
+				<item name="experimentMaterialSecondYear" remark="实验材料费第二年" multiple="N"></item>
+				<item name="experimentMaterialThirdYear" remark="实验材料费第三年" multiple="N"></item>
+				<item name="experimentMaterialFourthYear" remark="实验材料费第四年" multiple="N"></item>
+				<item name="experimentMaterialFifthYear" remark="实验材料费第五年" multiple="N"></item>
+				
+				<item name="experimentAnimalTrFirstYear" remark="实验动物费第一年" multiple="N"></item>
+				<item name="experimentAnimalTrSecondYear" remark="实验动物费第二年" multiple="N"></item>
+				<item name="experimentAnimalTrThirdYear" remark="实验动物费第三年" multiple="N"></item>
+				<item name="experimentAnimalTrFourthYear" remark="实验动物费第四年" multiple="N"></item>
+				<item name="experimentAnimalTrFifthYear" remark="实验动物费第五年" multiple="N"></item>
+				
+				<item name="personFosterFirstYear" remark="人员培养费第一年" multiple="N"></item>
+				<item name="personFosterSecondYear" remark="人员培养费第二年" multiple="N"></item>
+				<item name="personFosterThirdYear" remark="人员培养费第三年" multiple="N"></item>
+				<item name="personFosterFourthYear" remark="人员培养费第四年" multiple="N"></item>
+				<item name="personFosterFifthYear" remark="人员培养费第五年" multiple="N"></item>
+				
+				<item name="bookFirstYear" remark="图书资料费第一年" multiple="N"></item>
+				<item name="bookSecondYear" remark="图书资料费第二年" multiple="N"></item>
+				<item name="bookThirdYear" remark="图书资料费第三年" multiple="N"></item>
+				<item name="bookFourthYear" remark="图书资料费第四年" multiple="N"></item>
+				<item name="bookFifthYear" remark="图书资料费第五年" multiple="N"></item>
+				
+				<item name="researchProjFirstYear" remark="研究项目费用第一年" multiple="N"></item>
+				<item name="researchProjSecondYear" remark="研究项目费用第二年" multiple="N"></item>
+				<item name="researchProjThirdYear" remark="研究项目费用第三年" multiple="N"></item>
+				<item name="researchProjFourthYear" remark="研究项目费用第四年" multiple="N"></item>
+				<item name="researchProjFifthYear" remark="研究项目费用第五年" multiple="N"></item>
+				
+				<item name="otherFirstYear" remark="其他费用第一年" multiple="N"></item>
+				<item name="otherSecondYear" remark="其他费用第二年" multiple="N"></item>
+				<item name="otherThirdYear" remark="其他费用第三年" multiple="N"></item>
+				<item name="otherFourthYear" remark="其他费用第四年" multiple="N"></item>
+				<item name="otherFifthYear" remark="其他费用第五年" multiple="N"></item>
+				
+				<item name="amountFirstYear" remark="合     计第一年" multiple="N"></item>
+				<item name="amountSecondYear" remark="合     计第二年" multiple="N"></item>
+				<item name="amountThirdYear" remark="合     计第三年" multiple="N"></item>
+				<item name="amountFourthYear" remark="合     计第四年" multiple="N"></item>
+				<item name="amountFifthYear" remark="合     计第五年" multiple="N"></item>
+	        </page>
+	    </pageGroup>
+	<!-- 江苏省卫生厅重点人才合同书  结束 -->
+	<!-- 江苏省卫生厅重点学科合同书 -->
+	    <pageGroup name="jsswst.zdxk" firstPage="step1" view="srm/proj/form/contract/jsswst.zdxk/view"  printTemeplete="">
+	        <page name="step1"  remark="步骤1" jsp="srm/proj/form/contract/jsswst.zdxk/step1">
+	        	<item name="centerName" remark="中心名称" multiple="N"></item>
+	        	<item name="centerDirector" remark="中心主任" multiple="N"></item>
+	        	<item name="approveNo" remark="立项编号" multiple="N"></item>
+	        	<item name="orgName" remark="所在单位" multiple="N"></item>
+	        	<item name="chargeOrgName" remark="主管单位" multiple="N"></item>
+	        	<item name="beginEndYear" remark="起止年限" multiple="N"></item>
+	        	
+	        	<item name="attackDirection" remark="学术主攻方向" multiple="N"></item>
+	        	<item name="mainTarget" remark="主要目标" multiple="N"></item>
+	        	<item name="characteristic" remark="优势特色" multiple="N"></item>
+	        	<item name="planning" remark="实施规划" multiple="N"></item>
+	        </page>
+	        <page name="step2"  remark="步骤2" jsp="srm/proj/form/contract/jsswst.zdxk/step2">
+	        	<item name="indicatorsY1" remark="第1年考核指标" multiple="N"></item>
+	        	<item name="indicatorsY2" remark="第2年考核指标" multiple="N"></item>
+	        	<item name="indicatorsY3" remark="第3年考核指标" multiple="N"></item>
+	        	<item name="indicatorsY4" remark="第4年考核指标" multiple="N"></item>
+	        	<item name="indicatorsY5" remark="第5年考核指标" multiple="N"></item>
+	        </page>
+	        <page name="step3"  remark="步骤3" jsp="srm/proj/form/contract/jsswst.zdxk/step3">
+	        	<!-- 主任信息 -->
+	        	<item name="directorName" remark="主任姓名" multiple="N"></item>
+	        	<item name="directorSexId" remark="主任性别" multiple="N"></item>
+	        	<item name="directorBirthday" remark="主任出生年月" multiple="N"></item>
+	        	<item name="directorPost" remark="主任职务" multiple="N"></item>
+	        	<item name="directorTechnicalTitle" remark="技术职称" multiple="N"></item>
+	        	<item name="directorMajor" remark="业务专业" multiple="N"></item>
+	        	<item name="directorMainTask" remark="主要任务" multiple="N"></item>
+	        	<item name="directorWorkOrg" remark="工作单位" multiple="N"></item>
+	        	<!-- 副主任信息 -->
+	        	<item name="deputyDirectorName" remark="主任姓名" multiple="N"></item>
+	        	<item name="deputyDirectorSexId" remark="主任性别" multiple="N"></item>
+	        	<item name="deputyDirectorBirthday" remark="主任出生年月" multiple="N"></item>
+	        	<item name="deputyDirectorPost" remark="主任职务" multiple="N"></item>
+	        	<item name="deputyDirectorTechnicalTitle" remark="技术职称" multiple="N"></item>
+	        	<item name="deputyDirectorMajor" remark="业务专业" multiple="N"></item>
+	        	<item name="deputyDirectorMainTask" remark="主要任务" multiple="N"></item>
+	        	<item name="deputyDirectorWorkOrg" remark="工作单位" multiple="N"></item>
+	        </page>
+	        <page name="step4"  remark="步骤4" jsp="srm/proj/form/contract/jsswst.zdxk/step4">
+	        	<item name="constructOrgFund" remark="甲方资助金额" multiple="N"></item>
+				<item name="assumeOrgFund" remark="乙方匹配经费" multiple="N"></item>
+				<item name="thirdFund" remark="丙方匹配金额" multiple="N"></item>
+				<item name="otherFund" remark="其他来源经费" multiple="N"></item>
+				<item name="amountFund" remark="合      计" multiple="N"></item>
+				
+				<item name="inlandFirstYear" remark="国内外进修费用第一年" multiple="N"></item>
+				<item name="inlandSecondYear" remark="国内外进修费用第二年" multiple="N"></item>
+				<item name="inlandThirdYear" remark="国内外进修费用第三年" multiple="N"></item>
+				<item name="inlandFourthYear" remark="国内外进修费用第四年" multiple="N"></item>
+				<item name="inlandFifthYear" remark="国内外进修费用第五年" multiple="N"></item>
+				
+				<item name="communicationFirstYear" remark="学术交流费用第一年" multiple="N"></item>
+				<item name="communicationSecondYear" remark="学术交流费用第二年" multiple="N"></item>
+				<item name="communicationThirdYear" remark="学术交流费用第三年" multiple="N"></item>
+				<item name="communicationFourthYear" remark="学术交流费用第四年" multiple="N"></item>
+				<item name="communicationFifthYear" remark="学术交流费用第五年" multiple="N"></item>
+								
+				<item name="instrumentFirstYear" remark="仪器设备费第一年" multiple="N"></item>
+				<item name="instrumentSecondYear" remark="仪器设备费第二年" multiple="N"></item>
+				<item name="instrumentThirdYear" remark="仪器设备费第三年" multiple="N"></item>
+				<item name="instrumentFourthYear" remark="仪器设备费第四年" multiple="N"></item>
+				<item name="instrumentFifthYear" remark="仪器设备费第五年" multiple="N"></item>
+				
+				<item name="experimentMaterialFirstYear" remark="实验材料费第一年" multiple="N"></item>
+				<item name="experimentMaterialSecondYear" remark="实验材料费第二年" multiple="N"></item>
+				<item name="experimentMaterialThirdYear" remark="实验材料费第三年" multiple="N"></item>
+				<item name="experimentMaterialFourthYear" remark="实验材料费第四年" multiple="N"></item>
+				<item name="experimentMaterialFifthYear" remark="实验材料费第五年" multiple="N"></item>
+				
+				<item name="experimentAnimalTrFirstYear" remark="实验动物费第一年" multiple="N"></item>
+				<item name="experimentAnimalTrSecondYear" remark="实验动物费第二年" multiple="N"></item>
+				<item name="experimentAnimalTrThirdYear" remark="实验动物费第三年" multiple="N"></item>
+				<item name="experimentAnimalTrFourthYear" remark="实验动物费第四年" multiple="N"></item>
+				<item name="experimentAnimalTrFifthYear" remark="实验动物费第五年" multiple="N"></item>
+				
+				<item name="cultivateFirstYear" remark="人员培养费第一年" multiple="N"></item>
+				<item name="cultivateSecondYear" remark="人员培养费第二年" multiple="N"></item>
+				<item name="cultivateThirdYear" remark="人员培养费第三年" multiple="N"></item>
+				<item name="cultivateFourthYear" remark="人员培养费第四年" multiple="N"></item>
+				<item name="cultivateFifthYear" remark="人员培养费第五年" multiple="N"></item>
+				
+				<item name="bookFirstYear" remark="图书资料费第一年" multiple="N"></item>
+				<item name="bookSecondYear" remark="图书资料费第二年" multiple="N"></item>
+				<item name="bookThirdYear" remark="图书资料费第三年" multiple="N"></item>
+				<item name="bookFourthYear" remark="图书资料费第四年" multiple="N"></item>
+				<item name="bookFifthYear" remark="图书资料费第五年" multiple="N"></item>
+				
+				<item name="researchProjFirstYear" remark="其他费用第一年" multiple="N"></item>
+				<item name="researchProjSecondYear" remark="其他费用第二年" multiple="N"></item>
+				<item name="researchProjThirdYear" remark="其他费用第三年" multiple="N"></item>
+				<item name="researchProjFourthYear" remark="其他费用第四年" multiple="N"></item>
+				<item name="researchProjFifthYear" remark="其他费用第五年" multiple="N"></item>
+				
+				<item name="otherFirstYear" remark="其他费用第一年" multiple="N"></item>
+				<item name="otherSecondYear" remark="其他费用第二年" multiple="N"></item>
+				<item name="otherThirdYear" remark="其他费用第三年" multiple="N"></item>
+				<item name="otherFourthYear" remark="其他费用第四年" multiple="N"></item>
+				<item name="otherFifthYear" remark="其他费用第五年" multiple="N"></item>
+				
+				<item name="amountFirstYear" remark="合     计第一年" multiple="N"></item>
+				<item name="amountSecondYear" remark="合     计第二年" multiple="N"></item>
+				<item name="amountThirdYear" remark="合     计第三年" multiple="N"></item>
+				<item name="amountFourthYear" remark="合     计第四年" multiple="N"></item>
+				<item name="amountFifthYear" remark="合     计第五年" multiple="N"></item>
+	        </page>
+	    </pageGroup>
+	<!-- 江苏省卫生厅重点学科合同书  结束 -->
+	
+	
+	<!-- 无锡卫生局  重大项目  合同书   开始-->
+	<pageGroup name="wxwsj.zdxm" firstPage="step1" view="srm/proj/form/contract/wxwsj.zdxm/view" printTemeplete="/jsp/srm/proj/form/contract/wxwsj.zdxm/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/contract/wxwsj.zdxm/step1">	
+			<item name="projTargetResearchContent" remark="一、项目目标和主要研究内容" multiple="N"></item>
+			<item name="checkAcceptContentExamineNorm" remark="二、项目验收内容和考核指标" multiple="N"></item>
+		</page>
+		
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/contract/wxwsj.zdxm/step2">	
+			<itemGroup name="scheduleExamineNorm" remark="三、项目进度及考核指标" jsp="" flow="" modelStyle="add">
+				<item name="scheduleExamineNorm_startDate" remark="开始时间" multiple="N"></item>
+				<item name="scheduleExamineNorm_endDate" remark="结束时间" multiple="N"></item>
+				<item name="scheduleExamineNorm_examineNorm" remark="考核指标" multiple="N"></item>
+	        </itemGroup>
+		</page>
+		
+		<!-- 项目承担单位、参加单位及主要研究开发人员 -->
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/contract/wxwsj.zdxm/step3">	
+			<item name="assumeOrg" remark="项目承担单位" multiple="N"></item>
+			<item name="joinOrg" remark="参加单位" multiple="N"></item>
+			<itemGroup name="mainResearcher" remark="主要研究开发人员" jsp="" flow="" modelStyle="add">
+				<item name="mainResearcher_userName" remark="姓名" multiple="N"></item>
+				<item name="mainResearcher_gender" remark="性别" multiple="N"></item>
+				<item name="mainResearcher_age" remark="年龄" multiple="N"></item>
+				<item name="mainResearcher_title" remark="职称" multiple="N"></item>
+				<item name="mainResearcher_duty" remark="职务" multiple="N"></item>
+				<item name="mainResearcher_major" remark="从事专业" multiple="N"></item>
+				<item name="mainResearcher_workTime" remark="为本项目工作时间（%）" multiple="N"></item>
+				<item name="mainResearcher_org" remark="所在单位" multiple="N"></item>
+	        </itemGroup>
+		</page>
+		
+		<!-- 项目经费预算 -->
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/contract/wxwsj.zdxm/step4">	
+		<!-- （一）项目经费来源预算 -->
+			<item name="budgetYear1" remark="第1年" multiple="N"></item>
+			<item name="budgetYear2" remark="第2年" multiple="N"></item>
+			<item name="budgetYear3" remark="第3年" multiple="N"></item>
+			<item name="budgetYear4" remark="第4年" multiple="N"></item>
+			<!-- 合计 -->
+			<item name="amountAmount" remark="合计合计" multiple="N"></item>
+			<item name="amountFirst" remark="合计First" multiple="N"></item>
+			<item name="amountSecond" remark="合计Second" multiple="N"></item>
+			<item name="amountThird" remark="合计Third" multiple="N"></item>
+			<item name="amountFourth" remark="合计Fourth" multiple="N"></item>
+			<item name="amountRemark" remark="合计备注" multiple="N"></item>
+			<!-- 市卫生局拨款 -->
+			<item name="swsjbkAmount" remark="市卫生局拨款合计" multiple="N"></item>
+			<item name="swsjbkFirst" remark="市卫生局拨款First" multiple="N"></item>
+			<item name="swsjbkSecond" remark="市卫生局拨款Second" multiple="N"></item>
+			<item name="swsjbkThird" remark="市卫生局拨款Third" multiple="N"></item>
+			<item name="swsjbkFourth" remark="市卫生局拨款Fourth" multiple="N"></item>
+			<item name="swsjbkRemark" remark="市卫生局拨款备注" multiple="N"></item>
+			<!-- 上级主管部门配套 -->
+			<item name="sjzgbmptAmount" remark="上级主管部门配套合计" multiple="N"></item>
+			<item name="sjzgbmptFirst" remark="上级主管部门配套First" multiple="N"></item>
+			<item name="sjzgbmptSecond" remark="上级主管部门配套Second" multiple="N"></item>
+			<item name="sjzgbmptThird" remark="上级主管部门配套Third" multiple="N"></item>
+			<item name="sjzgbmptFourth" remark="上级主管部门配套Fourth" multiple="N"></item>
+			<item name="sjzgbmptRemark" remark="上级主管部门配套备注" multiple="N"></item>
+			<!-- 承担单位自筹 -->
+			<item name="zddwzcAmount" remark="承担单位自筹合计" multiple="N"></item>
+			<item name="zddwzcFirst" remark="承担单位自筹First" multiple="N"></item>
+			<item name="zddwzcSecond" remark="承担单位自筹Second" multiple="N"></item>
+			<item name="zddwzcThird" remark="承担单位自筹Third" multiple="N"></item>
+			<item name="zddwzcFourth" remark="承担单位自筹Fourth" multiple="N"></item>
+			<item name="zddwzcRemark" remark="承担单位自筹备注" multiple="N"></item>
+			<!-- 其他来源 -->
+			<item name="qtlyAmount" remark="其他来源合计" multiple="N"></item>
+			<item name="qtlyFirst" remark="其他来源First" multiple="N"></item>
+			<item name="qtlySecond" remark="其他来源Second" multiple="N"></item>
+			<item name="qtlyThird" remark="其他来源Third" multiple="N"></item>
+			<item name="qtlyFourth" remark="其他来源Fourth" multiple="N"></item>
+			<item name="qtlyRemark" remark="其他来源备注" multiple="N"></item>
+			
+		<!-- （二）项目经费支出预算  -->
+			<!-- 材料费 -->
+			<item name="expend1Cell1" remark="材料费预算数" multiple="N"></item>
+			<item name="expend1Cell2" remark="材料费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend1Cell3" remark="材料费备注" multiple="N"></item>
+			<!-- 测试化验加工费 -->
+			<item name="expend2Cell1" remark="测试化验加工费预算数" multiple="N"></item>
+			<item name="expend2Cell2" remark="测试化验加工费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend2Cell3" remark="测试化验加工费备注" multiple="N"></item>
+			<!-- 试剂耗材费 -->
+			<item name="expend3Cell1" remark="试剂耗材费预算数" multiple="N"></item>
+			<item name="expend3Cell2" remark="试剂耗材费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend3Cell3" remark="试剂耗材费备注" multiple="N"></item>
+			<!-- 燃料动力费 -->
+			<item name="expend4Cell1" remark="燃料动力费预算数" multiple="N"></item>
+			<item name="expend4Cell2" remark="燃料动力费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend4Cell3" remark="燃料动力费备注" multiple="N"></item>
+			<!-- 差旅费 -->
+			<item name="expend5Cell1" remark="差旅费预算数" multiple="N"></item>
+			<item name="expend5Cell2" remark="差旅费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend5Cell3" remark="差旅费备注" multiple="N"></item>
+			<!-- 会议费 -->
+			<item name="expend6Cell1" remark="会议费预算数" multiple="N"></item>
+			<item name="expend6Cell2" remark="会议费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend6Cell3" remark="会议费备注" multiple="N"></item>
+			<!-- 出版/文献/信息传播/知识产权事务费 -->
+			<item name="expend7Cell1" remark="出版/文献/信息传播/知识产权事务费预算数" multiple="N"></item>
+			<item name="expend7Cell2" remark="出版/文献/信息传播/知识产权事务费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend7Cell3" remark="出版/文献/信息传播/知识产权事务费备注" multiple="N"></item>
+			<!-- 劳务费 -->
+			<item name="expend8Cell1" remark="劳务费预算数" multiple="N"></item>
+			<item name="expend8Cell2" remark="劳务费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend8Cell3" remark="劳务费备注" multiple="N"></item>
+			<!-- 专家咨询费 -->
+			<item name="expend9Cell1" remark="专家咨询费预算数" multiple="N"></item>
+			<item name="expend9Cell2" remark="专家咨询费其中市卫生局拨款" multiple="N"></item>
+			<item name="expend9Cell3" remark="专家咨询费备注" multiple="N"></item>
+			<!-- 其他支出 -->
+			<item name="expend10Cell1" remark="其他支出预算数" multiple="N"></item>
+			<item name="expend10Cell2" remark="其他支出其中市卫生局拨款" multiple="N"></item>
+			<item name="expend10Cell3" remark="其他支出备注" multiple="N"></item>
+			<!-- 总计 -->
+			<item name="expend11Cell1" remark="预算数总计" multiple="N"></item>
+			<item name="expend11Cell2" remark="其中市卫生局拨款总计" multiple="N"></item>
+			<item name="expend11Cell3" remark="备注" multiple="N"></item>
+		</page>
+
+	</pageGroup>
+	<!-- 无锡卫生局  重大项目  合同书   结束-->
+	
+	
+	<!-- 余杭区医疗卫生科研项目合同书   开始-->
+	<pageGroup name="yhwsj.zdxm" firstPage="step1" view="srm/proj/form/contract/yhwsj.zdxm/view" printTemeplete="/jsp/srm/proj/form/contract/yhwsj.zdxm/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/contract/yhwsj.zdxm/step1">	
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="technologySource" remark="技术来源" multiple="N"></item>
+			<item name="projAidingWay" remark="项目资助方式" multiple="N"></item>
+			
+			<item name="chargeDeptName" remark="区科技局主管科室" multiple="N"></item>
+			<item name="nxssr" remark="年销售收入" multiple="N"></item>
+			<item name="nzjlr" remark="年增净利润" multiple="N"></item>
+			<item name="nzsj" remark="年增税金" multiple="N"></item>
+			<item name="nch" remark="年创汇" multiple="N"></item>
+			<!-- 成果产出指标 -->
+			<item name="fmzlApply" remark="发明专利申请" multiple="N"></item>
+			<item name="fmzlAuthorise" remark="发明专利授权" multiple="N"></item>
+			<item name="syxxApply" remark="实用新型申请" multiple="N"></item>
+			<item name="syxxAuthorise" remark="实用新型授权" multiple="N"></item>
+			<item name="wgsjApply" remark="外观设计申请" multiple="N"></item>
+			<item name="wgsjAuthorise" remark="外观设计授权" multiple="N"></item>
+			<item name="qtzscqcg" remark="其他知识产权成果" multiple="N"></item>
+		</page>
+		
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/contract/yhwsj.zdxm/step2">	
+			<item name="yjzjf" remark="预计总经费" multiple="N"></item>
+			<item name="zc" remark="自筹" multiple="N"></item>
+			<item name="qczzz" remark="区财政资助" multiple="N"></item>
+			<item name="dwpt" remark="单位配套" multiple="N"></item>
+			
+			<!-- 资助计划 -->
+			<item name="aidDate" remark="资助日期" multiple="N"></item>
+			<item name="aidFund" remark="资助金额" multiple="N"></item>
+			<item name="aidDate2" remark="资助日期" multiple="N"></item>
+			<item name="aidFund2" remark="资助金额" multiple="N"></item>
+			<item name="aidTotal" remark="资助合计" multiple="N"></item>
+			
+			<!-- 经费预算 -->
+			<item name="fundBudget1" remark="经费预算1" multiple="N"></item>
+			<item name="fundBudget2" remark="经费预算2" multiple="N"></item>
+			<item name="fundBudget3" remark="经费预算3" multiple="N"></item>
+			<item name="fundBudget4" remark="经费预算4" multiple="N"></item>
+			<item name="fundBudget5" remark="经费预算5" multiple="N"></item>
+			<item name="fundBudget6" remark="经费预算6" multiple="N"></item>
+			<item name="fundBudget7" remark="经费预算7" multiple="N"></item>
+			<item name="fundBudget8" remark="经费预算8" multiple="N"></item>
+			<item name="fundBudgetTotal" remark="经费预算合计" multiple="N"></item>
+		</page>
+		<!-- 三、承担单位 -->
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/contract/yhwsj.zdxm/step3">	
+			<item name="orgName" remark="单位名称" multiple="N"></item>
+			<item name="legalPersonCode" remark="法人代码" multiple="N"></item>
+			<item name="detailAddress" remark="详细地址" multiple="N"></item>
+			<item name="orgEmail" remark="单位E-mail" multiple="N"></item>
+			<item name="orgZipCode" remark="邮政编码" multiple="N"></item>
+			<item name="headOfOrg" remark="单位负责人" multiple="N"></item>
+			<item name="headOfOrgContactNumber" remark="联系电话" multiple="N"></item>
+			<item name="orgContacts" remark="单位联系人" multiple="N"></item>
+			<item name="orgContactsContactNumber" remark="联系电话" multiple="N"></item>
+			<item name="depositBank" remark="开户银行" multiple="N"></item>
+			<item name="bankAccount" remark="银行账号" multiple="N"></item>
+			<item name="cooperateOrg1" remark="协作单位1" multiple="N"></item>
+			<item name="cooperateOrg2" remark="协作单位2" multiple="N"></item>
+		</page>
+		<!-- 四、项目负责人及项目组成员 -->
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/contract/yhwsj.zdxm/step4">	
+			<!-- 项目负责人 -->
+			<item name="responsiblePersonName" remark="姓名" multiple="N"></item>
+			<item name="responsiblePersonIDNo" remark="身份证号码" multiple="N"></item>
+			<item name="responsiblePersonContactNumber" remark="联系电话、手机" multiple="N"></item>
+			<item name="responsiblePersonEmail" remark="E-mail" multiple="N"></item>
+			<item name="responsiblePersonEdu" remark="学历" multiple="N"></item>
+			<item name="responsiblePersonDegree" remark="学位" multiple="N"></item>
+			<item name="responsiblePersonTitle" remark="职称、职务" multiple="N"></item>
+			<item name="responsiblePersonMajor" remark="专业" multiple="N"></item>
+			<item name="responsiblePersonLabour" remark="在本项目中的分工" multiple="N"></item>
+			<item name="responsiblePersonWorkOrg" remark="工作单位" multiple="N"></item>
+			<item name="responsiblePersonLegalPersonCode" remark="单位法人代码" multiple="N"></item>
+			<!-- 项目组成员 -->
+			<itemGroup name="projMember" remark="项目组成员" jsp="" flow="" modelStyle="add">
+				<item name="projMember_userName" remark="姓名" multiple="N"></item>
+				<item name="projMember_age" remark="年龄" multiple="N"></item>
+				<item name="projMember_duty" remark="专业技术职务" multiple="N"></item>
+				<item name="projMember_major" remark="专业" multiple="N"></item>
+				<item name="projMember_org" remark="工作单位" multiple="N"></item>
+				<item name="projMember_labor" remark="为本项目工作时间（%）" multiple="N"></item>
+	        </itemGroup>
+		</page>
+		
+		<!-- 五、主要内容和目标 -->
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/contract/yhwsj.zdxm/step5">	
+			<item name="mainContentTarget" remark="主要内容和目标" multiple="N"></item>
+		</page>
+		
+		<!-- 六、计划进度目标 -->
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/contract/yhwsj.zdxm/step6">	
+			<itemGroup name="planSchedule" remark="项目组成员" jsp="" flow="" modelStyle="add">
+				<item name="planSchedule_startDate" remark="起始年月" multiple="N"></item>
+				<item name="planSchedule_endDate" remark="截止年月" multiple="N"></item>
+				<item name="planSchedule_schedule" remark="进度目标要求" multiple="N"></item>
+	        </itemGroup>
+		</page>
+	</pageGroup>
+	<!-- 余杭区医疗卫生科研项目合同书   结束-->
+	
+	
+	
+	
+	
+	<!-- 余杭区医疗卫生科研重点学科   合同书   开始-->
+	<pageGroup name="yhwsj.zdxk" firstPage="step1" view="srm/proj/form/contract/yhwsj.zdxk/view" printTemeplete="/jsp/srm/proj/form/contract/yhwsj.zdxk/printTemeplete1.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/contract/yhwsj.zdxk/step1">
+			<item name="isOriginal" remark="是否原区级重点学科" multiple="N"></item>
+			<item name="originalSubjectName" remark="原医学重点学科名称" multiple="N"></item>
+			<item name="subjectName" remark="学科名称" multiple="N"></item>
+			<item name="attackDirection1" remark="学科主攻方向1" multiple="N"></item>
+			<item name="attackDirection2" remark="学科主攻方向2" multiple="N"></item>
+			<item name="attackDirection3" remark="学科主攻方向3" multiple="N"></item>
+			<item name="attackDirection4" remark="学科主攻方向4" multiple="N"></item>
+			<item name="attackDirection5" remark="学科主攻方向5" multiple="N"></item>
+			<!-- <itemGroup name="attackDirection" remark="学科主攻方向" jsp="" flow="" modelStyle="add">
+				<item name="attackDirection_Name" remark="名称" multiple="N"></item>
+			</itemGroup> -->
+			<item name="businessIncome" remark="上一年学科业务收入" multiple="N"></item>
+			<item name="hospitalBusinessTotalIncome" remark="医院业务总收入" multiple="N"></item>
+			<item name="ratio" remark="占比%" multiple="N"></item>
+			<item name="isOtherOrgCoordination" remark="与其他单位协作机制" multiple="N"></item>
+			<item name="coordinationOrg" remark="已/希望开展学科协作的单位" multiple="N"></item>
+			<item name="coordinationSubject" remark="协作的学科" multiple="N"></item>
+			<item name="coordinationSpecialist" remark="协作专家" multiple="N"></item>
+			<!-- 单位管理部门联系人 -->
+			<item name="manageDeptLinkmanName" remark="单位管理部门联系人姓名" multiple="N"></item>
+			<item name="manageDeptLinkmanPhone" remark="单位管理部门联系人电话" multiple="N"></item>
+			<item name="manageDeptLinkmanMobilePhone" remark="单位管理部门联系人手机" multiple="N"></item>
+			<item name="manageDeptLinkmanEmail" remark="单位管理部门联系人E-mail" multiple="N"></item>
+			<!-- 学科人员队伍 -->
+			<item name="subjectPersonnelSubtotal" remark="学科人员队伍人员数小计" multiple="N"></item>
+			<item name="subjectPersonnelZgzc" remark="学科人员队伍人员正高职称" multiple="N"></item>
+			<item name="subjectPersonnelFgzc" remark="学科人员队伍人员副高职称" multiple="N"></item>
+			<item name="subjectPersonnelZjzc" remark="学科人员队伍人员中级职称" multiple="N"></item>
+			<item name="subjectPersonnelCjzc" remark="学科人员队伍人员初级职称" multiple="N"></item>
+			<item name="subjectPersonnelDoctor" remark="学科人员队伍人员博士" multiple="N"></item>
+			<item name="subjectPersonnelMaster" remark="学科人员队伍人员硕士" multiple="N"></item>
+			<!-- 学科团队 -->
+			<itemGroup name="subjectTeam" remark="学科团队" jsp="" flow="" modelStyle="add">
+				<item name="subjectTeam_name" remark="姓名" multiple="N"></item>
+				<item name="subjectTeam_idNo" remark="身份证号码" multiple="N"></item>
+				<item name="subjectTeam_education" remark="学历" multiple="N"></item>
+				<item name="subjectTeam_major" remark="所学专业" multiple="N"></item>
+				<item name="subjectTeam_post" remark="专业技术职务" multiple="N"></item>
+				<item name="subjectTeam_isMentor" remark="是否博（硕）士导" multiple="N"></item>
+				<item name="subjectTeam_task" remark="在学科建设中的主要任务" multiple="N"></item>
+			</itemGroup>
+		</page>
+		
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/contract/yhwsj.zdxk/step2">
+			<item name="featuresAdvantages" remark="学科特色与优势" multiple="N"></item>
+			<item name="mainAttackDirection" remark="学科主攻方向和意义" multiple="N"></item>
+			<item name="developmentPlanning" remark="学科发展规划" multiple="N"></item>
+		</page>	
+		
+		<!-- 学科建设具体指标(三年后拟达到目标) -->
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/contract/yhwsj.zdxk/step3">
+			<item name="businessTarget" remark="1业务目标" multiple="N"></item>
+			<item name="objectiveOfPersonnelCultivation" remark="2人才培养目标" multiple="N"></item>
+			<item name="promotionalObjectives" remark="3新技术开展与适宜技术推广目标" multiple="N"></item>
+			<item name="communicationObjectives" remark="4学术交流目标" multiple="N"></item>
+			<item name="scientificResearchObjectives" remark="5科研课题、论文、奖励等目标" multiple="N"></item>
+			<item name="manageInstitutionalImprovement" remark="6学科管理与制度建设" multiple="N"></item>
+		</page>
+		
+		
+		<!-- 学科带头人情况 -->
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/contract/yhwsj.zdxk/step4">
+			<!-- 学科带头人 -->
+			<item name="subjectLeaderName" remark="学科带头人 姓名" multiple="N"></item>
+			<item name="subjectLeaderIdNo" remark="学科带头人 身份证号码" multiple="N"></item>
+			<item name="subjectLeaderTitle" remark="学科带头人 专业技术职称" multiple="N"></item>
+			<item name="subjectLeaderPost" remark="学科带头人 行政职务" multiple="N"></item>
+			<item name="subjectLeaderAcademicPost" remark="学科带头人 学术组织任职情况" multiple="N"></item>
+			<item name="subjectLeaderEducation" remark="学科带头人 最高学历" multiple="N"></item>
+			<item name="subjectLeaderMobilePhone" remark="学科带头人	手机" multiple="N"></item>
+			<item name="subjectLeaderMajor" remark="学科带头人 擅长专业(最多3个)" multiple="N"></item>
+			<item name="subjectLeaderIntroduce" remark="学科带头人	简介" multiple="N"></item>
+			
+			<!-- 后备学科带头人 -->
+			<itemGroup name="reserveLeader" remark="后备学科带头人" jsp="" flow="" modelStyle="add">
+				<item name="reserveLeader_name" remark="后备学科带头人 姓名" multiple="N"></item>
+				<item name="reserveLeader_idNo" remark="后备学科带头人 身份证号码" multiple="N"></item>
+				<item name="reserveLeader_title" remark="后备学科带头人 专业技术职称" multiple="N"></item>
+				<item name="reserveLeader_post" remark="后备学科带头人 行政职务" multiple="N"></item>
+				<item name="reserveLeader_academicPost" remark="后备学科带头人 学术组织任职情况" multiple="N"></item>
+				<item name="reserveLeader_education" remark="后备学科带头人  最高学历" multiple="N"></item>
+				<item name="reserveLeader_mobilePhone" remark="后备学科带头人  手机" multiple="N"></item>
+				<item name="reserveLeader_major" remark="后备学科带头人  擅长专业(最多3个)" multiple="N"></item>
+				<item name="reserveLeader_introduce" remark="后备学科带头人	简介" multiple="N"></item>
+			</itemGroup>
+			<!-- 七、单位和政府提供的支撑条件及保障措施 -->
+			<item name="supportCondition" remark="支撑条件与保障措施简述" multiple="N"></item>
+		</page>
+		
+		
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/contract/yhwsj.zdxk/step5">
+		<!-- 六、学科建设经费来源与支出预算 -->
+			<item name="expenseBudget1" remark="金额" multiple="N"></item>
+			<item name="expenseBudget2" remark="金额" multiple="N"></item>
+			<item name="expenseBudget3" remark="金额" multiple="N"></item>
+			<item name="expenseBudget4" remark="金额" multiple="N"></item>
+			<item name="expenseBudget5" remark="金额" multiple="N"></item>
+			<item name="expenseBudget6" remark="金额" multiple="N"></item>
+			<item name="expenseBudget7" remark="金额" multiple="N"></item>
+			<item name="expenseBudget8" remark="金额" multiple="N"></item>
+			<item name="expenseBudget9" remark="金额" multiple="N"></item>
+			<item name="expenseBudget10" remark="金额" multiple="N"></item>
+			<item name="expenseBudget11" remark="金额" multiple="N"></item>
+			<item name="expenseBudget12" remark="金额" multiple="N"></item>
+			<item name="expenseBudget13" remark="金额" multiple="N"></item>
+			<item name="expenseBudget14" remark="金额" multiple="N"></item>
+			<item name="expenseBudget15" remark="金额" multiple="N"></item>
+			<item name="expenseBudget16" remark="金额" multiple="N"></item>
+			<item name="expenseBudgetTotal" remark="金额" multiple="N"></item>
+			
+			<item name="expenseBudgetReason1" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason2" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason3" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason4" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason5" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason6" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason7" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason8" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason9" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason10" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason11" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason12" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason13" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason14" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason15" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason16" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReasonTotal" remark="计算根据及简要理由" multiple="N"></item>
+			
+			<!-- 配套经费 -->
+			<item name="expenditureOrg1" remark="配套经费" multiple="N"></item>
+			<item name="expenditureCounty1" remark="区县配套" multiple="N"></item>
+			<item name="expenditureOtherSource1" remark="其他渠道来源" multiple="N"></item>
+			<item name="expenditureTotal1" remark="合计" multiple="N"></item>
+			
+			<item name="expenditureOrg2" remark="配套经费" multiple="N"></item>
+			<item name="expenditureCounty2" remark="区县配套" multiple="N"></item>
+			<item name="expenditureOtherSource2" remark="其他渠道来源" multiple="N"></item>
+			<item name="expenditureTotal2" remark="合计" multiple="N"></item>
+			
+			<item name="expenditureOrg3" remark="配套经费" multiple="N"></item>
+			<item name="expenditureCounty3" remark="区县配套" multiple="N"></item>
+			<item name="expenditureOtherSource3" remark="其他渠道来源" multiple="N"></item>
+			<item name="expenditureTotal3" remark="合计" multiple="N"></item>
+			
+			<item name="expenditureOrg4" remark="配套经费" multiple="N"></item>
+			<item name="expenditureCounty4" remark="区县配套" multiple="N"></item>
+			<item name="expenditureOtherSource4" remark="其他渠道来源" multiple="N"></item>
+			<item name="expenditureTotal4" remark="合计" multiple="N"></item>
+		</page>
+		
+		<!-- 九、余杭区医学重点学科合同书有关指标 -->
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/contract/yhwsj.zdxk/step6">
+			<!-- 学科临床指标 -->
+			<item name="title1Year1" remark="建设前一年（年度）" multiple="N"></item>
+			<item name="title1Year2" remark="预计建设后（年）" multiple="N"></item>
+			<item name="index1Row1Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row1Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row1Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row2Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row2Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row2Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row3Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row3Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row3Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row4Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row4Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row4Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row5Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row5Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row5Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row6Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row6Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row6Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row7Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row7Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row7Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row8Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row8Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row8Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row9Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row9Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row9Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row10Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row10Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row10Cell3" remark="预期增幅%" multiple="N"></item>
+			
+			<item name="index1Row11Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row11Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row11Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row12Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row12Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row12Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row13Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row13Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row13Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row14Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row14Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row14Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row15Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row15Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row15Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row16Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row16Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row16Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row17Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row17Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row17Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row18Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row18Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row18Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row19Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row19Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row19Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row20Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row20Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row20Cell3" remark="预期增幅%" multiple="N"></item>
+			
+			<item name="index1Row21Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row21Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row21Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row22Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row22Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row22Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row23Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row23Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row23Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row24Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row24Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row24Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row25Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row25Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row25Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row26Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row26Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row26Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row27Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row27Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row27Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index1Row28Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index1Row28Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index1Row28Cell3" remark="预期增幅%" multiple="N"></item>
+			
+			<!-- 学科科研指标 -->
+			<item name="title2Year1" remark="申报前3年（ - ）" multiple="N"></item>
+			<item name="title2Year2" remark="申报前3年（ - ）" multiple="N"></item>
+			<item name="title2Year3" remark="建设期内（  - ）" multiple="N"></item>
+			<item name="title2Year4" remark="建设期内（  - ）" multiple="N"></item>
+			<!-- 作为第一单位承担科研项目数量 -->
+			<item name="index2Row1Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row1Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row1Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row2Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row2Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row2Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row3Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row3Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row3Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row4Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row4Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row4Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row5Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row5Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row5Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row6" remark="拟设计申报课题名称" multiple="N"></item>
+			
+			<!-- 作为联合单位承担科研项目数量 -->
+			<item name="index2Row7Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row7Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row7Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row8Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row8Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row8Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row9Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row9Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row9Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row10Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row10Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row10Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row11Cell1" remark="建设前一年" multiple="N"></item>
+			<item name="index2Row11Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row11Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row12" remark="拟参与课题名称" multiple="N"></item>
+			
+			<!-- 预期总经费 -->
+			<item name="title3Year1" remark="申报前3年（-）" multiple="N"></item>
+			<item name="title3Year2" remark="申报前3年（-）" multiple="N"></item>
+			<item name="title3Year3" remark="建设期内（-）" multiple="N"></item>
+			<item name="title3Year4" remark="建设期内（-）" multiple="N"></item>
+			<item name="index2Row13Cell0" remark="" multiple="N"></item>
+			<item name="index2Row13Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index2Row13Cell2" remark="预计建设后" multiple="N"></item>
+			<item name="index2Row13Cell3" remark="预期增幅%" multiple="N"></item>
+			
+			<!-- 围绕主攻方向发表文章 -->
+			<item name="title4Year1" remark="申报前3年（-）" multiple="N"></item>
+			<item name="title4Year2" remark="申报前3年（-）" multiple="N"></item>
+			<item name="title4Year3" remark="建设期内（-）" multiple="N"></item>
+			<item name="title4Year4" remark="建设期内（-）" multiple="N"></item>
+			<item name="index2Row14Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index2Row14Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row14Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row15Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index2Row15Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row15Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row16Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index2Row16Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row16Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row17Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index2Row17Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row17Cell3" remark="预期增幅%" multiple="N"></item>
+			
+			<!-- 获得专利和专著 -->
+			<item name="title5Year1" remark="申报前3年（-）" multiple="N"></item>
+			<item name="title5Year2" remark="申报前3年（-）" multiple="N"></item>
+			<item name="title5Year3" remark="建设期内（-）" multiple="N"></item>
+			<item name="title5Year4" remark="建设期内（-）" multiple="N"></item>
+			<item name="index2Row18Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index2Row18Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row18Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index2Row19Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index2Row19Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index2Row19Cell3" remark="预期增幅%" multiple="N"></item>
+			
+			<!-- 学科人才培养指标 -->
+			<item name="title6Year1" remark="申报前一年（年）" multiple="N"></item>
+			<item name="title6Year2" remark="三年后（年）" multiple="N"></item>
+			<item name="index3Row1Cell1" remark="申报前一年" multiple="N"></item>
+			<item name="index3Row1Cell2" remark="三年后" multiple="N"></item>
+			<item name="index3Row1Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index3Row2Cell1" remark="申报前一年" multiple="N"></item>
+			<item name="index3Row2Cell2" remark="三年后" multiple="N"></item>
+			<item name="index3Row2Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index3Row3Cell1" remark="申报前一年" multiple="N"></item>
+			<item name="index3Row3Cell2" remark="三年后" multiple="N"></item>
+			<item name="index3Row3Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index3Row4Cell1" remark="申报前一年" multiple="N"></item>
+			<item name="index3Row4Cell2" remark="三年后" multiple="N"></item>
+			<item name="index3Row4Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index3Row5Cell1" remark="申报前一年" multiple="N"></item>
+			<item name="index3Row5Cell2" remark="三年后" multiple="N"></item>
+			<item name="index3Row5Cell3" remark="预期增幅%" multiple="N"></item>
+			
+			<!-- 主办或承办学术会议或继续医学教育 -->
+			<item name="title7Year1" remark="申报前3年（-）" multiple="N"></item>
+			<item name="title7Year2" remark="申报前3年（-）" multiple="N"></item>
+			<item name="title7Year3" remark="建设期内（-）" multiple="N"></item>
+			<item name="title7Year4" remark="建设期内（-）" multiple="N"></item>
+			<item name="index3Row6Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index3Row6Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index3Row6Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index3Row7Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index3Row7Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index3Row7Cell3" remark="预期增幅%" multiple="N"></item>
+			<item name="index3Row8Cell1" remark="申报前3年" multiple="N"></item>
+			<item name="index3Row8Cell2" remark="建设期内" multiple="N"></item>
+			<item name="index3Row8Cell3" remark="预期增幅%" multiple="N"></item>
+		</page>
+	</pageGroup>
+	<!-- 余杭区医疗卫生科研重点学科   合同书   结束-->
+	
+	
+	
+	
+	
+	
+</jspForm>
+

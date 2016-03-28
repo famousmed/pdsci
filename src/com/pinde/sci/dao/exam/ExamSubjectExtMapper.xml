@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.exam.ExamSubjectExtMapper">
+	<resultMap id="countQuestionTypeMap" type="hashmap">
+        <result column="question_type_id"  property="questionTypeId" />
+        <result column="total_num"  property="totalNum" />
+   	</resultMap>
+	<resultMap id="countSubjectMap" type="hashmap">
+        <result column="subject_flow"  property="subjectFlow" />
+        <result column="total_num"  property="totalNum" />
+   	</resultMap>
+	<resultMap id="countBookMap" type="hashmap">
+        <result column="book_flow"  property="bookFlow" />
+        <result column="total_num"  property="totalNum" />
+   	</resultMap>
+	<select id="searchSubjectByQuestion" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.ExamSubjectMapper.BaseResultMap">
+		  select
+		  	<include refid="com.pinde.sci.dao.base.ExamSubjectMapper.Base_Column_List" />
+    		from PDSCI.EXAM_SUBJECT es where exists(
+		   		select null from EXAM_QUESTION_SUBJECT eqs where 
+   				es.subject_flow=eqs.subject_flow 
+				and eqs.question_flow = #{questionFlow}
+	   			and eqs.record_status='Y'
+		   ) 
+		   and es.record_status='Y'
+	</select>
+	<select id="searchSubjectBySubject" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.ExamSubjectMapper.BaseResultMap">
+		  select
+		  	<include refid="com.pinde.sci.dao.base.ExamSubjectMapper.Base_Column_List" />
+    		from PDSCI.EXAM_SUBJECT es where exists(
+    			select null from EXAM_QUESTION_SUBJECT eqs where 
+	   				es.subject_flow=eqs.subject_flow 
+		   			and exists (
+				   		select null from EXAM_QUESTION_SUBJECT eqs2 where 
+				   		    eqs2.question_flow = eqs.question_flow
+						and eqs2.subject_flow = #{subjectFlow}
+			   			and eqs2.record_status='Y'
+		   			)
+		   			and eqs.record_status='Y'
+		   ) 
+		   and es.subject_flow != #{subjectFlow}
+		   and es.record_status='Y'
+	</select>
+	<select id="countQuestNumByQuestionTypeOfSubject" parameterType="java.lang.String" resultMap="countQuestionTypeMap">
+		  select
+		  	question_type_id,count(*) as total_num
+		   from PDSCI.EXAM_QUESTION eq where exists(
+		   	select null from EXAM_QUESTION_SUBJECT eqs 
+		   	where eq.question_flow=eqs.question_flow 
+		   	and eqs.subject_flow = #{subjectFlow}
+		   	and eqs.record_status='Y'
+		   ) 
+		   and eq.record_status='Y'
+		   group by question_type_id
+	</select>
+	<select id="countQuestNumBySubjectOfSubject" parameterType="java.lang.String" resultMap="countSubjectMap">
+		  select subject_flow ,count(*) as total_num from EXAM_QUESTION_SUBJECT eqs where 
+   			exists (
+		   		select null from EXAM_QUESTION_SUBJECT eqs2 where 
+		   		    eqs2.question_flow = eqs.question_flow
+				and eqs2.subject_flow = #{subjectFlow}
+	   			and eqs2.record_status='Y'
+   			)
+   			and eqs.record_status='Y'
+   			and eqs.subject_flow != #{subjectFlow}
+   			group by subject_flow
+	</select>
+	<select id="countQuestNumByBookOfSubject" parameterType="java.lang.String" resultMap="countBookMap">
+		  select book_flow ,count(*) as total_num,
+		   (select book_num from exam_book eb where eb.book_flow=eqb.book_flow) as book_num
+		    from EXAM_QUESTION_BOOK eqb where 
+   			exists (
+		   		select null from EXAM_QUESTION_SUBJECT eqs where 
+		   		    eqb.question_flow = eqs.question_flow
+				and eqs.subject_flow = #{subjectFlow}
+	   			and eqs.record_status='Y'
+   			)
+   			and eqb.record_status='Y'
+   			group by book_flow
+   			order by book_num
+	</select>
+</mapper>

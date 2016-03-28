@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+<!-- 初始审查申请表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp ver="1.0"  path="gcp/form/{0}/icfInspect_{1}"></jsp>
+	<product>
+		<page ver="1.0">
+			<item name="icfFileNum" remark="应保存知情同意书" multiple="N"></item>
+			<item name="realIcfFileNum" remark="实际保存知情同意书" multiple="N"></item>
+			<item name="problem" remark="问题" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

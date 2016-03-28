@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.gcp.GcpContractExtMapper">
+   <resultMap id="GcpContractExt" type="com.pinde.sci.model.gcp.GcpContractExt" extends="com.pinde.sci.dao.base.GcpContractMapper.BaseResultMap" >
+        <result column="apply_dept_flow"  property="deptFlow" />
+        <result column="proj_name"  property="projName" />
+        <result column="file_name"  property="fileName" />
+        <result column="file_flow"  property="fileFlow" />
+   </resultMap>
+   <select id="searchContractList" parameterType="java.util.Map" resultMap="GcpContractExt">
+        select * from (select gc.contract_flow,gc.contract_name,
+                              gc.proj_flow,
+                              gc.contract_type_id,gc.contract_fund,
+                              gc.contract_no,gc.case_number,
+                              gc.contract_copies,gc.stamp_date,
+                              gc.contract_file,
+                              pp.apply_dept_flow,
+                              pp.proj_name
+         from gcp_contract gc,pub_proj pp
+         where gc.RECORD_STATUS='Y' and gc.proj_flow=pp.proj_flow
+               <if test='contract.projFlow!=null and contract.projFlow!=""'>
+                  and gc.proj_Flow=#{contract.projFlow}
+               </if>
+               <if test='proj.applyUserFlow!=null and proj.applyUserFlow!=""'>
+                  and pp.apply_user_flow=#{proj.applyUserFlow}
+               </if>
+               <if test='proj.projStatusId!=null and proj.projStatusId!=""'>
+                  and pp.proj_Status_Id=#{proj.projStatusId}
+               </if>
+               <if test='proj.projName!=null and proj.projName!=""'>
+                  and pp.proj_name like '%${proj.projName}%'
+               </if>
+                <if test='proj.applyDeptFlow!=null and proj.applyDeptFlow!=""'>
+                  and pp.apply_dept_flow = #{proj.applyDeptFlow}
+               </if>
+                <if test='proj.applyOrgFlow!=null and proj.applyOrgFlow!=""'>
+                  and pp.apply_org_flow = #{proj.applyOrgFlow}
+               </if>
+               <if test='contract.contractNo!=null and contract.contractNo!=""'>
+                  and gc.contract_No like '%${contract.contractNo}%'
+               </if>
+                <if test='contract.contractName!=null and contract.contractName!=""'>
+                  and gc.contract_Name like '%${contract.contractName}%'
+               </if>
+               ) gcpp
+           LEFT OUTER JOIN pub_file pb on (gcpp.contract_file = pb.file_flow)
+               order by gcpp.STAMP_DATE DESC
+      </select>   
+   
+</mapper>

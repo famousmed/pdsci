@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.gcp.GcpFundExtMapper" >
+	<select id="selectSum" parameterType="com.pinde.sci.model.mo.GcpFund" resultType="java.math.BigDecimal">
+		select sum(FUND_AMOUNT) from PDSCI.gcp_fund where record_status = 'Y' 
+				<if test='orgFlow!=null and orgFlow!=""'>
+					and org_flow = #{orgFlow}
+				</if>
+				<if test='projFlow!=null and projFlow!=""'>
+					and proj_flow = #{projFlow}
+				</if>
+				<if test='fundTypeId!=null and fundTypeId!=""'>
+					and fund_type_id = #{fundTypeId}
+				</if>
+	</select>
+</mapper>

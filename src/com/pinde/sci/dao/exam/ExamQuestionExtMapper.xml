@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.exam.ExamQuestionExtMapper">
+	<select id="searchExamQuestionBySubjectQuestionType" resultMap="com.pinde.sci.dao.base.ExamQuestionMapper.ResultMapWithBLOBs">
+		  select
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Base_Column_List" />
+		   ,
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Blob_Column_List" />
+		   from PDSCI.EXAM_QUESTION eq where exists(
+		   	select null from EXAM_QUESTION_SUBJECT eqs 
+		   	where eq.question_flow=eqs.question_flow 
+		   	and eqs.subject_flow = #{subjectFlow}
+		    and eqs.record_status='Y'
+		   ) 
+		   and question_type_id=#{questionTypeId}
+		   and eq.record_status='Y'
+	</select>
+	<select id="searchExamQuestionBySubjectSubject" resultMap="com.pinde.sci.dao.base.ExamQuestionMapper.ResultMapWithBLOBs">
+		  select
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Base_Column_List" />
+		   ,
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Blob_Column_List" />
+		   from PDSCI.EXAM_QUESTION eq where exists(
+		   	select null from EXAM_QUESTION_SUBJECT eqs where 
+	   				eq.question_flow=eqs.question_flow
+		   			and exists (
+				   		select null from EXAM_QUESTION_SUBJECT eqs2 where 
+				   		    eqs2.question_flow = eqs.question_flow
+						and eqs2.subject_flow = #{subjectFlow2}
+			   			and eqs2.record_status='Y'
+		   			)
+					and eqs.subject_flow = #{subjectFlow}
+		   			and eqs.record_status='Y'
+		   ) 
+		   and eq.record_status='Y'
+	</select>
+	<select id="searchExamQuestionBySubjectBook" resultMap="com.pinde.sci.dao.base.ExamQuestionMapper.ResultMapWithBLOBs">
+		  select
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Base_Column_List" />
+		   ,
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Blob_Column_List" />
+		   from PDSCI.EXAM_QUESTION eq where exists(
+		   	select null from EXAM_QUESTION_BOOK eqb where 
+	   				eq.question_flow=eqb.question_flow
+		   			and exists (
+				   		select null from EXAM_QUESTION_SUBJECT eqs where 
+				   		    eqs.question_flow = eqb.question_flow
+						and eqs.subject_flow = #{subjectFlow}
+			   			and eqs.record_status='Y'
+		   			)
+					and eqb.book_flow = #{bookFlow}
+		   			and eqb.record_status='Y'
+		   ) 
+		   and eq.record_status='Y'
+	</select>
+	<select id="searchExamQuestionByBookQuestionType" resultMap="com.pinde.sci.dao.base.ExamQuestionMapper.ResultMapWithBLOBs">
+		  select
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Base_Column_List" />
+		   ,
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Blob_Column_List" />
+		   from PDSCI.EXAM_QUESTION eq where exists(
+		   	select null from EXAM_QUESTION_BOOK eqb 
+		   	where eq.question_flow=eqb.question_flow 
+		   	and eqb.book_flow = #{bookFlow}
+		    and eqb.record_status='Y'
+		   ) 
+		   and question_type_id=#{questionTypeId}
+		   and eq.record_status='Y'
+	</select>
+	
+	<resultMap id="ExamQuestionAndSubquestionResultMap" type="com.pinde.sci.model.exam.ExamQuestionExt" extends="com.pinde.sci.dao.base.ExamQuestionMapper.ResultMapWithBLOBs">
+        <collection property="questionDetails" column="QUESTION_FLOW" ofType="com.pinde.sci.model.mo.ExamQuestionDetailWithBLOBs">
+            <id column="DETAIL_FLOW" jdbcType="VARCHAR" property="detailFlow" />
+            <result column="QUESTION_FLOW" jdbcType="VARCHAR" property="questionFlow" />
+            <result column="PARENT_QUESTION_CODE" jdbcType="VARCHAR" property="parentQuestionCode" />
+            <result column="SUB_QUESTION_CODE" jdbcType="VARCHAR" property="questionCode" />
+            <result column="SUB_QUESTION_CONTENT" jdbcType="CLOB" property="questionContent" />
+            <result column="SUB_QUESTION_ANSWER" jdbcType="CLOB" property="questionAnswer" />
+            <result column="SUB_RIGHT_ANSWER" jdbcType="CLOB" property="rightAnswer" />
+        </collection>
+   	</resultMap>
+	
+	<select id="searchExamQuestionAndSubQuestionByBookQuestionType" resultMap="ExamQuestionAndSubquestionResultMap">
+		   SELECT 
+		   Q.* ,
+		   EQD.DETAIL_FLOW , EQD.QUESTION_FLOW , 
+		   EQD.PARENT_QUESTION_CODE , EQD.QUESTION_CODE SUB_QUESTION_CODE , 
+		   EQD.QUESTION_CONTENT SUB_QUESTION_CONTENT , EQD.QUESTION_ANSWER SUB_QUESTION_ANSWER , 
+		   EQD.RIGHT_ANSWER SUB_RIGHT_ANSWER
+		    FROM (select <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Base_Column_List" />
+		           ,
+		           <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Blob_Column_List" /> from 
+		           PDSCI.EXAM_QUESTION eq where exists(
+		   	           select null from EXAM_QUESTION_BOOK eqb 
+		   	           where eq.question_flow=eqb.question_flow 
+		   	           and eqb.book_flow = #{bookFlow}
+		               and eqb.record_status='Y'
+		           ) 
+		       and question_type_id=#{questionTypeId}
+		       and eq.record_status='Y') q 
+		       LEFT JOIN EXAM_QUESTION_DETAIL EQD 
+		       on q.question_flow=eqd.question_flow 
+		       and eqd.record_status='Y'
+	</select>
+	
+	
+	<select id="searchExamQuestionAndSubQuestionBySubjectQuestionType" resultMap="ExamQuestionAndSubquestionResultMap">
+		   SELECT 
+		   Q.* ,
+		   EQD.DETAIL_FLOW , EQD.QUESTION_FLOW , 
+		   EQD.PARENT_QUESTION_CODE , EQD.QUESTION_CODE SUB_QUESTION_CODE , 
+		   EQD.QUESTION_CONTENT SUB_QUESTION_CONTENT , EQD.QUESTION_ANSWER SUB_QUESTION_ANSWER , 
+		   EQD.RIGHT_ANSWER SUB_RIGHT_ANSWER
+		    FROM (select <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Base_Column_List" />
+		           ,
+		           <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Blob_Column_List" /> from 
+		           PDSCI.EXAM_QUESTION eq where exists(
+		   	           select null from EXAM_QUESTION_SUBJECT eqb 
+		   	           where eq.question_flow=eqb.question_flow 
+		   	           and eqb.SUBJECT_FLOW = #{subjectFlow}
+		               and eqb.record_status='Y'
+		           ) 
+		       and question_type_id=#{questionTypeId}
+		       and eq.record_status='Y') q 
+		       LEFT JOIN EXAM_QUESTION_DETAIL EQD 
+		       on q.question_flow=eqd.question_flow 
+		       and eqd.record_status='Y'
+	</select>
+	
+	
+	<select id="searchExamQuestionByBookSubject" resultMap="com.pinde.sci.dao.base.ExamQuestionMapper.ResultMapWithBLOBs">
+		  select
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Base_Column_List" />
+		   ,
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Blob_Column_List" />
+		   from PDSCI.EXAM_QUESTION eq where exists(
+		   	select null from EXAM_QUESTION_BOOK eqb where 
+	   				eq.question_flow=eqb.question_flow
+		   			and exists (
+				   		select null from EXAM_QUESTION_SUBJECT eqs where 
+				   		    eqs.question_flow = eqb.question_flow
+						and eqs.subject_flow = #{subjectFlow}
+			   			and eqs.record_status='Y'
+		   			)
+					and eqb.book_flow = #{bookFlow}
+		   			and eqb.record_status='Y'
+		   ) 
+		   and eq.record_status='Y'
+	</select>
+	<select id="searchExamQuestionByBookBook" resultMap="com.pinde.sci.dao.base.ExamQuestionMapper.ResultMapWithBLOBs">
+		  select
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Base_Column_List" />
+		   ,
+		   <include refid="com.pinde.sci.dao.base.ExamQuestionMapper.Blob_Column_List" />
+		   from PDSCI.EXAM_QUESTION eq where exists(
+		   	select null from EXAM_QUESTION_BOOK eqb where 
+	   				eq.question_flow=eqb.question_flow
+		   			and exists (
+				   		select null from EXAM_QUESTION_BOOK eqb2 where 
+				   		    eqb2.question_flow = eqb.question_flow
+						and eqb2.book_flow = #{bookFlow2}
+			   			and eqb2.record_status='Y'
+		   			)
+					and eqb.book_flow = #{bookFlow}
+		   			and eqb.record_status='Y'
+		   ) 
+		   and eq.record_status='Y'
+	</select>
+</mapper>

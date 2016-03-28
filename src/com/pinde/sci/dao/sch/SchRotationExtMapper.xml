@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.sch.SchRotationExtMapper" >
+<!-- 	<select id="searchRotationByRole" resultMap="com.pinde.sci.dao.base.SchRotationMapper.BaseResultMap"> -->
+<!-- 		SELECT *  -->
+<!-- 		FROM PDSCI.SCH_ROTATION -->
+<!-- 		WHERE RECORD_STATUS = 'Y' -->
+<!-- 		<if test="roleFlag != null and roleFlag == 'global'"> -->
+<!-- 			AND ORG_FLOW IS NULL -->
+<!-- 			AND ROTATION_TYPE_ID = 'Standard' -->
+<!-- 		</if> -->
+<!-- 		<if test="roleFlag == null or roleFlag != 'global'"> -->
+<!-- 			AND ORG_FLOW = #{rotation.orgFlow}  -->
+<!-- 			AND ROTATION_TYPE_ID = 'Local' -->
+<!-- 		</if> -->
+<!-- 		<if test="rotation != null"> -->
+<!-- 			<if test="rotation.speId != null and rotation.speId != ''"> -->
+<!-- 				AND SPE_ID = #{rotation.speId} -->
+<!-- 			</if> -->
+<!-- 			<if test="rotation.sessionNumber != null and rotation.sessionNumber != ''"> -->
+<!-- 				AND SESSION_NUMBER = #{rotation.sessionNumber} -->
+<!-- 			</if> -->
+<!-- 			<if test="rotation.doctorCategoryId != null and rotation.doctorCategoryId != ''"> -->
+<!-- 				AND DOCTOR_CATEGORY_ID = #{rotation.doctorCategoryId} -->
+<!-- 			</if> -->
+<!-- 			<if test="rotation.publishFlag != null and rotation.publishFlag != ''"> -->
+<!-- 				AND PUBLISH_FLAG = #{rotation.publishFlag} -->
+<!-- 			</if> -->
+<!-- 		</if> -->
+<!-- 		ORDER BY ORDINAL -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="searchNotExistRotation" resultMap="com.pinde.sci.dao.base.SchRotationMapper.ResultMapWithBLOBs"> -->
+<!-- 		SELECT *  -->
+<!-- 		FROM PDSCI.SCH_ROTATION -->
+<!-- 		WHERE RECORD_STATUS = 'Y' -->
+<!-- 		AND ROTATION_TYPE_ID = 'Standard' -->
+<!-- 		AND	PUBLISH_FLAG = 'Y' -->
+<!-- 		AND ROTATION_FLOW NOT IN ( -->
+<!-- 			SELECT STANDARD_ROTATION_FLOW  -->
+<!-- 			FROM PDSCI.SCH_ROTATION -->
+<!-- 			WHERE RECORD_STATUS = 'Y' -->
+<!-- 			AND STANDARD_ROTATION_FLOW IS NOT NULL -->
+<!-- 			AND ORG_FLOW = #{orgFlow} -->
+<!-- 		) -->
+<!-- 	</select> -->
+
+	<select id="searchNotExistRotation" resultMap="com.pinde.sci.dao.base.SchRotationMapper.BaseResultMap">
+		SELECT * 
+		FROM PDSCI.SCH_ROTATION
+		WHERE RECORD_STATUS = 'Y'
+		AND	PUBLISH_FLAG = 'Y'
+		AND ROTATION_FLOW NOT IN (
+			SELECT DISTINCT ROTATION_FLOW 
+			FROM PDSCI.SCH_ROTATION_DEPT
+			WHERE RECORD_STATUS = 'Y'
+			AND ORG_FLOW = #{orgFlow}
+		)
+	</select>
+</mapper>

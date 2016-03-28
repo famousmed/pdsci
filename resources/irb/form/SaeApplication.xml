@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查申请表单 -->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/application/sae_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 试验相关资料 -->
+			<item name="drugName" remark="研究药物名称" multiple="N"></item>
+			<item name="drugCategory" remark="研究药物分类" multiple="N">
+				<code value="1">中药</code>
+				<code value="2">化学药品</code>
+				<code value="3">预防用生物制品</code>
+				<code value="4">治疗用生物制品</code>
+				<code value="5">其它</code>
+			</item>
+			<item name="irbNo" remark="临床试验批准文号" multiple="N"></item>
+			<item name="projSubType" remark="研究分类" multiple="N">
+				<code value="1">Ⅰ期</code>
+				<code value="2">Ⅱ期</code>
+				<code value="3">Ⅲ期</code>
+				<code value="4">Ⅳ期</code>
+				<code value="5">生物等效性试验</code>
+				<code value="6">其它</code>
+			</item>
+			<item name="reportType" remark="报告类型" multiple="N">
+				<code value="1">首次报告</code>
+				<code value="2">随访报告</code>
+			</item>
+			<item name="firstReportDate" remark="首次报告日期" multiple="N"></item>
+		<!-- 申办单位 -->
+			<item name="projDeclarer" remark="申办单位名称" multiple="N"></item>
+			<item name="projDeclarerAddress" remark="申办单位地址" multiple="N"></item>
+			<item name="projDeclarerPhone" remark="申办单位电话" multiple="N"></item>
+			<item name="projDeclarerFax" remark="申办单位传真" multiple="N"></item>
+		<!-- 研究单位 -->
+			<item name="applyOrgName" remark="研究机构名称" multiple="N"></item>
+			<item name="applyOrgAddress" remark="研究机构地址" multiple="N"></item>
+			<item name="applyOrgPhone" remark="研究机构电话" multiple="N"></item>
+			<item name="applyOrgFax" remark="研究机构传真" multiple="N"></item>
+		<!-- 受试者 -->
+			<item name="patientNamePy" remark="姓名拼音首字母缩写" multiple="N"></item>
+			<item name="patientCode" remark="受试者（药物/随机）编码" multiple="N"></item>
+			<item name="patientBirthday" remark="出生日期" multiple="N"></item>
+			<item name="patientSex" remark="性别" multiple="N">
+				<code value="1">男</code>
+				<code value="2">女</code>
+			</item>
+			<item name="patientWeight" remark="体重" multiple="N"></item>
+			<item name="patientHeight" remark="身高" multiple="N"></item>
+		<!-- SAE分类 -->
+			<item name="aeResult" remark="AE导致" multiple="N">
+				<code value="1">住院</code>
+				<code value="2">延长住院时间</code>
+				<code value="3">致畸</code>
+				<code value="4">危及生命</code>
+				<code value="5">永久或严重致残</code>
+				<code value="6">其他重要医学事件</code>
+			</item>
+			<item name="isDead" remark="是否死亡" multiple="N">
+				<code value="1">死亡</code>
+			</item>
+			<item name="deathTime" remark="死亡时间" multiple="N"></item>
+		<!-- SAE名称及描述 -->
+			<item name="saeName" remark="SAE名称" multiple="N"></item>
+			<item name="saeExpected" remark="SAE是否预期" multiple="N">
+				<code value="0">否</code>
+				<code value="1">是</code>
+			</item>
+			<item name="saeStartDate" remark="SAE发生时间" multiple="N"></item>
+			<item name="saeInfromedDate" remark="SAE获知日期" multiple="N"></item>
+			<item name="saeDescription" remark="SAE描述" multiple="N"></item>
+		<!-- 可能与SAE有关的药物 -->
+			<item name="relatedDrugName" remark="可能与SAE有关的药物名称" multiple="N"></item>
+			<item name="drugType" remark="该药物属于本临床试验的" multiple="N">
+				<code value="1">研究用药</code>
+				<code value="2">伴随用药</code>
+			</item>
+			<item name="drugGroup" remark="药物组别" multiple="N">
+				<code value="1">试验药物</code>
+				<code value="2">对照药物</code>
+			</item>
+			<item name="drugIndications" remark="该药物适应症" multiple="N"></item>
+			<item name="firstDateToSaeD" remark="首次用药至SAE发生的时间（天）" multiple="N"></item>
+			<item name="firstDateToSaeH" remark="首次用药至SAE发生的时间（时）" multiple="N"></item>
+			<item name="firstDateToSaeM" remark="首次用药至SAE发生的时间（分）" multiple="N"></item>
+			<item name="lastDateToSaeD" remark="末次用药至SAE发生的时间（天）" multiple="N"></item>
+			<item name="lastDateToSaeH" remark="末次用药至SAE发生的时间（时）" multiple="N"></item>
+			<item name="lastDateToSaeM" remark="末次用药至SAE发生的时间（分）" multiple="N"></item>
+		<!-- SAE与研究用药的关系（因果关系） -->
+			<item name="aeRelations" remark="SAE与研究用药的关系" multiple="N">
+				<code value="1">无关</code>
+				<code value="2">可能无关</code>
+				<code value="3">可能有关</code>
+				<code value="4">很可能有关</code>
+				<code value="5">有关</code>
+				<code value="6">现有信息无法判断</code>
+			</item>
+		<!-- 采取的措施 -->
+			<item name="aeMeasures" remark="采取的措施" multiple="Y">
+				<code value="1">无</code>
+				<code value="2">调整研究用药剂量</code>
+				<code value="3">暂停研究用药</code>
+				<code value="4">停用研究用药</code>
+				<code value="5">停用伴随用药</code>
+				<code value="6">增加新的治疗药物</code>
+				<code value="7">应用非药物治疗</code>
+				<code value="8">延长住院时间</code>
+				<code value="9">修改方案/知情同意书</code>
+			</item>
+		<!-- 转归 -->
+			<item name="aeOutcome" remark="AE转归" multiple="N">
+				<code value="1">完全痊愈</code>
+				<code value="2">症状改善</code>
+				<code value="3">症状恶化</code>
+				<code value="4">痊愈</code>
+				<code value="5">有后遗症</code>
+				<code value="6">症状无变化</code>
+				<code value="7">死亡</code>
+			</item>
+			<item name="isAutopsy" remark="尸检" multiple="N">
+				<code value="0">否</code>
+				<code value="1">是</code>
+			</item>
+		<!-- 不良事件详细内容-->
+			<item name="aeDetail" remark="不良事件详细内容" multiple="N"></item>				
+		<!-- 报告 -->	
+			<item name="reportManName" remark="报告人签字" multiple="N"></item>
+			<item name="reportDate" remark="本次报告日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

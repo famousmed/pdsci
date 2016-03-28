@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+<!-- 初始审查申请表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp ver="1.0"  path="gcp/form/{0}/rawDataInspect_{1}"></jsp>
+	<product>
+		<page ver="1.0">
+			
+			<item name="problem" remark="问题" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

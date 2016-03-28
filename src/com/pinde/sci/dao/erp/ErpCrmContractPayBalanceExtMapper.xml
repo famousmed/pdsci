@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.erp.ErpCrmContractPayBalanceExtMapper">
+
+     <select id="getBalanceFund" parameterType="com.pinde.sci.model.mo.ErpCrmContractPayBalance" resultType="java.math.BigDecimal">
+			select NVL(SUM(PAY_FUND),0)
+			from pdsci.ERP_CRM_CONTRACT_PAY_BALANCE
+			where RECORD_STATUS = 'Y' and CONTRACT_FLOW = #{contractFlow} and PLAN_FLOW = #{planFlow}
+     </select>
+     
+     <select id="countBalanceFund" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+			select nvl(sum(balance_fund),0) from pdsci.ERP_CRM_CONTRACT_PAY_PLAN
+			       where RECORD_STATUS = 'Y' 
+			<if test='plan!=null'>
+             <if test='plan.planStatusId!=null and plan.planStatusId!=""'>
+                and plan_status_id = #{plan.planStatusId}
+             </if>
+            </if>
+            <if test='contract!=null'>
+               and contract_flow in (
+               select contract_flow from pdsci.erp_crm_contract
+                 where RECORD_STATUS = 'Y'
+               <if test='contract.signDate!=null and contract.signDate!=""'>
+                 <bind name="signDate" value="'%'+contract.signDate+'%'"/>
+                 and sign_date like #{signDate}
+              </if>
+               )
+              
+            </if>
+     </select>
+</mapper>

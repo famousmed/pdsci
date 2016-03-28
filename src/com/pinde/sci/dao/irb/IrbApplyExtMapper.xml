@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.irb.IrbApplyExtMapper" >
+	<select id="queryList" parameterType="com.pinde.sci.form.irb.IrbApplyForm" resultMap="com.pinde.sci.dao.base.IrbApplyMapper.BaseResultMap">
+		select * from PDSCI.irb_apply where RECORD_STATUS = 'Y'
+				<if test="irbApply!=null">
+					<if test='irbApply.projNo!=null and irbApply.projNo!=""'>
+						 and PROJ_NO = #{irbApply.projNo}
+					</if>
+					<if test='irbApply.projName!=null and irbApply.projName!=""'>
+						 and PROJ_NAME like #{irbApply.projName}
+					</if>
+					<if test='irbApply.reviewWayId!=null and irbApply.reviewWayId!=""'>
+						 and REVIEW_WAY_ID = #{irbApply.reviewWayId}
+					</if>
+					<if test='irbApply.irbTypeId!=null and irbApply.irbTypeId!=""'>
+						 and irb_type_id = #{irbApply.irbTypeId}
+					</if>
+					<if test='irbApply.projFlow!=null and irbApply.projFlow!=""'>
+						 and PROJ_FLOW = #{irbApply.projFlow}
+					</if>
+					<if test='irbApply.irbInfoFlow!=null and irbApply.irbInfoFlow!=""'>
+						 and IRB_INFO_FLOW = #{irbApply.irbInfoFlow}
+					</if>
+					<if test='irbApply.meetingArrange!=null and irbApply.meetingArrange!=""'>
+						<choose>
+							<when test='irbApply.meetingArrange=="-1"'>
+								and MEETING_ARRANGE ='Fast'
+							</when>
+							<otherwise>
+								and MEETING_ARRANGE = #{irbApply.meetingArrange}
+							</otherwise>
+						</choose>
+					</if>
+					<if test='irbApply.irbStageId!=null and irbApply.irbStageId!=""'>
+						<choose>
+							<when test='irbApply.meetingArrange=="-1"'>
+								and (IRB_STAGE_ID ='Review' or IRB_STAGE_ID ='Decision')
+							</when>
+							<otherwise>
+								and IRB_STAGE_ID = #{irbApply.irbStageId}
+							</otherwise>
+						</choose>
+					</if>
+					<if test='irbApply.meetingFlow!=null and irbApply.meetingFlow!=""'>
+						<choose>
+							<when test='forMeeting=="Y"'>
+								and (MEETING_FLOW = #{irbApply.meetingFlow} or MEETING_FLOW is null)
+							</when>
+							<otherwise>
+								and MEETING_FLOW = #{irbApply.meetingFlow}
+							</otherwise>
+						</choose>
+					</if>
+					<if test='irbApply.approveValidityDate!=null and irbApply.approveValidityDate!=""'>
+						<choose>
+							<when test='irbApply.approveValidityDate=="-1"'>
+								and APPROVE_VALIDITY_DATE is not null
+							</when>
+							<otherwise>
+								and APPROVE_VALIDITY_DATE = #{irbApply.approveValidityDate}
+							</otherwise>
+						</choose>
+					</if>
+				</if>
+				<if test="irbTypeIdList!=null">
+					and IRB_TYPE_ID in <foreach collection="irbTypeIdList" open="(" separator="," close=")" item="item" >#{item}</foreach>
+				</if>
+				<choose>
+					<when test='irbApply.approveValidityDate=="-1"'>
+						order by APPROVE_VALIDITY_DATE
+					</when>
+					<otherwise>
+						order by IRB_APPLY_DATE
+					</otherwise>
+				</choose>
+	</select>
+	<select id="searchIrbList"  resultMap="com.pinde.sci.dao.base.IrbApplyMapper.BaseResultMap">
+		select * from PDSCI.irb_apply where proj_flow in (
+			  select proj_flow from PDSCI.pub_proj where pub_proj.APPLY_USER_FLOW=#{userFlow} and record_status='Y' 
+			) and record_status='Y'
+	</select>
+	<select id="searchCommitteeIrbList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.IrbApplyMapper.BaseResultMap">
+		select * from PDSCI.irb_apply where irb_flow in (
+			  select irb_flow from PDSCI.irb_user where irb_user.USER_FLOW=#{userFlow} and irb_user.AUTH_ID in 
+			  <foreach item="item" index="index" collection="authIds" open="(" separator="," close=")">  
+			  	#{item}  
+			 </foreach>
+			 <if test='reviewStatus!=null and reviewStatus!=""'>
+				<choose>
+					<when test='reviewStatus=="unreview"'>
+						 and auth_Decision is null
+					</when>
+					<when test='reviewStatus=="reviewed"'>
+						 and auth_Decision is not null
+					</when>
+				</choose>
+			</if>
+			  and record_status='Y' 
+			)
+			<if test='projName!=null and projName!=""'>
+				and PROJ_NAME like #{projName}
+			</if>
+			<if test='irbTypeId!=null and irbTypeId!=""'>
+				and irb_type_id = #{irbTypeId}
+			</if>
+			<if test='meetingDate!=null and meetingDate!=""'>
+				and MEETING_DATE = #{meetingDate}
+			</if>
+			 and record_status='Y'
+			 order by IRB_APPLY_DATE
+	</select>
+	<select id="searchUnReviewIrbs" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.IrbApplyMapper.BaseResultMap">
+		select * from PDSCI.irb_apply where irb_flow in (
+			  select irb_flow from PDSCI.irb_user where irb_user.USER_FLOW=#{userFlow} and irb_user.AUTH_ID in 
+			  <foreach item="item" index="index" collection="authIds" open="(" separator="," close=")">  
+			  	#{item}  
+			 </foreach>
+			 <if test='irbStageId!=null and irbStageId!=""'>
+				and IRB_STAGE_ID = #{irbStageId}
+			</if>
+			  and auth_Decision is null
+			  and record_status='Y' 
+			) 
+			and record_status='Y'
+			order by IRB_APPLY_DATE
+	</select>
+	<select id="searchOrgCount" parameterType="string" resultType="_int">
+		select count(*) from (select DISTINCT(proj_flow) from PDSCI.IRB_APPLY ia where ia.record_status ='Y' and exists(
+			select null from PDSCI.pub_proj pp where pp.PROJ_FLOW=ia.PROJ_FLOW and pp.APPLY_ORG_FLOW=#{orgFlow} and pp.record_status = 'Y' ) 
+			)
+	</select>
+	<select id="searchTrackIrbList"  resultMap="com.pinde.sci.dao.base.IrbApplyMapper.BaseResultMap">
+		select * from PDSCI.irb_apply a where IRB_APPLY_DATE=(  
+        	select max(IRB_APPLY_DATE) from PDSCI.irb_apply where proj_flow= a.proj_flow and RECORD_STATUS = 'Y') and RECORD_STATUS = 'Y' and TRACK_DATE is not null order by TRACK_DATE
+	</select>
+</mapper>

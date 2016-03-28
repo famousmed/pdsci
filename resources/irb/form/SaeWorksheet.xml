@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查工作表-->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/worksheet/sae_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 一、不良事件的判断-->
+			<item name="aeJudgment1" remark="不良事件程度的判断" multiple="N">
+				<code value="1">严重</code>
+				<code value="0">非严重</code>
+			</item>
+			<item name="aeJudgment2" remark="严重不良事件与试验药物相关性的判断" multiple="N">
+				<code value="1">相关</code>
+				<code value="2">不相关</code>
+				<code value="3">无法判断</code>
+			</item>
+			<item name="aeJudgment3" remark="严重不良事件是否预期的判断" multiple="N">
+				<code value="1">预期</code>
+				<code value="0">非预期</code>
+			</item>
+			
+		<!-- 二、审查要素 -->
+			<item name="reviewElement1" remark="严重不良事件是否影响研究预期风险与受益的判断" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement2" remark="受损伤的受试者的医疗保护措施是否合理" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement3" remark="其它受试者的医疗保护措施是否合理" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement4" remark="是否需要修改方案或知情同意书" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+		
+		<!-- 审查意见 -->
+			<item name="suggest" remark="建议" multiple="N"></item>
+			<item name="decision" remark="决定" multiple="N"></item>
+			<item name="submitMeetingReview" remark="提交会议审查" multiple="N"></item>
+			<item name="preCommitteeName" remark="主审委员签名" multiple="N"></item>
+			<item name="signDate" remark="主审委员签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

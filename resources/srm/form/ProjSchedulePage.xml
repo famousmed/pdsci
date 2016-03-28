@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 季报表单 -->
+	<pageGroup name="product" firstPage="step1" view="srm/proj/form/schedule/product/view">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/schedule/product/step1">
+			<item name="allCount" remark="项目新增投入总额" multiple="N"></item>
+			<item name="allGovPostPlan" remark="卫生局拨款预算总额" multiple="N"></item>
+			<item name="orgBelongTrCount" remark="主管部门配套总额" multiple="N"></item>
+			<item name="orgDoTrCount" remark="单位自筹总额" multiple="N"></item>
+			<item name="allBankPostPlan" remark="其它来源总额" multiple="N"></item>
+			<item name="firstYearPost" remark="第一年新增投入" multiple="N"></item>
+			<item name="firstYearGovPost" remark="第一年卫生局拨款预算" multiple="N"></item>
+			<item name="firstYearOrgBelongPost" remark="第一年主管部门配套" multiple="N"></item>
+			<item name="firstYearOrgDoPost" remark="第一年单位自筹" multiple="N"></item>
+			<item name="firstYearBankPost" remark="第一年其它来源" multiple="N"></item>
+			<item name="secondYearPost" remark="第二年新增投入" multiple="N"></item>
+			<item name="secondYearGovPost" remark="第二年卫生局拨款预算" multiple="N"></item>
+			<item name="secondYearOrgBelongPost" remark="第二年主管部门配套" multiple="N"></item>
+			<item name="secondYearOrgDoPost" remark="第二年单位自筹" multiple="N"></item>
+			<item name="secondYearBankPost" remark="第二年其它来源" multiple="N"></item>
+			<item name="thirdYearPost" remark="第三年新增投入" multiple="N"></item>
+			<item name="thirdYearGovPost" remark="第三年卫生局拨款预算" multiple="N"></item>
+			<item name="thirdYearOrgBelongPost" remark="第三年主管部门配套" multiple="N"></item>
+			<item name="thirdYearOrgDoPost" remark="第三年单位自筹" multiple="N"></item>
+			<item name="thirdYearBankPost" remark="第三年其它来源" multiple="N"></item>
+			<item name="newAllPost" remark="新增投入合计" multiple="N"></item>
+			<item name="allGovPost" remark="卫生局拨款预算合计" multiple="N"></item>
+			<item name="allOrgBelongPost" remark="主管部门配套合计" multiple="N"></item>
+			<item name="allOrgDoPost" remark="单位自筹合计" multiple="N"></item>
+			<item name="allBankPost" remark="其它来源合计" multiple="N"></item>
+			<item name="allPostCount" remark="已支出经费合计" multiple="N"></item>
+			<item name="buyEquipmentPost" remark="设备购置费" multiple="N"></item>
+			<item name="energyPost" remark="能源材料费" multiple="N"></item>
+			<item name="peoplePost" remark="人员费" multiple="N"></item>
+			<item name="testPost" remark="试验测试费" multiple="N"></item>
+			<item name="fuelPost" remark="燃料动力费" multiple="N"></item>
+			<item name="travelPost" remark="差旅费" multiple="N"></item>
+			<item name="meetPost" remark="会议费" multiple="N"></item>
+			<item name="managePost" remark="管理费" multiple="N"></item>
+			<item name="otherPost" remark="其它" multiple="N"></item>
+			<item name="moneyOption" remark="各级经费到位情况" multiple="Y"></item>
+			<item name="fundReason" remark="经费未到位原因" multiple="N"></item>	
+		</page>
+		<!-- step2 -->
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/schedule/product/step2">
+			<item name="memberCount" remark="项目总人数" multiple="N"></item>
+			<item name="highZc" remark="高级职称" multiple="N"></item>
+			<item name="middleZc" remark="中级职称" multiple="N"></item>
+			<item name="boShi" remark="博士" multiple="N"></item>
+			<item name="shuoShi" remark="硕士" multiple="N"></item>
+			<item name="timeCount" remark="项目负责人全年为该项目工作时间" multiple="N"></item>
+		</page>
+		<!-- step3 -->
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/schedule/product/step3">
+			<item name="projDevelop" remark="项目进展情况" multiple="N"></item>
+			<item name="planReason" remark="进度滞后原因" multiple="N"></item>
+		</page>
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/schedule/product/step4">
+			<item name="countryPrize" remark="国家级奖项" multiple="N"></item>
+			<item name="provincePrize" remark="省部级奖项" multiple="N"></item>
+			<item name="patentApply" remark="专利申请" multiple="N"></item>
+			<item name="patentAuthorize" remark="专利授权" multiple="N"></item>
+			<item name="thesisCoreJour" remark="核心期刊" multiple="N"></item>
+			<item name="eiSci" remark="其中EI/SCI" multiple="N"></item>
+			<item name="jiShu" remark="技术标准" multiple="N"></item>
+			<item name="book" remark="出版专著" multiple="N"></item>
+		</page>
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/schedule/product/step5">
+			<item name="report" remark="执行情况汇报" multiple="N"></item>
+		</page>
+		<page name="file" remark="附件上传" jsp="srm/proj/form/schedule/product/file">
+			<itemGroup name="fileEdit" remark="附件上传" jsp="srm/proj/form/schedule/product/fileEdit" flow="">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+	   </page>
+	</pageGroup>
+	
+	
+	<pageGroup name="yhwsj.zdxm" firstPage="step1" view="srm/proj/form/schedule/yhwsj.zdxm/view" printTemeplete="/jsp/srm/proj/form/schedule/yhwsj.zdxm/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/schedule/yhwsj.zdxm/step1">
+			<item name="projNo" remark="项目编号" multiple="N"></item>
+			<item name="projLeader" remark="项目负责人" multiple="N"></item>
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="applyOrgName" remark="承担单位" multiple="N"></item>
+			<item name="startTime" remark="起止时间" multiple="N"></item>
+			<item name="endTime" remark="起止时间" multiple="N"></item>
+			<item name="fillDate" remark="填报日期" multiple="N"></item>
+			
+			<item name="file" remark="附件" multiple="Y" isFile="Y"></item>
+		</page>
+	</pageGroup>
+       
+</jspForm>
+

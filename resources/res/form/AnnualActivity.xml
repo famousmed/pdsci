@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/annualActivity_{1}"></jsp>
+	<product ver="1.0">
+		<page ver="1.0">
+			<item name="activityType" isView="0" remark="活动类型" multiple="N"></item>
+			<item name="activityTime" isView="0" remark="时间" multiple="N"></item>
+			<item name="activityTopic" isView="0" remark="题目" multiple="N"></item>
+			<item name="activityContent" remark="内容" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page ver="1.0">
+			<item name="activityType" isView="0" remark="活动类型" multiple="N"></item>
+			<item name="activityTime" isView="0" remark="时间" multiple="N"></item>
+			<item name="activityTopic" isView="0" remark="题目" multiple="N"></item>
+			<item name="activityContent" remark="内容" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page ver="1.0">
+			<item name="activityType" isView="0" remark="活动类型" multiple="N"></item>
+			<item name="activityTime" isView="0" remark="时间" multiple="N"></item>
+			<item name="activityTopic" isView="0" remark="题目" multiple="N"></item>
+			<item name="activityContent" remark="内容" multiple="N"></item>
+		</page>
+	</shetyy>
+</jspForm>
+

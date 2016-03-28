@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edu.EduStdentChangeExtMapper">
+
+	<resultMap id="eduStdentChangeExtMap" type="com.pinde.sci.model.edu.EduStudentChangeExt" extends="com.pinde.sci.dao.base.EduUserChangeApplyMapper.ResultMapWithBLOBs" >
+		<association property="eduUser" column="eduUserFlow"  resultMap="com.pinde.sci.dao.base.EduUserMapper.BaseResultMap" />
+		<association property="sysUser" column="sysUserFlow"  resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+	
+    <select id="searchStdentChangeExtsList"  parameterType="java.util.Map" resultMap="eduStdentChangeExtMap">
+    		select change.RECORD_FLOW, change.USER_FLOW, change.APPLY_TYPE_ID,change.APPLY_TYPE_NAME,change.APPLY_TIME,change.STATUS_ID,change.STATUS_NAME,
+				change.CONTENT,change.RECORD_STATUS,change.CREATE_TIME,
+				edu.PERIOD,edu.MAJOR_NAME,edu.CLASS_NAME,edu.SID,edu.USER_FLOW eduUserFlow,edu.TRAIN_CATEGORY_NAME,edu.TRAIN_TYPE_NAME,edu.FIRST_TEACHER,edu.SECOND_TEACHER,
+				u.USER_NAME,u.SEX_NAME,u.USER_FLOW sysUserFlow
+    		FROM pdsci.EDU_USER_CHANGE_APPLY change
+    		LEFT JOIN pdsci.EDU_USER edu
+    		ON edu.USER_FLOW = change.USER_FLOW
+    		LEFT JOIN pdsci.SYS_USER u
+    		ON edu.USER_FLOW=u.USER_FLOW
+    		WHERE  edu.RECORD_STATUS= 'Y' and change.RECORD_STATUS= 'Y' and u.RECORD_STATUS= 'Y' 
+    		<if test='changeApply.applyTypeId!=null and changeApply.applyTypeId!=""'>	
+    			and change.APPLY_TYPE_ID = #{changeApply.applyTypeId} 
+    		</if>
+    		<if test="statusIdList!=null">
+				and change.STATUS_ID in 
+    		<foreach collection="statusIdList" open="(" separator="," close=")" item="item">#{item}</foreach>
+    		</if>
+    		<if test='changeApply.recordFlow!=null and changeApply.recordFlow!=""'>
+    			and change.RECORD_FLOW=#{changeApply.recordFlow}
+    		</if>
+    		order by change.APPLY_TIME desc,change.CREATE_TIME desc
+    </select>
+    
+</mapper>

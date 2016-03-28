@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<jsp path="res/form/{0}/registryCheckForm_{1}"></jsp>
+	<product ver="1.0">
+		<page ver="1.0">
+			<item name="year" isView="0" remark="年度" multiple="N"></item>
+			<item name="schDeptFlow" remark="科室Flow" multiple="N"></item>
+			<item name="department" isView="0" remark="科室" multiple="N"></item>
+			<item name="JobNumber" remark="工号" multiple="N"></item>
+			<item name="name" remark="姓名" multiple="N"></item>
+			<item name="post" remark="现聘任职务(岗位)" multiple="N"></item>
+			<item name="sickLeave" remark="病假(天)" multiple="N"></item>
+			<item name="address" remark="家庭地址" multiple="N"></item>
+			<item name="compassionateLeave" remark="事假(天)" multiple="N"></item>
+			<item name="fixedTelephone" remark="固定电话" multiple="N"></item>
+			<item name="cellphone" remark="手机" multiple="N"></item>
+			<item name="holiday" remark="产休假(天)" multiple="N"></item>
+			<item name="serve" remark="学会任职" multiple="N"></item>
+			<item name="total" remark="合计(天)" multiple="N"></item>
+			<item name="summary" remark="请对照岗位职责，将本年度取得成绩（徳、能、勤、绩）进行小结" multiple="N"></item>
+			<item name="nextYearPlan" remark="还需提高的方面及明年打算" multiple="N"></item>
+			<item name="mySignature" remark="本人签名 " multiple="N"></item>
+			<item name="mySignatureDate" remark="(本人签名)时间" multiple="N"></item>
+			<item name="departmentAssessment" remark="科室考核意见" multiple="N"></item>
+			<item name="teamwork" remark="团队协作、奉献精神" multiple="N"></item>
+			<item name="quantity" remark="完成工作数量" multiple="N"></item>
+			<item name="quality" remark="完成工作质量" multiple="N"></item>
+			<item name="complyWith" remark="遵守劳动纪律、规章制度" multiple="N"></item>
+			<item name="Level" remark="考核等级" multiple="N"></item>
+			<item name="departmentHead" remark="科室负责人签名" multiple="N"></item>
+			<item name="departmentHeadDate" remark="(科室负责人签名)时间" multiple="N"></item>
+			<item name="OpinionExamination" remark="被考核人意见" multiple="N"></item>
+			<item name="personExam" remark="被考核人签名" multiple="N"></item>
+			<item name="personDate" remark="被考核人签名时间" multiple="N"></item>
+			<item name="orderReviewComments" remark="院部复核意见" multiple="N"></item>
+			<item name="orderReviewDate" remark="(院部复核)时间" multiple="N"></item>
+			<item name="remarks" remark="备注" multiple="N"></item>	
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page ver="1.0">
+			<item name="year" isView="0" remark="年度" multiple="N"></item>
+			<item name="schDeptFlow"  remark="科室Flow" multiple="N"></item>
+			<item name="department" isView="0" remark="科室" multiple="N"></item>
+			<item name="JobNumber" remark="工号" multiple="N"></item>
+			<item name="name" remark="姓名" multiple="N"></item>
+			<item name="post" remark="现聘任职务(岗位)" multiple="N"></item>
+			<item name="sickLeave" remark="病假(天)" multiple="N"></item>
+			<item name="address" remark="家庭地址" multiple="N"></item>
+			<item name="compassionateLeave" remark="事假(天)" multiple="N"></item>
+			<item name="fixedTelephone" remark="固定电话" multiple="N"></item>
+			<item name="cellphone" remark="手机" multiple="N"></item>
+			<item name="holiday" remark="产休假(天)" multiple="N"></item>
+			<item name="serve" remark="学会任职" multiple="N"></item>
+			<item name="total" remark="合计(天)" multiple="N"></item>
+			<item name="summary" remark="请对照岗位职责，将本年度取得成绩（徳、能、勤、绩）进行小结" multiple="N"></item>
+			<item name="nextYearPlan" remark="还需提高的方面及明年打算" multiple="N"></item>
+			<item name="mySignature" remark="本人签名 " multiple="N"></item>
+			<item name="mySignatureDate" remark="(本人签名)时间" multiple="N"></item>
+			<item name="departmentAssessment" remark="科室考核意见" multiple="N"></item>
+			<item name="teamwork" remark="团队协作、奉献精神" multiple="N"></item>
+			<item name="quantity" remark="完成工作数量" multiple="N"></item>
+			<item name="quality" remark="完成工作质量" multiple="N"></item>
+			<item name="complyWith" remark="遵守劳动纪律、规章制度" multiple="N"></item>
+			<item name="Level" remark="考核等级" multiple="N"></item>
+			<item name="departmentHead" remark="科室负责人签名" multiple="N"></item>
+			<item name="departmentHeadDate" remark="(科室负责人签名)时间" multiple="N"></item>
+			<item name="OpinionExamination" remark="被考核人意见" multiple="N"></item>
+			<item name="personExam" remark="被考核人签名" multiple="N"></item>
+			<item name="personDate" remark="被考核人签名时间" multiple="N"></item>
+			<item name="orderReviewComments" remark="院部复核意见" multiple="N"></item>
+			<item name="orderReviewDate" remark="(院部复核)时间" multiple="N"></item>
+			<item name="remarks" remark="备注" multiple="N"></item>	
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page ver="1.0">
+			<item name="year" isView="0" remark="年度" multiple="N"></item>
+			<item name="schDeptFlow" remark="科室Flow" multiple="N"></item>
+			<item name="department" isView="1" remark="科室" multiple="N"></item>
+			<item name="JobNumber" remark="工号" multiple="N"></item>
+			<item name="name" remark="姓名" multiple="N"></item>
+			<item name="post" remark="现聘任职务(岗位)" multiple="N"></item>
+			<item name="sickLeave" remark="病假(天)" multiple="N"></item>
+			<item name="address" remark="家庭地址" multiple="N"></item>
+			<item name="compassionateLeave" remark="事假(天)" multiple="N"></item>
+			<item name="fixedTelephone" remark="固定电话" multiple="N"></item>
+			<item name="cellphone" remark="手机" multiple="N"></item>
+			<item name="holiday" remark="产休假(天)" multiple="N"></item>
+			<item name="serve" remark="学会任职" multiple="N"></item>
+			<item name="total" remark="合计(天)" multiple="N"></item>
+			<item name="summary" remark="请对照岗位职责，将本年度取得成绩（徳、能、勤、绩）进行小结" multiple="N"></item>
+			<item name="nextYearPlan" remark="还需提高的方面及明年打算" multiple="N"></item>
+			<item name="mySignature" remark="本人签名 " multiple="N"></item>
+			<item name="mySignatureDate" remark="(本人签名)时间" multiple="N"></item>
+			<item name="departmentAssessment" remark="科室考核意见" multiple="N"></item>
+			<item name="teamwork" remark="团队协作、奉献精神" multiple="N"></item>
+			<item name="quantity" remark="完成工作数量" multiple="N"></item>
+			<item name="quality" remark="完成工作质量" multiple="N"></item>
+			<item name="complyWith" remark="遵守劳动纪律、规章制度" multiple="N"></item>
+			<item name="Level" remark="考核等级" multiple="N"></item>
+			<item name="departmentHead" remark="科室负责人签名" multiple="N"></item>
+			<item name="departmentHeadDate" remark="(科室负责人签名)时间" multiple="N"></item>
+			<item name="OpinionExamination" remark="被考核人意见" multiple="N"></item>
+			<item name="personExam" remark="被考核人签名" multiple="N"></item>
+			<item name="personDate" remark="被考核人签名时间" multiple="N"></item>
+			<item name="orderReviewComments" remark="院部复核意见" multiple="N"></item>
+			<item name="orderReviewDate" remark="(院部复核)时间" multiple="N"></item>
+			<item name="remarks" remark="备注" multiple="N"></item>	
+		</page>
+	</shetyy>
+</jspForm>

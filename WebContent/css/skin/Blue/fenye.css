@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+#fenye{font-family: 'Microsoft Yahei';font-size: 13px; margin: 0 auto; width:100%;}
+#fenye a{display: inline-block; text-decoration: none;}
+#fenye a:HOVER{text-decoration: none;}
+#fenye a.fenye_button{padding: 2px 7px; border: 1px #CCD0D1 solid; color: #3A5858; margin-right: 3px;}
+#fenye a.fenye_button:HOVER{border: 1px #53A4BF solid; background-color: #399CE0; color: #fff;}
+#fenye a.fenye_button_s{padding: 2px 7px; border: 1px #53A4BF solid; background-color: #399CE0; color: #fff; margin-right: 3px;}
+#fenye a.fenye_num_s{padding: 2px 5px; border: 1px #53A4BF solid; background-color: #399CE0; color: #fff; margin-right: 2px;}
+#fenye a.fenye_num{padding: 2px 5px; border: 1px #CCD0D1 solid; color: #3A5858; margin-right: 2px;}
+#fenye a.fenye_num:HOVER{border: 1px #53A4BF solid; background-color: #399CE0; color: #fff;}
+#fenye .fenye_select{border: 1px #CCD0D1 solid;color: #3A5858;margin-left: 5px;height: 25px;margin-top: -5px;}
+#fenye .fenye_input{border: 1px #CCD0D1 solid;color: #3A5858;margin-left: 5px; margin-right:5px; width:40px;height: 23px;margin-top: -5px; text-align: center;}

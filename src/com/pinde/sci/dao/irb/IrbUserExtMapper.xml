@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.irb.IrbUserExtMapper" >
+	<select id="selectList" parameterType="com.pinde.sci.form.irb.IrbUserForm" resultMap="com.pinde.sci.dao.base.IrbUserMapper.BaseResultMap">
+		select iu.RECORD_FLOW, iu.PROJ_FLOW, iu.IRB_FLOW, USER_FLOW, USER_NAME, AUTH_ID, AUTH_NAME, AUTH_NOTE, 
+    AUTH_TIME, AUTH_USER_FLOW, iu.RECORD_STATUS, iu.CREATE_TIME, iu.CREATE_USER_FLOW, iu.MODIFY_TIME, 
+    iu.MODIFY_USER_FLOW from PDSCI.irb_user iu,PDSCI.pub_proj pp,PDSCI.irb_apply ia 
+			where iu.proj_flow = pp.proj_flow and iu.irb_flow = ia.irb_flow and pp.RECORD_STATUS='Y' and ia.RECORD_STATUS='Y'
+			<if test="irbUser!=null">
+				<if test='irbUser.recordStatus!=null and irbUser.recordStatus!=""'>
+					and iu.record_status = #{irbUser.recordStatus}
+				</if>
+				<if test='irbUser.userFlow!=null and irbUser.userFlow!=""'>
+					and iu.user_flow = #{irbUser.userFlow}
+				</if>
+			</if>
+			<if test="apply!=null">
+				<if test='apply.irbTypeId!=null and apply.irbTypeId!=""'>
+					and ia.irb_type_id = #{apply.irbTypeId}
+				</if>
+				<if test='apply.irbStageId!=null and apply.irbStageId!=""'>
+					and ia.irb_stage_id = #{apply.irbStageId}
+				</if>
+			</if>
+			<if test="proj!=null">
+				<if test='proj.projNo!=null and proj.projNo!=""'>
+					and pp.proj_no = #{proj.projNo}
+				</if>
+				<if test='proj.projName!=null and proj.projName!=""'>
+					and pp.PROJ_NAME like #{proj.projName}
+				</if>
+			</if>
+	</select>
+	
+	<select id="queryIrbUserList" parameterType="string" resultMap="com.pinde.sci.dao.base.IrbUserMapper.BaseResultMap">
+		select iu.* from PDSCI.irb_user iu,PDSCI.irb_apply ia where iu.irb_flow = ia.irb_flow and iu.RECORD_STATUS='Y' and ia.RECORD_STATUS='Y'
+		and iu.AUTH_ID !='4'
+		and ia.irb_review_date like #{year}
+	</select>
+</mapper>

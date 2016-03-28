@@ -1,0 +1,2021 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- pageGroup 定义
+	product. 产品默认项目类型
+	
+	szwsj.lczcbzzljs 苏州市临床重点病种诊疗技术专项
+	szwsj.yxxjs 苏州市医学新技术项目
+	szwsj.qnkj 苏州市青年科技
+	
+	wxwsj.zdxm 无锡卫生局重大项目
+	wxwsj.msxm 无锡卫生局面上项目
+	wxwsj.qnxm 无锡卫生局青年项目
+	
+	jsswst.zdxk 江苏省卫生厅重点学科
+	jsswst.zdrc 江苏省卫生厅重点人才
+	
+	yhwsj.zdxm 余杭区医疗卫生科研重点项目
+	yhwsj.ybxm 余杭区医疗卫生科研一般项目
+	yhwsj.ydxm 余杭区医疗卫生科研引导项目；
+	 -->
+	<!-- 苏州市临床重点病种诊疗技术专项 开始 -->
+	<pageGroup name="szwsj.lczcbzzljs" firstPage="step1" view="srm/proj/form/apply/szwsj.lczcbzzljs/view" printTemeplete="/jsp/srm/proj/form/apply/szwsj.lczcbzzljs/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/apply/szwsj.lczcbzzljs/step1">
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="orgName" remark="承担单位" multiple="N"></item>
+			<item name="area" remark="所在地区" multiple="N"></item>
+			<item name="orgAddress" remark="单位地址" multiple="N"></item>
+			<item name="postcode" remark="邮编" multiple="N"></item>
+			<item name="applyUserName" remark="项目负责人" multiple="N"></item>
+			<item name="phone" remark="电话" multiple="N"></item>
+			<item name="chargeOrgName" remark="主管部门" multiple="N"></item>
+			<item name="applyDate" remark="申报日期" multiple="N"></item>
+		</page>
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/apply/szwsj.lczcbzzljs/step2">	
+			<item name="approveGist1" remark="本项目国内外科技创新发展概况和最新发展趋势" multiple="N"></item>
+			<item name="approveGist2" remark="本项目研究的目的、意义" multiple="N"></item>
+			<item name="approveGist3" remark="本项目研究现有起点科技水平及已存在的知识产权情况" multiple="N"></item>
+			<item name="approveGist4" remark="本项目研究国内外竞争情况及行业发展前景" multiple="N"></item>
+		</page>
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/apply/szwsj.lczcbzzljs/step3">		
+			<item name="researchContent1" remark="具体研究开发内容和要重点解决的关键技术问题" multiple="N"></item>
+			<item name="researchContent2" remark="项目的特色和创新之处" multiple="N"></item>
+			<item name="researchContent3" remark="要达到的主要技术、经济指标及社会、经济效益" multiple="N"></item>
+		</page>
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/apply/szwsj.lczcbzzljs/step4">		
+			<item name="researchWay" remark="研究试验方法、技术路线以及工艺流程" multiple="N"></item>
+		</page>
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/apply/szwsj.lczcbzzljs/step5">	
+			<item name="workingConditions1" remark="承担单位概况，拥有知识产权状况" multiple="N"></item>
+			<item name="workingConditions2" remark="本项目现有的研究工作基础" multiple="N"></item>
+			<item name="workingConditions3" remark="项目负责人以往承担国家、省级、市级等各类科技计划项目完成情况" multiple="N"></item>
+			<item name="workingConditions4" remark="项目实施具备的人才队伍、经费配套投入能力及科技服务管理能力" multiple="N"></item>
+			<item name="workingConditions5" remark="本项目实施可能存在的医疗安全风险及预防控制方案" multiple="N"></item>
+		</page>	
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/apply/szwsj.lczcbzzljs/step6">	
+			<item name="expectAchievement" remark="项目研究预期成果及效益" multiple="N"></item>
+		</page>	
+		<page name="step7" remark="步骤7" jsp="srm/proj/form/apply/szwsj.lczcbzzljs/step7">		
+			<itemGroup name="planSchedule" remark="计划进度安排与考核指标" jsp="" flow="" modelStyle="add">
+				<item name="planSchedule_startDate" remark="开始日期" multiple="N"></item>
+				<item name="planSchedule_endDate" remark="结束日期" multiple="N"></item>
+				<item name="planSchedule_content" remark="主要工作内容" multiple="N"></item>
+			</itemGroup>
+			<item name="target" remark="项目完成后主要考核指标" multiple="N"></item>
+		</page>
+		<page name="step8" remark="步骤8" jsp="srm/proj/form/apply/szwsj.lczcbzzljs/step8">		
+			<item name="file" remark="附件" multiple="Y" isFile="Y"></item>
+		</page>		
+	</pageGroup>
+	<!-- 苏州市临床重点病种诊疗技术专项 结束 -->
+	
+	<!-- 苏州市医学新技术项目 开始 -->
+	  <pageGroup name="szwsj.yxxjs" firstPage="step1" view="srm/proj/form/apply/szwsj.yxxjs/view" printTemeplete="/jsp/srm/proj/form/apply/szwsj.yxxjs/printTemeplete.docx">
+	   <page name="step1" remark="步骤1" jsp="srm/proj/form/apply/szwsj.yxxjs/step1">
+	    <item name="zhName" remark="中文名" multiple="N"></item>
+			<item name="enName" remark="英文名" multiple="N"></item>
+			<item name="subjectName" remark="申報学科" multiple="N"></item>
+			<item name="subjectCode" remark="申报学科代码" multiple="N"></item>
+			<item name="finishOrg" remark="完成单位" multiple="N"></item>
+			<item name="finishUser1" remark="完成人1" multiple="N"></item>
+			<item name="finishUser2" remark="完成人2" multiple="N"></item>
+			<item name="finishUser3" remark="完成人3" multiple="N"></item>
+			<item name="rewardLevel" remark="奖励等级" multiple="N"></item>
+			<item name="firstCreateOrg" remark="首创单位" multiple="N"></item>
+			<item name="firstCreateTime" remark="首创单位时间" multiple="N"></item>
+			<item name="firstUseOrg" remark="项目首用单位" multiple="N"></item>
+			<item name="firstUseTime" remark="项目首用单位时间" multiple="N"></item>
+			<item name="inlandFirstUseOrg" remark="国内首用单位" multiple="N"></item>
+			<item name="selfOrgImpTime" remark="本单位引进时间" multiple="N"></item>
+			<item name="contactUser" remark="联系人" multiple="N"></item>
+			<item name="contactPhone" remark="联系人电话" multiple="N"></item>
+	   </page>
+	   <page name="step2" remark="步骤2" jsp="srm/proj/form/apply/szwsj.yxxjs/step2">
+			<item name="intro1" remark="技术首创单位、国内外同类技术目前达到的水平和主要技术指标" multiple="N"></item>
+			<item name="intro2" remark="申报单位实施该新技术应用例次数和达到的主要技术、经济指标(涉及临床病例，必须有病案管理部门出具病历号和证明)" multiple="N"></item>
+			<item name="intro3" remark="申报单位在技术引进过程中所做的主要技术改进" multiple="N"></item>
+		</page>
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/apply/szwsj.yxxjs/step3">
+			<item name="intro4" remark="引进项目推广情况" multiple="N"></item>
+		</page>
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/apply/szwsj.yxxjs/step4">
+		<itemGroup name="applyUser" remark="项目负责人情况表" jsp="srm/proj/form/apply/szwsj.yxxjs/itemGroup_applyUser" flow="">
+			<item name="applyUser_type" remark="完成人顺序" multiple="N"></item>
+			<item name="applyUser_name" remark="姓名" multiple="N"></item>
+			<item name="applyUser_sex" remark="性别" multiple="N"></item>
+			<item name="applyUser_nation" remark="民族" multiple="N"></item>
+			<item name="applyUser_home" remark="出生地" multiple="N"></item>
+			<item name="applyUser_birthday" remark="生日" multiple="N"></item>
+			<item name="applyUser_politicalStatus" remark="政治面貌" multiple="N"></item>
+			<item name="applyUser_studyAbroadArea" remark="留学国家" multiple="N"></item>
+			<item name="applyUser_orgBelong" remark="所在单位" multiple="N"></item>
+			<item name="applyUser_phone" remark="联系电话" multiple="N"></item>
+			<item name="applyUser_address" remark="通讯地址" multiple="N"></item>
+			<item name="applyUser_graduateSchool" remark="毕业学校" multiple="N"></item>
+			<item name="applyUser_education" remark="学历" multiple="N"></item>
+			<item name="applyUser_degree" remark="学位" multiple="N"></item>
+			<item name="applyUser_title" remark="职称" multiple="N"></item>
+			<item name="applyUser_major" remark="专业" multiple="N"></item>
+			<item name="applyUser_graduateOrg" remark="毕业单位" multiple="N"></item>
+			<item name="applyUser_foreignLanguageType" remark="外语语种" multiple="N"></item>
+			<item name="applyUser_skillful" remark="熟练程度" multiple="N"></item>
+			<item name="applyUser_rewardHistory" remark="曾获奖励及荣誉称号情况" multiple="N"></item>
+			<item name="applyUser_joinStartTime" remark="参与项目开始时间" multiple="N"></item>
+			<item name="applyUser_joinEndTime" remark="参与项目结束时间" multiple="N"></item>
+			<item name="applyUser_devote" remark="所做贡献" multiple="N"></item>
+		  </itemGroup>
+		</page>
+		
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/apply/szwsj.yxxjs/step5">		
+			<item name="file" remark="附件" multiple="Y" isFile="Y"></item>
+		</page>
+	  </pageGroup>
+	<!-- 苏州市医学新技术项目 结束 -->
+	
+	<!-- 苏州重点学科申报书   -->
+	<pageGroup name="szwsj.zdxk" firstPage="introduction" view="srm/proj/form/apply/szwsj.zdxk/view"  printTemeplete="/jsp/srm/proj/form/apply/wxwsj.zdxm/printTemeplete.docx">
+	   <page name="introduction" remark="学科简介" jsp="srm/proj/form/apply/szwsj.zdxk/introduction">
+	    	<item name="projName" remark="学科名称" multiple="N"></item>
+	    	<item name="orgName" remark="单位名称" multiple="N"></item>
+			<item name="orgAddress" remark="单位地址" multiple="N"></item>
+			<item name="postcode" remark="邮政编码" multiple="N"></item>
+			<item name="linkman" remark="联系人" multiple="N"></item>
+			<item name="telephone" remark="联系电话" multiple="N"></item>
+			<item name="email" remark="邮箱地址" multiple="N"></item>
+	    	<item name="introductionContent" remark="简介" multiple="N"></item>
+    		<item name="attackContent" remark="本学科主攻方向" multiple="N"></item>
+	   </page>
+	   
+	   <page name="chief" remark="重点学科带头人概况" jsp="srm/proj/form/apply/szwsj.zdxk/chief">
+	    	<item name="name" remark="姓名" multiple="N"></item>
+	    	<item name="birthday" remark="出生年月" multiple="N"></item>
+	    	<item name="title" remark="技术职称" multiple="N"></item>
+	    	<item name="tutor" remark="研究生导师" multiple="N"></item>
+	    	<item name="highestTitle" remark="最高学会任职" multiple="N"></item>
+	    	<item name="personalIntroduction" remark="个人简介（业务能力、学术地位等" multiple="N"></item>
+	   </page>
+		
+	   <page name="achievement" remark="重点学科带头人主要业绩" jsp="srm/proj/form/apply/szwsj.zdxk/achievement">
+		   	<item name="fruitNum" remark="科研成果项目数" multiple="N"></item>	
+		   	<item name="topicNum" remark="科研课题项目数" multiple="N"></item>	
+		   	<item name="thesisNum" remark="SCI和中华级学术论文数" multiple="N"></item>	
+		   	<item name="magazineNum" remark="学术杂志任职数" multiple="N"></item>	
+		   	<item name="groupNum" remark="学会任职任职数" multiple="N"></item>
+		   		
+			<itemGroup name="fruit" remark="科研成果业绩" jsp="" flow="" modelStyle="add">
+				<item name="fruit_fruitAwardTime" remark="授予时间" multiple="N"></item>
+				<item name="fruit_fruitName" remark="成果名称" multiple="N"></item>
+				<item name="fruit_fruitAwardOrg" remark="授予部门" multiple="N"></item>
+				<item name="fruit_fruitGrade" remark="等级" multiple="N"></item>
+			</itemGroup>
+			<itemGroup name="topic" remark="科研课题业绩" jsp="" flow="" modelStyle="add">
+				<item name="topic_topicNo" remark="课题编号" multiple="N"></item>
+				<item name="topic_topicName" remark="课题名称" multiple="N"></item>
+				<item name="topic_topicSource" remark="课题来源" multiple="N"></item>
+				<item name="topic_topicOutlay" remark="经费(万元)" multiple="N"></item>
+				<item name="topic_topicStartTime" remark="开始时间" multiple="N"></item>
+				<item name="topic_topicEndTime" remark="结束时间" multiple="N"></item>
+			</itemGroup>
+			<itemGroup name="thesis" remark="SCI和中华级学术论文" jsp="" flow="" modelStyle="add">
+				<item name="thesis_thesisPublishTime" remark="发表时间" multiple="N"></item>
+				<item name="thesis_thesisName" remark="论文名称" multiple="N"></item>
+				<item name="thesis_thesisPublicationName" remark="刊物名称" multiple="N"></item>
+			</itemGroup>
+			<itemGroup name="magazine" remark="学术杂志任职" jsp="" flow="" modelStyle="add">
+				<item name="magazine_magazineAppointYear" remark="任期年限" multiple="N"></item>
+				<item name="magazine_magazineName" remark="学术杂志名称" multiple="N"></item>
+				<item name="magazine_magazineTitle" remark="主编/副主编/编委" multiple="N"></item>
+			</itemGroup>
+			<itemGroup name="group" remark="学术杂志任职" jsp="" flow="" modelStyle="add">
+				<item name="group_groupAppointYear" remark="任期年限" multiple="N"></item>
+				<item name="group_groupName" remark="学术杂志名称" multiple="N"></item>
+				<item name="group_groupTitle" remark="主编/副主编/编委" multiple="N"></item>
+			</itemGroup>
+	  </page>	
+	  
+	  
+	  <page name="personInfo" remark="重点学科人员信息" jsp="srm/proj/form/apply/szwsj.zdxk/personInfo">
+			<itemGroup name="person" remark="重点学科人员信息" jsp="" flow="" modelStyle="add">
+				<item name="person_name" remark="姓名" multiple="N"></item>
+				<item name="person_age" remark="年龄" multiple="N"></item>
+				<item name="person_education" remark="学历" multiple="N"></item>
+				<item name="person_technologyTitle" remark="技术职称" multiple="N"></item>
+				<item name="person_organization" remark="所在单位" multiple="N"></item>
+				<item name="person_offices" remark="科室" multiple="N"></item>
+				<item name="person_major" remark="专业" multiple="N"></item>
+			</itemGroup>
+								
+			<item name="directorPhysicianAmount" remark="主任医师合  计" multiple="N"></item>
+			<item name="directorPhysicianLess35" remark="主任医师35岁以下" multiple="N"></item>
+			<item name="directorPhysicianBetween36And45" remark="主任医师36-45岁" multiple="N"></item>
+			<item name="directorPhysicianBetween46And55" remark="主任医师46-55岁" multiple="N"></item>
+			<item name="directorPhysicianBetween56And60" remark="主任医师56-60岁" multiple="N"></item>
+			<item name="directorPhysicianGreater61" remark="主任医师61岁以上" multiple="N"></item>
+			
+			<item name="assistantPhysicianAmount" remark="副主任医师合  计" multiple="N"></item>
+			<item name="assistantPhysicianLess35" remark="副主任医师35岁以下" multiple="N"></item>
+			<item name="assistantPhysicianBetween36And45" remark="副主任医师36-45岁" multiple="N"></item>
+			<item name="assistantPhysicianBetween46And55" remark="副主任医师46-55岁" multiple="N"></item>
+			<item name="assistantPhysicianBetween56And60" remark="副主任医师56-60岁" multiple="N"></item>
+			<item name="assistantPhysicianGreater61" remark="副主任医师61岁以上" multiple="N"></item>
+			
+			<item name="staffPhysicianAmount" remark="主治医师合  计" multiple="N"></item>
+			<item name="staffPhysicianLess35" remark="主治医师35岁以下" multiple="N"></item>
+			<item name="staffPhysicianBetween36And45" remark="主治医师36-45岁" multiple="N"></item>
+			<item name="staffPhysicianBetween46And55" remark="主治医师46-55岁" multiple="N"></item>
+			<item name="staffPhysicianBetween56And60" remark="主治医师56-60岁" multiple="N"></item>
+			<item name="staffPhysicianGreater61" remark="主治医师61岁以上" multiple="N"></item>
+	  </page>	
+	  
+	  <page name="completeProj" remark="近五年已完成的市级及以上科研项目" jsp="srm/proj/form/apply/szwsj.zdxk/completeProj">
+			<itemGroup name="complete" remark="已完成的科研项目" jsp="" flow="" modelStyle="add">
+				<item name="complete_lessonNo" remark="课题编号" multiple="N"></item>
+				<item name="complete_projName" remark="项目名称" multiple="N"></item>
+				<item name="complete_projSource" remark="项目来源" multiple="N"></item>
+				<item name="complete_projStartTime" remark="项目起始时间" multiple="N"></item>
+				<item name="complete_projEndTime" remark="项目终结时间" multiple="N"></item>
+				<item name="complete_projFund" remark="项目经费(万元)" multiple="N"></item>
+				<item name="complete_firstCompletePerson" remark="第一完成人" multiple="N"></item>
+			</itemGroup>
+			<item name="completeNum" remark="已完成的市级及以上科研项目数" multiple="N"></item>
+	  </page>
+	  
+	  <page name="researchProj" remark="近五年为第一负责人在研的市级及以上科技项目" jsp="srm/proj/form/apply/szwsj.zdxk/researchProj">
+			<itemGroup name="research" remark="已完成的科研项目" jsp="" flow="" modelStyle="add">
+				<item name="research_lessonNo" remark="课题编号" multiple="N"></item>
+				<item name="research_projName" remark="项目名称" multiple="N"></item>
+				<item name="research_projSource" remark="项目来源" multiple="N"></item>
+				<item name="research_projStartTime" remark="项目起始时间" multiple="N"></item>
+				<item name="research_projEndTime" remark="项目终结时间" multiple="N"></item>
+				<item name="research_projFund" remark="项目经费(万元)" multiple="N"></item>
+				<item name="research_firstResponsiblePerson" remark="第一负责人" multiple="N"></item>
+			</itemGroup>
+			<item name="researchNum" remark="在研的市级及以上科技项目" multiple="N"></item>
+			
+			<item name="countryProjNum" remark="国家自然科学基金" multiple="N"></item>
+			<item name="hygieneMinistryProjNum" remark="卫生部" multiple="N"></item>
+			<item name="educationProjNum" remark="教育部" multiple="N"></item>
+			<item name="scienceOfficeProjNum" remark="科技厅" multiple="N"></item>
+			<item name="internationalProjNum" remark="国际资助或国际合作" multiple="N"></item>
+			<item name="scienceBureauProjNum" remark="科技局" multiple="N"></item>
+			<item name="hygieneBureauProjNum" remark="卫生局" multiple="N"></item>
+			<item name="amountNum" remark="合计" multiple="N"></item>
+			
+			<item name="countryProjFund" remark="国家自然科学基金" multiple="N"></item>
+			<item name="hygieneMinistryProjFund" remark="卫生部" multiple="N"></item>
+			<item name="educationProjFund" remark="教育部" multiple="N"></item>
+			<item name="scienceOfficeProjFund" remark="科技厅" multiple="N"></item>
+			<item name="internationalProjFund" remark="国际资助或国际合作" multiple="N"></item>
+			<item name="scienceBureauProjFund" remark="科技局" multiple="N"></item>
+			<item name="hygieneBureauProjFund" remark="卫生局" multiple="N"></item>
+			<item name="amountFunds" remark="合计" multiple="N"></item>
+	  </page>
+	  
+	  <page name="progressPraise" remark="第一完成人的市级及以上科技进步奖" jsp="srm/proj/form/apply/szwsj.zdxk/progressPraise">
+			<itemGroup name="praise" remark="科技进步奖项目" jsp="" flow="" modelStyle="add">
+				<item name="praise_praiseTime" remark="获奖时间" multiple="N"></item>
+				<item name="praise_praiseName" remark="名称" multiple="N"></item>
+				<item name="praise_completePerson" remark="完成人" multiple="N"></item>
+				<item name="praise_praiseDepartment" remark="奖励部门" multiple="N"></item>
+				<item name="praise_praiseGrade" remark="获奖等级" multiple="N"></item>
+			</itemGroup>
+			<item name="praiseNum" remark="科技进步奖数" multiple="N"></item>
+	  </page>
+	  
+	  <page name="SCIAndThesis" remark="第一作者发表的SCI收录及中华级论文" jsp="srm/proj/form/apply/szwsj.zdxk/SCIAndThesis">
+			<itemGroup name="sciThesis" remark="SCI收录及中华级论文" jsp="" flow="" modelStyle="add">
+				<item name="sciThesis_publishTime" remark="发表时间" multiple="N"></item>
+				<item name="sciThesis_thesisName" remark="论文题目" multiple="N"></item>
+				<item name="sciThesis_publishPeriodical" remark="发表期刊" multiple="N"></item>
+				<item name="sciThesis_thesisAuthor" remark="作者" multiple="N"></item>
+			</itemGroup>
+			<item name="sciThesisNum" remark="SCI收录及中华级论文" multiple="N"></item>
+	  </page>
+	  
+	  <page name="patentAndCertificate" remark="第一完成人的发明专利、新药证书" jsp="srm/proj/form/apply/szwsj.zdxk/patentAndCertificate">
+			<itemGroup name="certificate" remark="发明专利、新药证书" jsp="" flow="" modelStyle="add">
+				<item name="certificate_awardTime" remark="颁发时间" multiple="N"></item>
+				<item name="certificate_name" remark="名称" multiple="N"></item>
+				<item name="certificate_publishPerson" remark="完成人" multiple="N"></item>
+				<item name="certificate_patentOrCertificate" remark="发明专利或新药证书" multiple="N"></item>
+				<item name="certificate_grade" remark="等级" multiple="N"></item>
+			</itemGroup>
+			<item name="certificateNum" remark="发明专利、新药证书数" multiple="N"></item>
+	  </page>
+	  
+	  <page name="monograph" remark="主编/副主编出版的学术专著" jsp="srm/proj/form/apply/szwsj.zdxk/monograph">
+			<itemGroup name="monograph" remark="学术专著" jsp="" flow="" modelStyle="add">
+				<item name="monograph_publishTime" remark="出版时间" multiple="N"></item>
+				<item name="monograph_monographName" remark="专著名称" multiple="N"></item>
+				<item name="monograph_publishPress" remark="出版社" multiple="N"></item>
+				<item name="monograph_characterNum" remark="编写字数" multiple="N"></item>
+				<item name="monograph_chiefEditor" remark="主编" multiple="N"></item>
+				<item name="monograph_deputyEditor" remark="副主编" multiple="N"></item>
+			</itemGroup>
+			<item name="monographNum" remark="学术专著数" multiple="N"></item>
+	  </page>
+
+	  <page name="academic" remark="学会任职情况" jsp="srm/proj/form/apply/szwsj.zdxk/academic">
+			<itemGroup name="office" remark="学术专著" jsp="" flow="" modelStyle="add">
+				<item name="office_year" remark="任期年限" multiple="N"></item>
+				<item name="office_committeeName" remark="学会（分会、学组）名称" multiple="N"></item>
+				<item name="office_zw" remark="主委" multiple="N"></item>
+				<item name="office_fzw" remark="副主委" multiple="N"></item>
+				<item name="office_headman" remark="组长" multiple="N"></item>
+				<item name="office_cw" remark="常委" multiple="N"></item>
+				<item name="office_member" remark="委员" multiple="N"></item>
+			</itemGroup>
+			<item name="officeNum" remark="学术专著数" multiple="N"></item>
+	  </page>
+	  
+	  <page name="laboratoryEquipment" remark="专用实验室设备" jsp="srm/proj/form/apply/szwsj.zdxk/laboratoryEquipment">
+			<itemGroup name="equipment" remark="学术专著" jsp="" flow="" modelStyle="add">
+				<item name="equipment_equipmentName" remark="设备名称" multiple="N"></item>
+				<item name="equipment_modelNumber" remark="规格型号" multiple="N"></item>
+				<item name="equipment_buyTime" remark="购置时间" multiple="N"></item>
+				<item name="equipment_equipmentPrice" remark="价  格" multiple="N"></item>
+				<item name="equipment_equipmentRemark" remark="备注" multiple="N"></item>
+			</itemGroup>
+	  </page>
+	  
+	  <page name="cooperationOrg" remark="协作单位（科室）相关材料" jsp="srm/proj/form/apply/szwsj.zdxk/cooperationOrg">
+	  		<item name="assumeTask" remark="承担的任务" multiple="N"></item>
+	  </page>
+	  
+	  <page name="fundsBudget" remark="经费预算" jsp="srm/proj/form/apply/szwsj.zdxk/fundsBudget">
+			<item name="constructOrgFund" remark="甲方资助金额" multiple="N"></item>
+			<item name="assumeOrgFund" remark="乙方匹配经费" multiple="N"></item>
+			<item name="assumeOrgChargeOrgFund" remark="丙方匹配经费" multiple="N"></item>
+			<item name="otherFund" remark="其他来源经费" multiple="N"></item>
+			<item name="amountFund" remark="合      计" multiple="N"></item>
+			
+			<item name="inlandFirstYear" remark="一、国内外进修费用第一年" multiple="N"></item>
+			<item name="inlandSecondYear" remark="一、国内外进修费用第二年" multiple="N"></item>
+			<item name="inlandThirdYear" remark="一、国内外进修费用第三年" multiple="N"></item>
+			<item name="inlandFourthYear" remark="一、国内外进修费用第四年" multiple="N"></item>
+			<item name="inlandFifthYear" remark="一、国内外进修费用第五年" multiple="N"></item>
+			
+			<item name="communicationFirstYear" remark="二、学术交流费用第一年" multiple="N"></item>
+			<item name="communicationSecondYear" remark="二、学术交流费用第二年" multiple="N"></item>
+			<item name="communicationThirdYear" remark="二、学术交流费用第三年" multiple="N"></item>
+			<item name="communicationFourthYear" remark="二、学术交流费用第四年" multiple="N"></item>
+			<item name="communicationFifthYear" remark="二、学术交流费用第五年" multiple="N"></item>
+			
+			<item name="tutorDirectFirstYear" remark="三、导师指导研究工作费用第一年" multiple="N"></item>
+			<item name="tutorDirectSecondYear" remark="三、导师指导研究工作费用第二年" multiple="N"></item>
+			<item name="tutorDirectThirdYear" remark="三、导师指导研究工作费用第三年" multiple="N"></item>
+			<item name="tutorDirectFourthYear" remark="三、导师指导研究工作费用第四年" multiple="N"></item>
+			<item name="tutorDirectFifthYear" remark="三、导师指导研究工作费用第五年" multiple="N"></item>
+			
+			<item name="researchProjFirstYear" remark="四、研究项目费用第一年" multiple="N"></item>
+			<item name="researchProjSecondYear" remark="四、研究项目费用第二年" multiple="N"></item>
+			<item name="researchProjThirdYear" remark="四、研究项目费用第三年" multiple="N"></item>
+			<item name="researchProjFourthYear" remark="四、研究项目费用第四年" multiple="N"></item>
+			<item name="researchProjFifthYear" remark="四、研究项目费用第五年" multiple="N"></item>
+			
+			<item name="instrumentFirstYear" remark="1、仪器设备费第一年" multiple="N"></item>
+			<item name="instrumentSecondYear" remark="1、仪器设备费第二年" multiple="N"></item>
+			<item name="instrumentThirdYear" remark="1、仪器设备费第三年" multiple="N"></item>
+			<item name="instrumentFourthYear" remark="1、仪器设备费第四年" multiple="N"></item>
+			<item name="instrumentFifthYear" remark="1、仪器设备费第五年" multiple="N"></item>
+			
+			<item name="experimentMaterialFirstYear" remark="2、实验材料费第一年" multiple="N"></item>
+			<item name="experimentMaterialSecondYear" remark="2、实验材料费第二年" multiple="N"></item>
+			<item name="experimentMaterialThirdYear" remark="2、实验材料费第三年" multiple="N"></item>
+			<item name="experimentMaterialFourthYear" remark="2、实验材料费第四年" multiple="N"></item>
+			<item name="experimentMaterialFifthYear" remark="2、实验材料费第五年" multiple="N"></item>
+			
+			<item name="experimentAnimalTrFirstYear" remark="3、实验动物费第一年" multiple="N"></item>
+			<item name="experimentAnimalTrSecondYear" remark="3、实验动物费第二年" multiple="N"></item>
+			<item name="experimentAnimalTrThirdYear" remark="3、实验动物费第三年" multiple="N"></item>
+			<item name="experimentAnimalTrFourthYear" remark="3、实验动物费第四年" multiple="N"></item>
+			<item name="experimentAnimalTrFifthYear" remark="3、实验动物费第五年" multiple="N"></item>
+			
+			<item name="businessFirstYear" remark="4、业务费第一年" multiple="N"></item>
+			<item name="businessSecondYear" remark="4、业务费第二年" multiple="N"></item>
+			<item name="businessThirdYear" remark="4、业务费第三年" multiple="N"></item>
+			<item name="businessFourthYear" remark="4、业务费第四年" multiple="N"></item>
+			<item name="businessFifthYear" remark="4、业务费第五年" multiple="N"></item>
+			
+			<item name="bookFirstYear" remark="5、购买图书、资料费第一年" multiple="N"></item>
+			<item name="bookSecondYear" remark="5、购买图书、资料费第二年" multiple="N"></item>
+			<item name="bookThirdYear" remark="5、购买图书、资料费第三年" multiple="N"></item>
+			<item name="bookFourthYear" remark="5、购买图书、资料费第四年" multiple="N"></item>
+			<item name="bookFifthYear" remark="5、购买图书、资料费第五年" multiple="N"></item>
+			
+			<item name="otherResearchFirstYear" remark="6、其他研究费用第一年" multiple="N"></item>
+			<item name="otherResearchSecondYear" remark="6、其他研究费用第二年" multiple="N"></item>
+			<item name="otherResearchThirdYear" remark="6、其他研究费用第三年" multiple="N"></item>
+			<item name="otherResearchFourthYear" remark="6、其他研究费用第四年" multiple="N"></item>
+			<item name="otherResearchFifthYear" remark="6、其他研究费用第五年" multiple="N"></item>
+			
+			<item name="otherFirstYear" remark="五、其他费用第一年" multiple="N"></item>
+			<item name="otherSecondYear" remark="五、其他费用第二年" multiple="N"></item>
+			<item name="otherThirdYear" remark="五、其他费用第三年" multiple="N"></item>
+			<item name="otherFourthYear" remark="五、其他费用第四年" multiple="N"></item>
+			<item name="otherFifthYear" remark="五、其他费用第五年" multiple="N"></item>
+			
+			<item name="amountFirstYear" remark="合     计第一年" multiple="N"></item>
+			<item name="amountSecondYear" remark="合     计第二年" multiple="N"></item>
+			<item name="amountThirdYear" remark="合     计第三年" multiple="N"></item>
+			<item name="amountFourthYear" remark="合     计第四年" multiple="N"></item>
+			<item name="amountFifthYear" remark="合     计第五年" multiple="N"></item>
+		</page>
+		
+		<page name="step15" remark="步骤15" jsp="srm/proj/form/apply/szwsj.zdxk/step15">		
+			<item name="file" remark="附件" multiple="Y" isFile="Y"></item>
+		</page>
+	</pageGroup>
+	<!-- 苏州重点学科申报书         结束-->
+	
+	<!-- 江苏省卫生厅  科研项目  -->
+	<pageGroup name="jsswst.kyxm" firstPage="step1" view="srm/proj/form/apply/jsswst.kyxm/view"  printTemeplete="">
+		<!-- 基本信息 -->
+		<page name="step1" remark="信息表" jsp="srm/proj/form/apply/jsswst.kyxm/step1">
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="planCategory" remark="计划类别" multiple="N"></item>
+			<item name="applyType" remark="申请类型" multiple="N"></item>
+			<item name="projStratTime" remark="起止时间1" multiple="N"></item>
+			<item name="projEndTime" remark="起止时间2" multiple="N"></item>
+			<item name="chargeOrgName" remark="审核部门" multiple="N"></item>
+			<item name="subjectName" remark="申报学科" multiple="N"></item>
+			<item name="applyUserName" remark="项目联系人" multiple="N"></item>
+			<item name="userPhone" remark="电话" multiple="N"></item>
+			<item name="userEmail" remark="Email" multiple="N"></item>
+			
+			<item name="applyOrgName" remark="单位名称" multiple="N"></item>
+			<item name="orgCharacter0" remark="单位性质" multiple="N"></item>
+			<item name="subordinateRelation" remark="隶属关系" multiple="N"></item>
+			<item name="relyType" remark="依托类型" multiple="N"></item>
+			<item name="district" remark="所在地区" multiple="N"></item>
+			<item name="orgAddress" remark="单位地址" multiple="N"></item>
+			
+			<item name="legalPerson" remark="单位法人" multiple="N"></item>
+			<item name="legalPersonPost" remark="职务" multiple="N"></item>
+			<item name="legalPersonTitle" remark="职称" multiple="N"></item>
+			<item name="legalPersonTelephone" remark="电话" multiple="N"></item>
+			
+			<item name="cooperationOrg1" remark="合作单位1" multiple="N"></item>
+			<item name="cooperationOrg2" remark="合作单位2" multiple="N"></item>
+			<item name="cooperationOrg3" remark="合作单位3" multiple="N"></item>
+			<item name="orgCharacter1" remark="单位性质1" multiple="N"></item>
+			<item name="orgCharacter2" remark="单位性质2" multiple="N"></item>
+			<item name="orgCharacter3" remark="单位性质3" multiple="N"></item>
+		</page>
+		
+		<!-- 负责人概况 -->
+		<page name="step2" remark="负责人概况 " jsp="srm/proj/form/apply/jsswst.kyxm/step2">
+			<item name="userName" remark="姓名" multiple="N"></item>
+			<item name="sexName" remark="性别" multiple="N"></item>
+			<item name="userBirthday" remark="出生年月" multiple="N"></item>
+			<item name="educationName" remark="学历" multiple="N"></item>
+			<item name="degreeName" remark="学位" multiple="N"></item>
+			<item name="postName" remark="职务" multiple="N"></item>
+			<item name="titleName" remark="职称" multiple="N"></item>
+			<item name="major" remark="从事专业" multiple="N"></item>
+			<item name="userPhone1" remark="个人联系电话" multiple="N"></item>
+			
+			<item name="studyAbroad" remark="留学" multiple="N"></item>
+			<item name="studyAbroadTime1" remark="留学时间1" multiple="N"></item>
+			<item name="studyAbroadTime2" remark="留学时间2" multiple="N"></item>
+			<item name="studyAbroadTime3" remark="留学时间3" multiple="N"></item>
+			<item name="studyAbroadCountry1" remark="留学国家1" multiple="N"></item>
+			<item name="studyAbroadCountry2" remark="留学国家2" multiple="N"></item>
+			<item name="studyAbroadCountry3" remark="留学国家3" multiple="N"></item>
+			<!-- 在研课题 -->
+			<item name="researchLesson1" remark="国家级" multiple="N"></item>
+			<item name="researchLesson2" remark="省部级" multiple="N"></item>
+			<item name="researchLesson3" remark="市级" multiple="N"></item>
+		</page>
+		
+		<!-- 课题组总体情况 -->
+		<page name="step3" remark="负责人概况 " jsp="srm/proj/form/apply/jsswst.kyxm/step3">
+			<item name="userCount" remark="人员总数" multiple="N"></item>
+			<item name="grade1" remark="高级" multiple="N"></item>
+			<item name="grade2" remark="中级" multiple="N"></item>
+			<item name="grade3" remark="初级" multiple="N"></item>
+			<item name="grade4" remark="其他" multiple="N"></item>
+			
+			<item name="postgraduate" remark="研究生" multiple="N"></item>
+			<item name="postgraduateDegree1" remark="博士后" multiple="N"></item>
+			<item name="postgraduateDegree2" remark="博士生" multiple="N"></item>
+			<item name="postgraduateDegree3" remark="硕士生" multiple="N"></item>
+			
+			<!-- 第二、三负责人 -->
+			<item name="userName2" remark="姓名" multiple="N"></item>
+			<item name="gender2" remark="性别" multiple="N"></item>
+			<item name="birthday2" remark="出生年月" multiple="N"></item>
+			<item name="post2" remark="职务" multiple="N"></item>
+			<item name="title2" remark="职称" multiple="N"></item>
+			<item name="orgName2" remark="工作单位" multiple="N"></item>
+			<item name="major2" remark="从事专业" multiple="N"></item>
+			
+			<item name="userName3" remark="姓名" multiple="N"></item>
+			<item name="gender3" remark="性别" multiple="N"></item>
+			<item name="birthday3" remark="出生年月" multiple="N"></item>
+			<item name="post3" remark="职务" multiple="N"></item>
+			<item name="title3" remark="职称" multiple="N"></item>
+			<item name="orgName3" remark="工作单位" multiple="N"></item>
+			<item name="major3" remark="从事专业" multiple="N"></item>
+		</page>
+		
+		<!-- 主要研究内容及考核指标 -->
+		<page name="step4" remark="主要研究内容及考核指标" jsp="srm/proj/form/apply/jsswst.kyxm/step4">
+			<item name="keyword1" remark="关键词1" multiple="N"></item>
+			<item name="keyword2" remark="关键词2" multiple="N"></item>
+			<item name="keyword3" remark="关键词3" multiple="N"></item>
+			<item name="mainContent" remark="主要研究内容及考核指标" multiple="N"></item>
+		</page>
+		
+		<!-- 预期成果/预期经济效益/项目经费 -->
+		<page name="step5" remark="主要研究内容及考核指标" jsp="srm/proj/form/apply/jsswst.kyxm/step5">
+			<!-- 预期成果 -->
+			<item name="expectAchievement" remark="预期成果" multiple="N"></item>
+			<!-- 预期经济效益 -->
+			<item name="benefit1" remark="技术转让" multiple="N"></item>
+			<item name="benefit2" remark="技术创收" multiple="N"></item>
+			<item name="benefit3" remark="出售专利" multiple="N"></item>
+			<item name="benefit4" remark="其他" multiple="N"></item>
+			<!-- 项目经费 -->
+			<item name="fund1" remark="项目总投资" multiple="N"></item>
+			<item name="fund2" remark="申请卫生厅拨款" multiple="N"></item>
+			<item name="fund3" remark="业务审核部门匹配" multiple="N"></item>
+			<item name="fund4" remark="单位自筹" multiple="N"></item>
+			<item name="fund5" remark="其他来源" multiple="N"></item>
+		</page>
+	</pageGroup>
+		
+	<!-- 江苏省卫生厅重点学科申报书  -->
+	<pageGroup name="jsswst.zdxk" firstPage="step1" view="srm/proj/form/apply/jsswst.zdxk/view"  printTemeplete="">
+	<page name="step1" remark="中心情况" jsp="srm/proj/form/apply/jsswst.zdxk/step1">
+	      <!-- 基本信息 -->
+	      <item name="subjectInfo" remark="学科类别" multiple="N"></item>
+	      <item name="centerName" remark="中心名称" multiple="N"></item>
+	      <item name="phone" remark="电话" multiple="N"></item>
+	      <item name="orgName" remark="单位名称" multiple="N"></item>
+	      <item name="chargeOrgName" remark="主管部门" multiple="N"></item>
+	      <item name="subordinate" remark="隶属关系" multiple="N"></item>
+	      <item name="subjectCode" remark="学科代码" multiple="N"></item>
+	      <item name="subjectPrincipal" remark="学科负责人" multiple="N"></item>
+	      <item name="address" remark="通讯地址" multiple="N"></item>
+	      <item name="postalcode" remark="邮政编码" multiple="N"></item>
+	      <!-- 现有规模 -->
+	      <item name="subjectMemberCount" remark="学科人员总数" multiple="N"></item>
+	      <item name="highTitle" remark="高级职称" multiple="N"></item>
+	      <item name="middleTitle" remark="中级职称" multiple="N"></item>
+	      <item name="primaryTitle" remark="初级职称" multiple="N"></item>
+	      <item name="subjectBunk" remark="床位" multiple="N"></item>
+	      <item name="bunkTurnover" remark="床位周转" multiple="N"></item>
+	      <item name="bunkUseProportion" remark="病床使用率" multiple="N"></item>
+	      <item name="subjectBusinessIncome" remark="学科业务收入" multiple="N"></item>
+	      <item name="cureCount" remark="出院病人总数" multiple="N"></item>
+	      <item name="outpatientCount" remark="门急诊人数" multiple="N"></item>
+	      <item name="subjectEquipmentCount" remark="学科设备总值" multiple="N"></item>
+	      <item name="laboratoryArea" remark="实验室使用面积" multiple="N"></item>
+	      <item name="laboratoryEquipmentCount" remark="实验室设备价值" multiple="N"></item>
+	      <!-- 业务主攻方向 -->
+	      <item name="mainDirection" remark="主攻方向" multiple="N"></item>
+	      <item name="mainAcademicPerson" remark="主要学术人" multiple="N"></item>
+	      <item name="technologyLeader" remark="技术带头人" multiple="N"></item>
+	      <item name="technologyBackbone" remark="技术骨干" multiple="N"></item>
+	      <item name="archiater" remark="主任医师" multiple="N"></item>
+	      <item name="assistantArchiater" remark="副主任医师" multiple="N"></item>
+	      <item name="visitingStaff" remark="主治医师" multiple="N"></item>
+	      <item name="introKeyword1" remark="简介关键词1" multiple="N"></item>
+	      <item name="introKeyword2" remark="简介关键词2" multiple="N"></item>
+	      <item name="introKeyword3" remark="简介关键词3" multiple="N"></item>
+	      <item name="introKeyword4" remark="简介关键词4" multiple="N"></item>
+	      <item name="introKeyword5" remark="简介关键词5" multiple="N"></item>
+	      <item name="introKeyword6" remark="简介关键词6" multiple="N"></item>
+	      <item name="introKeyword7" remark="简介关键词7" multiple="N"></item>
+	      <item name="introKeyword8" remark="简介关键词8" multiple="N"></item>
+	      <item name="introKeyword9" remark="简介关键词9" multiple="N"></item>
+	      <item name="introKeyword10" remark="简介关键词10" multiple="N"></item>
+	      <item name="intro" remark="简介" multiple="N"></item>
+	      <item name="leadKeyword1" remark="领先技术关键词1" multiple="N"></item>
+	      <item name="leadKeyword2" remark="领先技术关键词2" multiple="N"></item>
+	      <item name="leadKeyword3" remark="领先技术关键词3" multiple="N"></item>
+	      <item name="leadKeyword4" remark="领先技术关键词4" multiple="N"></item>
+	      <item name="leadKeyword5" remark="领先技术关键词5" multiple="N"></item>
+	      <item name="greatLeadTechnology" remark="重大领先技术" multiple="N"></item>
+	      <!-- 协作单位相关材料 -->
+	      <item name="cooperationOrgName" remark="协作单位名称" multiple="N"></item>
+	      <item name="cooperationSubjectCode" remark="协作学科代码" multiple="N"></item>
+	      <item name="cooperationTechnicist" remark="协作主要技术人员" multiple="N"></item>
+	      <item name="cooperationPerson" remark="协作主要协作人姓名" multiple="N"></item>
+	      <item name="cooperationContent" remark="协作内容" multiple="N"></item>
+	   </page>
+	   <page name="step2" remark="人员情况" jsp="srm/proj/form/apply/jsswst.zdxk/step2">
+	     <!-- 人员基本情况 -->
+	     <itemGroup name="user" remark="人员基本情况" jsp="" flow="" modelStyle="add">
+	      <item name="user_name" remark="姓名" multiple="N"></item>
+	      <item name="user_birthday" remark="出生年月" multiple="N"></item>
+	      <item name="user_age" remark="年龄" multiple="N"></item>
+	      <item name="user_degree" remark="学位" multiple="N"></item>
+	      <item name="user_userTitle" remark="技术职称" multiple="N"></item>
+	      <item name="user_learnTitle" remark="学会任职" multiple="N"></item>
+	      <item name="user_honourTitle" remark="荣誉称号" multiple="N"></item>
+	      <item name="user_talentsDevelop" remark="人才培养对象" multiple="N"></item>
+	      <item name="user_technology" remark="技术特长" multiple="N"></item>
+	     </itemGroup> 
+	       <!-- 年龄职称统计 -->
+	        <item name="highAmount" remark="高级总数" multiple="N"></item>
+			<item name="highLess35" remark="高级35岁以下" multiple="N"></item>
+			<item name="highBetween36And45" remark="高级36-45岁" multiple="N"></item>
+			<item name="highBetween46And55" remark="高级46-55岁" multiple="N"></item>
+			<item name="highBetween56And60" remark="高级56-60岁" multiple="N"></item>
+			<item name="highGreater61" remark="高级61岁以上" multiple="N"></item>
+			
+			<item name="middleAmount" remark="中级总数" multiple="N"></item>
+			<item name="middleLess35" remark="中级35岁以下" multiple="N"></item>
+			<item name="middleBetween36And45" remark="中级36-45岁" multiple="N"></item>
+			<item name="middleBetween46And55" remark="中级46-55岁" multiple="N"></item>
+			<item name="middleBetween56And60" remark="中级56-60岁" multiple="N"></item>
+			<item name="middleGreater61" remark="中级61岁以上" multiple="N"></item>
+			
+			<item name="primaryAmount" remark="初级总数" multiple="N"></item>
+			<item name="primaryLess35" remark="初级35岁以下" multiple="N"></item>
+			<item name="primaryBetween36And45" remark="初级36-45岁" multiple="N"></item>
+			<item name="primaryBetween46And55" remark="初级46-55岁" multiple="N"></item>
+			<item name="primaryBetween56And60" remark="初级56-60岁" multiple="N"></item>
+			<item name="primaryGreater61" remark="初级61岁以上" multiple="N"></item>
+			
+			<item name="assistantAmount" remark="副高总数" multiple="N"></item>
+			<item name="assistantLess35" remark="副高35岁以下" multiple="N"></item>
+			<item name="assistantBetween36And45" remark="副高36-45岁" multiple="N"></item>
+			<item name="assistantBetween46And55" remark="副高46-55岁" multiple="N"></item>
+			<item name="assistantBetween56And60" remark="副高56-60岁" multiple="N"></item>
+			<item name="assistantGreater61" remark="副高61岁以上" multiple="N"></item>
+			
+		  <!-- 主任和副主任 -->
+		    <item name="directorName" remark="姓名" multiple="N"></item>
+	        <item name="directorTitle" remark="职务" multiple="N"></item>
+	        <item name="directorAge" remark="年龄" multiple="N"></item>
+	        <item name="directorPost" remark="职称" multiple="N"></item>
+	        <item name="directorPostgraduateTeacher" remark="导师类型" multiple="N"></item>
+	        <item name="directorLearnPost" remark="学会任职" multiple="N"></item>
+	        <item name="directorHonourTitle" remark="荣誉称号" multiple="N"></item>
+	        <item name="directorTalentsDevelop" remark="人才培养对象" multiple="N"></item>
+		  <itemGroup name="ach" remark="五年内获奖成果" jsp="" flow="" modelStyle="add">
+	        <item name="ach_time" remark="时间" multiple="N"></item>
+	        <item name="ach_name" remark="成果名称" multiple="N"></item>
+	        <item name="ach_awardName" remark="奖励名称" multiple="N"></item>
+	        <item name="ach_grade" remark="等级" multiple="N"></item>
+	        <item name="ach_giveOrg" remark="授奖部门" multiple="N"></item>
+	        <item name="ach_firstFinishOrg" remark="第一完成单位" multiple="N"></item>
+	        <item name="ach_selfOrgRank" remark="本单位排名" multiple="N"></item>
+	        <item name="ach_selfRank" remark="本人排序" multiple="N"></item>    
+	      </itemGroup>
+	      <itemGroup name="thesis" remark="五年内获奖主要论文" jsp="" flow="" modelStyle="add">
+	        <item name="thesis_time" remark="时间" multiple="N"></item>
+	        <item name="thesis_name" remark="论文名称" multiple="N"></item>
+	        <item name="thesis_publication" remark="发表刊物" multiple="N"></item>
+	        <item name="thesis_finishPerson" remark="完成人" multiple="N"></item>
+	        <item name="thesis_publicationType" remark="刊物类别" multiple="N"></item>
+	        <item name="thesis_influence" remark="影响因子" multiple="N"></item>
+	        <item name="thesis_authorStatus" remark="作者身份" multiple="N"></item>  
+	      </itemGroup>
+	      <itemGroup name="task" remark="承担与学科发展方向一致的重大课题名称" jsp="" flow="" modelStyle="add">
+	        <item name="task_code" remark="课题编号" multiple="N"></item>
+	        <item name="task_name" remark="课题名称" multiple="N"></item>
+	        <item name="task_source" remark="课题来源" multiple="N"></item>
+	        <item name="task_fund" remark="经费" multiple="N"></item>
+	        <item name="task_rank" remark="本人排序" multiple="N"></item>
+	      </itemGroup>
+	   </page>
+	     <page name="step3" remark="科技项目" jsp="srm/proj/form/apply/jsswst.zdxk/step3">
+	       <!-- 本中心已完成的科技项目 -->
+	      <itemGroup name="finishTech" remark="本中心已完成的科技项目" jsp="" flow="" modelStyle="add">
+	        <item name="finishTech_code" remark="项目编号" multiple="N"></item>
+	        <item name="finishTech_name" remark="项目名称" multiple="N"></item>
+	        <item name="finishTech_source" remark="项目来源" multiple="N"></item>
+	        <item name="finishTech_startTime" remark="项目开始时间" multiple="N"></item>
+	        <item name="finishTech_endTime" remark="项目结束时间" multiple="N"></item>
+	        <item name="finishTech_fund" remark="项目经费" multiple="N"></item>
+	        <item name="finishTech_principalName" remark="负责人姓名" multiple="N"></item>
+	        <item name="finishTech_principalPost" remark="负责人技术职称" multiple="N"></item>
+	       </itemGroup> 
+	        <!-- 已完成项目课题统计 -->
+	        <item name="GJJprojCount" remark="国家级项目个数" multiple="N"></item>
+	        <item name="SBJprojCount" remark="省部级项目个数" multiple="N"></item>
+	        <item name="WSTprojCount" remark="卫生厅项目个数" multiple="N"></item>
+	        <item name="SJJprojCount" remark="市局级项目个数" multiple="N"></item>
+	        <item name="QSYDWWTprojCount" remark="企事业单位委托项目个数" multiple="N"></item>
+	        <item name="ZWHZprojCount" remark="中外合作项目个数" multiple="N"></item>
+	        <item name="GJZZprojCount" remark="国际组织项目个数" multiple="N"></item>
+	        <item name="QTprojCount" remark="其他项目个数" multiple="N"></item>
+	        <item name="finishProjCount" remark="合计项目个数" multiple="N"></item>
+	        
+	        <item name="GJJfundCount" remark="国家级经费数" multiple="N"></item>
+	        <item name="SBJfundCount" remark="省部级经费数" multiple="N"></item>
+	        <item name="WSTfundCount" remark="卫生厅经费数" multiple="N"></item>
+	        <item name="SJJfundCount" remark="市局级经费数" multiple="N"></item>
+	        <item name="QSYDWWTfundCount" remark="企事业单位委托经费数" multiple="N"></item>
+	        <item name="ZWHZfundCount" remark="中外合作经费数" multiple="N"></item>
+	        <item name="GJZZfundCount" remark="国际组织经费数" multiple="N"></item>
+	        <item name="QTfundCount" remark="其他经费数" multiple="N"></item>
+	        <item name="finishFundCount" remark="合计经费数" multiple="N"></item>
+	        
+	        
+	       <!-- 本中心目前承担的主要科技项目 -->
+	       <itemGroup name="ingTech" remark="本中心目前正承担的主要的科技项目" jsp="" flow="" modelStyle="add">
+	         <item name="ingTech_code" remark="项目编号" multiple="N"></item>
+	         <item name="ingTech_name" remark="项目名称" multiple="N"></item>
+	         <item name="ingTech_source" remark="项目来源" multiple="N"></item>
+	         <item name="ingTech_startTime" remark="项目开始时间" multiple="N"></item>
+	         <item name="ingTech_endTime" remark="项目结束时间" multiple="N"></item>
+	         <item name="ingTech_fund" remark="项目经费" multiple="N"></item>
+	         <item name="ingTech_principalName" remark="负责人姓名" multiple="N"></item>
+	         <item name="ingTech_principalPost" remark="负责人技术职称" multiple="N"></item>
+	       </itemGroup> 
+	       <!-- 正在承担的项目课题统计 -->
+	        <item name="GJJingProjCount" remark="国家级项目个数" multiple="N"></item>
+	        <item name="SBJingProjCount" remark="省部级项目个数" multiple="N"></item>
+	        <item name="WSTingProjCount" remark="卫生厅项目个数" multiple="N"></item>
+	        <item name="SJJingProjCount" remark="市局级项目个数" multiple="N"></item>
+	        <item name="QSYDWWTingProjCount" remark="企事业单位委托项目个数" multiple="N"></item>
+	        <item name="ZWHZingProjCount" remark="中外合作项目个数" multiple="N"></item>
+	        <item name="GJZZingProjCount" remark="国际组织项目个数" multiple="N"></item>
+	        <item name="QTingProjCount" remark="其他项目个数" multiple="N"></item>
+	        <item name="ingProjCount" remark="合计项目个数" multiple="N"></item>
+	        
+	        <item name="GJJingFundCount" remark="国家级经费数" multiple="N"></item>
+	        <item name="SBJingFundCount" remark="省部级经费数" multiple="N"></item>
+	        <item name="WSTingFundCount" remark="卫生厅经费数" multiple="N"></item>
+	        <item name="SJJingFundCount" remark="市局级经费数" multiple="N"></item>
+	        <item name="QSYDWWTingFundCount" remark="企事业单位委托经费数" multiple="N"></item>
+	        <item name="ZWHZingFundCount" remark="中外合作经费数" multiple="N"></item>
+	        <item name="GJZZingFundCount" remark="国际组织经费数" multiple="N"></item>
+	        <item name="QTingFundCount" remark="其他经费数" multiple="N"></item>
+	        <item name="ingFundCount" remark="合计经费数" multiple="N"></item>
+	        
+	        <!-- 科技项目其他信息 -->
+	        <item name="scientificFund" remark="获得的科研经费" multiple="N"></item>
+	        <item name="fundAvg" remark="中级职称技术人员科研经费平均数" multiple="N"></item>
+	        <item name="openCount" remark="设立的开放性课题数" multiple="N"></item>
+	        <item name="openFund" remark="开放性课题经费" multiple="N"></item>
+	     </page>
+	     
+		<page name="step4" remark="中心成果" jsp="srm/proj/form/apply/jsswst.zdxk/step4">
+			<!--1. 所获得的重要科技奖励 -->
+			<itemGroup name="sat" remark="所获得的重要科技奖励 " jsp="" flow="" modelStyle="add">
+				<item name="sat_projName" remark="项目名称" multiple="N"></item>
+				<item name="sat_time" remark="时间" multiple="N"></item>
+				<item name="sat_awardName" remark="奖励名称" multiple="N"></item>
+				<item name="sat_grade" remark="等级" multiple="N"></item>
+				<item name="sat_awardDepartment" remark="授奖部门" multiple="N"></item>
+				<item name="sat_firstFinishOrg" remark="第一完成单位" multiple="N"></item>
+				<item name="sat_orgRanking" remark="本单位排名" multiple="N"></item>
+				<item name="sat_author" remark="完成人" multiple="N"></item>
+				<item name="sat_authorOrder" remark="完成人顺序" multiple="N"></item>
+			</itemGroup>
+	       <!-- 奖励等级统计 -->
+	         <!-- 特等奖 -->
+	        <item name="gjkjjbjGrade0" remark="国家科技进步奖特等奖" multiple="N"></item>
+	        <item name="gjzrkxjGrade0" remark="国家自然科学奖特等奖" multiple="N"></item>
+	        <item name="gjfmjGrade0" remark="国家发明奖特等奖" multiple="N"></item>
+	        <item name="zhyxkjjGrade0" remark="中华医学科技奖特等奖" multiple="N"></item>
+	        <item name="jsskjjbjGrade0" remark="江苏省科技进步奖特等奖" multiple="N"></item>
+	        <item name="qtsbjkjjbjGrade0" remark="其他省部级科技进步奖特等奖" multiple="N"></item>
+	        <item name="sqttjjkjjbjGrade0" remark="省其他厅局级科技进步奖特等奖" multiple="N"></item>
+	        <item name="sjkjjbjGrade0" remark="市级科技进步奖特等奖" multiple="N"></item>
+	        <item name="jsswstyxxjsyjjGrade0" remark="江苏省卫生厅医学新技术引进奖特等奖" multiple="N"></item>
+	        <item name="qtGrade0" remark="其他特等奖" multiple="N"></item>
+	        
+	          <!-- 一等奖 -->
+	        <item name="gjkjjbjGrade1" remark="国家科技进步奖一等奖" multiple="N"></item>
+	        <item name="gjzrkxjGrade1" remark="国家自然科学奖一等奖" multiple="N"></item>
+	        <item name="gjfmjGrade1" remark="国家发明奖一等奖" multiple="N"></item>
+	        <item name="zhyxkjjGrade1" remark="中华医学科技奖一等奖" multiple="N"></item>
+	        <item name="jsskjjbjGrade1" remark="江苏省科技进步奖一等奖" multiple="N"></item>
+	        <item name="qtsbjkjjbjGrade1" remark="其他省部级科技进步奖一等奖" multiple="N"></item>
+	        <item name="sqttjjkjjbjGrade1" remark="省其他厅局级科技进步奖一等奖" multiple="N"></item>
+	        <item name="sjkjjbjGrade1" remark="市级科技进步奖一等奖" multiple="N"></item>
+	        <item name="jsswstyxxjsyjjGrade1" remark="江苏省卫生厅医学新技术引进奖一等奖" multiple="N"></item>
+	        <item name="qtGrade1" remark="其他一等奖" multiple="N"></item>
+	        
+	          <!-- 二等奖 -->
+	        <item name="gjkjjbjGrade2" remark="国家科技进步奖二等奖" multiple="N"></item>
+	        <item name="gjzrkxjGrade2" remark="国家自然科学奖二等奖" multiple="N"></item>
+	        <item name="gjfmjGrade2" remark="国家发明奖二等奖" multiple="N"></item>
+	        <item name="zhyxkjjGrade2" remark="中华医学科技奖二等奖" multiple="N"></item>
+	        <item name="jsskjjbjGrade2" remark="江苏省科技进步奖二等奖" multiple="N"></item>
+	        <item name="qtsbjkjjbjGrade2" remark="其他省部级科技进步奖二等奖" multiple="N"></item>
+	        <item name="sqttjjkjjbjGrade2" remark="省其他厅局级科技进步奖二等奖" multiple="N"></item>
+	        <item name="sjkjjbjGrade2" remark="市级科技进步奖二等奖" multiple="N"></item>
+	        <item name="jsswstyxxjsyjjGrade2" remark="江苏省卫生厅医学新技术引进奖二等奖" multiple="N"></item>
+	        <item name="qtGrade2" remark="其他二等奖" multiple="N"></item>
+	        
+	          <!-- 三等奖 -->
+	        <item name="gjkjjbjGrade3" remark="国家科技进步奖三等奖" multiple="N"></item>
+	        <item name="gjzrkxjGrade3" remark="国家自然科学奖三等奖" multiple="N"></item>
+	        <item name="gjfmjGrade3" remark="国家发明奖三等奖" multiple="N"></item>
+	        <item name="zhyxkjjGrade3" remark="中华医学科技奖三等奖" multiple="N"></item>
+	        <item name="jsskjjbjGrade3" remark="江苏省科技进步奖三等奖" multiple="N"></item>
+	        <item name="qtsbjkjjbjGrade3" remark="其他省部级科技进步奖三等奖" multiple="N"></item>
+	        <item name="sqttjjkjjbjGrade3" remark="省其他厅局级科技进步奖三等奖" multiple="N"></item>
+	        <item name="sjkjjbjGrade3" remark="市级科技进步奖三等奖" multiple="N"></item>
+	        <item name="jsswstyxxjsyjjGrade3" remark="江苏省卫生厅医学新技术引进奖三等奖" multiple="N"></item>
+	        <item name="qtGrade3" remark="其他三等奖" multiple="N"></item>
+	        
+	          <!-- 四等奖 -->
+	        <item name="gjkjjbjGrade4" remark="国家科技进步奖四等奖" multiple="N"></item>
+	        <item name="gjzrkxjGrade4" remark="国家自然科学奖四等奖" multiple="N"></item>
+	        <item name="gjfmjGrade4" remark="国家发明奖四等奖" multiple="N"></item>
+	        <item name="zhyxkjjGrade4" remark="中华医学科技奖四等奖" multiple="N"></item>
+	        <item name="jsskjjbjGrade4" remark="江苏省科技进步奖四等奖" multiple="N"></item>
+	        <item name="qtsbjkjjbjGrade4" remark="其他省部级科技进步奖四等奖" multiple="N"></item>
+	        <item name="sqttjjkjjbjGrade4" remark="省其他厅局级科技进步奖四等奖" multiple="N"></item>
+	        <item name="sjkjjbjGrade4" remark="市级科技进步奖四等奖" multiple="N"></item>
+	        <item name="jsswstyxxjsyjjGrade4" remark="江苏省卫生厅医学新技术引进奖四等奖" multiple="N"></item>
+	        <item name="qtGrade4" remark="其他四等奖" multiple="N"></item>
+	      
+	        <!--2.发表论文 -->
+        	<itemGroup name="thesis" remark="发表论文" jsp="" flow="" modelStyle="add">
+		        <item name="thesis_time" remark="时间" multiple="N"></item>
+		        <item name="thesis_name" remark="论文名称" multiple="N"></item>
+		        <item name="thesis_periodical" remark="发表刊物" multiple="N"></item>
+		        <item name="thesis_author" remark="完成人" multiple="N"></item>
+		        <item name="thesis_periodicalList" remark="刊物列表" multiple="N"></item>
+		        <item name="thesis_ImpactFactor" remark="影响因子" multiple="N"></item>
+		        <item name="thesis_authorIdentity" remark="作者身份" multiple="N"></item>
+			</itemGroup>
+			
+			<!--2.1.论文统计_第一作者-->
+			<item name="SCIdyzz" remark="SCI收录期刊" multiple="N"></item>
+			<item name="EIdyzz" remark="EI收录期刊" multiple="N"></item>
+			<item name="ISTPdyzz" remark="ISTP收录期刊" multiple="N"></item>
+			<item name="GWdyzz" remark="国外期刊" multiple="N"></item>
+			<item name="GJJdyzz" remark="国家级学报" multiple="N"></item>
+			<item name="ZHYXdyzz" remark="中华医学系列杂志" multiple="N"></item>
+			<item name="QTdyzz" remark="其他" multiple="N"></item>
+			<!--2.2.论文统计_通讯作者-->
+			<item name="SCItxzz" remark="SCI收录期刊" multiple="N"></item>
+			<item name="EItxzz" remark="EI收录期刊" multiple="N"></item>
+			<item name="ISTPtxzz" remark="ISTP收录期刊" multiple="N"></item>
+			<item name="GWtxzz" remark="国外期刊" multiple="N"></item>
+			<item name="GJJtxzz" remark="国家级学报" multiple="N"></item>
+			<item name="ZHYXtxzz" remark="中华医学系列杂志" multiple="N"></item>
+			<item name="QTtxzz" remark="其他" multiple="N"></item>
+	       
+	      <!-- 5.出版的学术专著 -->
+			<itemGroup name="book" remark="出版的学术专著 " jsp="" flow="" modelStyle="add">
+		        <item name="book_time" remark="时间" multiple="N"></item>
+		        <item name="book_name" remark="专著及教材" multiple="N"></item>
+		        <item name="book_wordCount" remark="字数（万字）" multiple="N"></item>
+		        <item name="book_author" remark="完成人" multiple="N"></item>
+		        <item name="book_selfWordCount" remark="本人完成字数（万字）" multiple="N"></item>
+		        <item name="book_authorIdentity" remark="编辑身份" multiple="N"></item>
+		        <item name="book_publisher" remark="出版社" multiple="N"></item>
+			</itemGroup>
+			
+			<!-- 6．专利情况-->
+			<itemGroup name="patent" remark="专利情况" jsp="" flow="" modelStyle="add">
+		        <item name="patent_name" remark="专利名称" multiple="N"></item>
+		        <item name="patent_typeName" remark="专利类型" multiple="N"></item>
+		        <item name="patent_country" remark="国家" multiple="N"></item>
+		        <item name="patent_time" remark="时间" multiple="N"></item>
+		        <item name="patent_certificateType" remark="证书类型" multiple="N"></item>
+		        <item name="patent_author" remark="完成人" multiple="N"></item>
+			</itemGroup>
+			
+			<!-- 专利统计：国内-->
+			<item name="FMgn" remark="发明（项）" multiple="N"></item>
+			<item name="SYXXgn" remark="实用新型（项）" multiple="N"></item>
+			<item name="WGSJgn" remark="外观设计（项）：" multiple="N"></item>
+			<!-- 专利统计：国外-->
+			<item name="FMgw" remark="发明（项）" multiple="N"></item>
+			<item name="SYXXgw" remark="实用新型（项）" multiple="N"></item>
+			<item name="WGSJgw" remark="外观设计（项）：" multiple="N"></item>
+			<!-- 专利统计：新药证书：-->
+			<item name="certificate1" remark="1类（项）：  " multiple="N"></item>
+			<item name="certificate2" remark="2类（项）：  " multiple="N"></item>
+			<item name="certificate3" remark="3类（项）：  " multiple="N"></item>
+			<item name="certificate4" remark="4类（项）：  " multiple="N"></item>
+			<item name="certificate5" remark="5类（项）：  " multiple="N"></item>
+	     </page>
+	     
+	     
+	     <page name="step5"  remark="步骤5" jsp="srm/proj/form/apply/jsswst.zdxk/step5">
+	     	<!-- 1.中心专用设备 -->
+	        <itemGroup name="equipment" remark="中心专用设备" jsp="" flow="" modelStyle="add"> 
+	            <item name="equipment_name" remark="设备名称" multiple="N"></item>
+	            <item name="equipment_num" remark="数量" multiple="N"></item>
+	            <item name="equipment_price" remark="单价" multiple="N"></item>
+	            <item name="equipment_totalPrice" remark="总价" multiple="N"></item>
+	        </itemGroup>
+           	<item name="equipmentCount" remark="总台数" multiple="N"></item>
+			<item name="equipmentAbove100000Count" remark="十万以上台数" multiple="N"></item>
+			<item name="equipmentTotalInvestment" remark="总投资" multiple="N"></item>
+           
+	     	<!-- 2.中心专用实验室设备 -->
+	        <itemGroup name="laboratory" remark="中心专用设备" jsp="" flow="" modelStyle="add"> 
+	            <item name="laboratory_name" remark="设备名称" multiple="N"></item>
+	            <item name="laboratory_num" remark="数量" multiple="N"></item>
+	            <item name="laboratory_price" remark="单价" multiple="N"></item>
+	            <item name="laboratory_totalPrice" remark="总价" multiple="N"></item>
+	        </itemGroup>
+           	<item name="laboratoryCount" remark="总台数" multiple="N"></item>
+			<item name="laboratoryAbove100000Count" remark="十万以上台数" multiple="N"></item>
+			<item name="laboratoryTotalInvestment" remark="总投资" multiple="N"></item>
+           
+           
+	        
+	     </page>
+	     <page name="step6"  remark="步骤6" jsp="srm/proj/form/apply/jsswst.zdxk/step6">
+	        <itemGroup name="centerMagazine" remark="中心所具有杂志编委情况" jsp="" flow="" modelStyle="add">
+	           <item name="centerMagazine_magazineName" remark="杂志名称" multiple="N"></item>
+	           <item name="centerMagazine_type" remark="杂志类型" multiple="N"></item>
+	           <item name="centerMagazine_post" remark="担任职务" multiple="N"></item>
+	           <item name="centerMagazine_authorName" remark="编委姓名" multiple="N"></item>
+	        </itemGroup> 
+	        <!-- SCI -->
+	        <item name="SCIzb" remark="SCI主编" multiple="N"></item>
+	        <item name="SCIfzb" remark="SCI副主编" multiple="N"></item>
+	        <item name="SCIcwbj" remark="SCI常务编辑" multiple="N"></item>
+	        <item name="SCIbw" remark="SCI编委" multiple="N"></item>
+	        <item name="SCItysg" remark="SCI特约审稿" multiple="N"></item>
+	        <!-- EI -->
+	        <item name="EIzb" remark="EI主编" multiple="N"></item>
+	        <item name="EIfzb" remark="EI副主编" multiple="N"></item>
+	        <item name="EIcwbj" remark="EI常务编辑" multiple="N"></item>
+	        <item name="EIbw" remark="EI编委" multiple="N"></item>
+	        <item name="EItysg" remark="EI特约审稿" multiple="N"></item>
+	        <!-- ISTP -->
+	        <item name="ISTPzb" remark="ISTP主编" multiple="N"></item>
+	        <item name="ISTPfzb" remark="ISTP副主编" multiple="N"></item>
+	        <item name="ISTPcwbj" remark="ISTP常务编辑" multiple="N"></item>
+	        <item name="ISTPbw" remark="ISTP编委" multiple="N"></item>
+	        <item name="ISTPtysg" remark="ISTP特约审稿" multiple="N"></item>
+	        <!-- 国外期刊 -->
+	        <item name="GWzb" remark="国外期刊主编" multiple="N"></item>
+	        <item name="GWfzb" remark="国外期刊副主编" multiple="N"></item>
+	        <item name="GWcwbj" remark="国外期刊常务编辑" multiple="N"></item>
+	        <item name="GWbw" remark="国外期刊编委" multiple="N"></item>
+	        <item name="GWtysg" remark="国外期刊特约审稿" multiple="N"></item>
+	        <!-- 国家级学报 -->
+	        <item name="GJJzb" remark="国家级学报主编" multiple="N"></item>
+	        <item name="GJJfzb" remark="国家级学报副主编" multiple="N"></item>
+	        <item name="GJJcwbj" remark="国家级学报常务编辑" multiple="N"></item>
+	        <item name="GJJbw" remark="国家级学报编委" multiple="N"></item>
+	        <item name="GJJtysg" remark="国家级学报特约审稿" multiple="N"></item>
+	        <!-- 中华医学系列杂志 -->
+	        <item name="ZHYXzb" remark="中华医学系列杂志主编" multiple="N"></item>
+	        <item name="ZHYXfzb" remark="中华医学系列杂志副主编" multiple="N"></item>
+	        <item name="ZHYXcwbj" remark="中华医学系列杂志常务编辑" multiple="N"></item>
+	        <item name="ZHYXbw" remark="中华医学系列杂志编委" multiple="N"></item>
+	        <item name="ZHYXtysg" remark="中华医学系列杂志特约审稿" multiple="N"></item>
+	        
+	        <!-- 继续医学教育情况 -->
+	        <itemGroup name="cmEdu" remark="继续医学教育情况" jsp="" flow="" modelStyle="add">
+	             <item name="cmEdu_projName" remark="项目名称" multiple="N"></item>
+	             <item name="cmEdu_projType" remark="项目类型" multiple="N"></item>
+	             <item name="cmEdu_workType" remark="承担工作类型" multiple="N"></item>
+	             <item name="cmEdu_applyUser" remark="承担人" multiple="N"></item>
+	             <item name="cmEdu_startTime" remark="开始时间" multiple="N"></item>
+	             <item name="cmEdu_endTime" remark="结束时间" multiple="N"></item>
+	        </itemGroup>
+	        
+	        <!-- 继续医学教育统计 -->
+			<item name="GJJprojApplyUser" remark="国家级项目负责人" multiple="N"></item>
+			<item name="GJJteacher" remark="国家级授课教师" multiple="N"></item>
+			<item name="SJprojApplyUser" remark="省级项目负责人" multiple="N"></item>
+			<item name="SJteacher" remark="省级授课教师" multiple="N"></item>
+			
+			<!-- 国外进修 -->
+	        <itemGroup name="training" remark="国外进修" jsp="" flow="" modelStyle="add">
+	          <item name="training_country" remark="国家" multiple="N"></item>
+	          <item name="training_user" remark="进修人" multiple="N"></item>
+	          <item name="training_startTime" remark="开始时间" multiple="N"></item>
+	          <item name="training_endTime" remark="结束时间" multiple="N"></item>
+	        </itemGroup> 
+	        
+	        <itemGroup name="academicCom" remark="学术交流" jsp="" flow="" modelStyle="add">
+	          <item name="academicCom_meetingName" remark="会议名称" multiple="N"></item>
+	          <item name="academicCom_meetingType" remark="会议性质" multiple="N"></item>
+	          <item name="academicCom_address" remark="地点" multiple="N"></item>
+	          <item name="academicCom_time" remark="时间" multiple="N"></item>
+	          <item name="academicCom_way" remark="参会方式" multiple="N"></item>
+	          <item name="academicCom_person" remark="参会人" multiple="N"></item>
+	        </itemGroup> 
+	        <!-- 国际会议 -->
+	        <item name="gjhyDHZX" remark="国际会议大会主席" multiple="N"></item>
+	        <item name="gjhyFHZX" remark="国际会议分会主席" multiple="N"></item>
+	        <item name="gjhyDHFY" remark="国际会议大会发言" multiple="N"></item>
+	        <item name="gjhyBB" remark="国际会议壁报" multiple="N"></item>
+	        <item name="gjhyCH" remark="国际会议参会" multiple="N"></item>
+	        <!-- 全国性会议 -->
+	        <item name="qgxhyDHZX" remark="全国性会议大会主席" multiple="N"></item>
+	        <item name="qgxhyFHZX" remark="全国性会议分会主席" multiple="N"></item>
+	        <item name="qgxhyDHFY" remark="全国性会议大会发言" multiple="N"></item>
+	        <item name="qgxhyBB" remark="全国性会议壁报" multiple="N"></item>
+	        <item name="qgxhyCH" remark="全国性会议参会" multiple="N"></item>
+	        <!-- 学术讲座 -->
+	        <item name="xsjzDHZX" remark="学术讲座大会主席" multiple="N"></item>
+	        <item name="xsjzFHZX" remark="学术讲座分会主席" multiple="N"></item>
+	        <item name="xsjzDHFY" remark="学术讲座大会发言" multiple="N"></item>
+	        <item name="xsjzBB" remark="学术讲座壁报" multiple="N"></item>
+	        <item name="xsjzCH" remark="学术讲座参会" multiple="N"></item>
+	        
+	        <!-- 5.经费信息 -->
+	        <item name="competentDeptFund" remark="上级主管部门配套经费" multiple="N"></item>
+	        <item name="matingFund" remark="本级单位配套经费" multiple="N"></item>
+	        
+	        <!-- 6.毕业的研究生人数 -->
+	        <item name="postDoctoralNum" remark="博士后" multiple="N"></item>
+	        <item name="doctoralNum" remark="博士生" multiple="N"></item>
+	        <item name="postgraduateNum" remark="硕士生" multiple="N"></item>
+	     </page>
+	  </pageGroup>
+	<!-- 江苏省卫生厅重点学科申报书      结束-->
+	
+	
+	  <!-- 江苏省卫生厅重点人才申报书 -->
+	    <pageGroup name="jsswst.zdrc" firstPage="step1" view="srm/proj/form/apply/jsswst.zdrc/view"  printTemeplete="">
+	        <page name="step1"  remark="步骤1" jsp="srm/proj/form/apply/jsswst.zdrc/step1">
+	        	<!-- 个人情况 -->
+	      		<item name="category" remark="类别" multiple="N"></item>
+	      		<item name="name" remark="姓名" multiple="N"></item>
+	      		<item name="sexId" remark="性别" multiple="N"></item>
+	      		<item name="nation" remark="民族" multiple="N"></item>
+	      		<item name="birthday" remark="出生年月" multiple="N"></item>
+	      		<item name="finalDegreeId" remark="最终学位" multiple="N"></item>
+	      		<item name="awardTime" remark="授予时间" multiple="N"></item>
+	      		<item name="awardOrg" remark="授予单位" multiple="N"></item>
+	      		<item name="engageMajor" remark="从事专业" multiple="N"></item>
+	      		<item name="administrativePost" remark="行政职务" multiple="N"></item>
+	      		<item name="tutor" remark="研究生导师" multiple="N"></item>
+	      		<item name="technologyTitle" remark="专业技术职称" multiple="N"></item>
+	      		<item name="cultivateObject" remark="人才培养对象" multiple="N"></item>
+	      		<item name="honorTitle" remark="学术荣誉称号" multiple="N"></item>
+	      		<item name="instituteOfficeHolding" remark="学会任职" multiple="N"></item>
+	      		<item name="companyPlace" remark="所在单位" multiple="N"></item>
+	      		<item name="subordination" remark="隶属关系" multiple="N"></item>
+	      		<item name="competentDepartment" remark="主管部门" multiple="N"></item>
+	      		<item name="fax" remark="传真" multiple="N"></item>
+	      		<item name="postalAddress" remark="通讯地址" multiple="N"></item>
+	      		<item name="postcode" remark="邮编" multiple="N"></item>
+	      		<item name="linkman" remark="联系人" multiple="N"></item>
+	      		<item name="telephone" remark="电话" multiple="N"></item>
+	      		<item name="mailbox" remark="邮箱" multiple="N"></item>
+	        </page>
+	        <page name="step2"  remark="步骤2" jsp="srm/proj/form/apply/jsswst.zdrc/step2">
+	        	<!-- 课题 -->
+	      		<item name="problemName" remark="课题名称" multiple="N"></item>
+	      		<item name="researchCategory" remark="研究类别" multiple="N"></item>
+	      		<item name="startDate" remark="起止时间" multiple="N"></item>
+	      		<item name="endDate" remark="起止时间" multiple="N"></item>
+	      		<item name="otherSubsidize" remark="其他资助" multiple="N"></item>
+	      		<item name="company" remark="单位" multiple="N"></item>
+	      		<item name="money" remark="金额（万元）" multiple="N"></item>
+	      		
+	      		<!-- 第2负责人 -->
+	      		<item name="name2" remark="姓名" multiple="N"></item>
+	      		<item name="sex2" remark="性别" multiple="N"></item>
+	      		<item name="age2" remark="年龄" multiple="N"></item>
+	      		<item name="major2" remark="专业" multiple="N"></item>
+	      		<item name="jobTitle2" remark="职称" multiple="N"></item>
+	      		<item name="company2" remark="单位" multiple="N"></item>
+	      		
+	      		<!-- 第3负责人 -->
+	      		<item name="name3" remark="姓名" multiple="N"></item>
+	      		<item name="sex3" remark="性别" multiple="N"></item>
+	      		<item name="age3" remark="年龄" multiple="N"></item>
+	      		<item name="major3" remark="专业" multiple="N"></item>
+	      		<item name="jobTitle3" remark="职称" multiple="N"></item>
+	      		<item name="company3" remark="单位" multiple="N"></item>
+	        </page>
+	        <page name="step3"  remark="步骤3" jsp="srm/proj/form/apply/jsswst.zdrc/step3">
+	        	<!-- 导师  -->
+	      		<item name="instructorName" remark="姓名" multiple="N"></item>
+	      		<item name="instructorSex" remark="性别" multiple="N"></item>
+	      		<item name="instructorNation" remark="民族" multiple="N"></item>
+	      		<item name="instructorBirthday" remark="出生年月" multiple="N"></item>
+	      		<item name="instructorCompanyPlace" remark="所在单位" multiple="N"></item>
+	      		<item name="instructorPostcode" remark="邮编" multiple="N"></item>
+	      		<item name="instructorNowMajor" remark="目前从事专业" multiple="N"></item>
+	      		<item name="instructorResearchDirection" remark="研究方向" multiple="N"></item>
+	      		<item name="instructorSupervisor" remark="研究生导师" multiple="N"></item>
+	      		<item name="instructorJobTitle" remark="专业技术职称" multiple="N"></item>
+	      		<item name="instructorInstituteOfficeHolding" remark="学会任职" multiple="N"></item>
+	      		<item name="instructorAcademicTitle" remark="学术头衔" multiple="N"></item>
+	      		<item name="instructorTelephone" remark="电话" multiple="N"></item>
+	      		<item name="instructorFax" remark="传真" multiple="N"></item>
+	      		<item name="instructorMailbox" remark="邮箱" multiple="N"></item>
+	        </page>
+	        <page name="step4" remark="步骤4" jsp="srm/proj/form/apply/jsswst.zdrc/step4">
+	        	<!--1. 主要科研成果获奖情况 -->
+	        	<itemGroup name="sat" remark="主要科研成果获奖情况" jsp="" flow="" modelStyle="add">
+			        <item name="sat_projName" remark="项目名称" multiple="N"></item>
+			        <item name="sat_time" remark="时间" multiple="N"></item>
+			        <item name="sat_awardName" remark="奖励名称" multiple="N"></item>
+			        <item name="sat_grade" remark="等级" multiple="N"></item>
+			        <item name="sat_awardDepartment" remark="授奖部门" multiple="N"></item>
+			        <item name="sat_firstFinishOrg" remark="第一完成单位" multiple="N"></item>
+			        <item name="sat_orgRanking" remark="本单位排名" multiple="N"></item>
+			        <item name="sat_authorOrder" remark="完成人顺序" multiple="N"></item>
+				</itemGroup>
+				
+				<!--2. 承担重大课题情况 -->
+				<item name="taskInfo" remark="承担重大课题情况" multiple="N"></item>
+				
+				<!--3.发表论文 -->
+	        	<itemGroup name="thesis" remark="发表论文" jsp="" flow="" modelStyle="add">
+			        <item name="thesis_time" remark="时间" multiple="N"></item>
+			        <item name="thesis_name" remark="论文名称" multiple="N"></item>
+			        <item name="thesis_periodical" remark="发表刊物" multiple="N"></item>
+			        <item name="thesis_periodicalList" remark="刊物列表" multiple="N"></item>
+			        <item name="thesis_ImpactFactor" remark="影响因子" multiple="N"></item>
+			        <item name="thesis_authorIdentity" remark="作者身份" multiple="N"></item>
+				</itemGroup>
+				
+				<!--4.1.论文统计_第一作者-->
+				<item name="SCIdyzz" remark="SCI收录期刊" multiple="N"></item>
+				<item name="EIdyzz" remark="EI收录期刊" multiple="N"></item>
+				<item name="ISTPdyzz" remark="ISTP收录期刊" multiple="N"></item>
+				<item name="GWdyzz" remark="国外期刊" multiple="N"></item>
+				<item name="GJJdyzz" remark="国家级学报" multiple="N"></item>
+				<item name="ZHYXdyzz" remark="中华医学系列杂志" multiple="N"></item>
+				<item name="QTdyzz" remark="其他" multiple="N"></item>
+				<!--4.2.论文统计_通讯作者-->
+				<item name="SCItxzz" remark="SCI收录期刊" multiple="N"></item>
+				<item name="EItxzz" remark="EI收录期刊" multiple="N"></item>
+				<item name="ISTPtxzz" remark="ISTP收录期刊" multiple="N"></item>
+				<item name="GWtxzz" remark="国外期刊" multiple="N"></item>
+				<item name="GJJtxzz" remark="国家级学报" multiple="N"></item>
+				<item name="ZHYXtxzz" remark="中华医学系列杂志" multiple="N"></item>
+				<item name="QTtxzz" remark="其他" multiple="N"></item>
+				
+				<!-- 5.出版的学术专著 -->
+				<itemGroup name="book" remark="出版的学术专著 " jsp="" flow="" modelStyle="add">
+			        <item name="book_time" remark="时间" multiple="N"></item>
+			        <item name="book_name" remark="专著及教材" multiple="N"></item>
+			        <item name="book_wordCount" remark="字数（万字）" multiple="N"></item>
+			        <item name="book_selfWordCount" remark="本人完成字数（万字）" multiple="N"></item>
+			        <item name="book_authorIdentity" remark="编辑身份" multiple="N"></item>
+			        <item name="book_publisher" remark="出版社" multiple="N"></item>
+				</itemGroup>
+				
+				<!-- 6．专利情况-->
+				<itemGroup name="patent" remark="专利情况" jsp="" flow="" modelStyle="add">
+			        <item name="patent_name" remark="专利名称" multiple="N"></item>
+			        <item name="patent_typeName" remark="专利类型" multiple="N"></item>
+			        <item name="patent_country" remark="国家" multiple="N"></item>
+			        <item name="patent_time" remark="时间" multiple="N"></item>
+			        <item name="patent_certificateType" remark="证书类型" multiple="N"></item>
+				</itemGroup>
+				
+				<!-- 专利统计：国内-->
+				<item name="FMgn" remark="发明（项）" multiple="N"></item>
+				<item name="SYXXgn" remark="实用新型（项）" multiple="N"></item>
+				<item name="WGSJgn" remark="外观设计（项）：" multiple="N"></item>
+				<!-- 专利统计：国外-->
+				<item name="FMgw" remark="发明（项）" multiple="N"></item>
+				<item name="SYXXgw" remark="实用新型（项）" multiple="N"></item>
+				<item name="WGSJgw" remark="外观设计（项）：" multiple="N"></item>
+				
+				<!-- 专利统计：新药证书：-->
+				<item name="certificate1" remark="1类（项）：  " multiple="N"></item>
+				<item name="certificate2" remark="2类（项）：  " multiple="N"></item>
+				<item name="certificate3" remark="3类（项）：  " multiple="N"></item>
+				<item name="certificate4" remark="4类（项）：  " multiple="N"></item>
+				<item name="certificate5" remark="5类（项）：  " multiple="N"></item>
+	        </page>
+	        <page name="step5"  remark="步骤5" jsp="srm/proj/form/apply/jsswst.zdrc/step5">
+	        	<!-- 1.中心所具有杂志编委情况 -->
+	        	<itemGroup name="magazine" remark="中心所具有杂志编委情况" jsp="" flow="" modelStyle="add">
+			        <item name="magazine_name" remark="杂志名称" multiple="N"></item>
+			        <item name="magazine_typeName" remark="杂志类型" multiple="N"></item>
+			        <item name="magazine_officeHolding" remark="担任职务" multiple="N"></item>
+				</itemGroup>
+				
+	        	<!-- 2.继续医学教育情况 -->
+	        	<itemGroup name="medicalEdu" remark="2.继续医学教育情况" jsp="" flow="" modelStyle="add">
+			        <item name="medicalEdu_projname" remark="项目名称" multiple="N"></item>
+			        <item name="medicalEdu_projTypeName" remark="项目类型" multiple="N"></item>
+			        <item name="medicalEdu_jobTypeName" remark="承担工作类型" multiple="N"></item>
+			        <item name="medicalEdu_startDate" remark="起始时间" multiple="N"></item>
+			        <item name="medicalEdu_endDate" remark="终止时间" multiple="N"></item>
+				</itemGroup>
+				
+	        	<!-- 3.国外进修  -->
+	        	<itemGroup name="furtherEdu" remark="国外进修 " jsp="" flow="" modelStyle="add">
+			        <item name="furtherEdu_country" remark="国家" multiple="N"></item>
+			        <item name="furtherEdu_startDate" remark="起始时间" multiple="N"></item>
+			        <item name="furtherEdu_endDate" remark="终止时间" multiple="N"></item>
+				</itemGroup>
+				
+	        	<!-- 4.学术交流  -->
+	        	<itemGroup name="exchange" remark="学术交流 " jsp="" flow="" modelStyle="add">
+			        <item name="exchange_conferenceName" remark="会议名称" multiple="N"></item>
+			        <item name="exchange_conferenceNature" remark="会议性质" multiple="N"></item>
+			        <item name="exchange_place" remark="地点" multiple="N"></item>
+			        <item name="exchange_time" remark="时间" multiple="N"></item>
+			        <item name="exchange_joinWay" remark="参会方式" multiple="N"></item>
+				</itemGroup>
+	        </page>
+	        <page name="step6"  remark="步骤6" jsp="srm/proj/form/apply/jsswst.zdrc/step6">
+	        	<item name="constructOrgFund" remark="甲方资助金额" multiple="N"></item>
+				<item name="assumeOrgFund" remark="乙方匹配经费" multiple="N"></item>
+				<item name="otherFund" remark="其他来源经费" multiple="N"></item>
+				<item name="amountFund" remark="合      计" multiple="N"></item>
+				
+				<item name="inlandFirstYear" remark="国内外进修费用第一年" multiple="N"></item>
+				<item name="inlandSecondYear" remark="国内外进修费用第二年" multiple="N"></item>
+				<item name="inlandThirdYear" remark="国内外进修费用第三年" multiple="N"></item>
+				<item name="inlandFourthYear" remark="国内外进修费用第四年" multiple="N"></item>
+				<item name="inlandFifthYear" remark="国内外进修费用第五年" multiple="N"></item>
+				
+				<item name="communicationFirstYear" remark="学术交流费用第一年" multiple="N"></item>
+				<item name="communicationSecondYear" remark="学术交流费用第二年" multiple="N"></item>
+				<item name="communicationThirdYear" remark="学术交流费用第三年" multiple="N"></item>
+				<item name="communicationFourthYear" remark="学术交流费用第四年" multiple="N"></item>
+				<item name="communicationFifthYear" remark="学术交流费用第五年" multiple="N"></item>
+				
+				<item name="tutorDirectFirstYear" remark="导师指导研究工作费用第一年" multiple="N"></item>
+				<item name="tutorDirectSecondYear" remark="导师指导研究工作费用第二年" multiple="N"></item>
+				<item name="tutorDirectThirdYear" remark="导师指导研究工作费用第三年" multiple="N"></item>
+				<item name="tutorDirectFourthYear" remark="导师指导研究工作费用第四年" multiple="N"></item>
+				<item name="tutorDirectFifthYear" remark="导师指导研究工作费用第五年" multiple="N"></item>
+				
+				<item name="instrumentFirstYear" remark="仪器设备费第一年" multiple="N"></item>
+				<item name="instrumentSecondYear" remark="仪器设备费第二年" multiple="N"></item>
+				<item name="instrumentThirdYear" remark="仪器设备费第三年" multiple="N"></item>
+				<item name="instrumentFourthYear" remark="仪器设备费第四年" multiple="N"></item>
+				<item name="instrumentFifthYear" remark="仪器设备费第五年" multiple="N"></item>
+				
+				<item name="experimentMaterialFirstYear" remark="实验材料费第一年" multiple="N"></item>
+				<item name="experimentMaterialSecondYear" remark="实验材料费第二年" multiple="N"></item>
+				<item name="experimentMaterialThirdYear" remark="实验材料费第三年" multiple="N"></item>
+				<item name="experimentMaterialFourthYear" remark="实验材料费第四年" multiple="N"></item>
+				<item name="experimentMaterialFifthYear" remark="实验材料费第五年" multiple="N"></item>
+				
+				<item name="experimentAnimalTrFirstYear" remark="实验动物费第一年" multiple="N"></item>
+				<item name="experimentAnimalTrSecondYear" remark="实验动物费第二年" multiple="N"></item>
+				<item name="experimentAnimalTrThirdYear" remark="实验动物费第三年" multiple="N"></item>
+				<item name="experimentAnimalTrFourthYear" remark="实验动物费第四年" multiple="N"></item>
+				<item name="experimentAnimalTrFifthYear" remark="实验动物费第五年" multiple="N"></item>
+				
+				<item name="businessFirstYear" remark="业务费第一年" multiple="N"></item>
+				<item name="businessSecondYear" remark="业务费第二年" multiple="N"></item>
+				<item name="businessThirdYear" remark="业务费第三年" multiple="N"></item>
+				<item name="businessFourthYear" remark="业务费第四年" multiple="N"></item>
+				<item name="businessFifthYear" remark="业务费第五年" multiple="N"></item>
+				
+				<item name="bookFirstYear" remark="图书资料费第一年" multiple="N"></item>
+				<item name="bookSecondYear" remark="图书资料费第二年" multiple="N"></item>
+				<item name="bookThirdYear" remark="图书资料费第三年" multiple="N"></item>
+				<item name="bookFourthYear" remark="图书资料费第四年" multiple="N"></item>
+				<item name="bookFifthYear" remark="图书资料费第五年" multiple="N"></item>
+				
+				<item name="otherFirstYear" remark="其他费用第一年" multiple="N"></item>
+				<item name="otherSecondYear" remark="其他费用第二年" multiple="N"></item>
+				<item name="otherThirdYear" remark="其他费用第三年" multiple="N"></item>
+				<item name="otherFourthYear" remark="其他费用第四年" multiple="N"></item>
+				<item name="otherFifthYear" remark="其他费用第五年" multiple="N"></item>
+				
+				<item name="amountFirstYear" remark="合     计第一年" multiple="N"></item>
+				<item name="amountSecondYear" remark="合     计第二年" multiple="N"></item>
+				<item name="amountThirdYear" remark="合     计第三年" multiple="N"></item>
+				<item name="amountFourthYear" remark="合     计第四年" multiple="N"></item>
+				<item name="amountFifthYear" remark="合     计第五年" multiple="N"></item>
+	        </page>
+	    </pageGroup>
+	<!-- 江苏省卫生厅重点学科申报书  结束 -->
+	
+	
+	
+	<!-- 苏州市青年科技申报书  开始-->
+	<pageGroup name="szwsj.qnkj" firstPage="step1" view="srm/proj/form/apply/szwsj.qnkj/view" printTemeplete="/jsp/srm/proj/form/apply/szwsj.qnkj/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/apply/szwsj.qnkj/step1">
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="orgName" remark="承担单位" multiple="N"></item>
+			<item name="useOrg" remark="应用单位" multiple="N"></item>
+			<item name="orgAddress" remark="单位地址" multiple="N"></item>
+			<item name="postcode" remark="邮编" multiple="N"></item>
+			<item name="projResponsible" remark="项目负责人" multiple="N"></item>
+			<item name="telephone" remark="电话" multiple="N"></item>
+			<item name="chargeOrg" remark="主管部门" multiple="N"></item>
+			<item name="declareDate" remark="申报日期" multiple="N"></item>
+		</page>
+		
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/apply/szwsj.qnkj/step2">
+			<item name="according" remark="立项依据" multiple="N"></item>
+			<item name="researchContent" remark="研究内容" multiple="N"></item>
+		</page>
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/apply/szwsj.qnkj/step3">
+			<item name="technologicalProcess" remark="研究试验方法、技术路线以及工艺流程" multiple="N"></item>
+		</page>
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/apply/szwsj.qnkj/step4">
+			<item name="basisCondition" remark="工作基础和条件" multiple="N"></item>
+			<item name="achievementInfo" remark="项目成果具体应用情况" multiple="N"></item>
+		</page>
+		
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/apply/szwsj.qnkj/step5">	
+			<!-- 二、计划进度安排与考核指标 -->
+        	<itemGroup name="work" remark="计划进度安排 " jsp="" flow="" modelStyle="add">
+		        <item name="work_stratDate" remark="起始时间" multiple="N"></item>
+		        <item name="work_endDate" remark="终止时间" multiple="N"></item>
+		        <item name="work_content" remark="主要工作内容" multiple="N"></item>
+			</itemGroup>
+			<item name="indicator" remark="考核指标" multiple="N"></item>
+		</page>
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/apply/szwsj.qnkj/step6">	
+			<!-- 三、项目主要研究人员 -->
+        	<itemGroup name="projMainPeop" remark="课题负责人" jsp="" flow="" modelStyle="add">
+		        <item name="projMainPeop_name" remark="姓名" multiple="N"></item>
+		        <item name="projMainPeop_sex" remark="性别" multiple="N"></item>
+		        <item name="projMainPeop_age" remark="年龄" multiple="N"></item>
+		        <item name="projMainPeop_jobTitle" remark="职务职称" multiple="N"></item>
+		        <item name="projMainPeop_major" remark="业务专业" multiple="N"></item>
+		        <item name="projMainPeop_workTime" remark="为本项目工作时间（%）" multiple="N"></item>
+		        <item name="projMainPeop_workOrg" remark="所在单位" multiple="N"></item>
+		        <item name="projMainPeop_division" remark="项目分工" multiple="N"></item>
+			</itemGroup>
+			
+        	<itemGroup name="projPeop" remark="主要研究人员" jsp="" flow="" modelStyle="add">
+		        <item name="projPeop_name" remark="姓名" multiple="N"></item>
+		        <item name="projPeop_sex" remark="性别" multiple="N"></item>
+		        <item name="projPeop_age" remark="年龄" multiple="N"></item>
+		        <item name="projPeop_jobTitle" remark="职务职称" multiple="N"></item>
+		        <item name="projPeop_major" remark="业务专业" multiple="N"></item>
+		        <item name="projPeop_workTime" remark="为本项目工作时间（%）" multiple="N"></item>
+		        <item name="projPeop_workOrg" remark="所在单位" multiple="N"></item>
+		        <item name="projPeop_division" remark="项目分工" multiple="N"></item>
+			</itemGroup>
+		</page>
+		<page name="step7" remark="步骤7" jsp="srm/proj/form/apply/szwsj.qnkj/step7">	
+			<!-- 1、经费筹集情况-->
+			<!-- 1.1、项目总投入 -->
+			<item name="sumFundTotal" remark="合计" multiple="N"></item>
+			<item name="sumFund1" remark="自有资金" multiple="N"></item>
+			<item name="sumFund2" remark="市卫生局" multiple="N"></item>
+			<item name="sumFund3" remark="市、县" multiple="N"></item>
+			<item name="sumFund4" remark="其他部门" multiple="N"></item>
+			<item name="sumFund5" remark="其他" multiple="N"></item>
+			
+			<!-- 1.2、已投入经费 -->
+			<item name="injectFundTotal" remark="合计" multiple="N"></item>
+			<item name="injectFund1" remark="自有资金" multiple="N"></item>
+			<item name="injectFund2" remark="市卫生局" multiple="N"></item>
+			<item name="injectFund3" remark="市、县" multiple="N"></item>
+			<item name="injectFund4" remark="其他部门" multiple="N"></item>
+			<item name="injectFund5" remark="其他" multiple="N"></item>
+			
+			<!-- 1.3、新增经费 -->
+			<item name="addFundTotal" remark="合计" multiple="N"></item>
+			<item name="addFund1" remark="自有资金" multiple="N"></item>
+			<item name="addFund2" remark="市卫生局" multiple="N"></item>
+			<item name="addFund3" remark="市、县" multiple="N"></item>
+			<item name="addFund4" remark="其他部门" multiple="N"></item>
+			<item name="addFund5" remark="其他" multiple="N"></item>
+			
+			<!-- 2、新增经费预算 -->
+			<!-- 2.1、新增总经费 -->
+			<item name="newFund1" remark="设备购置费" multiple="N"></item>
+			<item name="newFund2" remark="能源材料费" multiple="N"></item>
+			<item name="newFund3" remark="试验外协费" multiple="N"></item>
+			<item name="newFund4" remark="资料、印刷费" multiple="N"></item>
+			<item name="newFund5" remark="租赁费" multiple="N"></item>
+			<item name="newFund6" remark="差旅费" multiple="N"></item>
+			<item name="newFund7" remark="鉴定、验收费" multiple="N"></item>
+			<item name="newFund8" remark="管理费" multiple="N"></item>
+			<item name="newFund9" remark="其他费用" multiple="N"></item>
+			<item name="newFundTotal" remark="合计" multiple="N"></item>
+			
+			<item name="newFund1Explain" remark="设备购置费用途说明" multiple="N"></item>
+			<item name="newFund2Explain" remark="能源材料费用途说明" multiple="N"></item>
+			<item name="newFund3Explain" remark="试验外协费用途说明" multiple="N"></item>
+			<item name="newFund4Explain" remark="资料、印刷费用途说明" multiple="N"></item>
+			<item name="newFund5Explain" remark="租赁费用途说明" multiple="N"></item>
+			<item name="newFund6Explain" remark="差旅费用途说明" multiple="N"></item>
+			<item name="newFund7Explain" remark="鉴定、验收费用途说明" multiple="N"></item>
+			<item name="newFund8Explain" remark="管理费用途说明" multiple="N"></item>
+			<item name="newFund9Explain" remark="其他费用用途说明" multiple="N"></item>
+			<item name="newFundTotalExplain" remark="合计用途说明" multiple="N"></item>
+			
+			<!-- 2.2、其中市科技局经费 -->
+			<item name="scienceFund1" remark="设备购置费" multiple="N"></item>
+			<item name="scienceFund2" remark="能源材料费" multiple="N"></item>
+			<item name="scienceFund3" remark="试验外协费" multiple="N"></item>
+			<item name="scienceFund4" remark="资料、印刷费" multiple="N"></item>
+			<item name="scienceFund5" remark="租赁费" multiple="N"></item>
+			<item name="scienceFund6" remark="差旅费" multiple="N"></item>
+			<item name="scienceFund7" remark="鉴定、验收费" multiple="N"></item>
+			<item name="scienceFund8" remark="管理费" multiple="N"></item>
+			<item name="scienceFund9" remark="其他费用" multiple="N"></item>
+			<item name="scienceFundTotal" remark="合计" multiple="N"></item>
+			
+			<item name="scienceFund1Explain" remark="设备购置费用途说明" multiple="N"></item>
+			<item name="scienceFund2Explain" remark="能源材料费用途说明" multiple="N"></item>
+			<item name="scienceFund3Explain" remark="试验外协费用途说明" multiple="N"></item>
+			<item name="scienceFund4Explain" remark="资料、印刷费用途说明" multiple="N"></item>
+			<item name="scienceFund5Explain" remark="租赁费用途说明" multiple="N"></item>
+			<item name="scienceFund6Explain" remark="差旅费用途说明" multiple="N"></item>
+			<item name="scienceFund7Explain" remark="鉴定、验收费用途说明" multiple="N"></item>
+			<item name="scienceFund8Explain" remark="管理费用途说明" multiple="N"></item>
+			<item name="scienceFund9Explain" remark="其他费用用途说明" multiple="N"></item>
+			<item name="scienceFundTotalExplain" remark="合计用途说明" multiple="N"></item>
+		</page>
+		
+		<page name="step8" remark="步骤8" jsp="srm/proj/form/apply/szwsj.qnkj/step8">		
+			<item name="file" remark="附件" multiple="Y" isFile="Y"></item>
+		</page>		
+	</pageGroup>
+	<!-- 苏州市青年科技申报书  结束-->
+	
+	<!-- 无锡卫生局  重大项目   申报书   开始-->
+	<pageGroup name="wxwsj.zdxm" firstPage="step1" view="srm/proj/form/apply/wxwsj.zdxm/view" printTemeplete="/jsp/srm/proj/form/apply/wxwsj.zdxm/printTemeplete.docx">
+		<!-- 一、信息表-->
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/apply/wxwsj.zdxm/step1">
+			<!-- 项目负责人-->
+			<item name="userName" remark="姓名" multiple="N"></item>
+			<item name="gender" remark="性别" multiple="N"></item>
+			<item name="birthday" remark="出生年月" multiple="N"></item>
+			<item name="education" remark="学历（学位）" multiple="N"></item>
+			<item name="major" remark="技术专业" multiple="N"></item>
+			<item name="title" remark="技术职称" multiple="N"></item>
+			<item name="duty" remark="职务" multiple="N"></item>
+			<item name="mobilePhone" remark="手机号码" multiple="N"></item>
+			<item name="email" remark="电子邮箱" multiple="N"></item>
+			<!-- 所在单位-->
+			<item name="orgName" remark="单位全称" multiple="N"></item>
+			<item name="deptName" remark="所在部门" multiple="N"></item>
+			<item name="postAddress" remark="通讯地址" multiple="N"></item>
+			<item name="postCode" remark="邮政编码" multiple="N"></item>
+			<item name="orgLinkman" remark="单位联系人" multiple="N"></item>
+			<item name="orgPhone" remark="联系电话" multiple="N"></item>
+			<item name="orgEmail" remark="电子邮箱" multiple="N"></item>
+			<item name="orgFax" remark="传真" multiple="N"></item>
+			<!-- 研究项目介绍-->
+			<item name="projectName" remark="项目名称" multiple="N"></item>
+			<item name="belongSubject" remark="所属学科" multiple="N"></item>
+			<item name="belongSubjectCode" remark="代码（所属学科）" multiple="N"></item>
+			<item name="relatedSubject" remark="相关学科" multiple="N"></item>
+			<item name="relatedSubjectCode" remark="代码（相关学科）" multiple="N"></item>
+			<item name="applyFunds" remark="申请经费" multiple="N"></item>
+			<item name="projStartYearMonth" remark="起始年月" multiple="N"></item>
+			<item name="projEndYearMonth" remark="截止年月" multiple="N"></item>
+			<item name="contentTechnologySignificanceSummary" remark="研究内容、技术路线和研究意义摘要（限300字）" multiple="N"></item>
+		</page>
+		<!-- 二、申请人简历 -->
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/apply/wxwsj.zdxm/step2">	
+			<item name="educationResume" remark="学习经历" multiple="N"></item>
+			<item name="workResume" remark="工作简历" multiple="N"></item>
+			<item name="researchWorkResume" remark="科研履历" multiple="N"></item>
+		</page>
+		<!-- 三  立题依据、课题研究的总目标和创新点，主要研究内容及关键技术、项目完成形式和考核指标-->
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/apply/wxwsj.zdxm/step3">		
+			<item name="subjectAccording" remark="立题依据" multiple="N"></item>
+			<item name="targetContentTechnology" remark="课题研究的总目标和创新点，主要研究内容及关键技术" multiple="N"></item>
+			<item name="completeModalityExamineNorm" remark="项目完成形式和考核指标" multiple="N"></item>
+		</page>
+		<!-- 四   年度计划及年度目标、工作条件和环境保障-->
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/apply/wxwsj.zdxm/step4">	
+			<itemGroup name="yearPlanTarget" remark="年度计划及年度目标" jsp="" flow="" modelStyle="add">
+	          <item name="yearPlanTarget_startYear" remark="年度" multiple="N"></item>
+	          <item name="yearPlanTarget_endYear" remark="年度" multiple="N"></item>
+	          <item name="yearPlanTarget_planTarget" remark="计划及目标" multiple="N"></item>
+	        </itemGroup>	
+			<item name="endSubjectDate" remark="结题限期" multiple="N"></item>
+			<!-- 工作条件和环境保障 -->
+			<item name="workConditionEnvironment" remark="工作条件和环境保障" multiple="N"></item>
+		</page>
+		<!-- 五   单位伦理委员会      合作形式、内容和合作单位意见 -->
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/apply/wxwsj.zdxm/step5">	
+			<!-- 单位伦理委员会意见 -->	
+			<item name="orgEthicsCommitteeSuggest" remark="单位伦理委员会意见" multiple="N"></item>
+			<item name="benefitAnalyse" remark="1、效益分析" multiple="N"></item>
+			<item name="useTrendUseOrg" remark="2、成果应用趋向和应用单位" multiple="N"></item>
+			<!-- 合作形式、内容和合作单位意见 -->	
+			<item name="cooperationContent" remark="1、合作形式和内容" multiple="N"></item>
+			<item name="cooperationOrgSuggest" remark="2、合作单位意见（对合作内容、形式、参加人员素质及保证工作条件等）签署具体意见" multiple="N"></item>
+		</page>
+		<!-- 六、项目组成员登记表 -->
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/apply/wxwsj.zdxm/step6">		
+			<itemGroup name="mainResearcher" remark="主要研究人员" jsp="" flow="" modelStyle="add">
+	          <item name="mainResearcher_userName" remark="姓名" multiple="N"></item>
+	          <item name="mainResearcher_gender" remark="性别" multiple="N"></item>
+	          <item name="mainResearcher_birthday" remark="出生年月" multiple="N"></item>
+	          <item name="mainResearcher_title" remark="职称" multiple="N"></item>
+	          <item name="mainResearcher_duty" remark="职务" multiple="N"></item>
+	          <item name="mainResearcher_dept" remark="单位（部门）" multiple="N"></item>
+	          <item name="mainResearcher_labor" remark="课题中的分工" multiple="N"></item>
+	          <item name="mainResearcher_month" remark="每年从事本项目的工作月数" multiple="N"></item>
+	          <item name="mainResearcher_autograph" remark="本人签名" multiple="N"></item>
+	        </itemGroup>
+			<itemGroup name="joinUser" remark="参加人员" jsp="" flow="" modelStyle="add">
+	          <item name="joinUser_userName" remark="姓 名" multiple="N"></item>
+	          <item name="joinUser_gender" remark="性别" multiple="N"></item>
+	          <item name="joinUser_birthday" remark="出生年月" multiple="N"></item>
+	          <item name="joinUser_title" remark="职称" multiple="N"></item>
+	          <item name="joinUser_duty" remark="职务" multiple="N"></item>
+	          <item name="joinUser_dept" remark="单位（部门）" multiple="N"></item>
+	          <item name="joinUser_labor" remark="课题中的分工" multiple="N"></item>
+	          <item name="joinUser_month" remark="每年从事本项目的工作月数" multiple="N"></item>
+	          <item name="joinUser_autograph" remark="本人签名" multiple="N"></item>
+	        </itemGroup>
+		</page>
+		<!-- 七、经费预算表 -->
+		<page name="step7" remark="步骤7" jsp="srm/proj/form/apply/wxwsj.zdxm/step7">		
+			<item name="wxwsjSubsidize" remark="1．无锡市卫生局资助" multiple="N"></item>
+			<item name="orgSubsidize" remark="2．依托单位资助" multiple="N"></item>
+			<item name="chargeSubsidize" remark="3．上级主管部门资助" multiple="N"></item>
+			<item name="otherSubsidize" remark="4．其它渠道资助" multiple="N"></item>
+			<!-- 课题支出预算 -->
+			<itemGroup name="expendBudget" remark="课题支出预算" jsp="" flow="" modelStyle="add">
+	          <item name="expendBudget_subject" remark="支出科目" multiple="N"></item>
+	          <item name="expendBudget_num" remark="数量" multiple="N"></item>
+	          <item name="expendBudget_unitPrice" remark="单价" multiple="N"></item>
+	          <item name="expendBudget_amount" remark="金额" multiple="N"></item>
+	          <item name="expendBudget_subsidize" remark="其中：市卫生局资助额" multiple="N"></item>
+	          <item name="expendBudget_remark" remark="备注/计算依据" multiple="N"></item>
+	        </itemGroup>
+	        <item name="expensesAmount" remark="费用总计" multiple="N"></item>
+		</page>
+		<!-- 八、附件清单 -->
+		<page name="step8" remark="步骤8" jsp="srm/proj/form/apply/wxwsj.zdxm/step8">
+			<!-- <item name="file" remark="附件" multiple="Y" isFile="Y"></item> -->
+	   <!-- <itemGroup name="fileEdit" remark="附件上传" jsp="srm/proj/form/apply/wxwsj.zdxm/fileEdit" flow=""> -->
+			<itemGroup name="fileEdit" remark="附件上传" jsp="" flow=""  modelStyle="add">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件流水号" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+	</pageGroup>
+	<!-- 无锡卫生局  重大项目   申报书   结束-->
+	
+	
+	<!-- 余杭区医疗卫生科研重点项目   申报书   开始-->
+	<pageGroup name="yhwsj.zdxm" firstPage="step1" view="srm/proj/form/apply/yhwsj.zdxm/view" printTemeplete="/jsp/srm/proj/form/apply/yhwsj.zdxm/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/apply/yhwsj.zdxm/step1">
+			<item name="applyOrgName" remark="申报单位" multiple="N"></item>
+			<item name="projCompere" remark="项目主持人" multiple="N"></item>
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="projStartYear" remark="起始年限" multiple="N"></item>
+			<item name="projEndYear" remark="截止年限" multiple="N"></item>
+			<item name="telephone" remark="联系电话" multiple="N"></item>
+			<item name="projCategory" remark="项目类别" multiple="N"></item>
+			<item name="investmentFund" remark="项目拟投入经费" multiple="N"></item>
+			<item name="technologyField" remark="技术领域" multiple="N"></item>
+			<item name="technologyRelyOrg" remark="技术依托单位" multiple="N"></item>
+			<item name="technologySource" remark="技术来源" multiple="N"></item>
+			<item name="projIntroduction" remark="项目简介" multiple="N"></item>
+			<item name="xzspkSuggest" remark="区卫生局行政审批科意见" multiple="N"></item>
+			<item name="ywkSuggest" remark="业务科室意见" multiple="N"></item>
+			<item name="jpsSuggest" remark="局评审意见" multiple="N"></item>
+		</page>
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/apply/yhwsj.zdxm/step2">
+			<itemGroup name="fileEdit" remark="附件上传" jsp="" flow=""  modelStyle="add">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件流水号" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+	</pageGroup>
+	<!-- 余杭区医疗卫生科研重点项目   申报书   结束-->
+	
+	
+	<!-- 余杭区医疗卫生科研重点学科   申报书   开始-->
+	<pageGroup name="yhwsj.zdxk" firstPage="step1" view="srm/proj/form/apply/yhwsj.zdxk/view" printTemeplete="/jsp/srm/proj/form/apply/yhwsj.zdxk/printTemeplete1.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/apply/yhwsj.zdxk/step1">
+			<item name="isOriginal" remark="是否原区级重点学科" multiple="N"></item>
+			<item name="originalSubjectName" remark="原医学重点学科名称" multiple="N"></item>
+			<item name="subjectName" remark="学科名称" multiple="N"></item>
+			<item name="attackDirection1" remark="学科主攻方向" multiple="N"></item>
+			<item name="attackDirection2" remark="学科主攻方向" multiple="N"></item>
+			<item name="attackDirection3" remark="学科主攻方向" multiple="N"></item>
+			<item name="attackDirection4" remark="学科主攻方向" multiple="N"></item>
+			<item name="attackDirection5" remark="学科主攻方向" multiple="N"></item>
+			<!-- <itemGroup name="attackDirection" remark="学科主攻方向" jsp="" flow="" modelStyle="add">
+				<item name="attackDirection_Name" remark="名称" multiple="N"></item>
+			</itemGroup> -->
+			<item name="businessIncome" remark="上一年学科业务收入" multiple="N"></item>
+			<item name="hospitalBusinessTotalIncome" remark="医院业务总收入" multiple="N"></item>
+			<item name="ratio" remark="占比%" multiple="N"></item>
+			<item name="isOtherOrgCoordination" remark="与其他单位协作机制" multiple="N"></item>
+			<item name="coordinationOrg1" remark="已开展学科协作的单位1" multiple="N"></item>
+			<item name="coordinationOrg2" remark="已开展学科协作的单位2" multiple="N"></item>
+			<item name="coordinationSubject1" remark="协作的学科1" multiple="N"></item>
+			<item name="coordinationSubject2" remark="协作的学科2" multiple="N"></item>
+			<item name="coordinationSpecialist1" remark="协作专家1" multiple="N"></item>
+			<item name="coordinationSpecialist2" remark="协作专家2" multiple="N"></item>
+			<!-- 学科带头人 -->
+			<item name="academicLeaderName" remark="学科带头人姓名" multiple="N"></item>
+			<item name="academicLeaderTitle" remark="学科带头人职称" multiple="N"></item>
+			<item name="academicLeaderPost" remark="学科带头人职务" multiple="N"></item>
+			<item name="academicLeaderBirthday" remark="学科带头人出生年月" multiple="N"></item>
+			<item name="academicLeaderMobilePhone" remark="学科带头人联系手机" multiple="N"></item>
+			<item name="academicLeaderIdNo" remark="学科带头人身份证号码" multiple="N"></item>
+			<!-- 单位管理部门联系人 -->
+			<item name="manageDeptLinkmanName" remark="单位管理部门联系人姓名" multiple="N"></item>
+			<item name="manageDeptLinkmanPhone" remark="单位管理部门联系人电话" multiple="N"></item>
+			<item name="manageDeptLinkmanMobilePhone" remark="单位管理部门联系人手机" multiple="N"></item>
+			<item name="manageDeptLinkmanEmail" remark="单位管理部门联系人E-mail" multiple="N"></item>
+			<item name="manageDeptLinkmanOrgAdress" remark="单位管理部门联系人单位地址" multiple="N"></item>
+			<!-- 学科人员队伍 -->
+			<item name="subjectPersonnelSubtotal" remark="学科人员队伍人员数小计" multiple="N"></item>
+			<item name="subjectPersonnelZgzc" remark="学科人员队伍人员正高职称" multiple="N"></item>
+			<item name="subjectPersonnelFgzc" remark="学科人员队伍人员副高职称" multiple="N"></item>
+			<item name="subjectPersonnelZjzc" remark="学科人员队伍人员中级职称" multiple="N"></item>
+			<item name="subjectPersonnelCjzc" remark="学科人员队伍人员初级职称" multiple="N"></item>
+			<item name="subjectPersonnelDoctor" remark="学科人员队伍人员博士" multiple="N"></item>
+			<item name="subjectPersonnelMaster" remark="学科人员队伍人员硕士" multiple="N"></item>
+			<!-- 学科团队 -->
+			<itemGroup name="subjectTeam" remark="学科团队" jsp="" flow="" modelStyle="add">
+				<item name="subjectTeam_name" remark="姓名" multiple="N"></item>
+				<item name="subjectTeam_age" remark="年龄" multiple="N"></item>
+				<item name="subjectTeam_idNo" remark="身份证号码" multiple="N"></item>
+				<item name="subjectTeam_education" remark="学历" multiple="N"></item>
+				<item name="subjectTeam_major" remark="所学专业" multiple="N"></item>
+				<item name="subjectTeam_post" remark="专业技术职务" multiple="N"></item>
+				<item name="subjectTeam_isMentor" remark="是否博（硕）士导" multiple="N"></item>
+				<item name="subjectTeam_task" remark="在学科建设中的主要任务" multiple="N"></item>
+				<item name="subjectTeam_org" remark="所在单位（下拉）" multiple="N"></item>
+			</itemGroup>
+		</page>
+		
+		<!-- 二、学科带头人情况 -->
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/apply/yhwsj.zdxk/step2">
+			<!-- 学科带头人 -->
+			<item name="subjectLeaderName" remark="学科带头人 姓名" multiple="N"></item>
+			<item name="subjectLeaderGender" remark="学科带头人 性别" multiple="N"></item>
+			<item name="subjectLeaderBirthday" remark="学科带头人 出生年月" multiple="N"></item>
+			<item name="subjectLeaderAge" remark="学科带头人 年龄" multiple="N"></item>
+			<item name="subjectLeaderTitle" remark="学科带头人 专业技术职称" multiple="N"></item>
+			<item name="subjectLeaderPost" remark="学科带头人 行政职务" multiple="N"></item>
+			<item name="subjectLeaderAcademicPost" remark="学科带头人 学术组织任职情况" multiple="N"></item>
+			<item name="subjectLeaderMajor" remark="学科带头人 擅长专业(最多3个)" multiple="N"></item>
+			<item name="subjectLeaderEducation" remark="学科带头人 最高学历" multiple="N"></item>
+			<item name="subjectLeaderMobilePhone" remark="学科带头人	手机" multiple="N"></item>
+			<item name="subjectLeaderIntroduce" remark="学科带头人	简介" multiple="N"></item>
+			
+			<!-- 后备学科带头人 -->
+			<itemGroup name="reserveLeader" remark="后备学科带头人" jsp="" flow="" modelStyle="add">
+				<item name="reserveLeader_name" remark="学科带头人 姓名" multiple="N"></item>
+				<item name="reserveLeader_gender" remark="学科带头人 性别" multiple="N"></item>
+				<item name="reserveLeader_birthday" remark="学科带头人 出生年月" multiple="N"></item>
+				<item name="reserveLeader_title" remark="学科带头人 专业技术职称" multiple="N"></item>
+				<item name="reserveLeader_post" remark="学科带头人 行政职务" multiple="N"></item>
+				<item name="reserveLeader_academicPost" remark="学科带头人 学术组织任职情况" multiple="N"></item>
+				<item name="reserveLeader_major" remark="学科带头人 擅长专业(最多3个)" multiple="N"></item>
+				<item name="reserveLeader_education" remark="学科带头人 最高学历" multiple="N"></item>
+				<item name="reserveLeader_mobilePhone" remark="学科带头人  手机" multiple="N"></item>
+				<item name="reserveLeader_introduce" remark="学科带头人  简介" multiple="N"></item>
+			</itemGroup>
+		</page>
+		
+		<!-- 三、科研业绩 -->
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/apply/yhwsj.zdxk/step3">
+			<!-- 近三年围绕主攻方向承担项目 -->
+			<itemGroup name="assumeProj" remark="承担项目" jsp="" flow="" modelStyle="add">
+				<item name="assumeProj_projName" remark="项目名称" multiple="N"></item>
+				<item name="assumeProj_attackDirection" remark="主攻方向" multiple="N"></item>
+				<item name="assumeProj_subjectSource" remark="课题来源" multiple="N"></item>
+				<item name="assumeProj_accomplishMan" remark="完成人" multiple="N"></item>
+				<item name="assumeProj_ranking" remark="排名" multiple="N"></item>
+				<item name="assumeProj_appropriation" remark="财政拨款（万元）" multiple="N"></item>
+				<item name="assumeProj_approvalTime" remark="立项时间" multiple="N"></item>
+				<item name="assumeProj_representative" remark="最具代表性" multiple="N"></item>
+				<item name="assumeProj_org" remark="所在单位" multiple="N"></item>
+				<item name="assumeProj_orgRanking" remark="单位排名" multiple="N"></item>
+			</itemGroup>
+			<!-- 近三年围绕主攻方向获得科技成果奖励 -->
+			<itemGroup name="achievement" remark="成果奖励" jsp="" flow="" modelStyle="add">
+				<item name="achievement_name" remark="成果名称" multiple="N"></item>
+				<item name="achievement_attackDirection" remark="主攻方向" multiple="N"></item>
+				<item name="achievement_awardOrg" remark="授奖单位" multiple="N"></item>
+				<item name="achievement_grade" remark="奖励等级" multiple="N"></item>
+				<item name="achievement_accomplishMan" remark="完成人" multiple="N"></item>
+				<item name="achievement_ranking" remark="排名" multiple="N"></item>
+				<item name="achievement_awardsYear" remark="获奖年份" multiple="N"></item>
+				<item name="achievement_representative" remark="最具代表性" multiple="N"></item>
+				<item name="achievement_org" remark="所在单位" multiple="N"></item>
+				<item name="achievement_orgRanking" remark="单位排名" multiple="N"></item>
+			</itemGroup>
+			<!-- 近三年围绕主攻方向发表学术论文-->
+			<itemGroup name="thesis" remark="学术论文" jsp="" flow="" modelStyle="add">
+				<item name="thesis_name" remark="论文名称" multiple="N"></item>
+				<item name="thesis_attackDirection" remark="主攻方向" multiple="N"></item>
+				<item name="thesis_periodicalName" remark="期刊名称" multiple="N"></item>
+				<item name="thesis_periodicalGrade" remark="期刊级别" multiple="N"></item>
+				<item name="thesis_accomplishMan" remark="完成人" multiple="N"></item>
+				<item name="thesis_ranking" remark="排名" multiple="N"></item>
+				<item name="thesis_publishDate" remark="发表日期" multiple="N"></item>
+				<item name="thesis_representative" remark="最具代表性" multiple="N"></item>
+				<item name="thesis_org" remark="所在单位" multiple="N"></item>
+			</itemGroup>
+			<!-- 三年以来围绕主攻方向发明专利-->
+			<itemGroup name="patent" remark="发明专利" jsp="" flow="" modelStyle="add">
+				<item name="patent_name" remark="论文名称" multiple="N"></item>
+				<item name="patent_applyNo" remark="授权或申请号" multiple="N"></item>
+				<item name="patent_type" remark="专利类型" multiple="N"></item>
+				<item name="patent_scope" remark="专利范围" multiple="N"></item>
+				<item name="patent_org" remark="所在单位" multiple="N"></item>
+			</itemGroup>
+			<!-- 三年以来围绕主攻方向发表专著-->
+			<itemGroup name="monograph" remark="发表专著" jsp="" flow="" modelStyle="add">
+				<item name="monograph_name" remark="专著名称" multiple="N"></item>
+				<item name="monograph_ranking" remark="排位" multiple="N"></item>
+				<item name="monograph_pressName" remark="出版社名称" multiple="N"></item>
+				<item name="monograph_pressGrade" remark="出版社级别" multiple="N"></item>
+				<item name="monograph_pressDate" remark="出版社日期" multiple="N"></item>
+				<item name="monograph_org" remark="所在单位" multiple="N"></item>
+			</itemGroup>
+			<!-- 近三年来学术交流情况-->
+			<itemGroup name="communicate" remark="学术交流" jsp="" flow="" modelStyle="add">
+				<item name="communicate_name" remark="主办会议名称" multiple="N"></item>
+				<item name="communicate_date" remark="时间" multiple="N"></item>
+				<item name="communicate_scope" remark="范围" multiple="N"></item>
+				<item name="communicate_org" remark="所在单位" multiple="N"></item>
+			</itemGroup>
+			<item name="cjsjyshy" remark="参加省级以上会议" multiple="N"></item>
+			<item name="sjyyjx" remark="三甲医院进修" multiple="N"></item>
+			<item name="jsswjx" remark="接受省外进修" multiple="N"></item>
+			<item name="jssnjx" remark="接受省内进修" multiple="N"></item>
+			<!-- 三年来研究生培养情况 -->
+			<item name="graduatePostgraduate" remark="毕业硕士生" multiple="N"></item>
+			<item name="studyingPostgraduate" remark="在读硕士生" multiple="N"></item>
+			<item name="graduateDoctor" remark="毕业博士生" multiple="N"></item>
+			<item name="studyingDoctor" remark="在读博士生" multiple="N"></item>
+			<!-- 学术组织现任职情况 -->
+			<itemGroup name="academicBeInOffice" remark="学术组织现任职情况" jsp="" flow="" modelStyle="add">
+				<item name="academicBeInOffice_name" remark="姓名" multiple="N"></item>
+				<item name="academicBeInOffice_orgName" remark="组织名称" multiple="N"></item>
+				<item name="academicBeInOffice_orgType" remark="学术组织类别" multiple="N"></item>
+				<item name="academicBeInOffice_post" remark="现任职务" multiple="N"></item>
+				<item name="academicBeInOffice_representative" remark="最具代表性" multiple="N"></item>
+				<item name="academicBeInOffice_org" remark="所在单位" multiple="N"></item>
+			</itemGroup>
+			<!-- 期刊杂志现任职情况 -->
+			<itemGroup name="periodicalBeInOffice" remark="期刊杂志现任职情况" jsp="" flow="" modelStyle="add">
+				<item name="periodicalBeInOffice_name" remark="姓名" multiple="N"></item>
+				<item name="periodicalBeInOffice_periodicalName" remark="期刊名称" multiple="N"></item>
+				<item name="periodicalBeInOffice_periodicalGrade" remark="期刊级别" multiple="N"></item>
+				<item name="periodicalBeInOffice_post" remark="现任职务" multiple="N"></item>
+				<item name="periodicalBeInOffice_representative" remark="最具代表性" multiple="N"></item>
+				<item name="periodicalBeInOffice_org" remark="所在单位" multiple="N"></item>
+			</itemGroup>
+			<!-- 代表性新技术 -->
+			<itemGroup name="newTechnique" remark="代表性新技术" jsp="" flow="" modelStyle="add">
+				<item name="newTechnique_techniqueName" remark="技术名称" multiple="N"></item>
+				<item name="newTechnique_content" remark="技术简要内容" multiple="N"></item>
+				<item name="newTechnique_appliedRange" remark="应用范围" multiple="N"></item>
+				<item name="newTechnique_org" remark="所在单位" multiple="N"></item>
+			</itemGroup>
+			<!-- 近十年内标志性成果简述（500字以内） -->
+			<item name="landmarkAchievement" remark="近十年内标志性成果简述" multiple="N"></item>
+		</page>
+		<!-- 四、学科简述 -->
+		<page name="step4" remark="步骤4" jsp="srm/proj/form/apply/yhwsj.zdxk/step4">
+			<item name="featuresAdvantages" remark="学科特色与优势" multiple="N"></item>
+			<item name="mainAttackDirection" remark="学科主攻方向和意义" multiple="N"></item>
+			<item name="developmentPlanning" remark="学科发展规划" multiple="N"></item>
+			<item name="specificIndicator" remark="学科建设具体指标" multiple="N"></item>
+			<item name="supportCondition" remark="单位和政府提供的支撑条件及保障措施" multiple="N"></item>
+		</page>
+		
+		<!-- 五、学科建设具体指标(三年后拟达到目标) -->
+		<page name="step5" remark="步骤5" jsp="srm/proj/form/apply/yhwsj.zdxk/step5">
+			<item name="businessTarget" remark="1业务目标" multiple="N"></item>
+			<item name="objectiveOfPersonnelCultivation" remark="2人才培养目标" multiple="N"></item>
+			<item name="promotionalObjectives" remark="3新技术开展与适宜技术推广目标" multiple="N"></item>
+			<item name="communicationObjectives" remark="4学术交流目标" multiple="N"></item>
+			<item name="scientificResearchObjectives" remark="5科研课题、论文、奖励等目标" multiple="N"></item>
+			<item name="manageInstitutionalImprovement" remark="6学科管理与制度建设" multiple="N"></item>
+		</page>
+		
+		<!-- 六、学科建设经费来源与支出预算 -->
+		<page name="step6" remark="步骤6" jsp="srm/proj/form/apply/yhwsj.zdxk/step6">
+			<item name="expenseBudget1" remark="金额" multiple="N"></item>
+			<item name="expenseBudget2" remark="金额" multiple="N"></item>
+			<item name="expenseBudget3" remark="金额" multiple="N"></item>
+			<item name="expenseBudget4" remark="金额" multiple="N"></item>
+			<item name="expenseBudget5" remark="金额" multiple="N"></item>
+			<item name="expenseBudget6" remark="金额" multiple="N"></item>
+			<item name="expenseBudget7" remark="金额" multiple="N"></item>
+			<item name="expenseBudget8" remark="金额" multiple="N"></item>
+			<item name="expenseBudget9" remark="金额" multiple="N"></item>
+			<item name="expenseBudget10" remark="金额" multiple="N"></item>
+			<item name="expenseBudget11" remark="金额" multiple="N"></item>
+			<item name="expenseBudget12" remark="金额" multiple="N"></item>
+			<item name="expenseBudget13" remark="金额" multiple="N"></item>
+			<item name="expenseBudget14" remark="金额" multiple="N"></item>
+			<item name="expenseBudget15" remark="金额" multiple="N"></item>
+			<item name="expenseBudget16" remark="金额" multiple="N"></item>
+			<item name="expenseBudgetTotal" remark="金额" multiple="N"></item>
+			
+			<item name="expenseBudgetReason1" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason2" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason3" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason4" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason5" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason6" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason7" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason8" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason9" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason10" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason11" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason12" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason13" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason14" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason15" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReason16" remark="计算根据及简要理由" multiple="N"></item>
+			<item name="expenseBudgetReasonTotal" remark="计算根据及简要理由" multiple="N"></item>
+			
+			<!-- 配套经费 -->
+			<item name="expenditureOrg1" remark="配套经费" multiple="N"></item>
+			<item name="expenditureCounty1" remark="区县配套" multiple="N"></item>
+			<item name="expenditureOtherSource1" remark="其他渠道来源" multiple="N"></item>
+			<item name="expenditureTotal1" remark="合计" multiple="N"></item>
+			
+			<item name="expenditureOrg2" remark="配套经费" multiple="N"></item>
+			<item name="expenditureCounty2" remark="区县配套" multiple="N"></item>
+			<item name="expenditureOtherSource2" remark="其他渠道来源" multiple="N"></item>
+			<item name="expenditureTotal2" remark="合计" multiple="N"></item>
+			
+			<item name="expenditureOrg3" remark="配套经费" multiple="N"></item>
+			<item name="expenditureCounty3" remark="区县配套" multiple="N"></item>
+			<item name="expenditureOtherSource3" remark="其他渠道来源" multiple="N"></item>
+			<item name="expenditureTotal3" remark="合计" multiple="N"></item>
+			
+			<item name="expenditureOrg4" remark="配套经费" multiple="N"></item>
+			<item name="expenditureCounty4" remark="区县配套" multiple="N"></item>
+			<item name="expenditureOtherSource4" remark="其他渠道来源" multiple="N"></item>
+			<item name="expenditureTotal4" remark="合计" multiple="N"></item>
+		</page>
+		
+		<!-- 附件信息 -->
+		<page name="step7" remark="步骤7" jsp="srm/proj/form/apply/yhwsj.zdxk/step7">
+			<itemGroup name="fileEdit" remark="附件上传" jsp="" flow=""  modelStyle="add">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件流水号" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+		
+	</pageGroup>
+	<!-- 余杭区医疗卫生科研重点学科   申报书   结束-->
+	
+	
+	
+	
+	
+	<!-- 余杭区卫生系统梯队人才申报表     开始-->
+	<pageGroup name="yhwsj.zdrc" firstPage="step1" view="srm/proj/form/apply/yhwsj.zdrc/view" printTemeplete="/jsp/srm/proj/form/apply/yhwsj.zdrc/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/apply/yhwsj.zdrc/step1">
+			<item name="userName" remark="姓名" multiple="N"></item>
+			<item name="gender" remark="性别" multiple="N"></item>
+			<item name="idNo" remark="身份证号" multiple="N"></item>
+			<item name="userHeadImg" remark="头像路径" multiple="N"></item>
+			<item name="age" remark="年龄" multiple="N"></item>
+			<item name="education" remark="学历" multiple="N"></item>
+			<item name="title" remark="技术职称" multiple="N"></item>
+			<item name="degree" remark="学位" multiple="N"></item>
+			<item name="major" remark="所学专业" multiple="N"></item>
+			<item name="administrativePost" remark="行政职务" multiple="N"></item>
+			<item name="birthAddress" remark="出生地" multiple="N"></item>
+			<item name="political" remark="政治面貌" multiple="N"></item>
+			<item name="majorDept" remark="从事专业及科室" multiple="N"></item>
+			<item name="graduateSchool" remark="毕业学校" multiple="N"></item>
+			<item name="graduateTime" remark="毕业时间" multiple="N"></item>
+			<item name="orgName" remark="工作单位" multiple="N"></item>
+			<item name="workTime" remark="工作时间" multiple="N"></item>
+			<item name="address" remark="通讯地址" multiple="N"></item>
+			<item name="zipCode" remark="邮政编码" multiple="N"></item>
+			<item name="telephone" remark="联系电话（手机）" multiple="N"></item>
+			<item name="email" remark="Email" multiple="N"></item>
+			<item name="personSelected" remark="推荐培养人选" multiple="N"></item>
+			<item name="category" remark="类别" multiple="N"></item>
+		</page>
+		
+		<!-- 二、主要工作简历 -->
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/apply/yhwsj.zdrc/step2">
+			<!-- 二、主要工作简历 -->
+			<itemGroup name="workResume" remark="主要工作简历" jsp="" flow="" modelStyle="add">
+				<item name="workResume_startDate" remark="起始年月" multiple="N"></item>
+				<item name="workResume_endDate" remark="起始年月" multiple="N"></item>
+				<item name="workResume_orgName" remark="工作单位" multiple="N"></item>
+				<item name="workResume_work" remark="从事何工作" multiple="N"></item>
+				<item name="workResume_remark" remark="备  注" multiple="N"></item>
+			</itemGroup>
+			<!-- 三、学术组织任职情况 -->
+			<itemGroup name="academic" remark="学术组织任职情况" jsp="" flow="" modelStyle="add">
+				<item name="academic_name" remark="学术组织名称" multiple="N"></item>
+				<item name="academic_post" remark="所任职务" multiple="N"></item>
+				<item name="academic_remark" remark="备注" multiple="N"></item>
+			</itemGroup>
+			<!-- 四、获奖情况 -->
+			<item name="prizeYear1" remark="获奖年度1" multiple="N"></item>
+			<item name="prizeYear2" remark="获奖年度2" multiple="N"></item>
+			<itemGroup name="prize" remark="获奖情况" jsp="" flow="" modelStyle="add">
+				<item name="prize_name" remark="奖励名称" multiple="N"></item>
+				<item name="prize_itemName" remark="获奖项目名称" multiple="N"></item>
+				<item name="prize_presentation" remark="颁奖部门" multiple="N"></item>
+				<item name="prize_level" remark="奖励级别" multiple="N"></item>
+				<item name="prize_rank" remark="排名" multiple="N"></item>
+				<item name="prize_time" remark="获奖时间" multiple="N"></item>
+			</itemGroup>
+			<!-- 五、科研情况 -->
+			<itemGroup name="research" remark="科研情况" jsp="" flow="" modelStyle="add">
+				<item name="research_name" remark="项目名称" multiple="N"></item>
+				<item name="research_source" remark="项目来源" multiple="N"></item>
+				<item name="research_number" remark="项目编号" multiple="N"></item>
+				<item name="research_money" remark="金额（万元）" multiple="N"></item>
+				<item name="research_startTime" remark="起始时间" multiple="N"></item>
+				<item name="research_checkTime" remark="验收时间" multiple="N"></item>
+				<item name="research_rank" remark="排名" multiple="N"></item>
+			</itemGroup>
+			<!-- 六、发表论文 -->
+			<itemGroup name="thesis" remark="发表论文" jsp="" flow="" modelStyle="add">
+				<item name="thesis_topic" remark="论文题目" multiple="N"></item>
+				<item name="thesis_periodicalName" remark="刊物名称" multiple="N"></item>
+				<item name="thesis_periodicalNo" remark="期刊号" multiple="N"></item>
+				<item name="thesis_publishTime" remark="发表时间" multiple="N"></item>
+				<item name="thesis_category" remark="论文类别" multiple="N"></item>
+			</itemGroup>
+			<!-- 七、代表著作、译著 -->
+			<itemGroup name="book" remark="代表著作、译著" jsp="" flow="" modelStyle="add">
+				<item name="book_topic" remark="论文题目" multiple="N"></item>
+				<item name="book_press" remark="出版社" multiple="N"></item>
+				<item name="book_publishTime" remark="出版时间" multiple="N"></item>
+				<item name="book_bookNo" remark="书号" multiple="N"></item>
+				<item name="book_category" remark="类别" multiple="N"></item>
+				<item name="book_mark" remark="排名" multiple="N"></item>
+			</itemGroup>
+		</page>
+		
+		<page name="step3" remark="步骤3" jsp="srm/proj/form/apply/yhwsj.zdrc/step3">
+			<item name="trainAcademicCondition" remark="参加国内外进修培训及学术交流情况" multiple="N"></item>
+			<item name="hostProj" remark="目前主持的科研项目" multiple="N"></item>
+			<item name="achievement" remark="近五年来工作业绩" multiple="N"></item>
+		</page>
+	</pageGroup>
+	<!-- 余杭区卫生系统梯队人才申报表    结束-->
+	
+	
+	
+	<!-- 余杭区新技术新项目评选申报表     开始-->
+	<pageGroup name="yhwsj.xjsxxm" firstPage="step1" view="srm/proj/form/apply/yhwsj.xjsxxm/view" printTemeplete="/jsp/srm/proj/form/apply/yhwsj.xjsxxm/printTemeplete.docx">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/apply/yhwsj.xjsxxm/step1">
+			<item name="projName" remark="新技术项目名称" multiple="N"></item>
+			<item name="projStartTime" remark="开展开始时间" multiple="N"></item>
+			<item name="projEndTime" remark="开展结束时间" multiple="N"></item>
+			<item name="technologyLevel" remark="技术水平(以√表示)" multiple="N"></item>
+			<item name="applyUserName" remark="项目负责人" multiple="N"></item>
+			<item name="applyDeptName" remark="科室名称" multiple="N"></item>
+			<item name="ishaveDept" remark="有无协作科室 或单位" multiple="N"></item>
+			<item name="cooperationDeptName" remark="单位或科室名称" multiple="N"></item>
+			<item name="cooperationDuty" remark="协作职责" multiple="N"></item>
+			<!-- 姓  名	性别	年龄	学历	职务	职称	专业 -->
+			<itemGroup name="fzr" remark="负责人" jsp="" flow="" modelStyle="add">
+				<item name="fzr_name" remark="姓名" multiple="N"></item>
+				<item name="fzr_gender" remark="性别" multiple="N"></item>
+				<item name="fzr_age" remark="年龄" multiple="N"></item>
+				<item name="fzr_education" remark="学历" multiple="N"></item>
+				<item name="fzr_duty" remark="职务" multiple="N"></item>
+				<item name="fzr_title" remark="职称" multiple="N"></item>
+				<item name="fzr_major" remark="专业" multiple="N"></item>
+			</itemGroup>
+			<itemGroup name="xmzry" remark="负责人" jsp="" flow="" modelStyle="add">
+				<item name="xmzry_name" remark="姓名" multiple="N"></item>
+				<item name="xmzry_gender" remark="性别" multiple="N"></item>
+				<item name="xmzry_age" remark="年龄" multiple="N"></item>
+				<item name="xmzry_education" remark="学历" multiple="N"></item>
+				<item name="xmzry_duty" remark="职务" multiple="N"></item>
+				<item name="xmzry_title" remark="职称" multiple="N"></item>
+				<item name="xmzry_major" remark="专业" multiple="N"></item>
+			</itemGroup>
+			<item name="exampleCount1" remark="外请专家完成，项目组人员协助例数" multiple="N"></item>
+			<item name="exampleCount2" remark="专家现场指导，项目组独立完成例数" multiple="N"></item>
+			<item name="exampleCount3" remark="项目组独立完成技术成熟例数" multiple="N"></item>
+		</page>
+		
+		<!-- 评分标准 -->
+		<page name="step2" remark="步骤2" jsp="srm/proj/form/apply/yhwsj.xjsxxm/step2">
+			<item name="selfGrade1" remark="自评分" multiple="N"></item>
+			<item name="selfGrade2" remark="自评分" multiple="N"></item>
+			<item name="selfGrade3" remark="自评分" multiple="N"></item>
+			<item name="selfGrade4" remark="自评分" multiple="N"></item>
+			<item name="selfGrade5" remark="自评分" multiple="N"></item>
+			<item name="selfGrade6" remark="自评分" multiple="N"></item>
+			<item name="selfGrade7" remark="自评分" multiple="N"></item>
+			<item name="selfGrade8" remark="自评分" multiple="N"></item>
+			<item name="selfGrade9" remark="自评分" multiple="N"></item>
+			<item name="selfGrade10" remark="自评分" multiple="N"></item>
+			<item name="selfGradeAmount" remark="自评分合计" multiple="N"></item>
+		</page>
+		
+		<!-- 附件信息 -->
+		<page name="step3" remark="步骤2" jsp="srm/proj/form/apply/yhwsj.xjsxxm/step3">
+			<itemGroup name="fileEdit" remark="附件上传" jsp="" flow=""  modelStyle="add">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件流水号" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+	</pageGroup>
+	<!-- 余杭区新技术新项目评选申报表     结束-->
+</jspForm>
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查申请表单 -->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0"  path="irb/form/{0}/application/finish_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+			<item name="patientCount" remark="合同研究总例数" multiple="N"></item>
+			<item name="inPatientNum" remark="已入组例数" multiple="N"></item>
+			<item name="finishPatientNum" remark="完成观察例数" multiple="N"></item>
+			<item name="termiPatientNum" remark="提前退出例数" multiple="N"></item>
+			<item name="saeNum" remark="严重不良事件例数" multiple="N"></item>
+			<item name="saeReportNum" remark="已报告的严重不良事件例数" multiple="N"></item>
+			
+			<item name="projStartTime" remark="研究开始日期" multiple="N"></item>
+			<item name="projEndTime" remark="最后完成日期" multiple="N"></item>
+			<item name="researchProgress1" remark="是否存在于研究干预相关的、非预期的严重不良事件" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="researchProgress2" remark="研究中是否存在影响受试者权益的问题" multiple="N">
+				<code value="0">否</code>
+				<code value="1">是</code>
+			</item>
+			<item name="progress2Explain" remark="研究中存在影响受试者权益的问题说明" multiple="N"></item>
+			<item name="researchProgress3" remark="严重不良事件或方案规定必须报告的重要医学事件已经及时报告" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			
+			<item name="applyManName" remark="申请人签字" multiple="N"></item>
+			<item name="applyDate" remark="申请人签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

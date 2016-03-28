@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.erp.ErpCrmCustomerExtMapper">
+	<resultMap id="BaseResultMap" type="com.pinde.sci.form.erp.InputReportForm">
+	    <result  column="user_flow" property="userFlow" jdbcType="VARCHAR"  />
+	    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+	    <result  column="dept_flow" property="deptFlow" jdbcType="VARCHAR"  />
+	    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+	    <result column="newCustomerNum" property="newCustomerNum" jdbcType="VARCHAR" />
+	    <result column="newCustomerUserNum" property="newCustomerUserNum" jdbcType="VARCHAR" />
+ 	 </resultMap>
+  
+    <!-- 查询客户 -->
+    <select id="searchCustomerList" parameterType="string" resultMap="com.pinde.sci.dao.base.ErpCrmCustomerMapper.BaseResultMap">
+    	select <include refid="com.pinde.sci.dao.base.ErpCrmCustomerMapper.Base_Column_List"/>
+    	from pdsci.ERP_CRM_CUSTOMER 
+    	where RECORD_STATUS = 'Y'
+    	<if test="customer!=null">
+	    	<if test='customer.customerName!=null and customer.customerName!=""'>
+	    		<bind name="customerName" value="'%'+customer.customerName+'%'"/>
+	   			and (CUSTOMER_NAME like #{customerName}
+	   			or ALIAS_NAME like #{customerName})
+	   		</if>
+	    	<if test='customer.customerProvId!=null and customer.customerProvId!=""'>
+	   			and CUSTOMER_PROV_ID = #{customer.customerProvId}
+	   		</if>
+	    	<if test='customer.customerCityId!=null and customer.customerCityId!=""'>
+	   			and CUSTOMER_CITY_ID = #{customer.customerCityId}
+	   		</if>
+	    	<if test='customer.customerAreaId!=null and customer.customerAreaId!=""'>
+	   			and CUSTOMER_AREA_ID = #{customer.customerAreaId}
+	   		</if>
+	   		
+	   		<if test='customer.customerTypeId!=null and customer.customerTypeId!=""'>
+	   			and CUSTOMER_TYPE_ID = #{customer.customerTypeId}
+	   		</if>
+	   		<choose>
+				<when test='hosGradeFlag=="Y"'>
+					<choose>
+						<when test='customer.hospitalGradeId!=null and customer.hospitalGradeId!="" and (customer.hospitalLevelId==null or customer.hospitalLevelId=="")'>
+							and HOSPITAL_GRADE_ID >= #{customer.hospitalGradeId}
+						</when>
+						<when test='customer.hospitalGradeId!=null and customer.hospitalGradeId!="" and customer.hospitalLevelId!=null and customer.hospitalLevelId!=""'>
+							and (HOSPITAL_GRADE_ID > #{customer.hospitalGradeId} or 
+							(HOSPITAL_GRADE_ID = #{customer.hospitalGradeId} and HOSPITAL_LEVEL_ID >= #{customer.hospitalLevelId})
+							)
+						</when>
+					</choose>
+				</when>
+				<otherwise>
+					<if test='customer.hospitalGradeId!=null and customer.hospitalGradeId!=""'>
+			   			and HOSPITAL_GRADE_ID = #{customer.hospitalGradeId}
+			   		</if>
+			   		<if test='customer.hospitalLevelId!=null and customer.hospitalLevelId!=""'>
+			   			and HOSPITAL_LEVEL_ID = #{customer.hospitalLevelId}
+			   		</if>
+				</otherwise>
+			</choose>
+	   		<if test='customer.hospitalTypeId!=null and customer.hospitalTypeId!=""'>
+	   			and HOSPITAL_TYPE_ID like #{customer.hospitalTypeId}
+	   		</if>
+	   		<if test='customer.schoolTypeId!=null and customer.schoolTypeId!=""'>
+	   			and SCHOOL_TYPE_ID = #{customer.schoolTypeId}
+	   		</if>
+	   		
+	   		<if test='customer.isContract!=null and customer.isContract!=""'>
+	   			and IS_CONTRACT = #{customer.isContract}
+	   		</if>
+	   		<if test='customer.customerGradeId!=null and customer.customerGradeId!=""'>
+	   			and CUSTOMER_GRADE_ID = #{customer.customerGradeId}
+	   		</if>
+	   		
+	   		<if test='customer.customerAddress!=null and customer.customerAddress!=""'>
+	   			<bind name="customerAddress" value="'%'+customer.customerAddress+'%'"/>
+	   			and CUSTOMER_ADDRESS like #{customerAddress}
+	   		</if>
+	   		<if test='customer.customerSite!=null and customer.customerSite!=""'>
+	   			<bind name="customerSite" value="'%'+customer.customerSite+'%'"/>
+	   			and CUSTOMER_SITE like #{customerSite}
+	   		</if>
+	   		<if test='customer.zipCode!=null and customer.zipCode!=""'>
+	   			<bind name="zipCode" value="'%'+customer.zipCode+'%'"/>
+	   			and ZIP_CODE like #{zipCode}
+	   		</if>
+	   		<if test='customer.telPhone!=null and customer.telPhone!=""'>
+	   			<bind name="telPhone" value="'%'+customer.telPhone+'%'"/>
+	   			and TEL_PHONE like #{telPhone}
+	   		</if>
+   		</if>
+   		
+   		<if test='userListScope!="global" and currUser!=null'>
+   			and CUSTOMER_PROV_ID in(
+				select  PROV_ID
+    			from pdsci.ERP_USER_REGION_POPEDOM
+    			where USER_FLOW = #{currUser.userFlow}
+	   			and RECORD_STATUS ='Y'
+			)
+   		</if>
+   		<if test='userListScope=="global" and bigRegionValue!=null and bigRegionValue!=""'>
+   			and CUSTOMER_PROV_ID in (${bigRegionValue})
+   		</if>
+		order by NLSSORT(CUSTOMER_NAME,'NLS_SORT = SCHINESE_PINYIN_M'), CREATE_TIME DESC
+    </select>
+    
+	<select id="searchCrmInput" parameterType="java.lang.String" resultMap="BaseResultMap">
+	select * from (
+		SELECT su.user_flow,su.user_name,su.dept_flow,su.dept_name,
+		  (SELECT COUNT(ecc.customer_flow)
+		  FROM erp_crm_customer ecc
+		  WHERE ecc.CREATE_TIME >= #{startDate} and ecc.CREATE_TIME <![CDATA[ <= ]]> #{endDate}
+		  AND su.USER_FLOW=ecc.CREATE_USER_FLOW
+		  AND ecc.RECORD_STATUS='Y'
+		  GROUP BY ecc.CREATE_USER_FLOW
+		  ) as newCustomerNum,
+		  (SELECT COUNT(eccu.user_flow)
+		  FROM erp_crm_customer_user eccu
+		  WHERE eccu.CREATE_TIME >= #{startDate} and eccu.CREATE_TIME <![CDATA[ <= ]]> #{endDate}
+		  AND su.USER_FLOW=eccu.CREATE_USER_FLOW
+		  AND eccu.RECORD_STATUS='Y'
+		  GROUP BY eccu.CREATE_USER_FLOW
+		  ) as newCustomerUserNum
+		FROM sys_user su
+		WHERE su.status_id='Activated' 
+		) where newCustomerNum is not null or newCustomerUserNum is not null
+		ORDER BY NLSSORT(dept_name, 'NLS_SORT = SCHINESE_PINYIN_M'),NLSSORT(user_name, 'NLS_SORT = SCHINESE_PINYIN_M')
+  	</select>
+  	
+  	<select id="searchCustomerUserList" parameterType="java.util.List" resultMap="com.pinde.sci.dao.base.ErpCrmCustomerUserMapper.BaseResultMap">
+  	    select * from pdsci.erp_crm_customer_user
+  	     where record_status!='D'
+  	     <if test='list!=null and list.size()>0'>
+  	        and user_flow in 
+  	        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  	#{item}  
+		   </foreach>
+  	     </if>
+  	     order by record_status desc nulls last,is_main desc nulls last,NLSSORT(USER_NAME,'NLS_SORT = SCHINESE_PINYIN_M')
+  	</select>
+  	
+  	<select id="countCustomerHasContract" parameterType="java.util.Map" resultType="int">
+  	    select count(*) from pdsci.erp_crm_customer
+  	       where record_status='Y' and customer_flow in(
+  	       select distinct(customer_flow) from pdsci.erp_crm_contract 
+  	       where record_status='Y'
+  	       )
+  	</select>
+</mapper>

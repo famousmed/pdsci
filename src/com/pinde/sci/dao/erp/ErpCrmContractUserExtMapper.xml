@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.erp.ErpCrmContractUserExtMapper">
+   <resultMap id="erpCrmContractUserExtMap" type="com.pinde.sci.model.erp.ErpCrmContractUserExt" extends="com.pinde.sci.dao.base.ErpCrmContractUserMapper.BaseResultMap" >
+     <association property="customerUser" column="user_flow" resultMap="com.pinde.sci.dao.base.ErpCrmCustomerUserMapper.BaseResultMap"></association>
+   </resultMap>
+   <select id="searchContractUserExtList" parameterType="java.util.Map" resultMap="erpCrmContractUserExtMap">
+        select conu.record_flow,conu.user_flow,conu.contract_flow,
+               conu.user_category_name,conu.is_main,conu.record_status,
+               cusu.*
+              from pdsci.erp_crm_contract_user conu,pdsci.erp_crm_customer_user cusu
+              where conu.user_flow=cusu.user_flow 
+              and conu.record_status!='D' and cusu.record_status!='D'
+              <if test='contractFlow!=null and contractFlow!=""'>
+                 and conu.contract_flow=#{contractFlow}
+              </if>
+              <if test='customerUser!=null'>
+                 <if test='customerUser.userName!=null and customerUser.userName!=""'>
+                    <bind name="userName" value="'%'+customerUser.userName+'%'"/>
+                    and cusu.user_name like #{userName}
+                 </if>
+                 <if test='customerUser.deptName!=null and customerUser.deptName!=""'>
+                    <bind name="deptName" value="'%'+customerUser.deptName+'%'"/>
+                    and cusu.dept_name like #{deptName}
+                 </if>
+              </if>
+              order by conu.record_status desc nulls last,conu.is_main desc nulls last,NLSSORT(cusu.USER_NAME,'NLS_SORT = SCHINESE_PINYIN_M')
+   </select>
+
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查申请表单 -->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/application/terminate_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 一、一般信息 -->	
+			<item name="projStartTime" remark="研究开始日期" multiple="N"></item>
+			<item name="projEndTime" remark="研究暂停/终止日期" multiple="N"></item>
+		<!-- 二、受试者信息 -->		
+			<item name="patientCount" remark="合同研究总例数" multiple="N"></item>
+			<item name="inPatientNum" remark="已入组例数" multiple="N"></item>
+			<item name="finishPatientNum" remark="完成观察例数" multiple="N"></item>
+			<item name="termiPatientNum" remark="提前退出例数" multiple="N"></item>
+			<item name="saeNum" remark="严重不良事件例数" multiple="N"></item>
+			<item name="saeReportNum" remark="已报告的严重不良事件例数" multiple="N"></item>
+		<!-- 三、暂停/终止研究的原因-->		
+			<item name="termiProjReason" remark="暂停/终止研究的原因" multiple="N"></item>
+		<!-- 四、有序终止研究的程序 -->		
+			<item name="termiProjProgram1" remark="是否要求召回已完成研究的受试者进行随访" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="program1Explain" remark="要求召回已完成研究的受试者进行随访说明" multiple="N"></item>
+			<item name="termiProjProgram2" remark="是否通知在研的受试者，研究已经提前终止" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="program2Explain" remark="通知在研的受试者，研究已经提前终止说明" multiple="N"></item>
+			<item name="termiProjProgram3" remark="在研受试者是否提前终止研究" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="termiProjProgram4" remark="提前终止研究受试者的后续医疗与随访安排" multiple="N">
+				<code value="1">转入常规医疗</code>
+				<code value="0">有针对性地安排随访检查与后续治疗</code>
+			</item>	
+			<item name="program4Explain" remark="有针对性地安排随访检查与后续治疗说明" multiple="N"></item>
+		<!-- 申请人签字/日期 -->		
+			<item name="applyManName" remark="申请人签字" multiple="N"></item>
+			<item name="applyDate" remark="申请人签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

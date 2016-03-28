@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 医德医风表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/teachRegistry_{1}"></jsp>
+	<product ver="1.0">
+		<page ver="1.0">
+			<itemGroup name="teachPlan" remark="教学安排" modelStyle="edit">
+				<item name="schDeptFlow" remark="科室流水号" multiple="N"></item>
+				<item name="schDeptName" remark="科室(病区)" multiple="N"></item>
+				
+				<item name="teacherFlow" remark="教师流水号" multiple="N"></item>
+				<item name="teacherName" remark="教师" multiple="N"></item>
+				
+				<item name="teachTypeId" remark="教学形式ID" multiple="N"></item>
+				<item name="teachTypeName" remark="教学形式" multiple="N"></item>
+				
+				<item name="teachContent" remark="教学内容" multiple="N"></item>
+			</itemGroup>
+			
+			<item name="teachSummary" remark="教学总结" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page ver="1.0">
+			<itemGroup name="teachPlan" remark="教学安排" modelStyle="edit">
+				<item name="schDeptFlow" remark="科室流水号" multiple="N"></item>
+				<item name="schDeptName" remark="科室(病区)" multiple="N"></item>
+				
+				<item name="teacherFlow" remark="教师流水号" multiple="N"></item>
+				<item name="teacherName" remark="教师" multiple="N"></item>
+				
+				<item name="teachTypeId" remark="教学形式ID" multiple="N"></item>
+				<item name="teachTypeName" remark="教学形式" multiple="N"></item>
+				
+				<item name="teachContent" remark="教学内容" multiple="N"></item>
+			</itemGroup>
+			
+			<item name="teachSummary" remark="教学总结" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+</jspForm>
+

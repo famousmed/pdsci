@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/preTrainForm_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+				<item name="systemTrain" remark="科室管理制度培训" multiple="N"></item>
+				<item name="workAreaTrain" remark="工作范围培训" multiple="N"></item>
+				<item name="workDisciplineTrain" remark="劳动纪律培训" multiple="N"></item>
+				<item name="jobResponsibilityTrain" remark="岗位职责培训" multiple="N"></item>
+				<item name="qualityImprovementTrain" remark="质量改进培训" multiple="N"></item>
+				<item name="safeRegTrain" remark="环境设备及安全条例培训" multiple="N"></item>
+				<item name="workTrain" remark="工作流程系统培训" multiple="N"></item>
+				<item name="operTrain" remark="操作规程系统培训" multiple="N"></item>
+				<item name="systemAssessment" remark="科室管理制度合格" multiple="N"></item>
+				<item name="workAreaAssessment" remark="工作范围合格" multiple="N"></item>
+				<item name="workDisciplineAssessment" remark="劳动纪律合格" multiple="N"></item>
+				<item name="jobResponsibilityAssessment" remark="岗位职责合格" multiple="N"></item>
+				<item name="qualityImprovementAssessment" remark="质量改进合格" multiple="N"></item>
+				<item name="safeRegAssessment" remark="环境设备及安全条例合格" multiple="N"></item>
+				<item name="workAssessment" remark="工作流程系统合格" multiple="N"></item>
+				<item name="operAssessment" remark="操作规程系统合格" multiple="N"></item>
+				<item name="systemRemark" remark="科室管理制度备注" multiple="N"></item>
+				<item name="workAreaRemark" remark="工作范围备注" multiple="N"></item>
+				<item name="workDisciplineRemark" remark="劳动纪律备注" multiple="N"></item>
+				<item name="jobResponsibilityRemark" remark="岗位职责备注" multiple="N"></item>
+				<item name="qualityImprovementRemark" remark="质量改进备注" multiple="N"></item>
+				<item name="safeRegRemark" remark="环境设备及安全条例备注" multiple="N"></item>
+				<item name="workRemark" remark="工作流程系统备注" multiple="N"></item>
+				<item name="operRemark" remark="操作规程系统备注" multiple="N"></item>
+				<item name="doctorName" remark="本人签名" multiple="N"></item>
+				<item name="doctorDate" remark="本人签名日期" multiple="N"></item>
+				<item name="teacherName" remark="带教签名" multiple="N"></item>
+				<item name="teacherDate" remark="带教签名日期" multiple="N"></item>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+				<item name="systemTrain" remark="科室管理制度培训" multiple="N"></item>
+				<item name="workAreaTrain" remark="工作范围培训" multiple="N"></item>
+				<item name="workDisciplineTrain" remark="劳动纪律培训" multiple="N"></item>
+				<item name="jobResponsibilityTrain" remark="岗位职责培训" multiple="N"></item>
+				<item name="qualityImprovementTrain" remark="质量改进培训" multiple="N"></item>
+				<item name="safeRegTrain" remark="环境设备及安全条例培训" multiple="N"></item>
+				<item name="workTrain" remark="工作流程系统培训" multiple="N"></item>
+				<item name="operTrainTrain" remark="操作规程系统培训" multiple="N"></item>
+				<item name="systemAssessment" remark="科室管理制度合格" multiple="N"></item>
+				<item name="workAreaAssessment" remark="工作范围合格" multiple="N"></item>
+				<item name="workDisciplineAssessment" remark="劳动纪律合格" multiple="N"></item>
+				<item name="jobResponsibilityAssessment" remark="岗位职责合格" multiple="N"></item>
+				<item name="qualityImprovementAssessment" remark="质量改进合格" multiple="N"></item>
+				<item name="safeRegAssessment" remark="环境设备及安全条例合格" multiple="N"></item>
+				<item name="workAssessment" remark="工作流程系统合格" multiple="N"></item>
+				<item name="operAssessment" remark="操作规程系统合格" multiple="N"></item>
+				<item name="systemRemark" remark="科室管理制度备注" multiple="N"></item>
+				<item name="workAreaRemark" remark="工作范围备注" multiple="N"></item>
+				<item name="workDisciplineRemark" remark="劳动纪律备注" multiple="N"></item>
+				<item name="jobResponsibilityRemark" remark="岗位职责备注" multiple="N"></item>
+				<item name="qualityImprovementRemark" remark="质量改进备注" multiple="N"></item>
+				<item name="safeRegRemark" remark="环境设备及安全条例备注" multiple="N"></item>
+				<item name="workRemark" remark="工作流程系统备注" multiple="N"></item>
+				<item name="operRemark" remark="操作规程系统备注" multiple="N"></item>
+				<item name="doctorName" remark="本人签名" multiple="N"></item>
+				<item name="doctorDate" remark="本人签名日期" multiple="N"></item>
+				<item name="teacherName" remark="带教签名" multiple="N"></item>
+				<item name="teacherDate" remark="带教签名日期" multiple="N"></item>
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page  ver="1.0">
+				<item name="systemTrain" remark="科室管理制度培训" multiple="N"></item>
+				<item name="workAreaTrain" remark="工作范围培训" multiple="N"></item>
+				<item name="workDisciplineTrain" remark="劳动纪律培训" multiple="N"></item>
+				<item name="jobResponsibilityTrain" remark="岗位职责培训" multiple="N"></item>
+				<item name="qualityImprovementTrain" remark="质量改进培训" multiple="N"></item>
+				<item name="safeRegTrain" remark="环境设备及安全条例培训" multiple="N"></item>
+				<item name="workTrain" remark="工作流程系统培训" multiple="N"></item>
+				<item name="operTrain" remark="操作规程系统培训" multiple="N"></item>
+				<item name="systemAssessment" remark="科室管理制度合格" multiple="N"></item>
+				<item name="workAreaAssessment" remark="工作范围合格" multiple="N"></item>
+				<item name="workDisciplineAssessment" remark="劳动纪律合格" multiple="N"></item>
+				<item name="jobResponsibilityAssessment" remark="岗位职责合格" multiple="N"></item>
+				<item name="qualityImprovementAssessment" remark="质量改进合格" multiple="N"></item>
+				<item name="safeRegAssessment" remark="环境设备及安全条例合格" multiple="N"></item>
+				<item name="workAssessment" remark="工作流程系统合格" multiple="N"></item>
+				<item name="operAssessment" remark="操作规程系统合格" multiple="N"></item>
+				<item name="systemRemark" remark="科室管理制度备注" multiple="N"></item>
+				<item name="workAreaRemark" remark="工作范围备注" multiple="N"></item>
+				<item name="workDisciplineRemark" remark="劳动纪律备注" multiple="N"></item>
+				<item name="jobResponsibilityRemark" remark="岗位职责备注" multiple="N"></item>
+				<item name="qualityImprovementRemark" remark="质量改进备注" multiple="N"></item>
+				<item name="safeRegRemark" remark="环境设备及安全条例备注" multiple="N"></item>
+				<item name="workRemark" remark="工作流程系统备注" multiple="N"></item>
+				<item name="operRemark" remark="操作规程系统备注" multiple="N"></item>
+				<item name="doctorName" remark="本人签名" multiple="N"></item>
+				<item name="doctorDate" remark="本人签名日期" multiple="N"></item>
+				<item name="teacherName" remark="带教签名" multiple="N"></item>
+				<item name="teacherDate" remark="带教签名日期" multiple="N"></item>
+		</page>
+	</shetyy>
+</jspForm>
+

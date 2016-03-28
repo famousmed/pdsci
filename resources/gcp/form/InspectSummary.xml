@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+<!-- 初始审查申请表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp ver="1.0"  path="gcp/form/{0}/inspectSummary_{1}"></jsp>
+	<product>
+		<page ver="1.0">
+			<item name="advise" remark="建议" multiple="N"></item>
+			<item name="adviseUser" remark="建议人" multiple="N"></item>
+			<item name="adviseDate" remark="建议日期" multiple="N"></item>
+			<item name="feedback" remark="反馈" multiple="N"></item>
+			<item name="feedbackUser" remark="反馈人" multiple="N"></item>
+			<item name="feedbackDate" remark="反馈日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 大病历登记表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/emergencyCase_{1}"></jsp>
+	<product ver="1.0">
+		<page  ver="1.0">
+			
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page  ver="1.0">
+			
+		</page>
+	</njykdxsxs>
+	<shetyy ver="1.0">
+		<page  ver="1.0">
+			<item name="case" remark="病例" multiple="N"></item>
+			<item name="diseaseName" isView="0" remark="疾病名称" multiple="N"></item>
+			<item name="cases" remark="例次" multiple="N"></item>
+			<item name="date" isView="0" remark="日期" multiple="N"></item>
+			<item name="teacherSignature" isView="0" remark="指导教师签字" multiple="N"></item>
+		</page>
+	</shetyy>
+	<nzy ver="1.0">
+		<page  ver="1.0">
+			<item name="case" remark="病例" multiple="N"></item>
+			<item name="diseaseName" isView="0" remark="疾病名称" multiple="N"></item>
+			<item name="cases" remark="例次" multiple="N"></item>
+			<item name="date" isView="Y" remark="日期" multiple="N"></item>
+			<item name="teacherSignature" isView="0" remark="指导教师签字" multiple="N"></item>
+		</page>
+	</nzy>
+</jspForm>
+

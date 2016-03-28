@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 医德医风表单 -->
+	<!-- 
+	{0}:表单所属机构(开关控制)
+	{1}:版本号
+ -->
+	<jsp path="res/form/{0}/ethics_{1}"></jsp>
+	<product ver="1.0">
+		<page ver="1.0">
+			<item name="teachTime" remark="教学时间" multiple="N"></item>
+			<item name="chartDept" remark="负责科室" multiple="N"></item>
+			<item name="totalCompleteTime" remark="总完成时间" multiple="N"></item>
+			<item name="experience" remark="经验总结" multiple="N"></item>
+			
+			<itemGroup name="teachRecord" remark="教学记录" modelStyle="add">
+				<item name="teachRecord_teachTime" remark="时间" multiple="N"></item>
+				<item name="teachRecord_teacher" remark="教师" multiple="N"></item>
+				<item name="teachRecord_teachType" remark="形式" multiple="N"></item>
+				<item name="teachRecord_teachContent" remark="教学主要内容" multiple="N"></item>
+			</itemGroup>
+		</page>
+	</product>
+	<njykdxsxs ver="1.0">
+		<page ver="1.0">
+			<item name="teachTime" remark="教学时间" multiple="N"></item>
+			<item name="chartDept" remark="负责科室" multiple="N"></item>
+			<item name="totalCompleteTime" remark="总完成时间" multiple="N"></item>
+			<item name="experience" remark="经验总结" multiple="N"></item>
+			
+			<itemGroup name="teachRecord" remark="教学记录" modelStyle="add">
+				<item name="teachRecord_teachTime" remark="时间" multiple="N"></item>
+				<item name="teachRecord_teacher" remark="教师" multiple="N"></item>
+				<item name="teachRecord_teachType" remark="形式" multiple="N"></item>
+				<item name="teachRecord_teachContent" remark="教学主要内容" multiple="N"></item>
+			</itemGroup>
+		</page>
+	</njykdxsxs>
+</jspForm>
+

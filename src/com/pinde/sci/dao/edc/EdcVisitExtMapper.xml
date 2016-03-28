@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.edc.EdcVisitExtMapper" >
+	<resultMap id="BaseResultMap" type="com.pinde.sci.form.edc.EdcVisitForm">
+	    <result column="VISIT_FLOW" property="visitFlow" jdbcType="VARCHAR"  />
+	    <result column="MODULE_CODE" property="moduleCode" jdbcType="VARCHAR"  />
+	    <result column="PROJ_FLOW" property="projFlow" jdbcType="VARCHAR"  />
+	    <result column="VISIT_NAME" property="visitName" jdbcType="VARCHAR"  />
+	     <result column="PROJ_NO" property="projNo" jdbcType="VARCHAR"  />
+	    <result column="PROJ_NAME" property="projName" jdbcType="VARCHAR"  />
+	    <result column="PROJ_SHORT_NAME" property="projShortName" jdbcType="VARCHAR"  />
+ 	 </resultMap>
+ 	 
+	<select id="searchVisitsByGroupFlow" resultMap="com.pinde.sci.dao.base.EdcVisitMapper.BaseResultMap">
+		 select * from PDSCI.EDC_VISIT where PROJ_FLOW=#{projFlow} and (GROUP_FLOW=#{groupFlow} or GROUP_FLOW is null) and RECORD_STATUS='Y'
+		 <if test='isVisit !=null and isVisit !=""'>
+			and IS_VISIT=#{isVisit}
+		 </if>
+		 ORDER BY ORDINAL
+  	</select>
+  	
+  	<select id="searchVisitsByModuleCode" resultMap="BaseResultMap">
+		 select a.VISIT_FLOW,a.MODULE_CODE,a.PROJ_FLOW,b.VISIT_NAME,c.PROJ_NO,c.PROJ_NAME,c.PROJ_SHORT_NAME from PDSCI.EDC_VISIT_MODULE a,PDSCI.EDC_VISIT b,PDSCI.PUB_PROJ c where a.MODULE_CODE=#{moduleCode} 
+		 and a.VISIT_FLOW =b.VISIT_FLOW
+		 and a.PROJ_FLOW =c.PROJ_FLOW
+		 and a.RECORD_STATUS='Y' and b.RECORD_STATUS='Y' and c.RECORD_STATUS='Y'
+		 ORDER BY a.PROJ_FLOW,b.ORDINAL
+  	</select>
+  	
+  	<select id="searchVisitsByElementCode" resultMap="BaseResultMap">
+		 select a.VISIT_FLOW,a.ELEMENT_CODE,a.PROJ_FLOW,b.VISIT_NAME,c.PROJ_NO,c.PROJ_NAME,c.PROJ_SHORT_NAME from PDSCI.EDC_VISIT_ELEMENT a,PDSCI.EDC_VISIT b,PDSCI.PUB_PROJ c where a.ELEMENT_CODE=#{elementCode} 
+		 and a.VISIT_FLOW =b.VISIT_FLOW
+		 and a.PROJ_FLOW =c.PROJ_FLOW
+		 and a.RECORD_STATUS='Y' and b.RECORD_STATUS='Y' and c.RECORD_STATUS='Y'
+		 ORDER BY a.PROJ_FLOW,b.ORDINAL
+  	</select>
+</mapper>

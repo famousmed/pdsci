@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查工作表-->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+<jsp ver="1.0" path="irb/form/{0}/worksheet/init_{1}_{2}_pro"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 一、研究的科学设计与实施 -->	
+			<item name="designImp1" remark="研究预期能获得可推广的知识" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp2" remark="将改进现有的预防、诊断和治疗干预措施（方法、操作程序和治疗）" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp3" remark="研究有既往临床经验、文献资料、药学药理、前期临床研究的结果支持" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp4" remark="观察指标的选择合适" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp5" remark="研究期限足以观察到终点指标/替代指标的变化" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp6" remark="采用了公认有效的干预措施作为对照" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp7" remark="当前不存在被证明有效的干预措施" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp8" remark="出于令人信服的以及科学合理的方法学上的理由，使用安慰剂是确定一种干预措施的有效性或安全性所必须的，而且使用安慰剂或不予治疗不会使患者遭受任何严重的风险或不可逆的伤害" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp9" remark="研究设计避免了选择性偏倚" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp10" remark="样本量计算及其统计学依据是否合理" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp11" remark="样本量相对于检验假设是合理的" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp12" remark="所选择的受试者能够代表目标人群" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp13" remark="排除了对试验风险高危的人群" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp14" remark="限制了混杂因素" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp15" remark="筛选步骤合理" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp16" remark="耐受性研究是剂量逐级递增，进行下一剂量组研究应基于上一剂量组的结果" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp17" remark="受试者参加该研究是否需要终止其现有治疗" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp18" remark="参加该研究是否需要终止或推迟常规治疗" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp19" remark="在清洗期对受试者的监护充分" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp20" remark="根据研究目的，应用放射性、侵入性诊断方法合理" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp21" remark="研究所使用受试者活检组织标本、和/或术后切除组织，已进行了医疗所必需的病理学诊断" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp22" remark="随访的程序与频率合理，能有效观察效应的变化" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="designImp23" remark="提前退出研究的标准恰当" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp24" remark="如果受试者退出研究，是否安排了适当的随访或会推荐其他治疗" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp25" remark="暂停或终止整个研究的标准恰当" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp26" remark="不良事件处理预案恰当" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp27" remark="根据研究风险程度，制定了合理的数据与安全监察计划" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp28" remark="主要研究者经过GCP培训，具有试验方案中所要求的专业知识和经验，有充分的时间参加临床研究" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp29" remark="参与研究的人员在教育与经验方面都有资格承担他们的研究任务" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp30" remark="研究场所、仪器条件能够满足研究任务的需要" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="designImp31" remark="方案规定阴性的或未得出结论的研究结果应同阳性结果一样发表或公开" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			
+		<!-- 二、研究的风险与受益 -->	
+			<item name="riskBenefit1" remark="风险的等级" multiple="N">
+				<code value="1">最小风险</code>
+				<code value="0">大于最小风险</code>
+			</item>
+			<item name="riskBenefit2" remark="受试者的受益" multiple="N">
+				<code value="1">有直接受益的可能</code>
+				<code value="0">没有直接受益</code>
+			</item>
+			<item name="riskBenefit3" remark="有直接受益的可能" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="riskBenefit4" remark="没有直接受益" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			
+		<!-- 三、受试者的招募 -->	
+			<item name="recruitSubject1" remark="考虑到研究目的与开展研究的环境，计划招募的人群特征（包括性别、年龄、文化程度、文化背景、经济状况和种族）是合理的" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="recruitSubject2" remark="接触与招募受试者的方式避免侵犯/泄露受试者的隐私" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="recruitSubject3" remark="招募材料避免夸大研究的潜在受益、低估研究的预期风险" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="recruitSubject4" remark="招募者的身份不会对受试者造成不正当的影响" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="recruitSubject5" remark="不给予受试者激励与补偿是否合理" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="recruitSubject6" remark="给予受试者激励与补偿的数量是否合理" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="recruitSubject7" remark="激励与补偿的支付方式是否合理（参考以下要点）" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			
+		<!-- 四、受试者的医疗和保护 -->	
+			<item name="medicalCareProtect1" remark="研究人员的医疗执业资格和经验，能胜任受试者的安全保护与医疗" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="medicalCareProtect2" remark="因研究目的而撤消或不给予标准治疗的设计理由合理" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="medicalCareProtect3" remark="在研究过程中，为受试者提供适当的医疗保健" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="medicalCareProtect4" remark="为受试者提供适当的医疗监测、心理与社会支持" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="medicalCareProtect5" remark="受试者自愿退出研究时拟采取的措施恰当" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="medicalCareProtect6" remark="在研究结束后，为受试者提供适当的医疗保健" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="medicalCareProtect7" remark="延长使用、紧急使用、和/或出于同情而使用研究产品的标准" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="medicalCareProtect8" remark="研究结束后，受试者可获得研究产品的计划的说明" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="medicalCareProtect9" remark="由于参与研究造成受试者的损伤/残疾/死亡的补偿或治疗的规定合理" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			
+		<!-- 五、隐私和保密 -->	
+			<item name="privacyConfi1" remark="规定了可以接触受试者个人资料（包括医疗记录、生物学标本）人员范围" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="privacyConfi2" remark="制定了数据安全的措施（如数据匿名），保护受试者数据的机密" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="privacyConfi3" remark="规定了研究结果的发表将不会泄露受试者的个人信息" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="privacyConfi4" remark="某些可能对团体、社会、或以人种/民族定义的人群利益带来风险的研究，考虑了有关各方的利益，以适当的方式发表研究结果，或在某些情况下不公开" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+		
+		<!-- 六、弱势群体的考虑 -->	
+			<item name="vulnerGroup1" remark="研究是否涉及弱势群体" multiple="N">
+				<code value="0">否</code>
+				<code value="1">是</code>
+			</item>
+			<item name="vulnerGroup2" remark="涉及弱势群体" multiple="Y">
+				<code value="1">儿童/未成年人</code>
+				<code value="2">认知障碍或因健康状况而没有能力做出知情同意的成人</code>
+				<code value="3">申办者/研究者的雇员或学生</code>
+				<code value="4">教育/经济地位低下的人员</code>
+				<code value="5">疾病终末期患者</code>
+				<code value="6">囚犯</code>
+				<code value="7">其它</code>
+			</item>
+			<item name="vulnerGroup3" remark="其他涉及弱势群体" multiple="N"></item>
+			<item name="vulnerGroup4" remark="以比弱势群体情况较好者为受试者，研究不能同样很好地进行" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="vulnerGroup5" remark="研究是为获得该弱势群体特有的、或独特疾病/健康问题的诊断、预防或治疗知识；并且成功的研究成果将能合理地用于该人群" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="vulnerGroup6" remark="对受试者没有直接受益前景的研究，研究所伴随的风险不大于该类人群的常规体格检查或心理学检查的风险" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="vulnerGroup7" remark="对受试者没有直接受益前景的研究，研究所伴随的风险轻微或较小地超过该类人群的常规体格检查或心理学检查的风险：研究干预措施符合医疗常规的适应症，或与受试者曾经历的、或在研究条件下可能经历的临床干预措施比较是相当的" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="vulnerGroup8" remark="依据风险程度，方案制定了专门的实质性或程序性保护措施" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="vulnerGroup9" remark="当受试者没有能力、或不能充分地给予知情同意时（如未到法定年龄，或严重痴呆病人），应获得其合法代表的同意；同时，应根据受试者可理解程度告知受试者有关试验情况；如可能，受试者应签署书面知情同意书并注明日期" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+		
+		<!-- 七、特定疾病人群、特定地区人群/族群的考虑 -->	
+			<item name="specificPeople1" remark="研究是否涉及特定疾病人群、特定地区人群/族群" multiple="N">
+				<code value="0">否</code>
+				<code value="1">是</code>
+			</item>
+			<item name="specificPeople2" remark="合理考虑了研究对特殊疾病人群、特定地区人群/族群造成的影响" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="specificPeople3" remark="合理考虑了外界因素对个人知情同意的影响" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="specificPeople4" remark="必要时，有向该人群进行咨询的计划" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="specificPeople5" remark="培训研究和卫生保健人员" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="specificPeople6" remark="根据能力培养的需要，提供适当的财务与其它帮助" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="specificPeople7" remark="加强当地的卫生保健服务，提高应对公共卫生需求的能力，提供必要的物质条件" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+		
+		<!-- 审查意见 -->
+			<item name="suggest" remark="建议" multiple="N"></item>
+			<item name="decision" remark="决定" multiple="N"></item>
+			<item name="submitMeetingReview" remark="提交会议审查" multiple="N"></item>
+			<item name="preCommitteeName" remark="主审委员签名" multiple="N"></item>
+			<item name="signDate" remark="主审委员签字日期" multiple="N"></item>
+					
+		</page>
+	</product>
+</jspForm>
+

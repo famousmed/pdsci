@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.jsres.ResBaseExtMapper">
+
+	<resultMap id="resBaseExtMap" type="com.pinde.sci.model.jsres.ResBaseExt" extends="com.pinde.sci.dao.base.ResBaseMapper.BaseResultMap" >
+		<association property="sysOrg" column="sysOrgFlow"  resultMap="com.pinde.sci.dao.base.SysOrgMapper.BaseResultMap" />
+	</resultMap>
+	
+    <select id="searchResBaseExtList"  parameterType="java.util.Map" resultMap="resBaseExtMap">
+    		select res.ORG_FLOW, res.EMAIL, res.BASE_GRADE_ID, res.BASE_GRADE_NAME, res.BASE_TYPE_ID, res.BASE_TYPE_NAME, res.BASE_PROPERTY_ID
+					, res.BASE_PROPERTY_NAME, res.RES_APPROVAL_NUMBER_ID, res.RES_APPROVAL_NUMBER_NAME, res.GPS_APPROVAL_NUMBER_ID, res.GPS_APPROVAL_NUMBER_NAME, res.BASE_INFO
+                    , res.BASE_STATUS_ID, res.BASE_STATUS_NAME, res.AUDIT_STATUS_ID, res.AUDIT_STATUS_NAME, res.RECORD_STATUS	,
+               		org.ORG_NAME, org.ORG_FLOW sysOrgFlow
+    		from pdsci.RES_BASE res, pdsci.SYS_ORG org 
+    		where org.ORG_FLOW = res.ORG_FLOW
+    		and  res.RECORD_STATUS= 'Y' and org.RECORD_STATUS= 'Y'
+    		<if test='base.baseTypeName!=null and base.baseTypeName!=""'>
+    			and res.BASE_TYPE_NAME = #{base.baseTypeName} 
+    		</if>
+    		<if test='base.baseGradeName!=null and base.baseGradeName!=""'>
+    			and res.BASE_GRADE_NAME = #{base.baseGradeName} 
+    		</if>
+    		<if test='base.basePropertyName!=null and base.basePropertyName!=""'>
+    			and res.BASE_PROPERTY_NAME = #{base.basePropertyName} 
+    		</if>
+    		<if test='org.orgName!=null and org.orgName!=""'>
+    			and org.ORG_NAME like  '%${org.orgName}%'
+    		</if>
+    		<if test='base.baseStatusName!=null and base.baseStatusName!=""'>
+    			and res.BASE_STATUS_NAME= #{base.baseStatusName} 
+    		</if>
+    		<if test='base.baseStatusId!=null and base.baseStatusId!=""'>
+    			and res.BASE_STATUS_ID= #{base.baseStatusId} 
+    		</if>
+    		order by res.CREATE_TIME desc
+    </select>
+    
+</mapper>

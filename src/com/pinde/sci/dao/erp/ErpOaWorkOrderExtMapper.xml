@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.erp.ErpOaWorkOrderExtMapper">
+
+	 <resultMap id="erpOaWorkOrderExtMap" type="com.pinde.sci.model.erp.ErpOaWorkOrderExt" extends="com.pinde.sci.dao.base.ErpOaWorkOrderMapper.ResultMapWithBLOBs" >
+     	<association property="contactOrder" column="CONTACT_FLOW" resultMap="com.pinde.sci.dao.base.ErpOaContactOrderMapper.BaseResultMap"></association>
+     	<association property="customer" column="CUSTOMER_FLOW" resultMap="com.pinde.sci.dao.base.ErpCrmCustomerMapper.BaseResultMap"></association>
+     </resultMap>
+
+     <select id="searchWorkOrderList" parameterType="java.util.Map" resultMap="erpOaWorkOrderExtMap">
+         select wo.*,
+         		co.PRODUCT_TYPE_NAME, co.DEMAND_MATTER_ID, co.DEMAND_MATTER_NAME, 
+         		co.APPLY_DATE,
+         		c.CUSTOMER_PROV_NAME, c.CUSTOMER_CITY_NAME, c.CUSTOMER_AREA_NAME
+         from pdsci.ERP_OA_WORK_ORDER wo, pdsci.ERP_OA_CONTACT_ORDER co, pdsci.ERP_CRM_CUSTOMER c
+         where wo.CONTACT_FLOW = co.CONTACT_FLOW and wo.CONSUMER_FLOW = c.CUSTOMER_FLOW
+         and wo.RECORD_STATUS='Y' and co.RECORD_STATUS='Y' and c.RECORD_STATUS='Y'
+         <if test='workOrder!=null'>
+         	<if test='workOrder.customerName!=null and workOrder.customerName!=""'>
+               <bind name="customerName" value="'%'+workOrder.customerName+'%'"/>
+               and (wo.CUSTOMER_NAME like #{customerName} or wo.alias_name like #{customerName})
+            </if>
+            <if test='workOrder.consumerName!=null and workOrder.consumerName!=""'>
+               <bind name="consumerName" value="'%'+workOrder.consumerName+'%'"/>
+               and (wo.consumer_NAME like #{consumerName} or wo.consumer_alias_name like #{consumerName})
+            </if>
+            <if test='workOrder.workNo!=null and workOrder.workNo!=""'>
+               <bind name="workNo" value="'%'+workOrder.workNo+'%'"/>
+               and wo.work_no like #{workNo}
+            </if>
+            <if test='workOrder.assignDeptFlow!=null and workOrder.assignDeptFlow!=""'>
+               and (wo.ASSIGN_DEPT_FLOW = #{workOrder.assignDeptFlow} or co.receive_dept_flow=#{workOrder.assignDeptFlow})
+            </if>
+         	<if test='workOrder.assignUserFlow!=null and workOrder.assignUserFlow!=""'>
+               and wo.ASSIGN_USER_FLOW = #{workOrder.assignUserFlow}
+            </if>
+            <if test='workOrder.workStatusId!=null and workOrder.workStatusId!=""'>
+               and wo.WORK_STATUS_ID = #{workOrder.workStatusId}
+            </if>
+            <if test='workOrder.assignDate!=null and workOrder.assignDate!=""'>
+               and wo.ASSIGN_DATE = #{workOrder.assignDate}
+            </if>
+         </if>
+         <if test='currDeptFlow!=null and currDeptFlow!=""'>
+            and co.receive_dept_flow=#{currDeptFlow}
+         </if>
+         <if test='workStatusIdList!=null and workStatusIdList!=""'>
+             and wo.WORK_STATUS_ID in
+           	 <foreach collection="workStatusIdList" item="item" index="index" open="(" separator="," close=")">  
+	  			#{item}  
+	 		 </foreach>
+         </if>
+         <if test='orderTimeForm!=null'>
+            <if test='orderTimeForm.applyDateStart!=null and orderTimeForm.applyDateStart!=""'>
+               and wo.ASSIGN_DATE >= #{orderTimeForm.applyDateStart}
+            </if>
+            <if test='orderTimeForm.applyDateEnd!=null and orderTimeForm.applyDateEnd!=""'>
+               and wo.ASSIGN_DATE <![CDATA[ <= ]]> #{orderTimeForm.applyDateEnd}
+            </if>
+         </if>
+         <if test='contactOrder!=null'>
+            <if test='contactOrder.productTypeName!=null and contactOrder.productTypeName!=""'>
+               <bind name="productTypeName" value="'%'+contactOrder.productTypeName+'%'"/>
+               and co.PRODUCT_TYPE_NAME like #{productTypeName}
+            </if>
+            <if test='contactOrder.demandMatterId!=null and contactOrder.demandMatterId!=""'>
+               and co.DEMAND_MATTER_ID = #{contactOrder.demandMatterId}
+            </if>
+         </if>
+         order by wo.ASSIGN_DATE DESC
+     </select>
+     
+     <select id="applyWorkOrderList" parameterType="java.util.Map" resultMap="erpOaWorkOrderExtMap">
+         select wo.*,
+         		co.PRODUCT_TYPE_NAME, co.DEMAND_MATTER_ID, co.DEMAND_MATTER_NAME, 
+         		co.APPLY_DATE,
+         		c.CUSTOMER_PROV_NAME, c.CUSTOMER_CITY_NAME, c.CUSTOMER_AREA_NAME
+         from pdsci.ERP_OA_WORK_ORDER wo, pdsci.ERP_OA_CONTACT_ORDER co, pdsci.ERP_CRM_CUSTOMER c
+         where wo.CONTACT_FLOW = co.CONTACT_FLOW and wo.CUSTOMER_FLOW = c.CUSTOMER_FLOW
+         and wo.RECORD_STATUS='Y' and co.RECORD_STATUS='Y' and c.RECORD_STATUS='Y'
+         <if test='workOrder!=null'>
+         	<if test='workOrder.customerName!=null and workOrder.customerName!=""'>
+               <bind name="customerName" value="'%'+workOrder.customerName+'%'"/>
+               and (wo.CUSTOMER_NAME like #{customerName} or wo.alias_name like #{customerName})
+            </if>
+            <if test='workOrder.workNo!=null and workOrder.workNo!=""'>
+               <bind name="workNo" value="'%'+workOrder.workNo+'%'"/>
+               and wo.work_no like #{workNo}
+            </if>
+            <if test='workOrder.assignDeptFlow!=null and workOrder.assignDeptFlow!=""'>
+               and wo.ASSIGN_DEPT_FLOW = #{workOrder.assignDeptFlow}
+            </if>
+         	<if test='workOrder.assignUserFlow!=null and workOrder.assignUserFlow!=""'>
+               and wo.ASSIGN_USER_FLOW = #{workOrder.assignUserFlow}
+            </if>
+            <if test='workOrder.workStatusId!=null and workOrder.workStatusId!=""'>
+               and wo.WORK_STATUS_ID = #{workOrder.workStatusId}
+            </if>
+            <if test='workOrder.assignDate!=null and workOrder.assignDate!=""'>
+               and wo.ASSIGN_DATE = #{workOrder.assignDate}
+            </if>
+         </if>
+         <if test='currDeptFlow!=null and currDeptFlow!=""'>
+            and co.receive_dept_flow=#{currDeptFlow}
+         </if>
+         <if test='workStatusIdList!=null and workStatusIdList!=""'>
+             and wo.WORK_STATUS_ID in
+           	 <foreach collection="workStatusIdList" item="item" index="index" open="(" separator="," close=")">  
+	  			#{item}  
+	 		 </foreach>
+         </if>
+         <if test='orderTimeForm!=null'>
+            <if test='orderTimeForm.applyDateStart!=null and orderTimeForm.applyDateStart!=""'>
+               and wo.ASSIGN_DATE >= #{orderTimeForm.applyDateStart}
+            </if>
+            <if test='orderTimeForm.applyDateEnd!=null and orderTimeForm.applyDateEnd!=""'>
+               and wo.ASSIGN_DATE <![CDATA[ <= ]]> #{orderTimeForm.applyDateEnd}
+            </if>
+         </if>
+         <if test='contactOrder!=null'>
+            <if test='contactOrder.productTypeName!=null and contactOrder.productTypeName!=""'>
+               <bind name="productTypeName" value="'%'+contactOrder.productTypeName+'%'"/>
+               and co.PRODUCT_TYPE_NAME like #{productTypeName}
+            </if>
+            <if test='contactOrder.demandMatterId!=null and contactOrder.demandMatterId!=""'>
+               and co.DEMAND_MATTER_ID = #{contactOrder.demandMatterId}
+            </if>
+         </if>
+         order by wo.ASSIGN_DATE DESC
+     </select>
+     
+     <select id="countWorkOrderList" parameterType="java.util.Map" resultType="int">
+         select count(*) from pdsci.erp_oa_work_order
+           where record_status='Y'
+           <if test='statusList!=null'>
+               and work_status_id in 
+               <foreach collection="statusList" item="item" index="index" open="(" separator="," close=")">  
+	  			#{item}  
+	 		 </foreach>
+           </if>
+     </select>
+</mapper>

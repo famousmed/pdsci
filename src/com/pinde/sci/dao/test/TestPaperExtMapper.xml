@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.test.TestPaperExtMapper">
+    <select id="searchTestPapers" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.TestPaperMapper.BaseResultMap">
+          select * from pdsci.test_paper where record_status='Y'
+              <if test='userFlow!=null and userFlow!=""'>
+              and paper_user_flow=#{userFlow}
+              </if>
+              <if test='(courseFlow!=null and courseFlow!="") or (chapterFlow!=null and chapterFlow!="")'>
+              and paper_flow in (select distinct(paper_flow) from pdsci.edu_course_test_paper
+              where record_status='Y' 
+              <if test='courseFlow!=null and courseFlow!=""'>
+              and course_flow=#{courseFlow}
+              </if>
+               <if test='chapterFlow!=null and chapterFlow!=""'>
+              and chapter_flow=#{chapterFlow}
+              </if>
+              )
+              </if>
+      </select>
+</mapper>

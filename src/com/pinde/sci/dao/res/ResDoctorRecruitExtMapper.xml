@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.res.ResDoctorRecruitExtMapper" >
+	<resultMap id="resDoctorRecruitExtMap" type="com.pinde.sci.model.res.ResDoctorRecruitExt" extends="com.pinde.sci.dao.base.ResDoctorRecruitMapper.BaseResultMap">
+		<association property="sysUser" column="USER_FLOW" javaType="com.pinde.sci.model.mo.SysUser" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"/>
+		<association property="doctor" column="DOCTOR_FLOW" javaType="com.pinde.sci.model.mo.ResDoctor" resultMap="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap"/>
+	</resultMap>
+		
+	<resultMap id="speCountForm" type="com.pinde.sci.form.hbres.ResDoctorTrainingSpeForm">
+	  	  <result column="speId" jdbcType="VARCHAR" property="speId" />
+	  	  <result column="doctorCount" jdbcType="VARCHAR"  property="doctorCount"/>
+    </resultMap>
+
+	<select id="searchDoctorRecruitWithUserList" parameterType="java.util.Map" resultMap="resDoctorRecruitExtMap">
+		select *
+		from RES_DOCTOR_RECRUIT dr
+    	inner join SYS_USER su
+   		on  dr.DOCTOR_FLOW = su.USER_FLOW  
+		where dr.RECRUIT_FLAG = 'Y' and dr.CONFIRM_FLAG = 'Y'
+		<if test='doctorRecruit.orgFlow != null and doctorRecruit.orgFlow != ""'>
+			AND dr.ORG_FLOW = #{doctorRecruit.orgFlow}
+		</if>
+		<if test='doctorRecruit.recruitYear != null and doctorRecruit.recruitYear != ""'>
+			AND dr.RECRUIT_YEAR = #{doctorRecruit.recruitYear}
+		</if>
+		ORDER BY dr.TOTLE_RESULT DESC nulls last
+	</select>
+	
+	<select id="searchTrainSpeList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SysDictMapper.BaseResultMap">
+	select * from sys_dict where RECORD_STATUS = 'Y'
+		AND DICT_TYPE_ID = #{dictTypeId}
+		<if test='key!=null and key!=""'>
+		   AND (DICT_ID=#{key} 
+		   OR DICT_NAME=#{key}
+		   )
+		</if>
+		ORDER BY ORDINAL
+	</select>
+	
+	<select id="searchRegisterStatistics" parameterType="java.util.Map" resultMap="speCountForm">
+		select 
+		SPE_ID speId, nvl(count(SPE_ID), 0) doctorCount
+		from pdsci.RES_DOCTOR_RECRUIT
+		where RECORD_STATUS = 'Y'
+		and RECRUIT_FLAG = 'Y'
+	    and CONFIRM_FLAG = 'Y'
+		<if test='doctorRecruit.orgFlow != null and doctorRecruit.orgFlow != ""'>
+			and ORG_FLOW = #{doctorRecruit.orgFlow}
+		</if>
+		<if test='doctorRecruit.recruitYear != null and doctorRecruit.recruitYear != ""'>
+			AND RECRUIT_YEAR = #{doctorRecruit.recruitYear}
+		</if>
+		GROUP by SPE_ID
+		ORDER BY SPE_ID
+	</select>
+	
+	<select id="searchDoctorRecruitExt" parameterType="java.util.Map" resultMap="resDoctorRecruitExtMap">
+		select *
+		from RES_DOCTOR_RECRUIT dr
+    	inner join RES_DOCTOR rd
+   		on  dr.DOCTOR_FLOW = rd.DOCTOR_FLOW  
+		where dr.RECORD_STATUS = 'Y' and rd.RECORD_STATUS = 'Y' 
+		and dr.ORG_FLOW = #{orgFlow}
+		and dr.RECRUIT_YEAR = #{recruitYear}
+		<if test='speId!=null and speId!=""'>
+		   and dr.SPE_ID = #{speId}
+		</if>
+		<if test='ordinal!=null and ordinal!=""'>
+		   and dr.ORDINAL = #{ordinal}
+		</if>
+		<if test='userName!=null and userName!=""'>
+		   and rd.DOCTOR_NAME = #{userName}
+		</if>
+		<if test='graduatedId!=null and graduatedId!=""'>
+		   and rd.GRADUATED_ID = #{graduatedId}
+		</if>
+		<if test='retestFlag!=null and retestFlag!=""'>
+		   and dr.RETEST_FLAG = #{retestFlag}
+		</if>
+		
+		ORDER BY dr.EXAM_RESULT DESC nulls last
+	</select>
+	
+	<select id="searchNoticeDoctorNum" parameterType="java.util.Map" resultType="java.lang.String">
+		select count(*)
+		from RES_DOCTOR_RECRUIT where RECORD_STATUS = 'Y' 
+		and ORG_FLOW = #{orgFlow}
+		and RECRUIT_YEAR = #{recruitYear}
+		<if test='ordinal!=null and ordinal!=""'>
+		   and ORDINAL = #{ordinal}
+		</if>
+		<if test='speIds!=null and speIds.length>0'>
+		and SPE_ID in 
+			<foreach item="item" index="index" collection="speIds" open="(" separator="," close=")">  
+		  	 #{item}  
+		    </foreach>
+		</if>
+		 and RETEST_FLAG is null or RETEST_FLAG != 'Y'
+	</select>
+	
+	<select id="selectDoctorRecruitExt" parameterType="java.util.Map" resultMap="resDoctorRecruitExtMap">
+		select *
+		from RES_DOCTOR_RECRUIT dr
+    	inner join RES_DOCTOR rd
+   		on dr.DOCTOR_FLOW = rd.DOCTOR_FLOW 
+   		inner join SYS_USER su on rd.DOCTOR_FLOW = su.USER_FLOW  
+		where dr.RECORD_STATUS = 'Y' 
+		and dr.RECRUIT_YEAR = #{recruitYear}
+		<if test='orgFlow!=null and orgFlow!=""'>
+		   and dr.ORG_FLOW = #{orgFlow}
+		</if>
+		<if test='jointOrgs!=null'>
+		    and dr.ORG_FLOW IN 
+		    <foreach item="item" index="index" collection="jointOrgs" open="(" separator="," close=")">
+		        #{item}
+		    </foreach>
+		</if>
+		<if test='speId!=null and speId!=""'>
+		   and dr.SPE_ID = #{speId}
+		</if>
+		<if test='graduatedId!=null and graduatedId!=""'>
+		   and rd.GRADUATED_ID = #{graduatedId}
+		</if>
+		<if test='doctorStatusId!=null and doctorStatusId!=""'>
+		   and rd.DOCTOR_STATUS_ID = #{doctorStatusId}
+		</if>
+		<if test='admitFlag!=null and admitFlag!=""'>
+		    and dr.ADMIT_FLAG = #{admitFlag}
+		</if>
+		<if test='recruitFlag!=null and recruitFlag!=""'>
+		    and dr.RECRUIT_FLAG = #{recruitFlag}
+		</if>
+		<if test='confirmFlag!=null and confirmFlag!=null' >
+			and dr.CONFIRM_FLAG=#{confirmFlag}
+		</if>
+		<if test='confirmFlagIsNull!=null and confirmFlagIsNull!=""' >
+			and dr.CONFIRM_FLAG IS NULL
+		</if>
+		<if test='recruitTypeId!=null and recruitTypeId!=""'>
+		    and dr.RECRUIT_TYPE_ID = #{recruitTypeId}
+		</if>
+		<if test='key!=null and key!=""'>
+		   AND (su.USER_NAME= #{key} 
+		   OR su.USER_PHONE=#{key}
+		   OR su.USER_EMAIL=#{key}
+		   OR su.ID_NO=#{key}
+		   )
+		</if>
+		ORDER BY dr.SPE_ID , dr.EXAM_RESULT DESC nulls last
+	</select>
+	
+	<select id="readDoctorRecruitExt" parameterType="java.util.Map" resultMap="resDoctorRecruitExtMap">
+		select *
+		from RES_DOCTOR_RECRUIT dr
+    	inner join RES_DOCTOR rd
+   		on  dr.DOCTOR_FLOW = rd.DOCTOR_FLOW  inner join SYS_USER su on rd.DOCTOR_FLOW = su.USER_FLOW 
+		where dr.RECORD_STATUS = 'Y' and rd.RECORD_STATUS = 'Y' 
+		and dr.ORG_FLOW = #{orgFlow}
+		and dr.RECRUIT_YEAR = #{recruitYear}
+		and dr.SWAP_SPE_ID is null
+		<if test='speId!=null and speId!=""'>
+		   and dr.SPE_ID = #{speId}
+		</if>
+		<if test='ordinal!=null and ordinal!=""'>
+		   and dr.ORDINAL = #{ordinal}
+		</if>
+		<if test='retestFlag!=null and retestFlag!=""'>
+		   and dr.RETEST_FLAG = #{retestFlag}
+		</if>
+		<if test='recruitFlag!=null and recruitFlag!=""'>
+		   and dr.RECRUIT_FLAG = #{recruitFlag}
+		</if>
+		<if test='confirmFlag!=null and confirmFlag!=""'>
+		   and dr.CONFIRM_FLAG = #{confirmFlag}
+		</if>
+		<if test='key!=null and key!=""'>
+			<bind name="userName" value="'%'+key+'%'"/>
+		   AND (su.USER_NAME like #{userName} 
+		   OR su.USER_PHONE=#{key}
+		   OR su.USER_EMAIL=#{key}
+		   OR su.ID_NO=#{key}
+		   )
+		</if>
+		<if test='swapSpeId!=null and swapSpeId!=""'>
+			or ( 
+			   	dr.SWAP_FLAG = 'Y'
+				and dr.SWAP_SPE_ID = #{swapSpeId}
+				<if test='recruitFlag!=null and recruitFlag!=""'>
+				   and dr.RECRUIT_FLAG = #{recruitFlag}
+				</if>
+				<if test='key!=null and key!=""'>
+					<bind name="userName" value="'%'+key+'%'"/>
+				   AND (su.USER_NAME like #{userName} 
+				   OR su.USER_PHONE=#{key}
+				   OR su.USER_EMAIL=#{key}
+				   OR su.ID_NO=#{key}
+				   )
+				</if>
+			)
+		</if>
+		ORDER BY dr.TOTLE_RESULT DESC nulls last
+	</select>
+</mapper>

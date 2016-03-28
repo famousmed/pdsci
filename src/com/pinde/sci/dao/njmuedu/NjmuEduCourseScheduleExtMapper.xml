@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.njmuedu.NjmuEduCourseScheduleExtMapper">
+    <select id="selectAvgScore" parameterType="com.pinde.sci.model.mo.EduCourseSchedule" resultType="java.math.BigDecimal">
+    	select nvl(avg(SCORE),0) from pdsci.edu_course_schedule where record_status = 'Y' and score is not null
+    	<if test='chapterFlow!=null and chapterFlow !="" '>
+    		and chapter_flow = #{chapterFlow}
+    	</if>
+    </select>
+    
+      <resultMap id="courseInfoForm" type="com.pinde.sci.form.njmuedu.CourseInfoForm">
+  	  <result column="highScoreCount" jdbcType="VARCHAR" property="highScoreCount" />
+  	  <result column="middleScoreCount" jdbcType="VARCHAR"  property="middleScoreCount"/>
+  	  <result column="lowScoreCount" jdbcType="VARCHAR"  property="lowScoreCount"/>
+  	  <result column="praiseCount" jdbcType="VARCHAR" property="praiseCount" />
+  	  <result column="collectionCount" jdbcType="VARCHAR"  property="collectionCount"/>
+  	  <result column="answeredCount" jdbcType="VARCHAR"  property="answeredCount"/>
+  	  <result column="unansweredCount" jdbcType="VARCHAR"  property="unansweredCount"/>
+  	  <result column="allQuestionCount" jdbcType="VARCHAR"  property="allQuestionCount"/>
+  	  <result column="leaveMessageCount" jdbcType="VARCHAR"  property="leaveMessageCount"/>
+    </resultMap>
+    <select id="countInfoOfTeacher" parameterType="java.util.Map" resultMap="courseInfoForm">
+    	select * from
+    	(select nvl(count(ecs.record_flow),0) lowScoreCount from pdsci.edu_course_schedule ecs
+    	<if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          ,pdsci.edu_user eu,pdsci.sys_user su
+        </if>
+        where ecs.SCORE>=0 
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          and eu.record_status='Y' and su.record_status='Y'
+          and ecs.user_flow=eu.user_flow and eu.user_flow=su.user_flow
+          and eu.major_id=#{majorId}
+          and su.org_flow=#{orgFlow}
+        </if>
+        and ecs.score <![CDATA[ < ]]>2 and ecs.record_status='Y'
+        and ecs.chapter_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        )),
+        
+        (select nvl(count(ecs.record_flow),0) middleScoreCount from pdsci.edu_course_schedule ecs
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          ,pdsci.edu_user eu,pdsci.sys_user su
+        </if>
+        where ecs.SCORE>=2 
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          and eu.record_status='Y' and su.record_status='Y'
+          and ecs.user_flow=eu.user_flow and eu.user_flow=su.user_flow
+          and eu.major_id=#{majorId}
+          and su.org_flow=#{orgFlow}
+        </if>
+        and ecs.score <![CDATA[ < ]]>4 and ecs.record_status='Y'
+        and ecs.chapter_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        )),
+        
+        (select nvl(count(ecs.record_flow),0) highScoreCount from pdsci.edu_course_schedule ecs
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          ,pdsci.edu_user eu,pdsci.sys_user su
+        </if>
+        where ecs.SCORE>=4
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          and eu.record_status='Y' and su.record_status='Y'
+          and ecs.user_flow=eu.user_flow and eu.user_flow=su.user_flow
+          and eu.major_id=#{majorId}
+          and su.org_flow=#{orgFlow}
+        </if>
+        and ecs.score <![CDATA[ < ]]>=5 and ecs.record_status='Y'
+        and ecs.chapter_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        ))
+     <if test='praise!=null and praise!=""'>
+        ,(select nvl(count(ecs.record_flow),0) praiseCount from pdsci.edu_course_schedule ecs
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          ,pdsci.edu_user eu,pdsci.sys_user su
+        </if>
+        where ecs.praise_status='Y' and ecs.record_status='Y'
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          and eu.record_status='Y' and su.record_status='Y'
+          and ecs.user_flow=eu.user_flow and eu.user_flow=su.user_flow
+          and eu.major_id=#{majorId}
+          and su.org_flow=#{orgFlow}
+        </if>
+        and ecs.chapter_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        ))
+     </if>
+     <if test='collection!=null and collection!=""'>   
+        ,(select nvl(count(ec.record_flow),0) collectionCount from pdsci.edu_collection ec
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          ,pdsci.edu_user eu,pdsci.sys_user su
+        </if>
+        where ec.record_status='Y'
+         <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          and eu.record_status='Y' and su.record_status='Y'
+          and ec.user_flow = eu.user_flow and eu.user_flow=su.user_flow
+          and eu.major_id=#{majorId}
+          and su.org_flow=#{orgFlow}
+        </if>
+        and ec.resource_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        ))
+     </if>
+     <if test='answered!=null and answered!=""'>
+        ,(select nvl(count(question_flow),0) answeredCount from pdsci.edu_question
+        where question_status_id='answered' and record_status='Y'
+        and chapter_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        ))
+     </if>
+     <if test='unanswered!=null and unanswered!=""'>
+      ,(select nvl(count(question_flow),0) unansweredCount from pdsci.edu_question
+        where question_status_id='Unanswered' and record_status='Y'
+        and chapter_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        ))
+     </if>
+     <if test='allQuestion!=null and allQuestion!=""'>
+      ,(select nvl(count(question_flow),0) allQuestionCount from pdsci.edu_question
+        where record_status='Y'
+        and chapter_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        ))
+     </if>
+     <if test='leaveMessage!=null and leaveMessage!=""'>
+      ,(select nvl(count(ecs.record_flow),0) leaveMessageCount from pdsci.edu_course_schedule ecs
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          ,pdsci.edu_user eu,pdsci.sys_user su
+        </if>
+        where ecs.EVALUATE is not null 
+        <if test='orgFlow!=null and orgFlow!="" and majorId!=null and majorId!=""'>
+          and eu.record_status='Y' and su.record_status='Y'
+          and ecs.user_flow=eu.user_flow and eu.user_flow=su.user_flow
+          and eu.major_id=#{majorId}
+          and su.org_flow=#{orgFlow}
+        </if>
+        and ecs.record_status='Y'
+        and ecs.chapter_flow in(select distinct(chapter_flow) from pdsci.edu_course_chapter 
+        where record_status='Y'
+        <if test='userFlow!=null and userFlow!=""'> 
+           and teacher_id=#{userFlow}
+        </if>
+        <if test='courseFlow!=null and courseFlow!=""'>
+           and course_flow=#{courseFlow}
+        </if>
+        ))
+     </if>
+     
+    </select>  
+    
+    <resultMap id="orgExt" type="com.pinde.sci.form.njmuedu.SysOrgExt" extends="com.pinde.sci.dao.base.SysOrgMapper.BaseResultMap" >
+	      <collection property="majorFormList" ofType="com.pinde.sci.form.njmuedu.MajorForm" column="major_id">
+	        <id column="major_id" jdbcType="VARCHAR" property="majorId" />
+		    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+	      </collection>
+	</resultMap>
+	
+	<select id="selectOrgOfSchedule" parameterType="java.util.Map" resultMap="orgExt">
+   		 select su.ORG_FLOW,su.ORG_NAME,eu.MAJOR_ID,eu.MAJOR_NAME 
+   		 from pdsci.edu_course_schedule ecs
+         left join pdsci.edu_course_chapter ecc on ecc.course_flow = ecs.course_flow
+         left join pdsci.sys_user su on su.user_flow = ecs.user_flow
+         left join pdsci.edu_user eu on eu.user_flow = ecs.user_flow
+         where ecs.record_status='Y' and su.record_status='Y' and eu.record_status='Y'
+         <if test='userFlow!=null and userFlow!=""'>
+          and ecc.teacher_id=#{userFlow}
+         </if>
+         <if test='courseFlow!=null and courseFlow!=""'>
+          and ecs.course_flow=#{courseFlow}
+         </if>
+         <if test='condition!=null and condition!=""'>
+           and eu.major_name like #{condition}
+         </if>
+         GROUP BY eu.MAJOR_ID,su.ORG_FLOW,su.ORG_NAME,eu.MAJOR_NAME 
+	</select>
+  
+    
+    <resultMap id="scheduleUserMap" type="com.pinde.sci.model.njmuedu.EduCourseScheduleExt" extends="com.pinde.sci.dao.base.EduCourseScheduleMapper.BaseResultMap" >
+		<association property="sysUser" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap" />
+	</resultMap>
+    <select id="searchCourseSchedule" parameterType="java.util.Map" resultMap="scheduleUserMap">
+    	select ecs.*,su.User_Name
+    	from pdsci.edu_course_schedule ecs, pdsci.sys_user su, pdsci.edu_user eu
+        where ecs.record_status='Y' and su.record_status='Y' and eu.record_status='Y'
+        and su.user_flow = ecs.user_flow
+        and ecs.user_flow = eu.user_flow
+        and su.user_Flow = eu.user_flow
+        and ecs.chapter_flow in(select distinct(ecc.chapter_flow) from pdsci.edu_course_chapter ecc 
+			        where ecc.record_status='Y'
+			        <if test='userFlow!=null and userFlow!=""'> 
+			           and ecc.teacher_id=#{userFlow}
+			        </if>
+			        <if test='courseFlow!=null and courseFlow!=""'>
+			           and ecc.course_flow=#{courseFlow}
+			        </if>
+        )
+        <if test='orgFlow!=null and orgFlow!=""'> 
+	        and su.ORG_FLOW =#{orgFlow}
+        </if>
+        <if test='majorId!=null and majorId!=""'> 
+	        and eu.MAJOR_ID =#{majorId}
+        </if>
+        <if test='middleScoreCount!=null and middleScoreCount!=""'> 
+	        and ecs.SCORE is not null 
+          	and ecs.SCORE>=2  and ecs.score <![CDATA[ < ]]>4 
+        </if>
+        <if test='lowScoreCount!=null and lowScoreCount!=""'> 
+	        and ecs.SCORE is not null 
+       		and ecs.SCORE>=0 and ecs.score <![CDATA[ < ]]>2 
+        </if>
+        <if test='leaveMessageCount!=null and leaveMessageCount!=""'>
+           and ecs.EVALUATE is not null 
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.sys.SysUserExtMapper" >
+	<select id="selectIrbUserByForm" parameterType="com.pinde.sci.form.sys.SysUserForm" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+		select <include refid="com.pinde.sci.dao.base.SysUserMapper.Base_Column_List"/> from PDSCI.sys_user u where record_status = 'Y' and  not exists(
+		  select null from PDSCI.irb_info_user iu where record_status = 'Y' and u.user_flow = iu.user_flow
+		  	<if test='irbInfoFlow!=null and irbInfoFlow!=""'>
+				and irb_info_flow = #{irbInfoFlow}
+			</if>	
+		  	<if test='roleFlow!=null and roleFlow!=""'>
+				and role_flow = #{roleFlow}
+			</if>	
+		) 
+		<if test="user!=null">
+			<if test='user.orgFlow!=null and user.orgFlow!=""'>
+				and org_flow = #{user.orgFlow}
+			</if>
+			<if test='user.statusId!=null and user.statusId!=""'>
+				and status_Id = #{user.statusId}
+			</if>
+			<if test='user.deptFlow!=null and user.deptFlow!=""'>
+				and dept_flow = #{user.deptFlow}
+			</if>
+			<if test='user.userName!=null and user.userName!=""'>
+				and user_name like #{user.userName}
+			</if>
+		</if>
+		order by nlssort(user_name,'NLS_SORT=SCHINESE_PINYIN_M')
+	</select>
+	<select id="selectResUserByForm" parameterType="com.pinde.sci.form.sys.SysUserForm" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+		select <include refid="com.pinde.sci.dao.base.SysUserMapper.Base_Column_List"/> from PDSCI.sys_user u where record_status = 'Y' and  not exists(
+		  select null from PDSCI.pub_proj_user iu where record_status = 'Y' and u.user_flow = iu.user_flow
+		  	<if test='projFlow!=null and projFlow!=""'>
+				and proj_flow = #{projFlow}
+			</if>	
+		  	<if test='roleFlow!=null and roleFlow!=""'>
+				and role_flow = #{roleFlow}
+			</if>	
+		) 
+		<if test="user!=null">
+			<if test='user.orgFlow!=null and user.orgFlow!=""'>
+				and org_flow = #{user.orgFlow}
+			</if>
+			<if test='user.statusId!=null and user.statusId!=""'>
+				and status_Id = #{user.statusId}
+			</if>
+			<if test='user.deptFlow!=null and user.deptFlow!=""'>
+				and dept_flow = #{user.deptFlow}
+			</if>
+			<if test='user.userName!=null and user.userName!=""'>
+				and user_name like #{user.userName}
+			</if>
+		</if>
+	</select>
+	
+	<!-- searchUserListByOrgFlow -->
+	<select id="searchUserListByOrgFlow" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+    	select u.USER_FLOW,u.USER_CODE,u.USER_PASSWD,u.USER_NAME,u.SEX_ID,u.SEX_NAME,u.STATUS_ID,u.STATUS_DESC,u.USER_PHONE,u.USER_EMAIL,
+			u.DEPT_FLOW,u.DEPT_NAME,u.ORG_FLOW,u.ORG_NAME,u.ID_NO,u.USER_BIRTHDAY,u.TITLE_ID,u.TITLE_NAME,u.DEGREE_ID,u.DEGREE_NAME,u.EDUCATION_ID,
+			u.EDUCATION_NAME,u.POST_ID,u.POST_NAME,u.SRM_EXPERT_FLAG,u.RECORD_STATUS,u.CREATE_TIME,u.CREATE_USER_FLOW,u.MODIFY_TIME,
+			u.MODIFY_USER_FLOW,u.WEI_XIN_ID,u.WEI_XIN_NAME,u.WEI_XIN_STATUS_ID,u.WEI_XIN_STATUS_DESC
+		from PDSCI.SYS_USER u 
+		inner join PDSCI.SYS_USER_ROLE ur
+		on u.USER_FLOW = ur.USER_FLOW
+		where u.RECORD_STATUS ='Y' and ur.RECORD_STATUS = 'Y'
+		<if test='roleFlow != null and roleFlow != "" '>
+			and ur.ROLE_FLOW = #{roleFlow}
+       	</if>
+		<if test='orgFlow != null and orgFlow != "" '>
+			and u.ORG_FLOW = #{orgFlow}
+       	</if>
+	</select>
+	
+	<select id="selectUserByOrgFlowAndRoleFlow" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+	    select su.* from 
+	    sys_user su , 
+	    sys_user_role sur 
+	    where 
+	    su.user_flow=sur.user_flow 
+	    and su.status_id='Activated'
+	    <if test='orgFlow!=null and orgFlow!=""'>
+	      and su.ORG_FLOW=#{orgFlow}
+	    </if>
+	    <if test='roleFlow!=null and roleFlow!=""'> 
+	      and sur.ROLE_FLOW=#{roleFlow}
+	    </if>
+	</select>
+	
+	<select id="selectUserByRoleFlow" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+	    select su.* from 
+	    sys_user su , 
+	    sys_user_role sur 
+	    where su.record_status='Y' and sur.record_status='Y'
+	    and su.user_flow=sur.user_flow 
+	    and su.status_id='Activated'
+	    <if test='orgFlow!=null and orgFlow!=""'>
+	      and su.ORG_FLOW=#{orgFlow}
+	    </if>
+	    <if test='roleFlow!=null and roleFlow!=""'> 
+	      and sur.ROLE_FLOW=#{roleFlow}
+	    </if>
+	</select>
+	
+	<select id="searchUserByRoleAndOrgFlows" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+		SELECT SU.*
+		FROM SYS_USER SU,SYS_USER_ROLE SUR
+		WHERE
+		SU.RECORD_STATUS = 'Y'
+		AND SUR.RECORD_STATUS = 'Y'
+		AND SU.USER_FLOW = SUR.USER_FLOW
+		<if test="roleFlow != null and roleFlow != ''">
+			AND SUR.ROLE_FLOW = #{roleFlow}
+		</if>
+		<if test="orgFlows != null">
+			AND SU.ORG_FLOW IN
+			<foreach collection="orgFlows" item="orgFlow" open="(" separator="," close=")">
+				#{orgFlow}
+			</foreach>
+		</if>
+		ORDER BY SU.CREATE_TIME
+	</select>
+	
+	<select id="selectUserByMenuId" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+	    select * from SYS_USER
+        where record_status='Y' and status_id='Activated' and user_flow in (
+        select user_flow from SYS_USER_ROLE
+        where record_status='Y' and  ws_id='erp' and role_flow in(
+        select ROLE_FLOW from SYS_ROLE_POPEDOM where record_status='Y' and menu_id=#{menuId}
+        ))
+        <if test='deptFlow!=null and deptFlow!=""'>
+           and dept_flow=#{deptFlow}
+        </if>
+	</select>
+	
+	<select id="searchResManageUser" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+    	select * from PDSCI.SYS_USER su
+		where RECORD_STATUS ='Y'  and not exists (select null from res_doctor where su.user_flow=doctor_flow and record_status='Y')  
+		
+       	<if test='orgFlow!=null and orgFlow!=""'>
+				and org_flow = #{orgFlow}
+		</if>
+		<if test='deptFlow!=null and deptFlow!=""'>
+			and dept_flow = #{deptFlow}
+		</if>
+		<if test='idNo!=null and idNo!=""'>
+			and id_no = #{idNo}
+		</if>
+		<if test='userPhone!=null and userPhone!=""'>
+			and user_phone like #{userPhone}
+		</if>
+		<if test='userEmail!=null and userEmail!=""'>
+			and user_email like #{userEmail}
+		</if>
+		<if test='userName!=null and userName!=""'>
+			and user_name like #{userName}
+		</if>
+		<if test='statusId!=null and statusId!=""'>
+			and status_Id = #{statusId}
+		</if>
+	</select>
+	
+	<select id="searchUserByDeptAndRole" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+		SELECT SU.*
+		FROM PDSCI.SYS_USER SU,PDSCI.SYS_USER_ROLE SUR,PDSCI.SYS_USER_DEPT SUD
+		WHERE SU.RECORD_STATUS = 'Y'
+		AND SUR.RECORD_STATUS = 'Y'
+		AND SUD.RECORD_STATUS = 'Y'
+		AND SU.USER_FLOW = SUD.USER_FLOW
+		AND SUD.DEPT_FLOW = #{deptFlow}
+		AND SU.USER_FLOW = SUR.USER_FLOW
+		AND SUR.ROLE_FLOW = #{roleFlow}
+	</select>
+	
+	<select id="searchAfterAuditUser" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+	    SELECT SU.*
+	    FROM PDSCI.SYS_USER SU
+	    WHERE SU.RECORD_STATUS = 'Y'
+	    AND SU.USER_FLOW IN (
+	    	SELECT RDSP.USER_FLOW
+	    	FROM PDSCI.RES_DOCTOR_SCH_PROCESS RDSP
+	    	WHERE RDSP.RECORD_STATUS = 'Y'
+	    	<if test='process!=null'>
+	    		<if test='process.teacherUserFlow!=null and process.teacherUserFlow!=""'>
+	    			AND RDSP.TEACHER_USER_FLOW = #{process.teacherUserFlow}
+	    		</if>
+	    		<if test='process.headUserFlow!=null and process.headUserFlow!=""'>
+	    			AND RDSP.HEAD_USER_FLOW = #{process.headUserFlow}
+	    		</if>
+	    		<if test='process.isCurrentFlag!=null and process.isCurrentFlag!=""'>
+	    			AND RDSP.IS_CURRENT_FLAG = #{process.isCurrentFlag}
+	    		</if>
+	    	</if>
+	    )
+	    <if test='user!=null'>
+		    <if test='user.userName!=null and user.userName!=""'>
+		    	SU.USER_NAME LIKE #{user.userName}
+		    </if>
+	    </if>
+	</select>
+</mapper>

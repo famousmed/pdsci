@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.irb.IrbMeetingUserExtMapper" >
+	<select id="searchMeetingUserList" parameterType="string" resultMap="com.pinde.sci.dao.base.IrbMeetingUserMapper.BaseResultMap">
+		select imu.* from PDSCI.irb_meeting_user imu,PDSCI.irb_meeting im where imu.meeting_flow = im.meeting_flow and imu.record_status = 'Y' and im.record_status = 'Y' 
+		and im.MEETING_DATE like #{year}
+	</select>
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 余杭卫生局.新技术新项目    开始 -->
+	<pageGroup name="yhwsj.xjsxxm" firstPage="step1" view="">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/setup/yhwsj.xjsxxm/setup">
+			<item name="jiangXiang" remark="奖项" multiple="N"></item>
+		</page>
+	</pageGroup>
+	<!-- 余杭卫生局.新技术新项目   结束 -->
+</jspForm>
+

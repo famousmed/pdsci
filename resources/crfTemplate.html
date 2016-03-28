@@ -1,0 +1,804 @@
+<html>
+<head>
+<title></title>
+<style type="text/css">
+.bs_tb th{
+	background:#ECF2FA; 
+	color:#333; 
+	height:35px; 
+	text-align:center;
+	border:1px solid #D0E3F2; 
+	border-top:none;
+}
+.bs_tb td{border:1px solid #D0E3F2; text-align:center; height:35px;}
+body {
+	margin-left: 45px;
+	margin-right: 45px;
+	font-family: Arial Unicode MS;
+}
+
+table {
+	margin: auto;
+	width: 100%;
+	border-collapse: collapse;
+	border: none;
+}
+
+th,td {
+	border: none;
+	font-size: 12px;
+	margin-left: 5px;
+}
+
+.title {
+	text-align: center;
+	font-size: 18px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.table_title {
+	width: 100%;
+	margin: 0 auto;
+}
+.table_title td{
+	font-size: 13px;
+}
+
+/*表格样式*/
+.basic{
+	border:1px solid #D0E3F2;
+}
+.basic th,.basic td { border-right:1px solid #D0E3F2; border-bottom:1px solid #D0E3F2; height:35px;}
+.basic th { color:#333; height:35px; text-align:right; font-weight:normal;padding-right:10px; background:#ECF2FA;}
+.basic td { text-align:left; padding-left:10px; line-height:35px;}
+
+.page_bottom {
+	vertical-align:bottom;
+	text-align: center;
+}
+
+@page {   
+    size: A4 landscape;
+    margin-left:40px;
+ 	margin-right:40px;
+ 	margin-top:10px;
+    
+    @top-center { 
+    	content: element(header);
+    };  
+    @bottom-center{  
+        content:"第" counter(page) "页/共 " counter(pages) "页";  
+        font-family: Arial Unicode MS;   
+        font-size: 12px;  
+        color:#000;  
+    };  
+}  
+             
+div#myheader {
+	display: block;  
+	text-align:center;
+    position: running(header);  
+    margin-left:70px;
+ 	margin-right:70px;
+}   
+  
+#pagenumber:before {  
+content: counter(page);   
+}  
+  
+#pagecount:before {  
+content: counter(pages);    
+}  
+
+</style>
+</head>
+<body>
+		 <div>
+		 	<div align="center">
+		<div class="title">
+			病例报告表(CRF)
+		</div>
+		<div class="table_title">
+			<table style="table-layout:fixed;word-break:break-strict;">
+				<tr>
+					<td colspan="2" align="left">项目名称：${projName!}
+					</td>
+				</tr>
+				<#if soureType!="emptyCrf">
+				<tr>
+					<td width="16%" align="left">受试者编码：${patientCode!}
+					</td>
+					<td width="50%" align="left">研究机构：${orgName!}
+					</td>
+				</tr>
+				</#if>
+			</table>
+		</div>
+		</div>
+		<#if projDescForm?exists>
+		<#if projDescForm.visitList?exists>
+		 <#list projDescForm.visitList as visit>
+		 	<#if soureType=="emptyCrf" || patientSubmitVisitMap[visit.visitFlow]?exists>
+		 	<div align="center" style="font-size: 15px;padding-top: 10px;">访视：${visit.visitName}</div>
+		 	<#if projDescForm.visitModuleMap[visit.visitFlow]?exists>
+		 	<#list projDescForm.visitModuleMap[visit.visitFlow] as visitModule>
+		 	<#assign moduleCode="${visitModule.moduleCode}">
+		 	<#assign commCode="${visit.visitFlow}_${moduleCode}">
+		 	<#if patientSubmitVisitMap?exists && patientSubmitVisitMap[visit.visitFlow]?exists>
+		 		<#assign edcPatientVisit=patientSubmitVisitMap[visit.visitFlow].edcPatientVisit>
+		 	</#if>
+		 	
+			<fieldset>
+				<legend>${visitModule.moduleName}</legend>
+			 		<table class="basic" width="100%" style="table-layout:fixed; word-break:break-strict;">
+			 		<#if projDescForm.visitModuleElementMap[commCode]?exists>
+			 		<#list projDescForm.visitModuleElementMap[commCode] as visitElement>
+			 		<!-- 设置moduleCode -->
+			 		<#if visitElement.placeholdModuleCode?exists>
+			 			<#assign moduleCode="${visitElement.moduleCode}">
+			 		<#else>
+			 			<#assign moduleCode="${visitModule.moduleCode}">
+			 		</#if>
+			 		<#assign commAttrCode="${visit.visitFlow}_${moduleCode}_${visitElement.elementCode}">
+			 		<#assign columnCount = (projDescForm.elementMap[visitElement.elementCode].columnCount!0)?number>
+			 		<#if !projDescForm.moduleMap[visitModule.moduleCode]?? || !projDescForm.moduleMap[visitModule.moduleCode].moduleStyleId?? || moduleStyleSingleId == projDescForm.moduleMap[visitModule.moduleCode].moduleStyleId>
+			 		<tr>
+		 				<th width="15%" style="text-align: right;padding-right: 0px;padding-left: 0px"> 
+		 					${projDescForm.elementMap[visitElement.elementCode].elementName}&#12288;
+		 				</th>
+	 					<!-- 单次录入 -->
+			 			<#if projDescForm.elementMap[visitElement.elementCode].elementSerial != flagY>
+				 			<td  width="85%">
+				 				<#assign attrWidth="120px"  attrCodeWidth="80px" defaultAlign="left">
+								<#if columnCount == 0 || columnCount == 1>
+									<#assign attrWidth=""  attrCodeWidth="">
+									<#if columnCount == 1>
+										<#assign defaultAlign="left" attrWidth="100%">
+									</#if>
+								</#if>
+								<table width="100%" style="table-layout:fixed; word-break:break-strict;">
+									<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+										<#if columnCount == 0>
+											<#assign columnCount = projDescForm.visitElementAttributeMap[commAttrCode]?size>
+										</#if>
+										<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+											<#if (attribute_index % columnCount) == 0>
+												<tr>
+												<#list attribute_index..(attribute_index+columnCount-1) as index>
+													<td style="text-align: ${defaultAlign};border: none;width: ${attrWidth};line-height: 18px;">
+														<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+															<#assign attr = projDescForm.visitElementAttributeMap[commAttrCode][index].attrCode>
+															<#assign commCodeFlow = "${commAttrCode}_${attr}">
+															<#if projDescForm.attrMap[attr].isViewName == flagY>
+																${projDescForm.attrMap[attr].attrName}：
+															</#if>
+															<#if (soureType!="emptyCrf" && columnCount == 1) || (soureType!="emptyCrf" && projDescForm.attrMap[attr].isViewName != flagY)>
+																<#if patientCrfDataMap[visit.visitFlow]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1']?exists && edcPatientVisit??>
+																	<#if (attrValueObj.getVisitData(attr,patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1'],edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																		<#assign value = attrValueObj.getVisitData(attr,patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1'],edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																		<#if value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																			<#if projDescForm.attrMap[attr].isViewName != flagY>
+																				<div style="width: 100%;text-align: left;">${attrValueObj.getAttrValue(projDescForm,attr,value)}</div>
+																			<#else>
+																				${attrValueObj.getAttrValue(projDescForm,attr,value)}
+																			</#if>
+																		</#if>
+																	</#if>
+																</#if>
+																<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																	<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																	${value}
+																</#if>
+															<#elseif soureType=="emptyCrf" && columnCount == 1>
+																<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			<input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+															</#if>
+														</#if>
+													</td>
+													<td style="border: none;width: ${attrCodeWidth};line-height: 18px;">
+														<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+														<#if soureType!="emptyCrf" && columnCount != 1 && projDescForm.attrMap[attr].isViewName == flagY>
+															<#if patientCrfDataMap[visit.visitFlow]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1']?exists && edcPatientVisit??>
+																<#if (attrValueObj.getVisitData(attr,patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1'],edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																	<#assign value = attrValueObj.getVisitData(attr,patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1'],edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																	<#if !value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																		${attrValueObj.getAttrValue(projDescForm,attr,value)}
+																	</#if>
+																</#if>
+															</#if>
+															<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																${value}
+															</#if>
+														<#elseif soureType=="emptyCrf" && columnCount != 1>
+															<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+														</#if>
+														</#if>
+													</td>
+												</#list>
+												</tr>
+											</#if>
+										</#list>
+									</#if>
+								</table>
+				 			</td>
+			 			<#else>
+			 				<#if (projDescForm.elementAttrMap[visitElement.elementCode]?size) lte  edcSerialAttrCount>
+				 				<td  width="85%">
+					 				<#assign attrWidth="120px"  attrCodeWidth="80px" defaultAlign="right">
+									<#if columnCount == 0 || columnCount == 1>
+										<#assign attrWidth=""  attrCodeWidth="">
+										<#if columnCount == 1>
+											<#assign defaultAlign="left" attrWidth="100%">
+										</#if>
+									</#if>
+									<table width="100%" style="table-layout:fixed; word-break:break-strict;" class="bs_tb">
+										<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+											<tr>
+												<th width="50px">序号</th>
+												<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+													<th>${projDescForm.attrMap[attribute.attrCode].attrName }</th>
+												</#list>
+											</tr>
+											<#if patientCrfDataMap?exists && patientCrfDataMap[visit.visitFlow]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?exists>
+											<#list patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?keys as valueMapRecord>
+												<#assign mapValue = patientCrfDataMap[visit.visitFlow][visitElement.elementCode][valueMapRecord]>
+												<tr>
+													<td><div>${valueMapRecord}</div></td>
+													<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+													<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+													<td style="text-align: ${defaultAlign};border: none;width: ${attrWidth};line-height: 18px;">
+																<#assign attr = attribute.attrCode>
+																<#assign commCodeFlow = "${commAttrCode}_${attr}">
+																<#if soureType!="emptyCrf">
+																	<#if mapValue?? && edcPatientVisit??>
+																		<#if (attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																			<#assign value = attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																			<#if value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																				${attrValueObj.getAttrValue(projDescForm,attr,value)}
+																			</#if>
+																		</#if>
+																	</#if>
+																	<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																		<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																		${value}
+																	</#if>
+																<#elseif soureType=="emptyCrf">
+																	<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+																</#if>
+														</td>	
+													</#list>
+													</#if>
+												</tr>
+											</#list>
+											<#else>
+														<tr>
+											           		<td><div>1</div></td>
+															<td></td>				
+											           </tr>
+											</#if>
+										</#if>
+									</table>
+					 			</td>
+			 				<#else>
+			 					<td  width="85%">
+				 				<#assign attrWidth="120px"  attrCodeWidth="80px" defaultAlign="right">
+								<#if columnCount == 0 || columnCount == 1>
+									<#assign attrWidth=""  attrCodeWidth="">
+									<#if columnCount == 1>
+										<#assign defaultAlign="left" attrWidth="100%">
+									</#if>
+								</#if>
+								<table width="100%" style="table-layout:fixed; word-break:break-strict;" class="bs_tb">
+									<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+										<tr>
+								         	<th width="50px">序号</th> 
+								         	<th></th>
+								         </tr>
+								         <#if patientCrfDataMap?exists && patientCrfDataMap[visit.visitFlow]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?exists>
+									         <#if columnCount == 0>
+												<#assign columnCount = projDescForm.visitElementAttributeMap[commAttrCode]?size>
+											</#if>
+								         	<#list patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?keys as valueMapRecord>
+								         		<#assign mapValue = patientCrfDataMap[visit.visitFlow][visitElement.elementCode][valueMapRecord]>
+								         		<tr>
+								         		<td><div>${valueMapRecord}</div></td>
+								         		<td>
+									         		<table style="table-layout:fixed; word-break:break-strict;">
+									         			<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+									         			<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+														<#if (attribute_index % columnCount) == 0>
+																<tr>
+																<#list attribute_index..(attribute_index+columnCount-1) as index>
+																	<td style="text-align: ${defaultAlign};border: none;width: ${attrWidth};line-height: 18px;">
+																		<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+																			<#assign attr = projDescForm.visitElementAttributeMap[commAttrCode][index].attrCode>
+																			<#assign commCodeFlow = "${commAttrCode}_${attr}">
+																			<#if projDescForm.attrMap[attr].isViewName == flagY>
+																				${projDescForm.attrMap[attr].attrName}：
+																			</#if>
+																			<#if (soureType!="emptyCrf" && columnCount == 1) || (soureType!="emptyCrf" && projDescForm.attrMap[attr].isViewName != flagY)>
+																				<#if mapValue?? && edcPatientVisit??>
+																					<#if (attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																						<#assign value = attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																						<#if value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																							<#if projDescForm.attrMap[attr].isViewName != flagY>
+																								<div style="width: 100%;text-align: left;">${attrValueObj.getAttrValue(projDescForm,attr,value)}</div>
+																							<#else>
+																								${attrValueObj.getAttrValue(projDescForm,attr,value)}
+																							</#if>
+																						</#if>
+																					</#if>
+																				</#if>
+																				<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																					<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																					${value}
+																				</#if>
+																			<#elseif soureType=="emptyCrf" && columnCount == 1>
+																				<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+																			</#if>
+																		</#if>
+																	</td>
+																	<td style="border: none;text-align: left;width: ${attrCodeWidth};line-height: 18px;">
+																	<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+																	<#if soureType!="emptyCrf" && columnCount != 1 && projDescForm.attrMap[attr].isViewName == flagY>
+																			<#if mapValue?? && edcPatientVisit??>
+																				<#if (attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																					<#assign value = attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																					<#if value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																						${attrValueObj.getAttrValue(projDescForm,attr,value)}
+																					</#if>
+																				</#if>
+																			</#if>
+																			<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																				<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																				${value}
+																			</#if>
+																		<#elseif soureType=="emptyCrf" && columnCount != 1>
+																			<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+																		</#if>
+																		</#if>
+																	</td>
+																</#list>
+																</tr>
+														</#if>
+														</#list>
+														</#if>
+													</table> 
+								         		</td>
+								         		</tr>
+								         	</#list>
+								         <#else>
+								         	<tr >
+								           		<td><div>1</div></td>
+								           		<td class="bs_tb">
+								           		<table width="100%" style="table-layout:fixed; word-break:break-strict;">
+													<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+														<#if columnCount == 0>
+															<#assign columnCount = projDescForm.visitElementAttributeMap[commAttrCode]?size>
+														</#if>
+														<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+															<#if (attribute_index % columnCount) == 0>
+																<tr>
+																<#list attribute_index..(attribute_index+columnCount-1) as index>
+																	<td style="border: none;text-align: ${defaultAlign};padding-left: 10px;width: ${attrWidth};line-height: 18px;">
+																		<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+																			<#assign attr = projDescForm.visitElementAttributeMap[commAttrCode][index].attrCode>
+																			<#assign commCodeFlow = "${commAttrCode}_${attr}">
+																			<#if projDescForm.attrMap[attr].isViewName == flagY>
+																				${projDescForm.attrMap[attr].attrName}：
+																			</#if>
+																		</#if>
+																	</td>
+																	<td style="border: none;text-align: left;width: ${attrCodeWidth};">
+																	</td>
+																</#list>
+																</tr>
+															</#if>
+														</#list>
+													</#if>
+												</table>          	
+												</td>				
+								           </tr>
+								         </#if>
+									</#if>
+								</table>
+				 			</td>
+			 				</#if>
+			 			</#if>
+	 				</tr>
+	 				<#else>
+	 				<tr><th colspan="2" width="100%" style="text-align: left;padding-left: 10px;">${projDescForm.elementMap[visitElement.elementCode].elementName}&#12288;</th></tr>
+	 				<#if projDescForm.elementMap[visitElement.elementCode].elementSerial != flagY>
+		 				<tr>
+		 					<td colspan="2" width="100%">
+		 							<#assign attrWidth="120px"  attrCodeWidth="80px" defaultAlign="right">
+									<#if columnCount == 0 || columnCount == 1>
+										<#assign attrWidth=""  attrCodeWidth="0" defaultAlign="left">
+										<#if columnCount == 1>
+											<#assign defaultAlign="left" attrWidth="100%">
+										</#if>
+									</#if>
+									<table width="100%" style="table-layout:fixed; word-break:break-strict;">
+										<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+											<#if columnCount == 0>
+												<#assign columnCount = projDescForm.visitElementAttributeMap[commAttrCode]?size>
+											</#if>
+											<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+												<#if (attribute_index % columnCount) == 0>
+													<tr>
+													<#list attribute_index..(attribute_index+columnCount-1) as index>
+														<td style="border: none;text-align: ${defaultAlign};padding-left: 10px;width: ${attrWidth};line-height: 18px;">
+															<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+																<#assign attr = projDescForm.visitElementAttributeMap[commAttrCode][index].attrCode>
+																<#assign commCodeFlow = "${commAttrCode}_${attr}">
+																<#if projDescForm.attrMap[attr].isViewName == flagY>
+																	${projDescForm.attrMap[attr].attrName}：
+																</#if>
+																<#if (soureType!="emptyCrf" && columnCount == 1) || (soureType!="emptyCrf" && projDescForm.attrMap[attr].isViewName != flagY)>
+																<#if patientCrfDataMap[visit.visitFlow]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1']?exists && edcPatientVisit??>
+																	<#if (attrValueObj.getVisitData(attr,patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1'],edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																		<#assign value = attrValueObj.getVisitData(attr,patientCrfDataMap[visit.visitFlow][visitElement.elementCode]['1'],edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																		<#if value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																				<div style="width: 100%;text-align: left;">${attrValueObj.getAttrValue(projDescForm,attr,value)}</div>
+																		</#if>
+																	</#if>
+																</#if>
+																<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																	<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																	${value}
+																</#if>
+															<#elseif soureType=="emptyCrf" && columnCount == 1>
+																<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+															</#if>
+															</#if>
+														</td>
+														<td style="border: none;text-align: left;width: ${attrCodeWidth};">
+														</td>
+													</#list>
+													</tr>
+												</#if>
+											</#list>
+										</#if>
+									</table>
+		 					</td>
+		 				</tr>
+		 			<#else>
+		 				<#if (projDescForm.elementAttrMap[visitElement.elementCode]?size) lte  edcSerialAttrCount>
+		 					<tr>
+		 					<td colspan="2" width="100%">
+					 				<#assign attrWidth="120px"  attrCodeWidth="80px" defaultAlign="right">
+									<#if columnCount == 0 || columnCount == 1>
+										<#assign attrWidth=""  attrCodeWidth="">
+										<#if columnCount == 1>
+											<#assign defaultAlign="left" attrWidth="100%">
+										</#if>
+									</#if>
+									<table width="100%" style="table-layout:fixed; word-break:break-strict;" class="bs_tb">
+										<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+											<tr>
+												<th width="50px">序号</th>
+												<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+													<th>${projDescForm.attrMap[attribute.attrCode].attrName }</th>
+												</#list>
+											</tr>
+											<#if patientCrfDataMap?exists && patientCrfDataMap[visit.visitFlow]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?exists>
+											<#list patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?keys as valueMapRecord>
+												<#assign mapValue = patientCrfDataMap[visit.visitFlow][visitElement.elementCode][valueMapRecord]>
+												<tr>
+													<td><div>${valueMapRecord}</div></td>
+													<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+													<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+													<td style="text-align: ${defaultAlign};border: none;width: ${attrWidth};line-height: 18px;">
+																<#assign attr = attribute.attrCode>
+																<#assign commCodeFlow = "${commAttrCode}_${attr}">
+																<#if soureType!="emptyCrf" && columnCount == 1>
+																	<#if mapValue?? && edcPatientVisit??>
+																		<#if (attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																			<#assign value = attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																			<#if value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																				${attrValueObj.getAttrValue(projDescForm,attr,value)}
+																			</#if>
+																		</#if>
+																	</#if>
+																	<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																		<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																		${value}
+																	</#if>
+																<#elseif soureType=="emptyCrf" && columnCount == 1>
+																	<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+																</#if>
+														</td>	
+														</tr>			
+													</#list>
+													</#if>
+												</tr>
+											</#list>
+											<#else>
+												<tr><td><div>1</div></td><td></td></tr>
+											</#if>
+										</#if>
+									</table>
+		 					</td>
+		 				</tr>
+		 				<#else>
+		 					<tr>
+		 					<td colspan="2" width="100%">
+				 				<#assign attrWidth="120px"  attrCodeWidth="80px" defaultAlign="right">
+								<#if columnCount == 0 || columnCount == 1>
+									<#assign attrWidth=""  attrCodeWidth="">
+									<#if columnCount == 1>
+										<#assign defaultAlign="left" attrWidth="100%">
+									</#if>
+								</#if>
+								<table width="100%" style="table-layout:fixed; word-break:break-strict;" class="bs_tb">
+									<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+										<tr>
+								         	<th width="50px">序号</th> 
+								         	<th></th>
+								         </tr>
+								         <#if patientCrfDataMap?exists && patientCrfDataMap[visit.visitFlow]?exists && patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?exists>
+									         <#if columnCount == 0>
+												<#assign columnCount = projDescForm.visitElementAttributeMap[commAttrCode]?size>
+											</#if>
+								         	<#list patientCrfDataMap[visit.visitFlow][visitElement.elementCode]?keys as valueMapRecord>
+								         		<#assign mapValue = patientCrfDataMap[visit.visitFlow][visitElement.elementCode][valueMapRecord]>
+								         		<tr>
+								         		<td><div>${valueMapRecord}</div></td>
+								         		<td>
+									         		<table style="table-layout:fixed; word-break:break-strict;">
+									         			<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+									         			<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+														<#if (attribute_index % columnCount) == 0>
+																<tr>
+																<#list attribute_index..(attribute_index+columnCount-1) as index>
+																	<td style="text-align: ${defaultAlign};border: none;width: ${attrWidth};line-height: 18px;">
+																		<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+																			<#assign attr = projDescForm.visitElementAttributeMap[commAttrCode][index].attrCode>
+																			<#assign commCodeFlow = "${commAttrCode}_${attr}">
+																			<#if projDescForm.attrMap[attr].isViewName == flagY>
+																				${projDescForm.attrMap[attr].attrName}：
+																			</#if>
+																			<#if soureType!="emptyCrf" && columnCount == 1>
+																				<#if mapValue?? && edcPatientVisit??>
+																					<#if (attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																						<#assign value = attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																						<#if value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																							${attrValueObj.getAttrValue(projDescForm,attr,value)}
+																						</#if>
+																					</#if>
+																				</#if>
+																				<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																					<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																					${value}
+																				</#if>
+																			<#elseif soureType=="emptyCrf" && columnCount == 1>
+																				<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+																			</#if>
+																		</#if>
+																	</td>
+																	<td style="border: none;text-align: left;width: ${attrCodeWidth};line-height: 18px;">
+																	<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+																	<#if soureType!="emptyCrf">
+																			<#if mapValue?? && edcPatientVisit??>
+																				<#if (attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit))??>
+																					<#assign value = attrValueObj.getVisitData(attr,mapValue,edcPatientVisit.inputOperFlow,edcPatientVisit)>
+																					<#if value?? && (attrValueObj.getAttrValue(projDescForm,attr,value))??>
+																						${attrValueObj.getAttrValue(projDescForm,attr,value)}
+																					</#if>
+																				</#if>
+																			</#if>
+																			<#if value?? && projDescForm.attrMap[attr].attrVarName == unitVarName>
+																				<#assign value = projDescForm.elementStandardUnitMap[visitElement.elementCode]!"">
+																				${value}
+																			</#if>
+																		<#elseif soureType=="emptyCrf" && columnCount != 1>
+																			<#if projDescForm.attrMap[attr].inputTypeId == radioId>
+																	<#if projDescForm.visitAttrCodeMap?exists && projDescForm.visitAttrCodeMap[commCodeFlow]?exists>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																<#elseif projDescForm.attrMap[attr].inputTypeId == checkboxId>
+																	<#if projDescForm.visitAttrCodeMap?? && projDescForm.visitAttrCodeMap[commCodeFlow]??>
+																		<#list projDescForm.visitAttrCodeMap[commCodeFlow] as code>
+																			<#if projDescForm.codeMap?exists && projDescForm.codeMap[code.codeFlow]??>
+																			 <input type='checkbox' name='' /> ${projDescForm.codeMap[code.codeFlow].codeName!}
+																			</#if>
+																		</#list>
+																	</#if>
+																</#if>
+																		</#if>
+																		</#if>
+																	</td>
+																</#list>
+																</tr>
+														</#if>
+														</#list>
+														</#if>
+													</table> 
+								         		</td>
+								         		</tr>
+								         	</#list>
+								         <#else>
+								         	<tr >
+								           		<td><div>1</div></td>
+								           		<td class="bs_tb">
+								           		<table width="100%" style="table-layout:fixed; word-break:break-strict;">
+													<#if projDescForm.visitElementAttributeMap[commAttrCode]?exists>
+														<#if columnCount == 0>
+															<#assign columnCount = projDescForm.visitElementAttributeMap[commAttrCode]?size>
+														</#if>
+														<#list projDescForm.visitElementAttributeMap[commAttrCode] as attribute>
+															<#if (attribute_index % columnCount) == 0>
+																<tr>
+																<#list attribute_index..(attribute_index+columnCount-1) as index>
+																	<td style="border: none;text-align: ${defaultAlign};padding-left: 10px;width: ${attrWidth};line-height: 18px;">
+																		<#if (index < projDescForm.visitElementAttributeMap[commAttrCode]?size)>
+																			<#assign attr = projDescForm.visitElementAttributeMap[commAttrCode][index].attrCode>
+																			<#if projDescForm.attrMap[attr].isViewName == flagY>
+																				${projDescForm.attrMap[attr].attrName}：
+																			</#if>
+																		</#if>
+																	</td>
+																	<td style="border: none;text-align: left;width: ${attrCodeWidth};line-height: 18px;">
+																	</td>
+																</#list>
+																</tr>
+															</#if>
+														</#list>
+													</#if>
+												</table>          	
+												</td>				
+								           </tr>
+								         </#if>
+									</#if>
+								</table>
+		 					</td>
+		 				</tr>
+		 				</#if>
+	 				</#if>
+			 		</#if>
+			 		</#list>
+			 		</#if>
+			 		</table>
+			 	</fieldset>
+			 	</#list>
+			 	</#if>
+		 	</#if>
+		 </#list>
+		 </#if>
+		</#if>
+		</div>
+</body>
+</html>

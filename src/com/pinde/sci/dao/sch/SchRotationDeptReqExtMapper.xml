@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.sch.SchRotationDeptReqExtMapper" >
+	<resultMap type="HashMap" id="reqCountMap">
+		<result property="reqKey" column="REQ_KEY" javaType="string"/>
+		<result property="reqSum" column="REQ_SUM" javaType="java.math.BigDecimal"/>
+	</resultMap>
+	
+	<select id="searchReqByRotationAndSchDept" resultMap="com.pinde.sci.dao.base.SchRotationDeptReqMapper.BaseResultMap">
+		SELECT * 
+		FROM PDSCI.SCH_ROTATION_DEPT_REQ
+		WHERE RECORD_STATUS = 'Y'
+		ROTATION_FLOW IN
+		<foreach collection="rotationFlows" item="rotationFlow" open="(" separator="," close=")">  
+  			#{rotationFlow}
+ 		</foreach>
+ 		AND REC_TYPE_ID = #{recTypeId}
+ 		<if test="itemName != null and itemName != ''">
+ 			AND ITEM_NAME LIKE '%${itemName}%'
+ 		</if>
+		AND STANDARD_DEPT_ID IN
+		<foreach collection="schDeptFlows" item="schDeptFlow" open="(" separator="," close=")">  
+  			#{schDeptFlow}
+ 		</foreach>
+	</select>
+	
+	<select id="countReqWithSchDept" resultMap="reqCountMap">
+		SELECT SR.ROTATION_FLOW||SRD.GROUP_FLOW||SRD.STANDARD_DEPT_ID||SRDR.REC_TYPE_ID REQ_KEY,SUM(REQ_NUM) REQ_SUM
+		FROM PDSCI.SCH_ROTATION_DEPT_REQ SRDR,PDSCI.SCH_ROTATION_DEPT SRD,PDSCI.SCH_ROTATION SR
+		WHERE SRDR.RECORD_STATUS = 'Y'
+		AND SRD.RECORD_STATUS = 'Y'
+		AND SR.RECORD_STATUS = 'Y'
+		AND SRDR.REL_RECORD_FLOW = SRD.RECORD_FLOW
+		AND SRD.ROTATION_FLOW = SR.ROTATION_FLOW
+				
+		AND SR.ROTATION_FLOW IN
+		<foreach collection="rotationFlows" item="rotationFlow" open="(" separator="," close=")">
+			#{rotationFlow}
+		</foreach>
+		
+		AND SRD.STANDARD_DEPT_ID IN
+		<foreach collection="standardDeptIds" item="standardDeptId" open="(" separator="," close=")">
+			#{standardDeptId}
+		</foreach>
+		GROUP BY SR.ROTATION_FLOW,SRD.GROUP_FLOW,SRD.STANDARD_DEPT_ID,SRDR.REC_TYPE_ID
+	</select>
+</mapper>

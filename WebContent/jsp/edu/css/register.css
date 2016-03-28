@@ -1,0 +1,46 @@
+/* CSS Document */
+/*register.html*/
+.rbody-form{margin:0 auto; text-align:left;}
+.rbody{width:950px; margin:0 auto; text-align:left;}
+.registerLogo{ width:950px; margin:0 auto;height:55px; padding-top:16px;border-bottom:3px solid #1b6faf;}
+.register-t{line-height:45px; margin-top:15px; font-size:20px; font-weight:400; color:#000; text-indent:40px; background:url(images/newUser.png) no-repeat left 10px;}
+.registerInfo{border:1px solid #cdcdcd; background:#f5f5f5; padding:30px 100px 0px 138px; color:#323232; }
+.registerInfo p{ line-height:20px;}
+.registerInfo h3{ font-size:18px; color:#000;  position:relative; margin-bottom:16px; }
+.registerInfo h3 i{ position:absolute; width:34px; height:34px; background:url(images/true.png); top:0; left:-50px;}
+.registerInfo input{ height:28px; font-weight:bold; padding:0 30px; color:#000; font-size:14px; border:1px solid #997c2c; border-radius:1px; background:url(images/btn-active.jpg) repeat-x;margin:15px 0; cursor:pointer;}
+.registerInfo dl{ padding:12px 20px; background:#fff;}
+.registerInfo dt{ font-size:14px; color:#000; line-height:36px; font-weight: bold;}
+.registerInfo dd{ line-height:18px; margin-top:4px; padding-left:12px;}
+.registerInfo dd span{ padding-right:3px; vertical-align:text-top;}
+.registerInfo a{ line-height:45px; color:#0066ce;}
+/* activate.html*/
+.activate{padding:30px 0px 200px; line-height:20px;}
+.activate a{color:#0066ce;}
+.activate-foot{ position:fixed; bottom:0; height:70px; width:950px; line-height:24px;}
+.activate-foot p{ height:32px; padding:7px; background:#248de5; font-size:12px;}
+/*registerMassge.html*/
+.reg-nav{height: 10px;background:url(images/reg_hr.png) no-repeat center top;}
+.registerMassge{ width:960px; margin:0 auto; font-size:15px;color:#666}
+.registerMassge h3{ line-height:60px; text-indent:20px; border-bottom:1px dashed #cdcdcd; color:#000; font-size:24px; font-weight:normal;}
+.registerMassge h3 img{ verticla-align:middle;margin-right:6px;}
+.registerMassge .regtable{width:960px; float:left; margin:10px auto; background:#f5fbff;border: 1px solid #d1eeff;}
+.registerMassge table{ width:480px; margin:0;}
+.registerMassge td{text-align:right; height:60px;}
+.registerMassge td i{ font-style:normal;color:#f00;margin-right:4px;}
+.registerMassge input,.registerMassge select{  border-radius:3px; width:370px; height:35px; border:1px solid #c9c9c9; }
+.registerMassge input{ text-indent:10px;}
+.registerMassge span{ color:#999}
+.registerMassge .btn1 input{width:180px;text-align:center;line-height:40px; height:40px;font-size:20px;text-indent:0px; border:0; color:#fff;}
+.btn-save{background:#F93;}
+.btn-grey{background:#d0d0d0;}
+.btn-submit{background:#2071b0;}
+.regtableleft{width:510px; float:left; margin:30px 0; padding:0 60px; display:block; background:url(images/reg_line.png) repeat-y right;}
+.regtableright{width:250px; float:left;margin:30px;}
+.regtableright h6{margin: 0;padding-left: 30px;height: 50px;line-height: 50px;background: url(images/attention.png) left center no-repeat;border-bottom: 1px solid #e6edf2;font-size: 14px;color: #666;}
+.regtableright p{color: #666;font-size: 13px;margin-top: 20px; line-height:25px;margin-bottom: 5px;}
+.regform-foot{width:950px; margin:0 auto; text-align:center; margin-top:60px;}
+/*eGuoqi.html*/
+.eGuoqi{ width:300px; margin:0 auto; text-align:center; line-height:26px; margin-top:100px; color:#666;}
+.eGuoqi h2{ margin-top:24px; font-size:24px; font-weight:normal;}
+.btn-back{ width:100%; height:40px; color:#fff; font-size:20px; background:#38ba4e; margin-top:45px; cursor:pointer; border-radius:3px;}

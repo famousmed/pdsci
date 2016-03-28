@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.inx.InxColumnExtMapper" >
+	<resultMap id="extResultMap" type="com.pinde.sci.model.inx.InxColumnExt" extends="com.pinde.sci.dao.base.InxColumnMapper.BaseResultMap" >
+		<association property="parentColumn" column="parent_column_id" javaType="com.pinde.sci.model.mo.InxColumn" >
+			<id column="PAR_COLUMN_FLOW" property="columnFlow" jdbcType="VARCHAR" />
+		    <result column="PAR_COLUMN_ID" property="columnId" jdbcType="VARCHAR" />
+		    <result column="PAR_COLUMN_NAME" property="columnName" jdbcType="VARCHAR" />
+		    <result column="PAR_PARENT_COLUMN_ID" property="parentColumnId" jdbcType="VARCHAR" />
+		    <result column="PAR_ORDINAL" property="ordinal" jdbcType="DECIMAL" />
+		    <result column="PAR_RECORD_STATUS" property="recordStatus" jdbcType="CHAR" />
+		</association>
+	</resultMap>
+   <select id="selectByForm" parameterType="com.pinde.sci.form.inx.InxColumnForm" resultMap="extResultMap">
+    select t1.*,t2.COLUMN_ID as PAR_COLUMN_ID,t2.COLUMN_NAME as PAR_COLUMN_NAME,t2.PARENT_COLUMN_ID as PAR_PARENT_COLUMN_ID,t2.ORDINAL as PAR_ORDINAL,t2.RECORD_STATUS as PAR_RECORD_STATUS from (select tt.* from 
+           (select t.*,rownum as myrownum from (select <include refid="com.pinde.sci.dao.base.InxColumnMapper.Base_Column_List" /> from PDSCI.INX_COLUMN
+		   	<where>
+		   		<if test='parentColumnId != null and parentColumnId != ""'>
+		   			<if test='parentColumnId!="0"'>
+		   				PARENT_COLUMN_ID = #{parentColumnId}
+		   			</if>
+		   			<if test='parentColumnId=="0"'>
+		   				PARENT_COLUMN_ID is null
+		   			</if>
+		   		</if>
+		   		<if test='columnName != null and columnName != ""'>
+		   			and column_name like '%${columnName}%'
+		   		</if>
+		   	</where>
+		   	order by ordinal asc, create_time desc) t
+		   	<where>
+		   		<if test='endIndex != null and endIndex != ""'>
+		   			rownum <![CDATA[<=]]> #{endIndex}
+		   		</if>
+		   	</where>)tt
+		   	<where>
+		   		<if test='startIndex != null and startIndex != ""'>
+		   			tt.myrownum <![CDATA[>]]> #{startIndex}
+		   		</if>
+		   	</where>)t1 left join PDSCI.INX_COLUMN t2 on t1.PARENT_COLUMN_ID=t2.COLUMN_ID order by t1.ordinal asc, t1.create_time desc
+  </select>
+  
+ <select id="selectCountByForm" parameterType="com.pinde.sci.form.inx.InxColumnForm" resultType="_long">
+	    select count(*) from PDSCI.INX_COLUMN
+		   	<where>
+		   	  <if test='parentColumnId != null and parentColumnId != ""'>
+		   			<if test='parentColumnId!="0"'>
+		   				PARENT_COLUMN_ID = #{parentColumnId}
+		   			</if>
+		   			<if test='parentColumnId=="0"'>
+		   				PARENT_COLUMN_ID is null
+		   			</if>
+		   		</if>
+		   		<if test='columnName != null and columnName != ""'>
+		   			and column_name like '%${columnName}%'
+		   		</if>
+		   	</where>
+  </select>
+  <select id="selectOneByForm" parameterType="com.pinde.sci.form.inx.InxColumnForm" resultMap="extResultMap">
+  	select t1.*, t2.COLUMN_NAME as PAR_COLUMN_NAME,t2.PARENT_COLUMN_ID as PAR_PARENT_COLUMN_ID,t2.ORDINAL as PAR_ORDINAL,t2.RECORD_STATUS as PAR_RECORD_STATUS from PDSCI.INX_COLUMN t1 left join PDSCI.INX_COLUMN t2
+  	  on t1.PARENT_COLUMN_ID = t2.COLUMN_ID
+  	<where>
+		<if test='columnFlow != null and columnFlow != ""'>
+		   t1.COLUMN_FLOW = #{columnFlow}
+		</if>
+	</where>
+  </select>
+  
+  <select id="searchInxColumnList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.InxColumnMapper.BaseResultMap">
+	    select * from PDSCI.INX_COLUMN
+	    where RECORD_STATUS = 'Y'
+		<if test='columnId != null and columnId != ""'>
+			<bind name="columnId" value="columnId+'%'"/>
+			and PARENT_COLUMN_ID like #{columnId}
+		</if>
+		order by ORDINAL
+  </select>
+</mapper>

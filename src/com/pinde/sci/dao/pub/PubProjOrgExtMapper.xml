@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.pub.PubProjOrgExtMapper" >
+  <update id="delete" parameterType="string">
+  	update  PDSCI.pub_proj_org set record_status = 'N' where record_flow in <foreach collection="list" open="(" separator="," close=")" item="item">#{item}</foreach>
+  </update>
+</mapper>

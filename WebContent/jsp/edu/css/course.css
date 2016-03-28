@@ -1,0 +1,99 @@
+/* CSS Document */
+html,body{ height:100%;overflow:auto;}
+/*侧边栏菜单*/
+.menu-warp{ width:170px; overflow:hidden; border-bottom:1px solid #ddd;}
+.menu{ width:168px; background:#fff; border:1px solid #eee; overflow:hidden;}
+/*一级菜单*/
+.menu li.level1 a{background:url(images/menu-bg.png) no-repeat 10px top; madding-top:-1px;display:block;line-height:48px;height:48px;padding-left:30px; font-size:15px;color:#2e2e2e; margin-right:10px;}
+.menu li.level1:first-child a{background:none;}
+/*一级菜单两态样式,供JS调用*/
+.menu li.level1 a:hover{border-left:2px solid #009fff;color:#009fff; padding-left:28px;}
+.menu li.level1 a.hove{border-left:2px solid #009fff;color:#009fff; padding-left:28px;}
+.menu li.level1 a.cur{border-left:2px solid #009fff;color:#009fff;padding-left:28px;}
+/*二级菜单*/
+.menu ul{overflow:hidden;}
+.menu .level2{width:168px;display:none;}
+.menu .level2 li{height:32px;line-height:32px;}
+.menu .level2 li a{display:block;height:32px; border-bottom:0;font-size:13px;line-height:32px;padding-left:30px;color:#42556B;overflow:hidden;background:none; margin:8px 20px;}
+/*二级菜单两态样式,供JS调用*/
+.menu .level2 li a:hover{background:#009fff; color:#fff;}
+.menu .level2 li a.hove1{background:#009fff; color:#fff;}
+/*end 侧边栏菜单*/
+.right{ width:953px; min-height:656px;}
+.wrap{border-bottom:1px solid #ddd;}
+.courseBg{ background:#fff; border:1px solid #eee; padding:0 19px 30px; min-height:654px;}
+.wrap .title{ height:48px; border-bottom:1px solid #eee;}
+.wrap .title h3{ line-height:48px;  font-size:16px; font-weight:normal;color:#04618d;}
+.wrap .title h3 img{vertical-align:middle; margin-right:8px;}
+.searchBox{ height:28px; padding:3px 0; border:1px solid #eee;  line-height:28px; margin-top:7px; margin-right:13px;}
+.searchBox img{ margin-bottom:8px; margin-right:8px;}
+.searchBox input{ width:204px; height:28px; float:left; margin-bottom:12px;text-indent:10px; color:#aeaeae;}
+.searchBox input.sousuo{ width:31px; height:28px; background: url(images/search1.png); cursor:pointer;}
+.tabs-title{ height:48px; background:none; border:none;}
+.tabs-title li{ float:left; height:28px; padding:10px 0;}
+.tabs-title li a{ display:block; height:28px; color:#a6a6a6; font-size:13px; line-height:28px; padding:0 13px; border-left:1px solid #edf0f2;}
+.tabs-title li.on{ border-bottom:2px solid #308de3; background:none; height:28px;}
+.tabs-title li.on a{ color:#308de3;}
+.show-btn{ width:83px; height:26px; background:url(images/show-btn.png) no-repeat; margin-top:11px; color:#3f3f3f; text-indent:24px; line-height:26px;}
+.courseList-content{ width:914px; overflow:hidden;}
+.courseList-content ul{ width:928px;display:none;}
+.courseList-content li{ margin-top:18px; width:218px; float:left; border-bottom:1px solid #ddd; margin-right:14px;}
+.courseList-content .coursenone{border-bottom:none;}
+.courseList-content li dl{ border:1px solid #eee; margin-top:-4px; border-top:0; width:196px; height:122px; padding:0 10px; color:#545454;}
+.courseList-content li dl dd.countC{  color:#3e3e3e; }
+.courseList-content li dl dd{font-size:12px;}
+.courseList-content li dt{height:30px; padding-top:10px; color:#000; font-size:14px;}
+.courseList-content li dt a{ color:#000;}
+.courseList-content li dd{line-height:26px;}
+.courseList-content li dd.on000{ color:#000;}
+/*.courseList-content li .i-bnt{ background:#f7a947; height:21px; line-height:21px; padding:0 12px; margin:2px 0; font-size:13px;}*/
+.courseList-content li dd img{ vertical-align:-2px;}
+.tjcourse ul{ display:block;}
+.loading{ margin-top:88px; text-align:center; line-height:42px; font-style:italic; color:#5c6166; font-size:14px;}
+.loading img{ vertical-align:middle; margin-right:15px;}
+/*table*/
+.course-table{width:100%;border:none;border-collapse:collapse;background:#fefefe;box-shadow: 0 0 1px #C8EAFF;}
+.course-table th,.course-table td{height:40px;line-height:40px;text-align:center;font-size:13px; font-family:'微软雅黑'}
+.course-table th{background:#2582BB; color:#fff;font-weight:normal; border-bottom:1px solid #fff; }
+.course-table td{border-bottom:1px solid #d4e7f0;}
+.course-table .red{background:#a32929;}
+.course-table .yellow{background:#ffb433;}
+.course-table .blue{background:#308de3;}
+.course-table  a{text-decoration:underline;color:#009fff;}
+.course-table  a:hover{text-decoration:underline;color:#0077be;}
+.course-table tr:nth-child(2n+2){background:#f7faff;}
+.courseP{ height:40px; margin-bottom:0px; line-height:40px;border:1px solid #5fa7ce;text-indent:15px;  text-align:left; color:#fff; font-weight:bold; background:#5fa7ce;font-size:13px; font-family:'微软雅黑'}
+.editBtn{margin:10px auto;}
+.editBtn input{ line-height:30px; line-height:30px;cursor: pointer; font-size:14px; text-align:center; background:#009FFF;width:108px;margin:0 10px; color:#fff;}
+.editBtn .search2{background:#d1d6da; color:#666;}
+
+.course-table1{border:1px solid #d4e7f0;}
+.course-table1 tr:nth-child(2n+2){background:none;}
+.part{ border:1px solid #ddd; padding:10px; margin-bottom:10px;}
+.part table{ width:100%;}
+.part .course-table th{ background:#ecf2f6; color:#004D7C;}
+.part1 th,.part2 th{border-bottom:1px solid #d4e7f0;}
+.part1 td{text-align:left; padding-left:50px;}
+.part2 td{border:none;}
+.editTeacher input,.editTeacher select{ width:160px; border-bottom:1px solid #e5e5e5; line-height:22px;}
+/*tips*/
+.tab-tip{position: relative;}
+.box{display:none; width: 100px;line-height:25px; background:#fff;border:1px solid #cccccc;border-radius:3px;padding:12px;text-align:center;z-index:500;margin-left:55px;margin-top:-20px;position: absolute;}
+.box p{width:80px; word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/*无信息提示*/
+.nomessage{text-align:center;display:block;margin-top:100px;}
+.nomessage p{padding-left:8px;margin-top:20px;font-size:14px;}
+/*我的测验*/
+.mytest-content{width:928px;display:none;}
+.course_test{ width:291px; height:167px; border:1px solid #cccccc; margin:18px 16px 0 0; background:#f7f7f8; float:left;}
+.mytest{ height:110px; line-height:25px; background:#fff;border-bottom:1px solid #ccc; padding-left:15px;padding-top:10px;}
+.mytest dt{font-size:16px; color:#000; width:260px; word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mytest dd{color:#929292;}
+.test_go{margin-right:10px; margin-top:8px;}
+.test_btn{ background:#009fff; border-radius:2px; padding:5px 15px; color:#fff; cursor:pointer;}
+/*我的学分*/
+.course_credit{ height:142px; width:907px; border:1px solid #e5e5e5; margin-top:18px; margin-bottom:1px; background:#fff; box-shadow:0px 1px 1px #eaeaea;}
+.credit_p{border:5px solid #fff;}
+.mycredit{ margin:5px; line-height:32px; width:665px;}
+.mycredit dt{ font-size:16px; color:#292929;display:block;}
+.mycredit dd{ width:665px; word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}

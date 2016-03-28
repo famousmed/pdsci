@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.njmuedu.NjmuEduCourseChapterExtMapper">
+	<resultMap id="extChapterMap" type="com.pinde.sci.model.njmuedu.EduCourseChapterExt" extends="com.pinde.sci.dao.base.EduCourseChapterMapper.BaseResultMap" >
+		<association property="teacher" column="TEACHER_ID" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"></association>
+		<association property="course" column="COURSE_FLOW" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap"></association>
+	    <association property="eduUser" column="TEACHER_ID" resultMap="com.pinde.sci.dao.base.EduUserMapper.BaseResultMap"></association>
+	</resultMap>
+    
+	<select id="selectOneWithExt" parameterType="string" resultMap="extChapterMap">
+		select ecc.*,su.*,ec.*,eu.*
+			   from pdsci.edu_course_chapter ecc,pdsci.sys_user su,pdsci.edu_course ec,pdsci.edu_user eu where ecc.record_status='Y' and ec.record_status='Y'
+			   and su.record_status='Y' and ecc.teacher_id = su.user_flow and ecc.course_flow = ec.course_flow and eu.user_flow=ecc.teacher_id and chapter_flow = #{chapterFlow}
+	</select>
+	
+	<update id="updateByChapterFlowList" parameterType="com.pinde.sci.form.njmuedu.ChapterForm">
+  		 update  PDSCI.EDU_COURSE_CHAPTER set RECORD_STATUS = 'N' where CHAPTER_FLOW in
+  	        <foreach collection="chapterFlowList" open="(" separator="," close=")" item="item">#{item}</foreach>
+  	</update>
+  	
+  	<select id="selectMAXChapterOrder" resultType="short">
+  		select nvl(MAX(CHAPTER_ORDER),0) from PDSCI.EDU_COURSE_CHAPTER where RECORD_STATUS = 'Y'
+  	</select>
+	
+</mapper>

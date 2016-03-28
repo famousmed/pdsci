@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- 初始审查工作表-->
+	<!-- categroy id
+	1：药物试验
+	2：临床科研
+	3：医疗器械
+	{0}:表单所属机构(开关控制)
+	{1}:项目类别
+	{2}:版本号
+ -->
+	<jsp ver="1.0" path="irb/form/{0}/worksheet/revise_{1}_{2}"></jsp>
+	<product>
+		<page categroy="yw" ver="1.0">
+		<!-- 审查要素 -->
+			<item name="reviewElement1" remark="方案修正是否影响研究的风险" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement2" remark="方案修正是否影响受试者的受益" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement3" remark="方案修正是否涉及弱势群体" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement4" remark="方案修正是否增加受试者参加研究的持续时间或花费" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement5" remark="如果研究已经开始，方案修正是否对已经纳入的受试者造成影响" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement6" remark="为了避免对受试者造成紧急伤害，在提交伦理委员会审查批准前对方案进行了修改并实施是合理的" multiple="N">
+				<code value="1">不适用</code>
+				<code value="2">是</code>
+				<code value="3">否</code>
+			</item>
+			<item name="reviewElement7" remark="方案修正是否需要同时修改知情同意书" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement8" remark="修正的知情同意书是否符合完全告知、充分理解、自主选择的原则" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+			<item name="reviewElement9" remark="知情同意书的修改是否需要重新获取知情同意" multiple="N">
+				<code value="1">是</code>
+				<code value="0">否</code>
+			</item>
+		
+		<!-- 审查意见 -->
+			<item name="suggest" remark="建议" multiple="N"></item>
+			<item name="decision" remark="决定" multiple="N"></item>
+			<item name="submitMeetingReview" remark="提交会议审查" multiple="N"></item>
+			<item name="preCommitteeName" remark="主审委员签名" multiple="N"></item>
+			<item name="signDate" remark="主审委员签字日期" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

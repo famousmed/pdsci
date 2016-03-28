@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.erp.ErpCrmContractExtMapper">
+   <resultMap id="erpCrmContractExtMap" type="com.pinde.sci.model.erp.ErpCrmContractExt" extends="com.pinde.sci.dao.base.ErpCrmContractMapper.BaseResultMap" >
+     <association property="customer" column="customer_flow" resultMap="com.pinde.sci.dao.base.ErpCrmCustomerMapper.BaseResultMap"></association>
+   </resultMap>
+   <select id="searchContractList" parameterType="java.util.Map" resultMap="erpCrmContractExtMap">
+      select erco.*,
+             ercu.customer_name
+       from pdsci.erp_crm_contract erco
+       left join pdsci.erp_crm_customer ercu on ercu.customer_flow=erco.customer_flow
+       where erco.record_status='Y' and ercu.record_status='Y'
+       <if test='customer!=null'>
+         <if test='customer.customerName!=null and customer.customerName!=""'>
+       		<bind name="customerName" value="'%'+customer.customerName+'%'"/>
+       		and (ercu.customer_name like #{customerName}
+                 or ercu.alias_name like #{customerName})
+         </if>
+         <if test='customer.customerProvId!=null and customer.customerProvId!=""'>
+            and ercu.customer_prov_id = #{customer.customerProvId}
+         </if>
+         <if test='customer.customerCityId!=null and customer.customerCityId!=""'>
+            and ercu.customer_city_id = #{customer.customerCityId}
+         </if> 
+         <if test='customer.customerAreaId!=null and customer.customerAreaId!=""'>
+            and ercu.customer_area_id = #{customer.customerAreaId}
+         </if>         
+       </if>
+       <if test='currUserFlow!=null and currUserFlow!=""'>
+   			and ercu.CUSTOMER_PROV_ID in(
+				select  PROV_ID
+    			from pdsci.ERP_USER_REGION_POPEDOM
+    			where USER_FLOW = #{currUserFlow}
+	   			and RECORD_STATUS ='Y'
+			)
+   		</if>
+   		<if test='bigRegionTypeIdList!=null'>
+   			and ercu.CUSTOMER_PROV_ID in
+		   <foreach item="item" index="index" collection="bigRegionTypeIdList" open="(" separator="," close=")">  
+		  	#{item}  
+		   </foreach>
+   		</if>
+        <if test='deptFlow!=null and deptFlow!=""'>
+            and erco.sign_dept_flow=#{deptFlow}
+       </if>
+       <if test='contract!=null'>
+         <if test='contract.contractNo!=null and contract.contractNo!=""'>
+            <bind name="contractNo" value="'%'+contract.contractNo+'%'"/>
+            and contract_no like #{contractNo}
+         </if>
+         <if test='contract.contractName!=null and contract.contractName!=""'>
+           <bind name="contractName" value="'%'+contract.contractName+'%'"/>
+            and contract_name like #{contractName}
+         </if>
+         <if test='contract.contractFlow!=null and contract.contractFlow!=""'>
+            and contract_Flow=#{contract.contractFlow}
+         </if>
+         <if test='contract.maintainDueDate!=null and contract.maintainDueDate!=""'>
+            and maintain_Due_Date=#{contract.contractFlow}
+         </if>
+         <if test='contract.signDate!=null and contract.signDate!=""'>
+            and sign_Date=#{contract.signDate}
+         </if>
+         <if test='contract.contractCategoryId!=null and contract.contractCategoryId!=""'>
+            and contract_Category_Id=#{contract.contractCategoryId}
+         </if>
+          <if test='contract.contractTypeId!=null and contract.contractTypeId!=""'>
+            and contract_Type_Id=#{contract.contractTypeId}
+         </if>
+         <if test='contract.contractStatusId!=null and contract.contractStatusId!=""'>
+            and contract_Status_Id=#{contract.contractStatusId}
+         </if>
+          <if test='contract.signDeptFlow!=null and contract.signDeptFlow!=""'>
+            and sign_Dept_Flow=#{contract.signDeptFlow}
+         </if>
+         <if test='contract.signUserFlow!=null and contract.signUserFlow!=""'>
+            and sign_user_Flow=#{contract.signUserFlow}
+         </if>
+         <if test='contract.chargeUserFlow!=null and contract.chargeUserFlow!=""'>
+            and charge_user_Flow=#{contract.chargeUserFlow}
+         </if>
+         <if test='signDateStart!=null and signDateStart!=""'>
+            and sign_date >= #{signDateStart}
+         </if>
+         <if test='signDateEnd!=null and signDateEnd!=""'>
+            and sign_date <![CDATA[ <= ]]> #{signDateEnd}
+         </if>
+         <if test='maintainDueDateStart!=null and maintainDueDateStart!=""'>
+            and maintain_Due_Date >= #{maintainDueDateStart}
+         </if>
+         <if test='maintainDueDateEnd!=null and maintainDueDateEnd!=""'>
+            and maintain_Due_Date <![CDATA[ <= ]]> #{maintainDueDateEnd}
+         </if>
+         <if test='contractDueDateStart!=null and contractDueDateStart!=""'>
+            and contract_Due_Date >= #{contractDueDateStart}
+         </if>
+         <if test='contractDueDateEnd!=null and contractDueDateEnd!=""'>
+            and contract_Due_Date <![CDATA[ <= ]]> #{contractDueDateEnd}
+         </if>
+       </if>
+       <if test='noSecond=="Y"'>
+            and contract_Category_Id !='Second'
+       </if>
+       <if test='maintainDue=="Y"'>
+            and maintain_Due_Date <![CDATA[ < ]]> #{currDate}
+       </if>
+       <if test='refContractFlowList!=null'>
+          and contract_flow in
+		   <foreach item="item" index="index" collection="refContractFlowList" open="(" separator="," close=")">  
+		  	#{item}  
+		   </foreach>
+       </if>
+        order by erco.sign_date desc,erco.create_time desc
+   </select>
+   
+   <select id="searchContracts" parameterType="java.util.Map" resultMap="erpCrmContractExtMap">
+      select erco.*,ercu.customer_name
+       from pdsci.erp_crm_contract erco
+       left join pdsci.erp_crm_customer ercu on ercu.customer_flow=erco.customer_flow
+       where erco.record_status='Y' and ercu.record_status='Y'
+         <if test='contract!=null'>
+            <if test='contract.contractFlow!=null and contract.contractFlow!=""'>
+              and erco.contract_flow=#{contract.contractFlow}
+            </if>
+         </if>
+       	 <if test='startDate!=null and startDate!=""'>
+            and maintain_Due_Date >= #{startDate}
+         </if>
+         <if test='endDate!=null and endDate!=""'>
+            and maintain_Due_Date <![CDATA[ <= ]]> #{endDate}
+         </if>
+        order by erco.MAINTAIN_DUE_DATE,erco.CREATE_TIME
+   </select>
+   <select id="countContractFundNumber" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+        select nvl(sum(contract_fund),0) from pdsci.erp_crm_contract
+          where record_status='Y'
+          <if test='contract!=null'>
+          <if test='contract.signDate!=null and contract.signDate!=""'>
+                 <bind name="signDate" value="'%'+contract.signDate+'%'"/>
+                 and sign_date like #{signDate}
+          </if>
+          </if>
+   </select>
+</mapper>

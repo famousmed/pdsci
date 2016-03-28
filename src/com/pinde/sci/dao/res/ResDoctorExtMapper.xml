@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.res.ResDoctorExtMapper" >
+<resultMap id="ResDoctorExt" type="com.pinde.sci.model.res.ResDoctorExt" extends="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap">
+	<association property="sysUser" column="USER_FLOW" javaType="com.pinde.sci.model.mo.SysUser" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"/>
+ </resultMap>
+ 
+ 	<resultMap type="HashMap" id="trainPlanCountMap">
+		<result  property="key" column="TRAINING_SPE_ID" javaType="string"/>
+		<result property="value" column="TRAIN_PLAN_COUNT" javaType="java.math.BigDecimal"/>
+	</resultMap>
+
+ <resultMap type="HashMap" id="doctorRotationMap">
+		<result  property="key" column="ROTATION_KEY" javaType="string"/>
+		<result property="name" column="ROTATION_NAME" javaType="string"/>
+		<result property="flow" column="ROTATION_FLOW" javaType="string"/>
+	</resultMap>
+ 
+ <resultMap id="ResUserDoctorRecruitExt" type="com.pinde.sci.model.res.ResDoctorExt" extends="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap">
+	<association property="sysUser" column="USER_FLOW" javaType="com.pinde.sci.model.mo.SysUser" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"/>
+	<association property="doctorRecruit" column="DOCTOR_FLOW" javaType="com.pinde.sci.model.mo.ResDoctorRecruit" resultMap="com.pinde.sci.dao.base.ResDoctorRecruitMapper.BaseResultMap"/>
+ </resultMap>
+
+	<select id="searchResDoctorUser" parameterType="com.pinde.sci.model.res.ResDoctorExt" resultMap="ResDoctorExt">
+		select * from res_doctor INNER JOIN  sys_user on  res_doctor.DOCTOR_FLOW = sys_user.USER_FLOW  AND sys_user.RECORD_STATUS = 'Y'
+		<if test='sessionNumber != null and sessionNumber != ""'>
+			AND res_doctor.SESSION_NUMBER = #{sessionNumber}
+		</if>
+		<if test='trainingSpeId != null and trainingSpeId != ""'>
+			AND res_doctor.TRAINING_SPE_ID = #{trainingSpeId}
+		</if>
+		<if test='doctorCategoryId != null and doctorCategoryId != ""'>
+			AND res_doctor.DOCTOR_CATEGORY_ID = #{doctorCategoryId}
+		</if>
+		<if test='doctorTypeId != null and doctorTypeId != ""'>
+			AND res_doctor.DOCTOR_TYPE_ID = #{doctorTypeId}
+		</if>
+		<if test='graduatedId != null and graduatedId != ""'>
+			AND res_doctor.GRADUATED_ID = #{graduatedId}
+		</if>
+		<if test='recordStatus != null and recordStatus != ""'>
+			AND res_doctor.RECORD_STATUS = #{recordStatus}
+		</if>
+		<if test="specialized != null and specialized != ''">
+			AND RES_DOCTOR.SPECIALIZED LIKE '%${specialized}%'
+		</if>
+		<if test="doctorCode != null and doctorCode != ''">
+			AND RES_DOCTOR.doctor_code LIKE '%${doctorCode}%'
+		</if>
+		<if test='doctorName != null and doctorName != ""'>
+			AND RES_DOCTOR.doctor_name LIKE '%${doctorName}%'
+		</if>
+		<if test='tutorFlow != null and tutorFlow != ""'>
+			AND RES_DOCTOR.tutor_flow = #{tutorFlow}
+		</if>
+		<if test='orgFlow != null and orgFlow != ""'>
+			AND RES_DOCTOR.org_flow = #{orgFlow}
+		</if>
+		
+		<if test='sysUser != null'>
+			<if test='sysUser.userName != null and sysUser.userName != ""'>
+				AND sys_user.USER_NAME like '%${sysUser.userName}%'
+			</if>
+			<if test='sysUser.statusId != null and sysUser.statusId  != ""'>
+				AND sys_user.status_Id  = '${sysUser.statusId}'
+			</if>
+			<if test='sysUser.recordStatus != null and sysUser.recordStatus  != ""'>
+				AND sys_user.RECORD_STATUS=#{recordStatus}
+			</if>
+			<if test="sysUser.orgFlow != null and sysUser.orgFlow != ''">
+				AND SYS_USER.ORG_FLOW = #{sysUser.orgFlow}
+			</if>
+			<if test="sysUser.educationId != null and sysUser.educationId != ''">
+				AND SYS_USER.EDUCATION_ID = #{sysUser.educationId}
+			</if>
+			<if test="sysUser.idNo != null and sysUser.idNo != ''">
+			    AND SYS_USER.id_No = #{sysUser.idNo}
+		    </if>
+			<if test="sysUser.deptFlow != null and sysUser.deptFlow != ''">
+			    AND SYS_USER.dept_Flow = #{sysUser.deptFlow}
+		    </if>
+		</if>
+		ORDER BY res_doctor.DOCTOR_CODE
+	</select>
+	
+	<resultMap id="SysUserResDoctorExt" type="com.pinde.sci.model.sys.SysUserResDoctorExt" extends="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+	   <association property="doctor" column="doctor_FLOW" javaType="com.pinde.sci.model.mo.ResDoctor" resultMap="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap"/>
+       <collection property="resDoctorSchProcessList" ofType="com.pinde.sci.model.mo.ResDoctorSchProcess" column="USER_FLOW">
+			 	<id column="PROCESS_FLOW" jdbcType="VARCHAR" property="processFlow" />
+			    <result column="SCH_DEPT_FLOW" jdbcType="VARCHAR" property="schDeptFlow" />
+			    <result column="SCH_DEPT_NAME" jdbcType="VARCHAR" property="schDeptName" />
+		</collection>
+   </resultMap>
+	<select id="searchSysUserAndResDoctor" parameterType="java.util.Map" resultMap="SysUserResDoctorExt">
+		select * from pdsci.sys_user left JOIN pdsci.res_doctor  on  res_doctor.DOCTOR_FLOW = sys_user.USER_FLOW 
+		left join pdsci.res_doctor_sch_process rdsp on (rdsp.user_flow = res_doctor.doctor_flow and rdsp.is_current_flag = 'Y') 
+		where sys_user.RECORD_STATUS = 'Y' 
+		<if test='schDeptFlow != null and schDeptFlow != ""'>
+		    and rdsp.sch_dept_flow=#{schDeptFlow}
+		</if>
+		<if test='userDoctorExt != null'>
+		<if test='userDoctorExt.doctor != null'>
+		<if test='userDoctorExt.doctor.sessionNumber != null and userDoctorExt.doctor.sessionNumber != ""'>
+			AND res_doctor.SESSION_NUMBER = #{userDoctorExt.doctor.sessionNumber}
+		</if>
+		<if test='userDoctorExt.doctor.trainingSpeId != null and userDoctorExt.doctor.trainingSpeId != ""'>
+			AND res_doctor.TRAINING_SPE_ID = #{userDoctorExt.doctor.trainingSpeId}
+		</if>
+		<if test='userDoctorExt.doctor.graduatedId != null and userDoctorExt.doctor.graduatedId != ""'>
+			AND res_doctor.GRADUATED_ID = #{userDoctorExt.doctor.graduatedId}
+		</if>
+		<if test='userDoctorExt.doctor.recordStatus != null and userDoctorExt.doctor.recordStatus != ""'>
+			AND res_doctor.RECORD_STATUS = #{userDoctorExt.doctor.recordStatus}
+		</if>
+		<if test="userDoctorExt.doctor.specialized != null and userDoctorExt.doctor.specialized != ''">
+			AND RES_DOCTOR.SPECIALIZED LIKE '%${userDoctorExt.doctor.specialized}%'
+		</if>
+		<if test="userDoctorExt.doctor.doctorCode != null and userDoctorExt.doctor.doctorCode != ''">
+			AND RES_DOCTOR.doctor_code = #{userDoctorExt.doctor.doctorCode}
+		</if>
+		</if>
+			<if test='userDoctorExt.userName != null and userDoctorExt.userName != ""'>
+				AND sys_user.USER_NAME = #{userDoctorExt.userName}
+			</if>
+			<if test='userDoctorExt.statusId != null and userDoctorExt.statusId  != ""'>
+				AND sys_user.status_Id  = '${userDoctorExt.statusId}'
+			</if>
+			<if test='userDoctorExt.recordStatus != null and userDoctorExt.recordStatus  != ""'>
+				AND sys_user.RECORD_STATUS=#{userDoctorExt.recordStatus}
+			</if>
+			<if test="userDoctorExt.orgFlow != null and userDoctorExt.orgFlow != ''">
+				AND SYS_USER.ORG_FLOW = #{userDoctorExt.orgFlow}
+			</if>
+			<if test="userDoctorExt.deptFlow != null and userDoctorExt.deptFlow != ''">
+			    AND SYS_USER.DEPT_FLOW = #{userDoctorExt.deptFlow}
+		    </if>
+		    <if test='checkUserFlowList!=null and checkUserFlowList!=""'>
+             AND SYS_USER.USER_FLOW IN
+           	 <foreach collection="checkUserFlowList" item="item" index="index" open="(" separator="," close=")">  
+	  			#{item}  
+	 		 </foreach>
+         </if>
+		</if>
+		ORDER BY res_doctor.DOCTOR_CODE,sys_user.create_time,sys_user.user_flow
+	</select>
+	
+	<select id="searchResDoctorUserForAudit" parameterType="java.util.Map" resultMap="ResDoctorExt">
+	select * from res_doctor INNER JOIN  sys_user on  res_doctor.DOCTOR_FLOW = sys_user.USER_FLOW  
+		AND sys_user.RECORD_STATUS = 'Y'
+		AND res_doctor.RECORD_STATUS = 'Y'
+		<if test='orgFlow!=null and orgFlow!=""'>
+		    AND res_doctor.ORG_FLOW=#{orgFlow}
+		</if>
+		<if test='sessionNumber != null and sessionNumber != ""'>
+			AND res_doctor.SESSION_NUMBER=#{sessionNumber}
+		</if>
+		<if test='statusId != null and statusId  != ""'>
+			AND res_doctor.DOCTOR_STATUS_ID=#{statusId}
+		</if>
+		<if test='key!=null and key!=""'>
+		   AND (sys_user.USER_NAME= #{key} 
+		   OR sys_user.USER_PHONE=#{key}
+		   OR SYS_USER.USER_EMAIL=#{key}
+		   OR SYS_USER.ID_NO=#{key}
+		   )
+		</if>
+		ORDER BY res_doctor.CREATE_TIME DESC
+	</select>
+	
+	<select id="searchResRegUserForAudit" parameterType="java.util.Map" resultMap="ResDoctorExt">
+	select * from res_doctor INNER JOIN  sys_user on  res_doctor.DOCTOR_FLOW = sys_user.USER_FLOW  
+		AND sys_user.RECORD_STATUS = 'Y'
+		AND res_doctor.RECORD_STATUS = 'Y'
+		<if test='orgFlow!=null and orgFlow!=""'>
+		    AND res_doctor.ORG_FLOW=#{orgFlow}
+		</if>
+		<if test="jointOrgs!=null">
+		     and res_doctor.ORG_FLOW IN 
+		    <foreach item="item" index="index" collection="jointOrgs" open="(" separator="," close=")">
+		        #{item}
+		    </foreach>
+		</if>
+		<if test='sessionNumber != null and sessionNumber != ""'>
+			AND res_doctor.SESSION_NUMBER=#{sessionNumber}
+		</if>
+		<if test='statusId != null and statusId  != ""'>
+			AND exists (select null from res_reg where res_doctor.DOCTOR_FLOW = res_reg.USER_FLOW 
+			AND res_reg.status_Id=#{statusId} 
+			AND res_reg.REG_YEAR=#{sessionNumber}
+			AND res_reg.RECORD_STATUS = 'Y')
+		</if>
+		<if test='key!=null and key!=""'>
+		   AND (sys_user.USER_NAME= #{key} 
+		   OR sys_user.USER_PHONE=#{key}
+		   OR SYS_USER.USER_EMAIL=#{key}
+		   OR SYS_USER.ID_NO=#{key}
+		   )
+		</if>
+		ORDER BY res_doctor.CREATE_TIME DESC
+	</select>
+	
+	<select id="searchResDoctorUserCount" parameterType="java.util.Map" resultType="int">
+		select count(*) 
+		from res_doctor
+		where record_status='Y' 
+		and session_number=#{sessionNumber}
+		<if test='status!=null'>
+		    and DOCTOR_STATUS_ID in
+		    <foreach item='item' index="inxex" collection="status" open="(" separator="," close=")">
+		        #{item}
+		    </foreach>
+		</if>
+		<if test='categoryId!=null and categoryId!=""'>
+			and DOCTOR_CATEGORY_ID=#{categoryId}
+		</if>
+	</select>
+	
+	<select id="searchResRegUserCount" parameterType="java.util.Map" resultType="int">
+		select count(*) 
+		from res_reg
+		where record_status='Y' 
+		and reg_year=#{regYear}
+		<if test='status!=null'>
+		    and status_id in
+		    <foreach item='item' index="inxex" collection="status" open="(" separator="," close=")">
+		        #{item}
+		    </foreach>
+		</if>
+	</select>
+	
+	<select id="searchPassCount" parameterType="java.util.Map" resultType="int">
+	    select count(*) from RES_DOCTOR_RECRUIT rdr , 
+            (
+                select su.USER_FLOW userflow
+                from sys_user su , RES_DOCTOR rd 
+                where su.USER_FLOW=rd.DOCTOR_FLOW 
+                and su.RECORD_STATUS='Y' 
+                and rd.RECORD_STATUS='Y' 
+                and su.STATUS_ID='Activated' 
+                and rd.SESSION_NUMBER=#{sessionNumber}
+            ) surd 
+        where rdr.DOCTOR_FLOW = surd.userflow 
+        and rdr.EXAM_RESULT>=#{gradeBorderline}
+	</select>
+	
+	<select id="searchResDoctorUserRecruit" parameterType="java.util.Map" resultMap="ResUserDoctorRecruitExt">
+	    SELECT RD_SU.* , RDR.EXAM_CODE FROM (
+            SELECT SU.USER_FLOW , SU.USER_NAME , RD.DOCTOR_FLOW , RD.SPECIALIZED , RD.GRADUATED_ID , RD.GRADUATED_NAME , RD.CREATE_TIME
+            FROM RES_DOCTOR RD , SYS_USER SU 
+            WHERE  RD.DOCTOR_FLOW=SU.USER_FLOW 
+            AND RD.RECORD_STATUS='Y' 
+            AND SU.RECORD_STATUS='Y' 
+            <if test='statusId!=null and statusId!=""'>
+             AND SU.STATUS_ID=#{statusId}
+            </if>
+            <if test='sessionNumber!=null and sessionNumber!=""'>
+            AND RD.SESSION_NUMBER=#{sessionNumber}
+            </if>
+            <if test='graduatedId!=null and !graduatedId.isEmpty()'>
+            AND RD.GRADUATED_ID IN 
+                <foreach item='item' index="index" collection="graduatedId" open="(" separator="," close=")">
+		        #{item}
+		        </foreach>
+            </if>
+            ) RD_SU 
+            LEFT JOIN RES_DOCTOR_RECRUIT RDR 
+            ON RD_SU.DOCTOR_FLOW = RDR.DOCTOR_FLOW
+            AND RDR.RECORD_STATUS='Y' 
+            ORDER BY RD_SU.SPECIALIZED , RD_SU.CREATE_TIME
+	</select>
+	
+	<update id="modifyResDoctorRecruit" parameterType="java.util.Map">
+		<if test='recruit.examResult!=null and recruit.examResult!="" and recruit.examCode!=null and recruit.examCode!=""'>
+			update PDSCI.RES_DOCTOR_RECRUIT set EXAM_RESULT = #{recruit.examResult}
+			where RECORD_STATUS='Y'
+			and EXAM_CODE = #{recruit.examCode}
+			and DOCTOR_FLOW = (
+				select USER_FLOW
+				from SYS_USER 
+				where RECORD_STATUS='Y'
+				<if test='sysUser.idNo!=null and sysUser.idNo!=""'>
+					and ID_NO = #{sysUser.idNo}
+				</if>
+			)
+	    </if>
+  	</update>
+  	
+  	<select id="searchTrainPlanCount" resultMap="trainPlanCountMap">
+  		SELECT TRAINING_SPE_ID,COUNT(TRAINING_SPE_ID) TRAIN_PLAN_COUNT
+  		FROM PDSCI.RES_DOCTOR
+  		WHERE RECORD_STATUS = 'Y'
+  		<if test='countType == "Y"'>
+  			AND ROTATION_FLOW IS NOT NULL
+  		</if>
+  		<if test='countType == "N"'>
+  			AND ROTATION_FLOW IS NULL
+  		</if>
+  		<if test="doctor != null">
+  			<if test="doctor.doctorCategoryId != null and doctor.doctorCategoryId != ''">
+  				AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+  			</if>
+  			<if test="doctor.sessionNumber != null and doctor.sessionNumber != ''">
+  				AND SESSION_NUMBER = #{doctor.sessionNumber}
+  			</if>
+  		</if>
+  		GROUP BY TRAINING_SPE_ID
+  	</select>
+  	
+  	<select id="searGroupRotation" resultMap="doctorRotationMap">
+  		SELECT TRAINING_SPE_ID||DOCTOR_CATEGORY_ID ROTATION_KEY,ROTATION_NAME,ROTATION_FLOW
+  		FROM PDSCI.RES_DOCTOR
+  		WHERE RECORD_STATUS = 'Y'
+  		AND ROTATION_FLOW IS NOT NULL
+  		<if test="doctor != null">
+  			<if test="doctor.doctorCategoryId != null and doctor.doctorCategoryId != ''">
+  				AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+  			</if>
+  			<if test="doctor.sessionNumber != null and doctor.sessionNumber != ''">
+  				AND SESSION_NUMBER = #{doctor.sessionNumber}
+  			</if>
+  		</if>
+  		GROUP BY TRAINING_SPE_ID,DOCTOR_CATEGORY_ID,ROTATION_NAME,ROTATION_FLOW
+  	</select>
+	
+	<update id="modifyResDoctorRotation" parameterType="com.pinde.sci.model.mo.ResDoctor">
+		UPDATE PDSCI.RES_DOCTOR SET ROTATION_FLOW = #{doctor.rotationFlow},ROTATION_NAME = #{doctor.rotationName}
+		WHERE RECORD_STATUS = 'Y'
+		AND ROTATION_FLOW IS NULL
+		AND TRAINING_SPE_ID = #{doctor.trainingSpeId}
+		<if test="doctor.sessionNumber != null and doctor.sessionNumber !=''">
+			AND SESSION_NUMBER = #{doctor.sessionNumber}
+		</if>
+		<if test="doctor.doctorCategoryId != null and doctor.doctorCategoryId !=''">
+			AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+		</if>
+	</update>
+	
+	<select id="searchNotInExamUser" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+	    select tmp.user_flow , tmp.user_name from 
+            (
+                select rr.USER_FLOW , rr.USER_NAME from res_reg rr where rr.RECORD_STATUS='Y' AND rr.STATUS_ID=#{statusId} and rr.REG_YEAR=#{regYear} 
+            ) tmp 
+            where
+            NOT  EXISTS(select 1 from res_exam_doctor red where tmp.USER_FLOW=red.DOCTOR_FLOW and red.EXAM_FLOW=#{examFlow})
+	</select>
+	
+	<select id="searchNotAllotTicketNumUserInExamAndSite" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.ResExamDoctorMapper.BaseResultMap">
+	    SELECT TMP.RECORD_FLOW , TMP.DOCTOR_FLOW FROM 
+            (
+                SELECT RED.RECORD_FLOW , RED.DOCTOR_FLOW  FROM  
+                RES_EXAM_DOCTOR RED 
+                WHERE RED.EXAM_FLOW=#{examFlow} 
+                AND RED.SITE_FLOW=#{siteFlow}
+                AND RED.RECORD_STATUS='Y' 
+                AND RED.TICKET_NUM IS NULL
+            ) TMP
+            LEFT JOIN RES_DOCTOR RD 
+            ON TMP.DOCTOR_FLOW = RD.DOCTOR_FLOW 
+            ORDER BY RD.SPECIALIZED , RD.CREATE_TIME
+	</select>
+	
+	<select id="searchExamDoctor" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.ResExamDoctorMapper.BaseResultMap">
+	    select * from PDSCI.res_exam_doctor where RECORD_STATUS='Y' AND DOCTOR_FLOW=#{doctorFlow}
+	    	and exists (select null from PDSCI.res_exam exam where res_exam_doctor.EXAM_FLOW=exam.EXAM_FLOW
+	    		and exam.RECORD_STATUS='Y'
+	    		and exam.EXAM_TYPE_ID=#{examType}
+	    		and exam.EXAM_YEAR=#{examYear}
+	    	)
+	</select>
+	
+	<resultMap id="ResExamDoctorExtMap" type="com.pinde.sci.model.res.ResExamDoctorExt" extends="com.pinde.sci.dao.base.ResExamDoctorMapper.BaseResultMap">
+	    <association property="doctor" column="DOCTOR_FLOW" javaType="com.pinde.sci.model.mo.ResDoctor" resultMap="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap"/>
+	    <association property="user" column="USER_FLOW" javaType="com.pinde.sci.model.mo.SysUser" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap"/>
+    </resultMap>
+	<select id="searchExamDoctorExt" parameterType="com.pinde.sci.model.res.ResExamDoctorExt" resultMap="ResExamDoctorExtMap">
+	      SELECT * FROM 
+	      (
+	          SELECT * FROM RES_EXAM_DOCTOR RED 
+	          WHERE RED.RECORD_STATUS='Y'
+	          <if test='examFlow!=null and examFlow!=""'>
+	          AND RED.EXAM_FLOW=#{examFlow}
+	          </if>
+	          <if test='siteFlow!=null and siteFlow!=""'>
+	          AND RED.SITE_FLOW=#{siteFlow}
+	          </if>
+	          <if test='roomFlow!=null and roomFlow!=""'>
+	          AND RED.ROOM_FLOW=#{roomFlow}
+	          </if>
+	          <if test='ticketNum!=null and ticketNum!=""'>
+	          AND RED.TICKET_NUM=#{ticketNum}
+	          </if>
+	      ) TMP LEFT JOIN RES_DOCTOR RD
+	      ON TMP.DOCTOR_FLOW = RD.DOCTOR_FLOW LEFT JOIN SYS_USER SU
+	      ON TMP.DOCTOR_FLOW = SU.USER_FLOW
+	      <where>
+	          <if test='doctor!=null'>
+	          <if test='doctor.doctorName!=null and doctor.doctorName!=""'>
+	              AND RD.DOCTOR_NAME = #{doctor.doctorName}
+	          </if>
+	          <if test='doctor.graduatedId!=null and doctor.graduatedId!=""'>
+	              AND RD.GRADUATED_ID = #{doctor.graduatedId}
+	          </if>
+	          </if>
+	      </where>
+	         ORDER BY RD.SPECIALIZED , TICKET_NUM
+	</select>
+	
+	<select id="searchExamDoctorExtByMap" parameterType="java.util.Map" resultMap="ResExamDoctorExtMap">
+	 SELECT * FROM 
+	      (
+	          SELECT * FROM RES_EXAM_DOCTOR RED 
+	          WHERE RED.RECORD_STATUS='Y'
+	          <if test='examDoctor!=null'>
+	          <if test='examDoctor.examFlow!=null and examDoctor.examFlow!=""'>
+	          AND RED.EXAM_FLOW=#{examDoctor.examFlow}
+	          </if>
+	          <if test='examDoctor.siteFlow!=null and examDoctor.siteFlow!=""'>
+	          AND RED.SITE_FLOW=#{examDoctor.siteFlow}
+	          </if>
+	          <if test='examDoctor.roomFlow!=null and examDoctor.roomFlow!=""'>
+	          AND RED.ROOM_FLOW=#{examDoctor.roomFlow}
+	          </if>
+	          <if test='examDoctor.ticketNum!=null and examDoctor.ticketNum!=""'>
+	          AND RED.TICKET_NUM=#{examDoctor.ticketNum}
+	          </if>
+	          </if>
+	      ) TMP LEFT JOIN RES_DOCTOR RD
+	      ON TMP.DOCTOR_FLOW = RD.DOCTOR_FLOW LEFT JOIN SYS_USER SU
+	      ON TMP.DOCTOR_FLOW = SU.USER_FLOW
+	      <where>
+	          <if test='key!=null and key!=""'>
+		      AND (SU.USER_NAME= #{key} 
+		          OR SU.USER_PHONE=#{key}
+		          OR SU.USER_EMAIL=#{key}
+		          OR SU.ID_NO=#{key}
+		      )
+		    </if>
+	      </where>
+	      ORDER BY RD.SPECIALIZED , RD.CREATE_TIME
+	</select>
+	
+	<select id="searchRegisterList" parameterType="java.util.Map" resultMap="ResUserDoctorRecruitExt">
+	    select * 
+	    from PDSCI.RES_DOCTOR d
+	    inner join PDSCI.RES_DOCTOR_RECRUIT dr
+	    on d.DOCTOR_FLOW = dr.DOCTOR_FLOW
+	    inner join PDSCI.SYS_USER su
+	    on su.USER_FLOW = d.DOCTOR_FLOW
+	    where d.RECORD_STATUS='Y' and dr.RECORD_STATUS='Y'
+	    and dr.RECRUIT_FLAG = 'Y'
+	    and dr.CONFIRM_FLAG = 'Y'
+	    <if test='doctorRecruit.orgFlow != null and doctorRecruit.orgFlow != ""'>
+			AND dr.ORG_FLOW = #{doctorRecruit.orgFlow}
+		</if>
+		<if test='doctorRecruit.recruitYear != null and doctorRecruit.recruitYear != ""'>
+			AND dr.RECRUIT_YEAR = #{doctorRecruit.recruitYear}
+			AND d.SESSION_NUMBER = #{doctorRecruit.recruitYear}
+		</if>
+		ORDER BY dr.TOTLE_RESULT DESC nulls last
+	</select>
+	
+	
+	
+	<resultMap id="speCountForm" type="com.pinde.sci.form.hbres.ResDoctorTrainingSpeForm">
+	  	  <result column="trainingSpeId" jdbcType="VARCHAR" property="speId" />
+	  	  <result column="doctorCount" jdbcType="VARCHAR"  property="doctorCount"/>
+    </resultMap>
+    
+	<select id="trainingSpeCountList" parameterType="java.util.Map" resultMap="speCountForm">
+		select 
+		TRAINING_SPE_ID trainingSpeId, nvl(count(TRAINING_SPE_ID), 0) doctorCount
+		from pdsci.RES_DOCTOR
+		where RECORD_STATUS = 'Y'
+		<if test='doctor.orgFlow != null and doctor.orgFlow != ""'>
+			and ORG_FLOW = #{doctor.orgFlow}
+		</if>
+		<if test='doctor.sessionNumber != null and doctor.sessionNumber != ""'>
+			AND SESSION_NUMBER = #{doctor.sessionNumber}
+		</if>
+		<if test='doctor.doctorCategoryId != null and doctor.doctorCategoryId != ""'>
+			AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+		</if>
+		GROUP by TRAINING_SPE_ID
+		ORDER BY TRAINING_SPE_ID
+	</select>
+	
+	<select id="searchMonthRotationDoctor" resultMap="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap">
+		SELECT RD.*
+		FROM PDSCI.SCH_ARRANGE_RESULT SAR,PDSCI.RES_DOCTOR RD
+		WHERE SAR.RECORD_STATUS = 'Y'
+		AND RD.RECORD_STATUS = 'Y'
+		AND RD.DOCTOR_FLOW = SAR.DOCTOR_FLOW
+		<if test='schDeptFlow != null and schDeptFlow != ""'>
+			AND SAR.SCH_DEPT_FLOW = #{schDeptFlow}
+		</if>
+		<if test='month != null and month != ""'>
+			AND SAR.SCH_START_DATE LIKE '%${month}%'
+		</if>
+	</select>
+	
+	<select id="searchJoinExamDoctorCountByParamMap" parameterType="java.util.Map" resultType="int">
+	    SELECT COUNT(*) FROM 
+            (SELECT RD.SPECIALIZED 
+                 FROM RES_EXAM_DOCTOR RED 
+                 LEFT JOIN RES_DOCTOR RD 
+                 ON RED.DOCTOR_FLOW=RD.DOCTOR_FLOW 
+                 WHERE RED.RECORD_STATUS='Y'
+                 <if test='examFlow!=null and examFlow!=""'>
+                     AND RED.EXAM_FLOW=#{examFlow}
+                 </if>
+                 <if test='speId!=null and speId!=""'>
+                     AND RD.SPECIALIZED=#{speId}
+                 </if> 
+                 <if test='(startGrade!=null) and (endGrade!=null)'>
+                     AND RED.EXAM_RESULT BETWEEN #{startGrade} AND #{endGrade}
+                 </if>
+                 <if test='moreThanGrade!=null'>
+                     AND RED.EXAM_RESULT>=#{moreThanGrade}
+                 </if>
+                 )
+	</select>
+	
+	<select id="searchMaxOrMinGradeInExam" parameterType="java.util.Map" resultType="int">
+	         SELECT <if test='max=="Y"'>NVL(MAX(EXAM_RESULT) , 0)</if> <if test='min=="Y"'>NVL(MIN(EXAM_RESULT) , 0)</if> FROM 
+	         (
+                 SELECT RED.EXAM_RESULT FROM 
+                 RES_EXAM_DOCTOR RED 
+                 LEFT JOIN RES_DOCTOR RD
+                 ON RED.DOCTOR_FLOW=RD.DOCTOR_FLOW
+                 WHERE RED.RECORD_STATUS='Y'
+                 AND RED.EXAM_FLOW=#{examFlow}
+                 AND RD.SPECIALIZED=#{speId})
+	</select>
+	
+	<select id="searchSelDeptDoctor" resultMap="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap">
+		SELECT RD.*
+		FROM PDSCI.RES_DOCTOR RD
+		WHERE RD.DOCTOR_FLOW IN (
+			SELECT DISTINCT IRD.DOCTOR_FLOW
+			FROM PDSCI.RES_DOCTOR IRD,PDSCI.SCH_ROTATION_GROUP SRG
+			WHERE IRD.RECORD_STATUS = 'Y'
+			AND SRG.RECORD_STATUS = 'Y'
+			<if test='doctor!=null'>
+				<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+					AND IRD.ORG_FLOW = #{doctor.orgFlow}
+				</if>
+			</if>
+			AND IRD.ROTATION_FLOW = SRG.ROTATION_FLOW
+		)
+		<if test='doctor!=null'>
+			<if test='doctor.doctorCategoryId!=null and doctor.doctorCategoryId!=""'>
+				AND RD.DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+			</if>
+			<if test='doctor.sessionNumber!=null and doctor.sessionNumber!=""'>
+				AND RD.SESSION_NUMBER = #{doctor.sessionNumber}
+			</if>
+			<if test='doctor.trainingSpeId!=null and doctor.trainingSpeId!=""'>
+				AND RD.TRAINING_SPE_ID = #{doctor.trainingSpeId}
+			</if>
+			<if test='doctor.doctorName!=null and doctor.doctorName!=""'>
+				AND RD.DOCTOR_NAME LIKE '%${doctor.doctorName}%'
+			</if>
+			<if test='doctor.selDeptFlag!=null and doctor.selDeptFlag!=""'>
+				AND (RD.SEL_DEPT_FLAG = 'N' OR RD.SEL_DEPT_FLAG IS NULL)
+			</if>
+			<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+				AND RD.ORG_FLOW = #{doctor.orgFlow}
+			</if>
+		</if>
+		ORDER BY ROTATION_NAME
+	</select>
+	
+	<select id="updateDocSelFlag" resultType="int">
+		UPDATE PDSCI.RES_DOCTOR SET SEL_DEPT_FLAG = 'Y'
+		WHERE RECORD_STATUS = 'Y'
+		AND ROTATION_FLOW IS NOT NULL
+		AND DOCTOR_FLOW NOT IN (
+			SELECT DISTINCT IRD.DOCTOR_FLOW
+			FROM PDSCI.RES_DOCTOR IRD,PDSCI.SCH_ROTATION_GROUP SRG
+			WHERE IRD.RECORD_STATUS = 'Y'
+			AND SRG.RECORD_STATUS = 'Y'
+			AND IRD.ROTATION_FLOW = SRG.ROTATION_FLOW
+			<if test='orgFlow!=null and orgFlow!=""'>
+				AND IRD.ORG_FLOW = #{orgFlow}
+			</if>
+		)
+	</select>
+	
+	<select id="searchDoctorForChange" resultMap="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap">
+		SELECT RD.*
+		FROM PDSCI.RES_DOCTOR RD
+		WHERE RECORD_STATUS = 'Y'
+		<if test='docOrgHis!=null'>
+			AND RD.DOCTOR_FLOW IN (
+				SELECT DOCTOR_FLOW 
+				FROM PDSCI.RES_DOCTOR_ORG_HISTORY 
+				WHERE RECORD_STATUS = 'Y'
+				<if test='docOrgHis.changeStatusId!=null and docOrgHis.changeStatusId!=""'>
+					AND CHANGE_STATUS_ID = #{docOrgHis.changeStatusId}
+				</if>
+				<if test='docOrgHis.historyOrgFlow!=null and docOrgHis.historyOrgFlow!=""'>
+					AND HISTORY_ORG_FLOW = #{docOrgHis.historyOrgFlow}
+				</if>
+				<if test='docOrgHis.orgFlow!=null and docOrgHis.orgFlow!=""'>
+					AND ORG_FLOW = #{docOrgHis.orgFlow}
+				</if>
+			)
+		</if>
+		<if test='docOrgHis==null'>
+			AND RD.DOCTOR_FLOW NOT IN (
+				SELECT DOCTOR_FLOW
+				FROM PDSCI.RES_DOCTOR_ORG_HISTORY
+				WHERE RECORD_STATUS = 'Y'
+				<if test='doctor!=null'>
+					<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+						AND HISTORY_ORG_FLOW = #{doctor.orgFlow}
+					</if>
+				</if>
+				AND CHANGE_STATUS_ID = 'Submit'
+			)
+		</if>
+		<if test='doctor!=null'>
+			<if test='doctor.doctorCategoryId!=null and doctor.doctorCategoryId!=""'>
+				AND RD.DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+			</if>
+			<if test='doctor.sessionNumber!=null and doctor.sessionNumber!=""'>
+				AND RD.SESSION_NUMBER = #{doctor.sessionNumber}
+			</if>
+			<if test='doctor.trainingSpeId!=null and doctor.trainingSpeId!=""'>
+				AND RD.TRAINING_SPE_ID = #{doctor.trainingSpeId}
+			</if>
+			<if test='doctor.doctorName!=null and doctor.doctorName!=""'>
+				AND RD.DOCTOR_NAME LIKE '%${doctor.doctorName}%'
+			</if>
+			<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+				AND RD.ORG_FLOW = #{doctor.orgFlow}
+			</if>
+		</if>
+	</select>
+	
+	<select id="searchDocByteacher" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.ResDoctorMapper.BaseResultMap">
+		select * from res_doctor where RECORD_STATUS = 'Y'
+		<if test='doctor != null'>
+			<if test='doctor.orgFlow!=null and doctor.orgFlow!=""'>
+				AND ORG_FLOW = #{doctor.orgFlow}
+			</if>
+			<if test='doctor.sessionNumber != null and doctor.sessionNumber != ""'>
+				AND SESSION_NUMBER = #{doctor.sessionNumber}
+			</if>
+			<if test='doctor.trainingSpeId != null and doctor.trainingSpeId != ""'>
+				AND TRAINING_SPE_ID = #{doctor.trainingSpeId}
+			</if>
+			<if test='doctor.doctorCategoryId != null and doctor.doctorCategoryId != ""'>
+				AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+			</if>
+			<if test="doctor.doctorName != null and doctor.doctorName != ''">
+				AND doctor_Name = #{doctor.doctorName}
+			</if>
+			
+		</if>
+		<if test='teacherUserFlow != null and teacherUserFlow != ""'>
+			AND doctor_flow in (select user_flow from res_doctor_sch_process where RECORD_STATUS = 'Y' and teacher_user_flow = #{teacherUserFlow})
+		</if>
+		<if test='headUserFlow != null and headUserFlow != ""'>
+			AND doctor_flow in (select user_flow from res_doctor_sch_process where RECORD_STATUS = 'Y' and head_user_flow = #{headUserFlow})
+		</if>
+		ORDER BY res_doctor.DOCTOR_CODE
+	</select>
+	
+	<update id="updateRedundancyData">
+		UPDATE RES_DOCTOR 
+		<if test="doctor!=null">
+			<if test='doctor.orgName != null and doctor.orgName != ""'>
+				SET ORG_NAME = #{doctor.orgName}
+			</if>
+			<if test='doctor.orgFlow != null and doctor.orgFlow != ""'>
+				WHERE ORG_FLOW = #{doctor.orgFlow}
+			</if>
+			<if test='doctor.rotationName != null and doctor.rotationName != ""'>
+				SET ROTATION_NAME = #{doctor.rotationName}
+			</if>
+			<if test='doctor.rotationFlow != null and doctor.rotationFlow != ""'>
+				WHERE ROTATION_FLOW = #{doctor.rotationFlow}
+			</if>
+		</if>
+	</update>
+	
+ 	<resultMap type="HashMap" id="countNumMap">
+		<result property="key" column="KEY" javaType="string"/>
+		<result property="value" column="NUM" javaType="java.math.BigDecimal"/>
+	</resultMap>
+	<select id="countDocByOrg" resultMap="countNumMap">
+		SELECT ORG_FLOW||TRAINING_SPE_ID KEY,COUNT(*) NUM
+		FROM PDSCI.RES_DOCTOR
+		WHERE RECORD_STATUS = 'Y'
+		AND ORG_FLOW IN 
+		<foreach collection="orgFlows" open="(" separator="," close=")" item="orgFlow">
+			#{orgFlow}
+		</foreach>
+		<if test='doctor!=null'>
+			<if test='doctor.sessionNumber != null and doctor.sessionNumber != ""'>
+				AND SESSION_NUMBER = #{doctor.sessionNumber}
+			</if>
+			<if test='doctor.trainingSpeId != null and doctor.trainingSpeId != ""'>
+				AND TRAINING_SPE_ID = #{doctor.trainingSpeId}
+			</if>
+			<if test='doctor.doctorStatusId != null and doctor.doctorStatusId != ""'>
+				AND DOCTOR_STATUS_ID = #{doctor.doctorStatusId}
+			</if>
+		</if>
+		GROUP BY ORG_FLOW,TRAINING_SPE_ID
+	</select>
+	
+	<select id="countGroupDoc" resultMap="countNumMap">
+		SELECT GROUP_ID KEY,COUNT(*) NUM
+		FROM PDSCI.RES_DOCTOR
+		WHERE RECORD_STATUS = 'Y'
+		<if test='doctor!=null'>
+			<if test='doctor.sessionNumber != null and doctor.sessionNumber != ""'>
+				AND SESSION_NUMBER = #{doctor.sessionNumber}
+			</if>
+			<if test='doctor.trainingSpeId != null and doctor.trainingSpeId != ""'>
+				AND TRAINING_SPE_ID = #{doctor.trainingSpeId}
+			</if>
+			<if test='doctor.doctorStatusId != null and doctor.doctorStatusId != ""'>
+				AND DOCTOR_STATUS_ID = #{doctor.doctorStatusId}
+			</if>
+			<if test='doctor.doctorCategoryId != null and doctor.doctorCategoryId != ""'>
+				AND DOCTOR_CATEGORY_ID = #{doctor.doctorCategoryId}
+			</if>
+			<if test='doctor.orgFlow != null and doctor.orgFlow != ""'>
+				AND ORG_FLOW = #{doctor.orgFlow}
+			</if>
+		</if>
+		GROUP BY GROUP_ID
+	</select>
+</mapper>

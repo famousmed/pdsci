@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.njmuedu.NjmuEduStudentCourseExtMapper">
+	<resultMap id="eduStudentCourseExtMap" type="com.pinde.sci.model.njmuedu.EduStudentCourseExt" extends="com.pinde.sci.dao.base.EduStudentCourseMapper.BaseResultMap" >
+		<association property="course" column="course_flow" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap" />
+	</resultMap>
+    <select id="searchEduStudentCourseExtByUserFlow" parameterType="java.util.Map" resultMap="eduStudentCourseExtMap">
+    	select esc.record_flow,esc.user_flow,esc.course_flow,
+    	       esc.study_status_Id,esc.study_status_Name,esc.current_chapter_flow,
+    	       esc.course_grade,esc.choose_time,esc.achieve_credit,
+    	       
+    	       ec.course_name,ec.course_major_id,
+    	       ec.course_major_name,ec.course_credit,ec.course_type_id,
+    	       ec.course_type_name,ec.course_period
+    	from pdsci.edu_student_course esc,pdsci.edu_course ec
+    	where esc.record_status='Y' and ec.record_status='Y'
+    	and esc.course_flow=ec.course_flow
+    	<if test='userFlow!=null and userFlow!=""'>
+    	    and esc.user_flow=#{userFlow}
+    	</if>
+    	<if test='courseTypeId!=null and courseTypeId!=""'>
+    	    and ec.course_Type_Id=#{courseTypeId}
+    	</if>
+    </select>
+    
+   <select id="countCourseInfoByCondition" parameterType="java.util.Map" resultType="int">
+       select count(esc.user_flow)
+        from pdsci.edu_user eu left join pdsci.sys_user su on eu.user_flow=su.user_flow
+        left join pdsci.sys_org so on su.org_flow=so.org_flow 
+        left join pdsci.edu_student_course esc on esc.user_flow=eu.user_flow
+        left join pdsci.edu_course ec on esc.course_flow=ec.course_flow
+        where eu.RECORD_STATUS='Y' and su.RECORD_STATUS='Y' and so.RECORD_STATUS='Y'
+           and esc.RECORD_STATUS='Y' and ec.RECORD_STATUS='Y'
+           <if test='orgFlow!=null and orgFlow!=""'>
+              and so.org_flow=#{orgFlow}
+           </if>
+           <if test='courseFlow!=null and courseFlow!=""'>
+              and ec.course_Flow=#{courseFlow} 
+           </if>
+    </select>
+    
+  <resultMap id="courseCreditMap" type="com.pinde.sci.form.njmuedu.OneCourseCreditForm">
+  	<result column="user_flow" jdbcType="VARCHAR" property="userFlow" />
+  	<result column="course_credit" jdbcType="VARCHAR"  property="courseCredit"/>
+ </resultMap>
+    <select id="searchCourseCreditForm" parameterType="java.util.Map" resultMap="courseCreditMap">
+       select esc.user_flow,ec.course_credit
+        from pdsci.edu_student_course esc,pdsci.edu_course ec
+        where esc.course_flow=ec.course_flow
+         and esc.record_status='Y' and ec.record_status='Y'
+         and esc.achieve_credit='Y'
+    </select>
+    
+</mapper>

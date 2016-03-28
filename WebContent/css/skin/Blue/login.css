@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+/*-----------------------------  basic ----------------------------------------*/
+html,body{ 
+	height:100%;
+	overflow:hidden;
+}
+html, body, div, iframe, h1, h2, h3, h4, h5, h6, p, a, del, em, b, i, s, img, strong, dd, dl, dt,  ol, ul, li, label, form, table, tbody, thead, tr, th, td, address, span, cite { margin:0; padding:0; border:medium none; }
+body { width:100%; font:13px 'Microsoft Yahei'; color:#000; _word-break:break-all; white-space:normal;}
+h1, h2, h3, h4, h5, h6 {font-size:100%;}
+table { border-spacing:0 0;border-collapse:collapse;}
+a {text-decoration: none; outline:0;color:#000;}
+a:hover { text-decoration:none; color:#f60;}
+em, b, cite, i, s { font-style:normal;}
+ul,ol { list-style:none; text-align: left;}
+img, input, select, button, textarea { font:13px 'Microsoft Yahei', sans-serif; vertical-align:middle; padding:0; margin:0; }
+.clear { clear:both; height:0; font-size:0; visibility:hidden; display:block;}
+.clearfix:after {clear: both; content: "."; display: block; visibility:hidden; height: 0;font-size:0;  }
+.clearfix { zoom:1;}
+.red { color:#F00; padding-right:5px;}
+
+/*------南医大实习生登录开始--------*/
+.njmu_db{display:block;}
+.fl{float:left;}
+.fr{ float:right;}
+.njmu_weixin input{outline:none;margin:0;border:0; margin-top:0px;}
+/*top*/
+.njmu_top_box{position:absolute;overflow:hidden;top:0;left:0;width:100%;z-index:5;display:block;}
+.njmu_top{width:1024px;margin:auto;overflow:hidden;}
+.njmu_top a{color:#222;margin-top:42px;}
+.njmu_riqi{float:left;padding:10px 0;}
+.njmu_top .njmu_liji{color:#1688c2;}
+.njmu_top .njmu_liji:hover{text-decoration:underline;}
+/*banner+登录*/
+.njmu_banner_box{position:absolute;width:100%;overflow:hidden;background:#103754;z-index:3;top:68px;bottom:132px;}
+.njmu_banner{position:absolute;top:6%;left:50%;width:1920px;margin-left:-960px;}
+.njmu_weixin input{height:38px; line-height:38px;width:220px;font-size:14px;border-radius:0 2px 2px 0;}
+.njmu_weixin_bg{position:absolute;top:12%;left:50%;margin-left:196px;width:320px;height:305px;background:url(images/njmu_login_bg.png);}
+.njmu_weixin{width:262px;margin:auto;}
+.njmu_weixin .njmu_login_title{font-size:16px;color:#FFF;text-align:center;margin-top:30px;margin-bottom:20px;}
+.njmu_login img, .njmu_login input, .njmu_mima img,.njmu_mima input,.njmu_yzm input{float:left;}
+.njmu_login,.njmu_mima,.njmu_jizhu,.njmu_yzm{overflow:hidden;}
+.njmu_login,.njmu_mima{margin-bottom:10px;}
+.njmu_yzm img{ padding-left:10px;}
+.yzm{padding-left:10px;}
+.njmu_jizhu a{margin-top:10px;margin-bottom:10px;color:#fff;}
+.njmu_jizhu p{margin-top:10px;margin-bottom:10px;}
+.njmu_weixin .njmu_jizhu_01{width:16px;height:16px;margin-right:8px;margin-top:16px;}
+.njmu_weixin .njmu_denglu{background-color:#2d9282;line-height:35px;width:260px;text-align:center;clear:left;font-size:16px;color:#ffffff;border-radius:2px; cursor:pointer;}
+.njmu_denglu:hover{background:#029454;text-decoration:none; color:#fff;}
+.njmu_jizhu .njmu_dengluu:hover{text-decoration:underline; color:#f60;}
+/*通知公告*/
+.njmu_new_box{overflow:hidden;position:absolute;bottom:66px;left:0;width:100%;z-index:4}
+.njmu_new{width:1024px;margin:auto;border:solid 1px #ebebeb;overflow:hidden;}
+.njmu_new a{line-height:48px;font-size:14px;}
+.njmu_new a:hover{color:#459ae9;text-decoration:underline;}
+.njmu_gongao{padding-right:25px;margin-left:26px;}
+.njmu_gongao span{color:#d5d5d5;margin-right:4px;}
+.notice_title{display: inline-block;vertical-align: middle;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-wrap: normal;width: 22em;}
+.njmu_xitong{margin-left:20px;font-size:14px;font-family:"微软雅黑";color:#222;line-height:48px;}
+.njmu_more{padding-right:16px;background:url(images/more.png) no-repeat right center;margin-right:20px;color:#222;}
+/*页脚*/
+.njmu_footer_box{background:#d6d6d6;position:absolute;bottom:0;left:0;width:100%;text-align:center;z-index:5;display:block;overflow:hidden;}
+.njmu_footer{ margin:0 auto;color:#3b3b3b;line-height:48px;font-size:14px; cursor:pointer;}
+
+/*------南医大实习生登录结束--------*/
+
+/*------上海儿童医院管理平台开始*/
+.shet_weixin input{outline:none;margin:0;border:0; margin-top:0px;}
+/*页眉*/
+.shet_top_box{position:absolute;overflow:hidden;top:0;left:0;width:100%;z-index:5;display:block;border-top:3px solid #7ddbf6;}
+.shet_top{width:1024px;margin:auto;overflow:hidden;}
+.shet_top a,.shet_top span{color:#222;font-size:16px;font-family:"微软雅黑";line-height:60px;}
+.shet_top a:hover{text-decoration:underline;color:#459ae9}
+/*banner+登录*/
+.shet_banner_box{position:absolute;width:100%;overflow:hidden;background:#7cdaf6;z-index:3;top:63px;bottom:132px;}
+.shet_banner{position:absolute;top:6%;left:50%;width:1920px;margin-left:-960px;}
+.shet_weixin input{height:40px; line-height:40px;width:236px;color:#a3a3a3;font-size:14px;padding-left:10px; margin-top:0px;}
+.shet_weixin_bg{position:absolute;top:10%;left:50%;margin-left:100px;width:412px;height:319px;background:url(images/shet_login_bg.png);}
+.shet_weixin{width:300px;margin:auto;}
+.shet_login img,.shet_login input,.shet_mima img,.shet_mima input{float:left;}
+.shet_login,.shet_mima,.shet_yanzm,.shet_denglu{overflow:hidden;}
+.shet_login,.shet_mima,.shet_yanzm{margin-top:20px;}
+.shet_login{margin-top:40px;}
+.shet_yanzm input{width:133px;padding-left:10px;}
+.shet_yanzm img{margin-left:10px;}
+.shet_cw{color:#ed3a31;font-size:14px;display:block;line-height:40px;}
+.shet_denglu input{line-height:40px;width:300px;text-align:center;font-size:16px;color:#FFF;;}
+.shet_denglu .shet_login1{background:#10ad86;}
+.shet_denglu .shet_login1:hover{background:#0d8668;text-decoration:none; cursor:pointer;}
+/*通知公告*/
+.shet_new_box{overflow:hidden;position:absolute;bottom:66px;left:0;width:100%;z-index:4}
+.shet_new{width:1024px;margin:auto;border:solid 1px #ebebeb;overflow:hidden;}
+.shet_new a{line-height:48px;font-size:14px;}
+.shet_new a:hover{color:#459ae9;text-decoration:underline;}
+.shet_gongao{padding-right:25px;margin-left:26px;}
+.shet_gongao span{color:#d5d5d5;margin-right:4px;}
+.notice_title{display: inline-block;vertical-align: middle;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-wrap: normal;width: 22em;}
+.shet_xitong{margin-left:20px;font-size:14px;font-family:"微软雅黑";color:#222;line-height:48px;}
+.shet_more{padding-right:16px;background:url(images/more.png) no-repeat right center;margin-right:20px;color:#222;}
+/*页脚*/
+.shet_footer_box{background:#d6d6d6;position:absolute;bottom:0;left:0;width:100%;z-index:5;display:block;overflow:hidden;text-align:center;}
+.shet_footer{ margin:0 auto;color:#3b3b3b;text-align:center;line-height:48px;font-size:14px;}
+/*------上海儿童医院管理平台结束*/

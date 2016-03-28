@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.njmuedu.NjmuEduCourseExtMapper">
+	<resultMap id="extCourseMap" type="com.pinde.sci.model.njmuedu.EduCourseExt" extends="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap" >
+		<collection property="chapterList" ofType="com.pinde.sci.model.mo.EduCourseChapter" column="COURSE_FLOW">
+			 	<id column="CHAPTER_FLOW" jdbcType="VARCHAR" property="chapterFlow" />
+			    <result column="CHAPTER_NAME" jdbcType="VARCHAR" property="chapterName" />
+			    <result column="CHAPTER_NO" jdbcType="VARCHAR" property="chapterNo" />
+			    <result column="PARENT_CHAPTER_FLOW" jdbcType="VARCHAR" property="parentChapterFlow" />
+			    <result column="ECC_COURSE_FLOW" jdbcType="VARCHAR" property="courseFlow" />
+			    <result column="CHAPTER_FILE" jdbcType="VARCHAR" property="chapterFile" />
+			    <result column="CHAPTER_IMG" jdbcType="VARCHAR" property="chapterImg" />
+			    <result column="TEACHER_ID" jdbcType="VARCHAR" property="teacherId" />
+			    <result column="CHAPTER_TIME" jdbcType="VARCHAR" property="chapterTime" />
+			    <result column="CHAPTER_PRAISE" jdbcType="DECIMAL" property="chapterPraise" />
+			    <result column="COLLECTION_COUNT" jdbcType="DECIMAL" property="collectionCount" />
+			    <result column="CHAPTER_SCORE" jdbcType="DECIMAL" property="chapterScore" />
+			    <result column="CHAPTER_JOIN_COUNT" jdbcType="DECIMAL" property="chapterJoinCount" />
+			    <result column="CHAPTER_FINISH_COUNT" jdbcType="DECIMAL" property="chapterFinishCount" />
+			    <result column="CHAPTER_ORDER" jdbcType="DECIMAL" property="chapterOrder" />
+			    <result column="CHAPTER_INTRO" jdbcType="VARCHAR" property="chapterIntro" />
+		</collection>
+	</resultMap>
+    
+	<select id="selectOneWithChapters" parameterType="string" resultMap="extCourseMap">
+    			select ec.course_flow, course_name, course_major_id, course_major_name, course_credit
+					, course_type_id, course_type_name, course_period, course_img, course_order
+					, course_intro,ecc.*
+				from pdsci.edu_course ec
+					left join (select chapter_flow, chapter_name, course_flow,  chapter_no, parent_chapter_flow
+					, chapter_file, chapter_img, teacher_id, chapter_time, chapter_praise,collection_count
+					, chapter_score, chapter_join_count, chapter_finish_count, chapter_order, chapter_intro from pdsci.edu_course_chapter where record_status = 'Y' ) ecc on ec.course_flow = ecc.course_flow 
+				where ec.record_status = 'Y'
+					and ec.course_flow = #{courseFlow}
+				start with parent_chapter_flow is null
+				connect by prior chapter_flow = parent_chapter_flow
+				order siblings by to_number(chapter_no) asc,create_time asc
+	</select>
+	
+	 <select id="searchStuCourseList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap">
+         select <include refid="com.pinde.sci.dao.base.EduCourseMapper.Base_Column_List"/>
+         from pdsci.edu_course
+         where record_status ='Y' and course_flow in
+          (select distinct(course_flow)
+         from pdsci.edu_student_course
+         where record_status ='Y'
+             <if test='sysUser!=null'>
+               <if test='sysUser.userFlow!=null and sysUser.userFlow!=""'>
+                  and user_flow= #{sysUser.userFlow}
+               </if>
+             </if>
+               <if test="studyStatusList!=null">
+                  and study_Status_id in
+                  <foreach collection="studyStatusList" item="item" index="index" open="(" separator="," close=")">  
+	  			  #{item}  
+	 		      </foreach>
+               </if>
+               
+         )
+         <if test='eduCourse!=null'>
+         <if test='eduCourse.courseName!=null and eduCourse.courseName!=""'>
+                  and course_name like '%${eduCourse.courseName}%'
+         </if>
+         <if test='eduCourse.courseTypeId!=null and eduCourse.courseTypeId!=""'>
+                  and course_type_id=#{eduCourse.courseTypeId}
+         </if>
+         </if>
+      </select>
+      
+      <select id="searchTchCourseList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap">
+         select <include refid="com.pinde.sci.dao.base.EduCourseMapper.Base_Column_List"/>
+         from pdsci.edu_course
+         where record_status ='Y' and course_flow in
+          (select distinct(course_flow) from pdsci.edu_course_chapter 
+           where record_status ='Y'
+           <if test='user!=null'>
+             <if test='user.userFlow!=null and user.userFlow!=""'>
+                  and teacher_id= #{user.userFlow}
+             </if>
+           </if>
+          )
+          <if test='course!=null'>
+          <if test='course.courseTypeId!=null and course.courseTypeId!=""'>
+              and course_type_id=#{course.courseTypeId}           
+          </if>
+          </if>
+      </select>
+      
+      <select id="countTchCourse" parameterType="java.util.Map" resultType="int">
+         select count(*)
+         from pdsci.edu_course
+         where record_status ='Y' and course_flow in
+          (select distinct(course_flow) from pdsci.edu_course_chapter 
+           where record_status ='Y'
+             <if test='userFlow!=null and userFlow!=""'>
+                  and teacher_id= #{userFlow}
+               </if>
+          )
+          <if test='courseTypeId!=null and courseTypeId!=""'>
+              and course_type_id=#{courseTypeId}           
+          </if> 
+      </select>
+      
+      <select id="searchUserByTch" parameterType="com.pinde.sci.model.mo.SysUser" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+            select <include refid="com.pinde.sci.dao.base.SysUserMapper.Base_Column_List"/>
+            from pdsci.sys_user
+            where record_status ='Y' and  user_flow in
+            (select distinct(user_flow) from pdsci.edu_student_course 
+             where record_status ='Y' and  course_flow in
+             (select distinct(course_flow) from pdsci.edu_course_chapter
+              where record_status ='Y' and  teacher_id=#{userFlow}
+             )
+            )
+      </select>
+      
+      <select id="searchTchEduQuestionsList" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EduQuestionMapper.BaseResultMap">
+           select <include refid="com.pinde.sci.dao.base.EduQuestionMapper.Base_Column_List"/>
+           from pdsci.edu_question
+           where record_status='Y' and submit_teacher='Y' and chapter_flow in
+           (select distinct(chapter_flow) from pdsci.edu_course_chapter
+            where record_status ='Y' and teacher_id=#{user.userFlow}
+           )
+           <if test='question!=null'>
+           <if test='question.questionStatusId!=null and question.questionStatusId!=""'>
+               and question_status_id=#{question.questionStatusId}
+           </if>
+           </if>
+      </select>
+      
+      <select id="searchEduAnswerList" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.EduAnswerMapper.BaseResultMap">
+           select <include refid="com.pinde.sci.dao.base.EduAnswerMapper.Base_Column_List"/>
+           from pdsci.edu_answer
+           where record_status ='Y' and question_flow=#{questionFlow}
+          <!--  <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  	#{item}  
+		 </foreach>  -->
+      </select>
+      
+       <select id="searchUserByCourse" parameterType="java.lang.String" resultMap="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+            select <include refid="com.pinde.sci.dao.base.SysUserMapper.Base_Column_List"/>
+            from pdsci.sys_user
+            where record_status ='Y' and  user_flow in
+            (select distinct(user_flow) from pdsci.edu_student_course 
+             where record_status ='Y' and  course_flow = #{courseFlow}
+            )
+      </select>
+      <select id="searchUserCourseByType" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap">
+            select <include refid="com.pinde.sci.dao.base.EduCourseMapper.Base_Column_List"/>
+            from pdsci.edu_course 
+            where record_status ='Y' and course_flow in
+            (select distinct(course_flow) from pdsci.edu_student_course 
+             where record_status ='Y' and user_flow=#{userFlow}
+            ) 
+            <if test='courseTypeId!=null and courseTypeId!=""'>
+            and course_type_id=#{courseTypeId}
+            </if>
+      </select>
+      
+       <select id="countUserCourseByType" parameterType="java.util.Map" resultType="int">
+            select count(*)
+            from pdsci.edu_course 
+            where record_status ='Y' and course_flow in
+            (select distinct(course_flow) from pdsci.edu_student_course 
+             where record_status ='Y' and user_flow=#{userFlow}
+            ) 
+            <if test='courseTypeId!=null and courseTypeId!=""'>
+            and course_type_id=#{courseTypeId}
+            </if>
+      </select>
+      
+      <select id="countUserAllCredit" parameterType="java.lang.String" resultType="int">
+            select nvl(sum(course_credit),0) from pdsci.edu_course
+            where record_status ='Y' and course_flow in
+            (select distinct(course_flow) from pdsci.edu_student_course 
+             where record_status ='Y' and user_flow=#{userFlow}
+             and achieve_credit='Y'
+            )
+      </select>
+      
+       <select id="countUserByStudyStatus" parameterType="java.util.Map" resultType="int">
+            select count(*) from pdsci.edu_student_course
+            where record_status ='Y' and course_flow=#{courseFlow}
+            and study_status_id=#{studyStatusId}
+      </select>
+       
+       
+     <resultMap id="eduCourseExtMap" type="com.pinde.sci.model.njmuedu.EduCourseExt" extends="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap" >
+	 </resultMap>
+       <select id="countRecommendCourseByChooseMost" parameterType="java.util.Map" resultMap="eduCourseExtMap">
+          select ec.course_flow,ec.course_name,ec.course_major_id,
+                 ec.course_major_name,ec.course_credit,ec.course_type_id,
+                 ec.course_type_name,ec.course_period,ec.course_img,
+                 ec.course_order,count(esc.user_flow) chooseCount
+         from pdsci.edu_course ec
+         left join pdsci.edu_student_course esc on ec.course_flow=esc.course_flow
+         where ec.record_status ='Y' 
+          and  not exists
+            (select null
+              from pdsci.edu_student_course edusc
+              where edusc.course_flow = ec.course_flow and edusc.record_status ='Y'
+              <if test='eduUser!=null'>
+               <if test='eduUser.userFlow!=null and eduUser.userFlow!=""'>
+                  and edusc.user_flow= #{eduUser.userFlow}
+               </if>
+              </if>
+             ) 
+          <if test='eduUser!=null'>
+           <if test='eduUser.majorId!=null and eduUser.majorId!=""'>
+               and ec.course_major_id=#{eduUser.majorId}
+           </if>
+           <if test='courseTypeId!=null and courseTypeId!=""'>
+               and ec.course_type_id=#{courseTypeId}
+           </if>
+          </if>
+           group by ec.course_flow,ec.course_name,ec.course_major_id,
+                 ec.course_major_name,ec.course_credit,ec.course_type_id,
+                 ec.course_type_name,ec.course_period,ec.course_img,
+                 ec.course_order
+            order by chooseCount desc
+      </select>
+      
+      <select id="countRecommendCourseByScoreMost" parameterType="java.util.Map" resultMap="eduCourseExtMap">
+             select ec.course_flow,ec.course_name,ec.course_major_id,
+                 ec.course_major_name,ec.course_credit,ec.course_type_id,
+                 ec.course_type_name,ec.course_period,ec.course_img,
+                 ec.course_order,nvl(avgScore,0) avgScore
+         from pdsci.edu_course ec
+         left join (select course_flow,round(avg(chapter_score),1) avgScore 
+         from edu_course_chapter group by course_flow
+         ) esc on ec.course_flow=esc.course_flow
+         where ec.record_status ='Y' 
+          and  not exists
+            (select null
+              from pdsci.edu_student_course edusc
+              where edusc.course_flow = ec.course_flow and edusc.record_status ='Y'
+              <if test='eduUser!=null'>
+               <if test='eduUser.userFlow!=null and eduUser.userFlow!=""'>
+                  and edusc.user_flow= #{eduUser.userFlow}
+               </if>
+              </if>
+             ) 
+          <if test='eduUser!=null'>
+           <if test='eduUser.majorId!=null and eduUser.majorId!=""'>
+               and ec.course_major_id=#{eduUser.majorId}
+           </if>
+           <if test='courseTypeId!=null and courseTypeId!=""'>
+               and ec.course_type_id=#{courseTypeId}
+           </if>
+          </if>
+            group by ec.course_flow,ec.course_name,ec.course_major_id,
+                 ec.course_major_name,ec.course_credit,ec.course_type_id,
+                 ec.course_type_name,ec.course_period,ec.course_img,
+                 ec.course_order,avgScore
+            order by avgScore desc
+      </select>
+      
+      <select id="searchCourseListByScoreOrder" parameterType="java.util.Map" resultMap="eduCourseExtMap">
+         select ec.course_flow,ec.course_name,ec.course_major_id,
+                 ec.course_major_name,ec.course_credit,ec.course_type_id,
+                 ec.course_type_name,ec.course_period,ec.course_img,
+                 ec.course_order,ec.course_intro,ec.record_status,
+                 ec.create_time,ec.create_user_flow,ec.modify_time,
+                 ec.modify_user_flow,nvl(avgScore,0) avgScore
+         from pdsci.edu_course ec
+         inner join (select course_flow,round(avg(chapter_score),1) avgScore 
+         			from edu_course_chapter ecc
+         			<if test='eduUser!=null'>
+         			<if test='eduUser.userFlow!=null and eduUser.userFlow!=""'>
+             			 where ecc.teacher_id=#{eduUser.userFlow}
+               		</if>
+               		</if>
+             		 group by course_flow           
+         			) esc 
+         on ec.course_flow=esc.course_flow
+         where ec.record_status ='Y' 
+         order by avgScore desc
+      </select>
+      
+      
+      <select id="searchCourseListByQuestionOrder" parameterType="java.util.Map" resultMap="eduCourseExtMap">
+          select ec.course_flow,ec.course_name,ec.course_major_id,
+                 ec.course_major_name,ec.course_credit,ec.course_type_id,
+                 ec.course_type_name,ec.course_period,ec.course_img,
+                 ec.course_order,ec.course_intro,ec.record_status,
+                 ec.create_time,ec.create_user_flow,ec.modify_time,
+                 ec.modify_user_flow,eqc.courseCount questionAmount
+		 from pdsci.edu_course ec
+	     inner join( select DISTINCT course_flow from edu_course_chapter
+	       <if test='eduUser!=null'>
+	     	<if test='eduUser.userFlow!=null and eduUser.userFlow!=""'>
+	           where teacher_id =#{eduUser.userFlow}
+            </if>
+           </if>
+         )ecc
+         on ec.COURSE_FLOW = ecc.COURSE_FLOW
+		 inner join( 
+		 select course_flow,nvl(count(course_flow),0) courseCount
+				  from pdsci.EDU_QUESTION 
+				  group By COURSE_FLOW 
+				  order by count(course_flow) DESC
+		 ) eqc
+		 on eqc.course_flow = ec.course_flow
+         where ec.record_status ='Y' 
+         order by eqc.courseCount desc
+      </select>
+      
+      <select id="searchCourseByCondition" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap">
+         select <include refid="com.pinde.sci.dao.base.EduCourseMapper.Base_Column_List"/>
+         from pdsci.edu_course
+         where record_status ='Y' 
+         <if test='condition!=null and condition!=""'>
+         and (course_flow in
+          (select distinct(course_flow) from pdsci.edu_course_chapter 
+           where record_status ='Y'
+              and teacher_id in (select user_flow from
+              pdsci.sys_user where record_status ='Y'
+              <if test='condition!=null and condition!=""'>
+              and user_name like '%${condition}%'
+              </if>
+              )
+          )
+              or course_type_name like '%${condition}%'           
+              or course_name like '%${condition}%'
+            )           
+          </if>
+      </select>
+      <select id="selectStudentCreditCourses" parameterType="string" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap">
+      	select <include refid="com.pinde.sci.dao.base.EduCourseMapper.Base_Column_List"/>
+      		from pdsci.edu_course where record_status = 'Y' and course_flow in
+      		(select course_flow from pdsci.edu_student_course where record_status = 'Y' and user_flow = #{userFlow} and achieve_credit = 'Y')
+      </select>
+      
+       <select id="searchNeedAddCourses" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.EduCourseMapper.BaseResultMap">
+      	select <include refid="com.pinde.sci.dao.base.EduCourseMapper.Base_Column_List"/>
+      		from pdsci.edu_course where record_status = 'Y' 
+      		<if test='courseTypeId!=null and courseTypeId!=""'>
+      		   and course_type_id=#{courseTypeId}
+      		</if>
+      		<if test='userFlow!=null and userFlow!=""'>
+      		and course_flow not in
+      		(select course_flow from pdsci.edu_student_course where record_status = 'Y' and user_flow = #{userFlow})
+            </if>
+      </select>
+      
+</mapper>

@@ -1,0 +1,78 @@
+/*-------四川中医登录------*/
+html {height:100%;max-height:100%;padding:0;margin:0;border:0;overflow: hidden;}
+body{margin:0;font-family:"Microsoft YaHei";font-size:14px;}
+a{text-decoration:none;color:#222;font-family:"Microsoft YaHei";}
+.fl{float:left}
+.fr{float:right;}
+.db{display:block;}
+img{border:none;}
+input{outline:none;margin:0;border:none;}
+/*页眉*/
+.sczy_top_box{position:absolute;overflow:hidden;top:0;left:0;width:100%;z-index:5;display:block; background:#5e3c32;}
+.sczy_top{width:1002px;margin:auto;overflow:hidden; height:63px;}
+.sczy_top span{color:#fff;font-size:16px;font-family:"Microsoft YaHei";line-height:63px;}
+.sczy_top a{margin-top:34px;color:#fff;}
+/*banner+登录*/
+.sczy_banner_box{position:absolute;width:100%;overflow:hidden;background:url(../images/sczy_bg.png) repeat;z-index:3;top:63px;bottom:132px; border-bottom:3px solid #5e3c32;}
+.sczy_banner{position:absolute;top:0;left:50%;width:1920px;margin-left:-960px;}
+.sczy_banner_text{position:absolute;top:6%;left:50%;margin-left:-501px;}
+.sczy_weixin_bg{position:absolute;top:20%;left:50%;margin-left:201px;width:300px;height:320px;background:url(../images/sczy_login_bg.png);}
+.sczy_weixin{width:260px;margin:auto;}
+.sczy_chname{font-size:24px; line-height:35px;color:#ffffff;display:block;text-align:left;margin-top:8px;}
+.sczy_enname{ height:1px; border-top:#fff 1px solid; background:#42667d; margin-top:15px;}
+.sczy_weixin input{height:36px; line-height:36px;width:222px;color:#a3a3a3;font-size:14px;border:solid #a9d3f2 1px;border-left:none;}
+.sczy_login img,.sczy_login input,.sczy_mima img,.sczy_mima input{float:left;}
+.sczy_login,.sczy_mima,.sczy_yanzm,.sczy_denglu{overflow:hidden;}
+.sczy_login,.sczy_mima,.sczy_yanzm{margin-top:16px;}
+.sczy_yanzm input{width:116px;padding-left:10px;border:solid #a9d3f2 1px;}
+.sczy_denglu input{line-height:36px;width:120px;text-align:center;font-size:16px;color:#FFF;;}
+.sczy_denglu .sczy_login1{background:#dc781d; border:none;}
+.sczy_denglu .sczy_login1:hover{background:#e58732;}
+.sczy_denglu .sczy_login2{background:#9a9a9a; border:none;}
+.sczy_denglu .sczy_login2:hover{background:#a8a7a7;}
+
+.jizhu{ width:260px; line-height:38px; height:38px;}
+.jizhu .red{font-size:14px;color:#F00;display:block;}
+.denglu input{line-height:40px; height:40px;width:260px;text-align:center;font-size:16px;color:#FFF;}
+.denglu .login1{background:#10ad86;margin-right:10px;}
+.denglu .login1:hover{background:#0d8668;text-decoration:none; cursor:pointer;}
+.denglu .login2{background:#328fba;}
+.denglu .login2:hover{background:#277396;text-decoration:none; cursor:pointer;}
+.jizhu .dengluu:hover{text-decoration:underline; color:#000;}
+.jizhu .dengluu{color:#fff;}
+/*通知公告*/
+.sczy_new_box{overflow:hidden;position:absolute;bottom:66px;left:0;width:100%;z-index:4}
+.sczy_new{width:1022px;margin:auto;border:solid 1px #5e3c32;overflow:hidden;}
+.sczy_new a{line-height:48px;font-size:14px;}
+.sczy_new a:hover{color:#459ae9;text-decoration:underline;}
+.sczy_gongao{padding-right:25px;margin-left:26px;}
+.sczy_gongao span{color:#d5d5d5;margin-right:4px;}
+.sczy_xitong{margin-left:20px;font-size:14px;font-family:"Microsoft YaHei";color:#222;line-height:48px;}
+.sczy_more{padding-right:16px;margin-right:20px;color:#222;}
+/*页脚*/
+.sczy_footer_box{background:#807875;position:absolute;bottom:0;left:0;width:100%; text-align:center;z-index:5;display:block;overflow:hidden;}
+.sczy_footer{color:#fff;text-align:center;line-height:48px;font-size:14px;}
+/*-------四川中医登录结束------*/
+
+/*页面内消息*/
+.notificationCenterPage{border-left:1px solid #e7e7eb;border-right:1px solid #e7e7eb; margin-bottom:30px;}
+.notificationCenterPage .notify_item:hover{background-color: #fafafb;}
+.notificationCenterPage .notify_item:hover .noticearrow,.notificationCenterPage .notify_item.msgselect .noticearrow{border-color: #c2c0be #f4f5f9 #f4f5f9;}
+.notificationCenterPage .notify_item .noticearrow{font-size: 13px;margin-right: 2px;display: inline-block;width: 0;height: 0;border-style: solid;border-width: 4px;border-color: #c2c0be #fff #fff;}
+.notificationCenterPage .notify_item dd {padding: 0 50px 10px 48px;color: #222;background-color: #f5f5f9;}
+.notificationCenterPage dt{line-height: 40px;}
+.notificationCenterPage .notify_item {border-bottom: 1px solid #e7e7eb;}
+.notificationCenterPage .notify_item .notify_title{overflow: hidden;}
+.notificationCenterPage .notify_item .notify_time {margin-right: 30px;}
+.notificationCenterPage .notify_item .notify_status{float:right;margin-right:30px;}
+.notificationCenterPage i{font-style: normal;}
+.notificationCenterPage .notify_item .notify_title_wrapper{font-weight:400;font-style: normal;color: #8d8d8d;padding-left: 30px;display: block;overflow: hidden;}
+.notificationCenterPage .notify_item.msgselect dt .notify_title_wrapper{color:#222;background-color: #fafafb;}
+.notificationCenterPage .notify_item.msgselect dd{color:#222;background-color: #fafafb;}
+.notificationCenterPage .notify_item.msgselect dd a{color:#ff4f15; text-decoration:underline;}
+.none {display: none;}
+.notificationCenterPage .notify_item.readed i.dot{margin-right: 9px;font-size: 12px;color: #d5d5d5;}
+.notificationCenterPage .notify_item i.dot{color: #ff4f15; margin-right:9px;}
+
+
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinde.sci.dao.srm.ExpertExtMapper" >
+	
+	<select id="searchSysUserNotInByGroupFlow" resultMap="com.pinde.sci.dao.base.SrmExpertMapper.BaseResultMap">
+		select
+	    <include refid="com.pinde.sci.dao.base.SrmExpertMapper.Base_Column_List" />
+	    from PDSCI.SRM_EXPERT SE WHERE RECORD_STATUS='Y' and not exists(
+	    	select null from PDSCI.SRM_EXPERT_GROUP_USER SEGU where SEGU.GROUP_FLOW=#{groupFlow} and SE.USER_FLOW=SEGU.USER_FLOW and SEGU.RECORD_STATUS='Y'
+	    )
+  	</select>
+  	
+  	<select id="searchExpertInfo" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.SrmExpertMapper.BaseResultMap">
+		select * from PDSCI.SRM_EXPERT SE,PDSCI.SYS_USER SU WHERE SE.RECORD_STATUS='Y'
+	    and SE.USER_FLOW=SU.USER_FLOW
+	    <if test='expertInfo.user.userName!=null and expertInfo.user.userName!=""'>
+	     and SU.USER_NAME LIKE '%${expertInfo.user.userName}%'
+	    </if>
+	    <if test='expertInfo.sysOrg.orgName!=null and expertInfo.sysOrg.orgName!=""'>
+	      and SU.ORG_NAME LIKE '%${expertInfo.sysOrg.orgName}%'
+	    </if>
+	    and not exists(
+	    	select null from PDSCI.SRM_EXPERT_GROUP_USER SEGU where SEGU.GROUP_FLOW=#{groupFlow} and SE.USER_FLOW=SEGU.USER_FLOW and SEGU.RECORD_STATUS='Y'
+	    )
+  	</select>
+  	
+  	<resultMap type="com.pinde.sci.model.srm.SysUserExt" id="SysUserMap" extends="com.pinde.sci.dao.base.SysUserMapper.BaseResultMap">
+  		<association property="expert" column="USER_FLOW" resultMap="com.pinde.sci.dao.base.SrmExpertMapper.BaseResultMap"></association>
+  	</resultMap>
+  	
+  	<select id="selectExpertNotInEvalSettingByEvalSetFlow" resultMap="SysUserMap">
+  		SELECT * FROM (SELECT SE.USER_FLOW , SE.MAJOR_ID , SE.MAJOR_NAME , SE.EDUCATION , SU.USER_NAME , SU.SEX_ID , SU.SEX_NAME , SU.USER_EMAIL , SU.USER_PHONE , SU.ORG_FLOW , SU.ORG_NAME FROM SRM_EXPERT SE , SYS_USER SU WHERE SE.USER_FLOW = SU.USER_FLOW AND SE.RECORD_STATUS='Y') T
+  		<if test='evalSetFlow!=null and evalSetFlow!=""'>
+  			WHERE NOT EXISTS(SELECT NULL FROM SRM_EXPERT_PROJ SEP WHERE SEP.USER_FLOW=T.USER_FLOW AND SEP.EVAL_SET_FLOW=#{evalSetFlow} AND SEP.RECORD_STATUS='Y')
+  		</if>
+  	</select>
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>
+	<!-- 初始审查申请表单 -->
+	<!-- {0}:表单所属机构(开关控制) {1}:版本号 -->
+	<jsp ver="1.0" path="gcp/form/{0}/drugInspect_{1}"></jsp>
+	<product>
+		<page ver="1.0">
+			<item name="result1.1" remark="试验用药物的质量检验报告的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark1.1" remark="试验用药物的质量检验报告的备注" multiple="N"></item>
+			<item name="result1.2"
+				remark="试验用药物：名称、数量、剂型、规格、生产日期、批号、有效期、生产厂家、运输过程中的条件是否与方案相符的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark1.2"
+				remark="试验用药物：名称、数量、剂型、规格、生产日期、批号、有效期、生产厂家、运输过程中的条件是否与方案相符的备注"
+				multiple="N"></item>
+			<item name="result1.3"
+				remark="药物编号：药物药包号与送货单上的号码是否一致;接收双盲药物时如有应急信封，应急信封上的编号与该药物的药物编码号是否一致，信封是否密封，是否有破损的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark1.3"
+				remark="药物编号：药物药包号与送货单上的号码是否一致;接收双盲药物时如有应急信封，应急信封上的编号与该药物的药物编码号是否一致，信封是否密封，是否有破损的备注"
+				multiple="N"></item>
+			<item name="result1.4" remark="药物的外包装是否完好，包装的标识是否清楚的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark1.4" remark="药物的外包装是否完好，包装的标识是否清楚的备注"
+				multiple="N"></item>
+			<item name="result1.5" remark="低温保存药物的接收：温度计的编号与送货单上登记的编号是否一致;开箱温度是否记录的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark1.5" remark="低温保存药物的接收：温度计的编号与送货单上登记的编号是否一致;开箱温度是否记录的备注"
+				multiple="N"></item>
+			<item name="result2.1" remark="试验用药物的储藏和保存应具备的必要的环境和设备是否健全的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark2.1" remark="试验用药物的储藏和保存应具备的必要的环境和设备是否健全的备注"
+				multiple="N"></item>
+			<item name="result2.2" remark="试验用药物专柜是否加锁存放的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark2.2" remark="试验用药物专柜是否加锁存放的备注" multiple="N"></item>
+			<item name="result2.3" remark="试验用药物存放期间每日是否有温湿度记录的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark2.3" remark="试验用药物存放期间每日是否有温湿度记录的备注" multiple="N"></item>
+			<item name="result2.4" remark="药物管理员是否对试验药物进行清点、核对、记录的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark2.4" remark="药物管理员是否对试验药物进行清点、核对、记录的备注"
+				multiple="N"></item>
+			<item name="result2.5" remark="试验用药物是否破损、变质、失效、将药物集中存放于“不合格药物区”的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark2.5" remark="试验用药物是否破损、变质、失效、将药物集中存放于“不合格药物区”的备注"
+				multiple="N"></item>
+			<item name="result2.6" remark="药物管理员是否负责保管药柜的钥匙的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark2.6" remark="药物管理员是否负责保管药柜的钥匙的备注" multiple="N"></item>
+			<item name="result3.1" remark="试验用药物的分发、核对处方的内容：项目的名称、受试者的姓名与编号、药物的规格、数量的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark3.1" remark="试验用药物的分发、核对处方的内容：项目的名称、受试者的姓名与编号、药物的规格、数量的备注"
+				multiple="N"></item>
+			<item name="result3.2" remark="需要回收的口服试验用药物是否外包装注明：项目的名称、受试者姓名的缩写、受试者编号、发药日期的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark3.2" remark="需要回收的口服试验用药物是否外包装注明：项目的名称、受试者姓名的缩写、受试者编号、发药日期的备注"
+				multiple="N"></item>
+			<item name="result3.3" remark="需要回收的注射剂是否外包装注明：“请留瓶”字样、项目的名称、受试者姓名缩写、受试者编号、发药日期的结果"
+				multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark3.3" remark="需要回收的注射剂是否外包装注明：“请留瓶”字样、项目的名称、受试者姓名缩写、受试者编号、发药日期的备注"
+				multiple="N"></item>
+			<item name="result4.1" remark="试验用药物是否回收的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark4.1" remark="试验用药物是否回收的备注" multiple="N"></item>
+			<item name="result5.1" remark="是否有试验用药物的销毁记录的结果" multiple="N">
+				<code value="1">是</code>
+				<code value="2">否</code>
+				<code value="3">NA</code>
+			</item>
+			<item name="remark5.1" remark="是否有试验用药物的销毁记录的备注" multiple="N"></item>
+			<item name="problem" remark="问题" multiple="N"></item>
+		</page>
+	</product>
+</jspForm>
+

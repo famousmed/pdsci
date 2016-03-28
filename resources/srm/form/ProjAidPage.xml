@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jspForm>	
+	<!-- pageGroup 定义
+	product. 产品默认项目类型
+	
+	szwsj.ky 苏州科研备案
+	yhwsj.ky 余杭非直报
+	yhwsj.xjsxxm 余杭.新技术新项目
+	 -->
+
+	<!-- 项目基本信息表单 -->
+	<pageGroup name="szwsj.ky" firstPage="step1" view="srm/proj/form/aid/szwsj.ky/viewaid">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/aid/szwsj.ky/aid">
+			<item name="projYear" remark="立项年度" multiple="N"></item>
+			<item name="projDeclarer" remark="项目来源" multiple="N"></item>
+			<item name="projStartTime" remark="开始日期" multiple="N"></item>
+			<item name="projEndTime" remark="结束日期" multiple="N"></item>
+			<item name="applyOrgName" remark="承担单位" multiple="N"></item>
+		    <item name="leadOrgName" remark="牵头单位" multiple="N"></item>
+		    <item name="projName" remark="项目名" multiple="N"></item>
+		    <item name="projTypeName" remark="项目类别" multiple="N"></item>
+		    <item name="projNo" remark="项目编号" multiple="N"></item>
+		    <item name="chargeOrgName" remark="主管部门" multiple="N"></item>
+		    <item name="totalInvestment" remark="项目总投入" multiple="N"></item>
+		    <item name="countryInvestment" remark="国家拨款总额" multiple="N"></item>
+		    <item name="chargeInvestment" remark="各级配套总额" multiple="N"></item>
+		    <item name="orgInvestment" remark="承担单位自筹总额" multiple="N"></item>
+		    <item name="applyUserName" remark="项目负责人" multiple="N"></item>
+		    <item name="applyUserPhone" remark="项目负责人电话" multiple="N"></item>
+		    <item name="applyUserEmail" remark="项目负责人邮箱" multiple="N"></item>
+		    <item name="projIntr" remark="项目简介" multiple="N"></item>
+		    <item name="projRemark" remark="备注" multiple="N"></item>
+		    
+		    <itemGroup name="fund" remark="资金分配" jsp="" flow="" modelStyle="add">
+				<item name="fund_year" remark="拨款年度" multiple="N"></item>
+				<item name="fund_countryCount" remark="国家配套" multiple="N"></item>
+				<item name="fund_provinceCount" remark="省配套" multiple="N"></item>
+				<item name="fund_cityCount" remark="市配套" multiple="N"></item>
+				<item name="fund_areaCount" remark="区配套" multiple="N"></item>
+			</itemGroup>
+			
+			<item name="file" remark="附件" multiple="Y" isFile="Y"></item>
+		</page>
+	</pageGroup>
+	
+	<!-- 余杭卫生局.科研    开始 -->
+	<pageGroup name="yhwsj.ky" firstPage="step1" view="srm/proj/form/aid/yhwsj.ky/view">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/aid/yhwsj.ky/aid">
+			<item name="projSerialNum" remark="序号" multiple="N"></item>
+			<item name="applyOrgName" remark="单位" multiple="N"></item>
+			<item name="projDeclarer" remark="项目来源" multiple="N"></item>
+			<item name="projTypeId" remark="项目类别" multiple="N"></item>
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="projLeader" remark="项目负责人" multiple="N"></item>
+			<item name="applyDeptName" remark="承担科室" multiple="N"></item>
+			<item name="projRank" remark="项目级别" multiple="N"></item>
+			
+			<item name="projStartTime" remark="开始日期" multiple="N"></item>
+			<item name="projEndTime" remark="结束日期" multiple="N"></item>
+			<!-- 项目状态（申报、未立项、在研、验收通过、结题、延期-注明时间、变更、撤题） -->
+			<item name="projStatus" remark="项目状态" multiple="N"></item>
+		    <item name="projNo" remark="项目编号" multiple="N"></item>
+		    <item name="projIntr" remark="项目简介" multiple="N"></item>
+		    <item name="projRemark" remark="项目备注" multiple="N"></item>
+		    <item name="projDelayDate" remark="延期日期" multiple="N"></item>
+		    
+		    <!-- 项目经费（省市、区级、单位配套、自筹） -->
+		    <itemGroup name="fund" remark="项目经费" jsp="" flow="" modelStyle="add">
+				<item name="fund_year" remark="拨款年度" multiple="N"></item>
+				<item name="fund_provinceCity" remark="省市" multiple="N"></item>
+				<item name="fund_district" remark="区级" multiple="N"></item>
+				<item name="fund_orgMating" remark="单位配套" multiple="N"></item>
+				<item name="fund_selfRaised" remark="自筹" multiple="N"></item>
+			</itemGroup>
+			
+			<!-- <item name="file" remark="附件" multiple="Y" isFile="Y"></item> -->
+			<itemGroup name="fileEdit" remark="附件上传" jsp="" flow=""  modelStyle="add">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件流水号" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+	</pageGroup>
+	<!-- 余杭卫生局.科研   结束 -->
+	
+	
+	<!-- 余杭卫生局.科研新技术新项目    开始 -->
+	<pageGroup name="yhwsj.xjsxxm" firstPage="step1" view="srm/proj/form/aid/yhwsj.xjsxxm/view">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/aid/yhwsj.xjsxxm/aid">
+			<item name="orgName" remark="单位" multiple="N"></item>
+			<item name="projName" remark="项目名称" multiple="N"></item>
+			<item name="applyUserName" remark="项目负责人" multiple="N"></item>
+			<item name="applyDeptName" remark="科室" multiple="N"></item>
+			<item name="applyDate" remark="申请日期" multiple="N"></item>
+			<item name="launchTime" remark="开展时间" multiple="N"></item>
+			<item name="projIntroduction" remark="项目简介" multiple="N"></item>
+			<item name="technologyLevel" remark="技术水平" multiple="N"></item>
+		</page>
+	</pageGroup>
+	<!-- 余杭卫生局.科研新技术新项目    结束 -->
+	
+	
+	
+	<!-- 余杭卫生局.学科备案    开始 -->
+	<pageGroup name="yhwsj.xkba" firstPage="step1" view="srm/proj/form/aid/yhwsj.xkba/view">
+		<page name="step1" remark="步骤1" jsp="srm/proj/form/aid/yhwsj.xkba/aid">
+			<item name="projName" remark="学科名称" multiple="N"></item>
+			<item name="projTypeName" remark="学科类型" multiple="N"></item>
+			<item name="projTypeName2" remark="学科类型2" multiple="N"></item>
+			<item name="applyOrgName" remark="单位" multiple="N"></item>
+			<item name="applyUserName" remark="学科带头人" multiple="N"></item>
+			<item name="buildPeriod" remark="建设周期" multiple="N"></item>
+			<item name="fundSubsidy" remark="经费补助" multiple="N"></item>
+			<item name="applyResult" remark="申报结果" multiple="N"></item>
+			<item name="mediumResult" remark="中期考核结果" multiple="N"></item>
+			<item name="completeResult" remark="验收结果" multiple="N"></item>
+			
+			<!-- 附件信息 -->
+			<itemGroup name="fileEdit" remark="附件上传" jsp="" flow=""  modelStyle="add">
+				<item name="fileEdit_fileName" remark="文件名称" multiple="N"></item>
+				<item name="fileEdit_file" remark="文件流水号" multiple="N" isFile="Y"></item>
+				<item name="fileEdit_fileRemark" remark="文件备注" multiple="N"></item>
+			</itemGroup>
+		</page>
+	</pageGroup>
+	<!-- 余杭卫生局.学科备案    结束 -->
+</jspForm>
+
