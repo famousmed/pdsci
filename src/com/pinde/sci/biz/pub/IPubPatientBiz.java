@@ -63,7 +63,7 @@ public interface IPubPatientBiz {
 	
 	List<PubPatient> searchPatientStageList(List<String> projFlowList);
 
-	List<PubPatient> searchPatientByProjFlow(String projFlow, String patientType);
+	List<PubPatient> searchPatientByProjFlow(String projFlow, String patientType,String sort);
 
 	List<PubPatient> searchAllPatients(String projFlow);
 
