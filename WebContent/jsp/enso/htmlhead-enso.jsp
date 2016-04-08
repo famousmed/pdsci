@@ -3,7 +3,7 @@
 
 <c:if test="${param.compatible=='true'}">
 <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge,IE=10;">
-</c:if>
+</c:if> 
 
 <link rel="shortcut icon" href="<s:url value='/favicon.ico'/>" />
 <c:set var="min" value=".min"></c:set>
