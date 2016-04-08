@@ -119,10 +119,10 @@ public class PubPatientBizImpl implements IPubPatientBiz{
 	}
 	
 	@Override
-	public List<PubPatient> searchPatientByProjFlow(String projFlow,String patientType) {
+	public List<PubPatient> searchPatientByProjFlow(String projFlow,String patientType,String orderby) {
 		PubPatientExample example = new PubPatientExample(); 
 		example.createCriteria().andProjFlowEqualTo(projFlow).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y).andPatientTypeIdEqualTo(patientType);
-		example.setOrderByClause("PATIENT_SEQ");
+		example.setOrderByClause(orderby);
 		return searchPatient(example);
 	}
 	
@@ -663,7 +663,7 @@ public class PubPatientBizImpl implements IPubPatientBiz{
 		PubPatient patient = null;
 		PubPatientExample example = new PubPatientExample();
 		com.pinde.sci.model.mo.PubPatientExample.Criteria criteria = example.createCriteria()
-				.andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y)
+				.andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId())
 				.andProjFlowEqualTo(projFlow).andInDateIsNotNull();
 		if (StringUtil.isNotBlank(orgFlow)) {
 			criteria.andOrgFlowEqualTo(orgFlow);
