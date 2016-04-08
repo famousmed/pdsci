@@ -425,4 +425,11 @@ public class GlobalConstant {
 	public static final String TEACH_CONDITION="TeachCondition";
 	
 	public static final String SUPPORT_CONDITION="SupportCondition";
+	
+	
+	//enso
+	public static final String PI_ROLE_FLOW="817cf2c8cb5b4dceb689015359d5c209";
+	public static final String REACHER_ROLE_FLOW="dbb6c577f6b64659a2c1a49371cf0e20";
+	public static final String CRC_ROLE_FLOW="107bbd0e2d9e42d3b0f04d53bfb234b3";
+	
 }

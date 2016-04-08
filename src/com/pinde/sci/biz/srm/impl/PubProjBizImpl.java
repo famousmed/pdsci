@@ -1,11 +1,7 @@
 package com.pinde.sci.biz.srm.impl;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +9,6 @@ import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,21 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pinde.core.jspform.ItemGroupData;
 import com.pinde.core.util.StringUtil;
 import com.pinde.sci.biz.pub.IFileBiz;
+import com.pinde.sci.biz.pub.IPubPatientBiz;
 import com.pinde.sci.biz.srm.IPubProjBiz;
 import com.pinde.sci.common.GeneralMethod;
 import com.pinde.sci.common.GlobalConstant;
 import com.pinde.sci.dao.base.PubProjMapper;
-import com.pinde.sci.dao.base.PubProjRecMapper;
 import com.pinde.sci.dao.pub.PubProjExtMapper;
-import com.pinde.sci.enums.pub.ProjCategroyEnum;
-import com.pinde.sci.enums.srm.ProjCompleteStatusEnum;
-import com.pinde.sci.enums.srm.ProjRecTypeEnum;
-import com.pinde.sci.enums.srm.ProjStageEnum;
+import com.pinde.sci.enums.edc.PatientTypeEnum;
 import com.pinde.sci.model.mo.PubFile;
+import com.pinde.sci.model.mo.PubPatient;
+import com.pinde.sci.model.mo.PubPatientExample;
 import com.pinde.sci.model.mo.PubProj;
 import com.pinde.sci.model.mo.PubProjExample;
-import com.pinde.sci.model.mo.PubProjRec;
-import com.pinde.sci.model.mo.PubProjRecExample;
 import com.pinde.sci.model.srm.PubProjExt;
 import com.pinde.sci.model.srm.ReportForm;
 
@@ -49,6 +41,9 @@ public class PubProjBizImpl implements IPubProjBiz{
 	private PubProjMapper projMapper;
 	@Autowired
 	private IFileBiz fileBiz;
+	@Autowired
+	private IPubPatientBiz patientBiz;
+
 
 	
 	@Override
@@ -300,9 +295,18 @@ public class PubProjBizImpl implements IPubProjBiz{
 		paramMap.put("factor", factor);
 		paramMap.put("proj", proj);
 		return this.pubProjExtMapper.selectReportFormData(paramMap);
-	} 
-	
-	
+	}
 
-	
+	@Override
+	public List<PubPatient> searchPubProjListByPatientCode(String projFlow,
+			String patientCode,Map<String,PubProj> projMap) {
+		PubPatientExample example = new PubPatientExample();
+		example.createCriteria().andPatientCodeEqualTo(patientCode).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId());
+		example.setOrderByClause("in_date desc");
+		List<PubPatient> patientList = patientBiz.searchPatient(example);
+		for(PubPatient patient : patientList){
+			projMap.put(patient.getProjFlow(), projMapper.selectByPrimaryKey(patient.getProjFlow()));
+		}
+		return patientList;
+	} 
 }

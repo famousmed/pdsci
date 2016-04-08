@@ -127,7 +127,6 @@ function doSubmitCommit(){
 				}
 		} , null , true);
 	});
-	
 }
 function doSave(isSerialSeq,attrCode,obj){
 	if("${edcInputStatusEnumSubmit.id }" == $("#inputStatus").val()){

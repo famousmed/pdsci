@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pinde.sci.model.mo.PubFile;
+import com.pinde.sci.model.mo.PubPatient;
 import com.pinde.sci.model.mo.PubProj;
 import com.pinde.sci.model.srm.PubProjExt;
 import com.pinde.sci.model.srm.ReportForm;
@@ -85,5 +86,8 @@ public interface IPubProjBiz {
 	 * @return
 	 */
 	List<ReportForm> findReportForm(PubProj proj);
+
+	public List<PubPatient> searchPubProjListByPatientCode(String projFlow,
+			String patientCode, Map<String, PubProj> projMap);
 
 }

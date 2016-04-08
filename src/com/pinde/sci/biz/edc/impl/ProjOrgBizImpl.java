@@ -179,6 +179,9 @@ public class ProjOrgBizImpl implements IProjOrgBiz {
 		if (StringUtil.isNotBlank(projOrg.getOrgTypeId())) {
 			criteria.andOrgTypeIdEqualTo(projOrg.getOrgTypeId());
 		}
+		if (StringUtil.isNotBlank(projOrg.getOrgName())) {
+			criteria.andOrgNameLike('%'+projOrg.getOrgName()+'%');
+		}
 		example.setOrderByClause("CENTER_NO");
 		return pubProjOrgMapper.selectByExample(example);
 	}

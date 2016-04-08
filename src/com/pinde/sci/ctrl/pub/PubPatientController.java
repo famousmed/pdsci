@@ -79,7 +79,7 @@ public class PubPatientController extends GeneralController {
 		List<PubProjOrg> pubProjOrgList = projOrgBiz.searchProjOrg(edcCurrProj.getProjFlow());
 		model.addAttribute("pubProjOrgList", pubProjOrgList);
 		
-		List<PubPatient> patientList = patientBiz.searchPatientByProjFlow(edcCurrProj.getProjFlow(),patientType);
+		List<PubPatient> patientList = patientBiz.searchPatientByProjFlow(edcCurrProj.getProjFlow(),patientType,"patient_seq");
 		Map<String,String> patientMap = new HashMap<String, String>();
 		for(PubPatient patient : patientList){
 			String temp = patientMap.get(patient.getOrgFlow());
@@ -107,7 +107,7 @@ public class PubPatientController extends GeneralController {
 		
 		List<PubProjOrg> pubProjOrgList = projOrgBiz.searchProjOrg(projFlow);
 		
-		List<PubPatient> patientList = patientBiz.searchPatientByProjFlow(projFlow,patientType);	//∞¥'PATIENT_SEQ'≈≈–Ú
+		List<PubPatient> patientList = patientBiz.searchPatientByProjFlow(projFlow,patientType,"patient_seq");	//∞¥'PATIENT_SEQ'≈≈–Ú
 		Map<String,List<String>> existPatientCodeMap = new HashMap<String, List<String>>();
 		Map<String,PubPatient> patientCodeMap = new HashMap<String, PubPatient>();
 		Map<String,List<String>> orgPatientMap = new HashMap<String, List<String>>();
