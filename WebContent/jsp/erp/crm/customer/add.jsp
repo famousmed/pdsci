@@ -325,29 +325,15 @@ function checkCustomerUserName(obj){
 							<c:set var="provIds" value="${provIds},${erpUserRegionPopedom.provId }"></c:set>
 							</c:forEach>
 							<script type="text/javascript">
-
-							$(document).ready(function(){
-								var url = '<s:url value="/js/provCityAreaJson.min.json"/>';
-								var provIds = "${provIds}";
-								jboxGet(url,null, function(json) {
-									// 提示：如果服务器不支持 .json 类型文件，请将文件改为 .js 文件 
-									var newJsonData=new Array();
-									var j=0;
-									for(var i=0;i<json.length;i++){
-										var provData = json[i];
-										if(provIds.indexOf(provData.v)>-1){
-											newJsonData[j++]=provData;
-										}
-									}
-									$.cxSelect.defaults.url = newJsonData; 
-									$.cxSelect.defaults.nodata = "none"; 
-									$("#provCityAreaId").cxSelect({ 
-									    selects : ["province", "city", "area"], 
-									    nodata : "none",
-										firstValue : ""
-									}); 
-								},null,false);
-							});
+								// 提示：如果服务器不支持 .json 类型文件，请将文件改为 .js 文件 
+								$.cxSelect.defaults.url = "<s:url value='/js/provCityAreaJson.min.json'/>"; 
+								$.cxSelect.defaults.nodata = "none"; 
+	
+								$("#provCityAreaId").cxSelect({ 
+								    selects : ["province", "city", "area"], 
+								    nodata : "none",
+									firstValue : ""
+								}); 
 							</script>
 						</td>
 						<td style="text-align: right;padding-right: 10px;">地&#12288;&#12288;址：</td>
