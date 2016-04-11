@@ -377,7 +377,7 @@ public class EnSoController extends GeneralController{
 		if(datas!=null && datas.size()>0){
 			for(EdcPatientVisitData temp : datas){
 				List<EdcPatientVisitData> visitData = inputBiz.searchPatientVisitData(pateintVisit.getRecordFlow(),temp.getAttrCode(),
-						temp.getElementSerialSeq());
+						temp.getElementSerialSeq()); 
 				if(visitData!=null && visitData.size()>0){
 					data = visitData.get(0);
 					
