@@ -436,10 +436,11 @@
 				<menu id="sjmd" name="随机盲底" url="/edc/random/randomlist"></menu>
 			</menuset>
 			<menuset id="sjhgl" name="随机化管理">
-				<menu id="sjhyl" name="随机化一览" url="/edc/random/manage"></menu>
+				<menu id="sjhyl" name="随机化一览" url="/edc/random/manage/global"></menu>
 				<menu id="ywkcyl" name="药物库存一览" url="/edc/random/druglist/global"></menu>
-				<menu id="sqsjh" name="申请随机号" url="/edc/random/list"></menu>
+				<menu id="sjhyl" name="机构随机化一览" url="/edc/random/manage/local"></menu>
 				<menu id="ywgl" name="机构药物管理" url="/edc/random/druglist/local"></menu>
+				<menu id="sqsjh" name="申请随机号" url="/edc/random/list"></menu>
 				<menu id="jgsjjd" name="机构随机进度" url="/edc/random/orgSchedule"></menu>
 				<menu id="sjjdcx" name="随机进度查询" url="/edc/random/schedule"></menu>
 			</menuset>
@@ -850,7 +851,7 @@
 			</menuset>
 		</module>
 	</workStation>
-	<workStation id='erp' name="品德信息管理系统">
+	<workStation id='erp' name="企业信息管理系统">
 		<module id='zjl' name="总经理" view="/erp/view/managerMainView">
 			<menuset id="khgl" name="客户管理">
 				<menu id="khxz" name="客户新增" url="/erp/crm/addCustomer/global"></menu>
