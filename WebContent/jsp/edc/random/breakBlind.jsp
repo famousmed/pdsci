@@ -41,15 +41,17 @@
 		jboxConfirm("确认揭盲?",function(){
 			jboxPost("<s:url value='/edc/random/breakBlind'/>?patientFlow=${param.patientFlow}",null,
 					function(resp){
-				if(resp.indexOf("${GlobalConstant.PROMPT_SUCCESSED}")>-1){
+				if(resp!="${GlobalConstant.PROMPT_FAIL}"){
 					if ("${param.source}" == "manage") {
 						window.parent.frames['mainIframe'].window.location.href="<s:url value='/pub/patient/manage/${param.actionScope}?orgFlow=${param.orgFlow}'/>";
 						jboxInfo(resp);
-						jboxClose();
+						jboxClose(); 
 					} else {
-						window.parent.frames['mainIframe'].location.reload(true);
-						jboxInfo(resp);
-						jboxClose();
+						//jboxInfo(resp);
+						//jboxClose();
+						//window.parent.frames['mainIframe'].location.reload(true);
+						$("#resultContent").html(resp);
+						jboxOpenContent($("#result").html(),"揭盲结果",400,200);        
 					}
 				} else {
 					jboxInfo(resp);
@@ -110,6 +112,16 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div id="result" style="display: none">
+	<script>
+	function closeRefresh(){
+		window.parent.frames['mainIframe'].location.reload(true);
+		doClose();
+	}
+	</script>
+		<div id="resultContent"></div>
+		<div style="text-align: center;margin-top: 20px;"><input type="button" class="search" onclick="closeRefresh();" value="关&#12288;闭"></div>
 </div>
 </form>
 </body>

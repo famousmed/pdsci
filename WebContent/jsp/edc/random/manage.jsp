@@ -30,7 +30,7 @@
 <body>
 	<script type="text/javascript">
 		function searchPatient(){
-			window.location.href="<s:url value='/edc/random/manage'/>?orgFlow="+$("#orgFlow").val();
+			window.location.href="<s:url value='/edc/random/manage/${userScope}'/>?orgFlow="+$("#orgFlow").val();
 		}
 		function assignTrend(){
 			if ($("#orgFlow").val()=="") {
@@ -45,6 +45,13 @@
 		function showRandomInfo(patientFlow){
 			jboxOpen("<s:url value='/edc/random/showRandomInfo'/>?patientFlow="+patientFlow,"随机信息",660,550);
 		}
+		function agreePompt(patientFlow){
+			jboxConfirm("确认同意研究者揭盲?",function(){
+				jboxGet("<s:url value='/edc/random/agreePompt'/>?patientFlow="+patientFlow,null,function(resp){
+					window.location.href="<s:url value='/edc/random/manage/local'/>";
+				},null,true);
+			});
+		}
 	</script>
 	
 
@@ -52,12 +59,18 @@
 		<div class="content">
 		<div class="title1 clearfix">
 			&#12288;&#12288;机构：
+			<c:if test="${GlobalConstant.USER_LIST_GLOBAL == userScope}">
 			<select id="orgFlow" name="orgFlow" class="xlname" style="width:300px;" onchange="searchPatient(this.value);">
 				<option value=""></option>
 				<c:forEach items="${pdfn:filterProjOrg(pubProjOrgList)}" var="projOrg">
 					<option value="${projOrg.orgFlow}" <c:if test="${projOrg.orgFlow==param.orgFlow }">selected</c:if>>${projOrg.centerNo }&#12288;${applicationScope.sysOrgMap[projOrg.orgFlow].orgName}</option>
 				</c:forEach>
 			</select>&#12288;
+			</c:if>
+			<c:if test="${GlobalConstant.USER_LIST_LOCAL == userScope}">
+				${sessionScope.currUser.orgName }
+				<input type="hidden"  id="orgFlow" name="orgFlow" value="${sessionScope.currUser.orgFlow }"/>
+			</c:if>
 			合计：${fn:length(patientList) }&#12288;&#12288;
 			<img src="<s:url value='/css/skin/${skinPath}/images/trend.png'/>" title="走势图" style="cursor: pointer;" onclick="assignTrend();"/>
 </div>	
@@ -91,7 +104,19 @@
 				<td>${randomRecMap[patient.patientFlow].drugFactorName}</td>
 				<td>${pdfn:transDateTime(patient.inDate) }</td>	
 				<td>${patient.inDoctorName }</td>	
-				<td>${pdfn:transDateTime(randomRecMap[patient.patientFlow].promptTime) }</td>	
+				<td>
+				<c:choose>
+					<c:when test="${randomRecMap[patient.patientFlow].promptStatusId == edcRandomPromptStatusEnumApply.id }">
+					<c:if test="${GlobalConstant.USER_LIST_LOCAL == userScope}">
+						[<a href="javascript:agreePompt('${patient.patientFlow}');" style="color: red">揭盲申请,是否同意?</a>]
+					</c:if>
+					</c:when>
+					<c:when test="${randomRecMap[patient.patientFlow].promptStatusId == edcRandomPromptStatusEnumPrompted.id }">
+						${pdfn:transDateTime(randomRecMap[patient.patientFlow].promptTime) }
+					</c:when>
+				</c:choose>
+				
+				</td>	
 				<td>${randomRecMap[patient.patientFlow].promptUserName }</td>	
 			</tr>
 			</c:forEach>

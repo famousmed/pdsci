@@ -31,10 +31,17 @@
 	function breakBlind(patientFlow){
 		jboxOpen("<s:url value='/edc/random/breakBlind'/>?patientFlow="+patientFlow,"在线揭盲",500,300);
 	}
+	function breakBlindApply(patientFlow){
+		jboxConfirm("确认提交揭盲申请?",function(){
+			jboxGet("<s:url value='/edc/random/breakBlindApply'/>?patientFlow="+patientFlow,null,function(resp){
+				window.location.href="<s:url value='/edc/random/list'/>";
+			},null,true);
+		});
+	}
 	function cancleAssign(){
 		jboxOpen("<s:url value='/edc/random/cancleAssign'/>","撤销申请",700,400);
 	}
-		
+	
 	function showRandomInfo(patientFlow){
 		jboxOpen("<s:url value='/edc/random/showRandomInfo'/>?patientFlow="+patientFlow,"随机信息",660,550);
 	}
@@ -98,15 +105,21 @@
 						</c:if>
 					</c:if>
 					<!-- 揭盲 申请界面不放接盲操作 -->
-					<!-- 
 					<c:if test="${isBlind && patient.patientStageId != patientStageEnumFilter.id && !empty randomMap[patient.patientFlow] 
-									&& randomMap[patient.patientFlow].promptStatusId != edcRandomPromptStatusEnumPrompted.id }">
+									&& empty randomMap[patient.patientFlow].promptStatusId  }">
+							[<a href="javascript:breakBlindApply('${patient.patientFlow}');" title="申请提交后需主要研究者审核同意方可继续揭盲">申请揭盲</a>]
+					</c:if>
+					<c:if test="${isBlind && patient.patientStageId != patientStageEnumFilter.id && !empty randomMap[patient.patientFlow] 
+									&& randomMap[patient.patientFlow].promptStatusId == edcRandomPromptStatusEnumApply.id }">
+							揭盲待审核...
+					</c:if>
+					<c:if test="${isBlind && patient.patientStageId != patientStageEnumFilter.id && !empty randomMap[patient.patientFlow] 
+									&& randomMap[patient.patientFlow].promptStatusId == edcRandomPromptStatusEnumAgree.id }">
 							[<a href="javascript:breakBlind('${patient.patientFlow}');">揭盲</a>]
 					</c:if>
 					<c:if test="${randomMap[patient.patientFlow].promptStatusId  == edcRandomPromptStatusEnumPrompted.id }">
 						已揭盲
 					</c:if>
-					 -->
 				</td>
 			</tr>
 			</c:forEach>

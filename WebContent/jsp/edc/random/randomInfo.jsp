@@ -89,16 +89,6 @@
 						</td>
 					</tr>
 					<tr>
-						<th width="22%">破盲人：</th>
-						<td width="28%">
-							${randomInfo.randomRec.promptUserName}
-						</td>
-						<th width="22%">破盲时间：</th>
-						<td width="28%">
-							${pdfn:transDateTime(randomInfo.randomRec.promptTime)}
-						</td>
-					</tr>
-					<tr>
 						<th width="22%">药物编码：</th>
 						<td width="28%">
 							${randomInfo.randomRec.drugPack}
@@ -119,6 +109,24 @@
 							${pdfn:transDateTime(rec.assignTime) }&#12288;
 							${rec.assignLabelName }&#12288;药物编码：${rec.drugPack }<br/>
 						</c:forEach>
+						</td>
+					</tr>
+					</c:if>
+					<tr>
+						<th width="22%">揭盲人：</th>
+						<td width="28%">
+							${randomInfo.randomRec.promptUserName}
+						</td>
+						<th width="22%">揭盲时间：</th>
+						<td width="28%">
+							${pdfn:transDateTime(randomInfo.randomRec.promptTime)}
+						</td>
+					</tr>
+					<c:if test="${randomInfo.randomRec.promptStatusId == edcRandomPromptStatusEnumPrompted.id }">
+					<tr>
+						<th width="22%">揭盲结果：</th>
+						<td colspan="3">
+							${group.groupNote }
 						</td>
 					</tr>
 					</c:if>
