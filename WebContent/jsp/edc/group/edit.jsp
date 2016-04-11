@@ -75,6 +75,12 @@
 							<input class="xltext" name="proportion" type="text" value="${group.proportion }" />
 						</td>  
 					</tr>
+					<tr>
+						<th>揭盲说明：</th>
+						<td>
+							<textarea class="xltxtarea" name="groupNote">${group.groupNote }</textarea>
+						</td>  
+					</tr>
 				</table>
 				<div class="button" style="width: 400px;">
 					<input type="button" class="search" value="保&#12288存" onclick="save();" />

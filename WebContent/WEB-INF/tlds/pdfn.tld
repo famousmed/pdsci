@@ -40,7 +40,7 @@
 	</function>
 	<function>
 		<description></description>
-		<name>getRandomCode</name>
+		<name>getRandomNum</name>
 		<function-class>com.pinde.core.util.StringUtil</function-class>
 		<function-signature>java.lang.String getRandomNum(int)</function-signature>
 	</function>

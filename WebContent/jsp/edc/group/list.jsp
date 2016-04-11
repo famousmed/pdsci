@@ -23,10 +23,10 @@
 </jsp:include>
 <script type="text/javascript">
 	function add() {
-		jboxOpen("<s:url value='/edc/visit/editEdcGroup'/>", "新增组别", 500, 300);
+		jboxOpen("<s:url value='/edc/visit/editEdcGroup'/>", "新增组别", 500, 500);
 	}
 	function edit(groupFlow) {
-		jboxOpen("<s:url value='/edc/visit/editEdcGroup?groupFlow='/>"+ groupFlow, "编辑组别信息", 500, 300);
+		jboxOpen("<s:url value='/edc/visit/editEdcGroup?groupFlow='/>"+ groupFlow, "编辑组别信息", 500, 500);
 	}		
 	function del(groupFlow) {
 		jboxGet("<s:url value='/edc/visit/delEdcGroupConfirm'/>?groupFlow="+groupFlow,null,function(resp){
@@ -53,21 +53,23 @@
 <body>
 <div class="mainright">
 	<div class="content">
-		<c:if test="${isRandom && !isBlind}">
-			<div style="margin-top: 5px;margin-bottom: 5px;">
+		<c:if test="${isRandom }">
+			<div style="margin-top: 20px;margin-bottom: 5px;">
 				<c:choose>
 					<c:when test="${projParam.designLock ==  GlobalConstant.FLAG_Y || projParam.projLock ==  GlobalConstant.FLAG_Y}">
 						&#12288;<font color="red">当前项目已锁定设计，无法修改!</font>
 					</c:when>
 					<c:otherwise>
 						<input type="button" class="search" onclick="add();" value="新&#12288;增">
+						<!-- 
 						<input type="button" class="search" onclick="impEdcGroup();" value="导&#12288;入">
+						 -->
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</c:if>
-		<c:if test="${!(isRandom && !isBlind)}">
-			<div style="margin-top: 5px;margin-bottom: 5px;">
+		<c:if test="${!isRandom}">
+			<div style="margin-top: 20px;margin-bottom: 5px;">
 			&#12288;<font color="red">当前项目不需要维护组别！</font>
 			</div>
 		</c:if>
