@@ -438,7 +438,7 @@
 			<menuset id="sjhgl" name="随机化管理">
 				<menu id="sjhyl" name="随机化一览" url="/edc/random/manage/global"></menu>
 				<menu id="ywkcyl" name="药物库存一览" url="/edc/random/druglist/global"></menu>
-				<menu id="sjhyl" name="机构随机化一览" url="/edc/random/manage/local"></menu>
+				<menu id="jgsjhyl" name="机构随机化一览" url="/edc/random/manage/local"></menu>
 				<menu id="ywgl" name="机构药物管理" url="/edc/random/druglist/local"></menu>
 				<menu id="sqsjh" name="申请随机号" url="/edc/random/list"></menu>
 				<menu id="jgsjjd" name="机构随机进度" url="/edc/random/orgSchedule"></menu>
