@@ -67,6 +67,7 @@ import com.pinde.sci.model.edc.RandomDrugGroupForm;
 import com.pinde.sci.model.edc.RandomFactor;
 import com.pinde.sci.model.edc.RandomInfo;
 import com.pinde.sci.model.edc.RandomMinMaxAssignForm;
+import com.pinde.sci.model.mo.EdcGroup;
 import com.pinde.sci.model.mo.EdcIe;
 import com.pinde.sci.model.mo.EdcProjOrg;
 import com.pinde.sci.model.mo.EdcProjOrgExample;
@@ -117,6 +118,7 @@ public class EdcRandomBizImpl implements IEdcRandomBiz {
 	private EdcIeMapper edcIeMapper;
 	@Resource
 	private IVisitBiz visitBiz;
+	
 	
 
 	@Override
@@ -1231,4 +1233,5 @@ public class EdcRandomBizImpl implements IEdcRandomBiz {
 		map.put("followNum", i);
 		return randomRecExtMapper.searchMaxVisitFollow(map);
 	}
+
 }

@@ -27,6 +27,7 @@ import com.pinde.core.util.DateUtil;
 import com.pinde.core.util.PkUtil;
 import com.pinde.core.util.PyUtil;
 import com.pinde.core.util.StringUtil;
+import com.pinde.sci.biz.edc.IEdcGroupBiz;
 import com.pinde.sci.biz.edc.IEdcRandomBiz;
 import com.pinde.sci.biz.edc.IInputBiz;
 import com.pinde.sci.biz.edc.IProjOrgBiz;
@@ -53,6 +54,7 @@ import com.pinde.sci.enums.pub.UserSexEnum;
 import com.pinde.sci.form.edc.EdcPatientIeForm;
 import com.pinde.sci.model.edc.RandomFactor;
 import com.pinde.sci.model.edc.RandomInfo;
+import com.pinde.sci.model.mo.EdcGroup;
 import com.pinde.sci.model.mo.EdcIe;
 import com.pinde.sci.model.mo.EdcProjOrg;
 import com.pinde.sci.model.mo.EdcProjParam;
@@ -84,6 +86,8 @@ public class RandomController extends GeneralController {
 	private IInputBiz inputBiz;
 	@Autowired
 	private IVisitBiz visitBiz;
+	@Autowired
+	private IEdcGroupBiz groupBiz;
 
 	@RequestMapping(value={"/param"},method={RequestMethod.GET})
 	public String param(Model model){
@@ -415,8 +419,8 @@ public class RandomController extends GeneralController {
 	}
 	
 	
-	@RequestMapping(value={"/manage"},method={RequestMethod.GET})
-	public String manage(String orgFlow, Model model){ 
+	@RequestMapping(value={"/manage/{userScope}"},method={RequestMethod.GET})
+	public String manage(@PathVariable String userScope,String orgFlow, Model model){ 
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
 		String projFlow = proj.getProjFlow();
 		
@@ -426,6 +430,11 @@ public class RandomController extends GeneralController {
 		List<PubProjOrg> pubProjOrgList = projOrgBiz.searchProjOrg(projFlow);
 		model.addAttribute("pubProjOrgList", pubProjOrgList);
 		
+		
+		
+		if(GlobalConstant.USER_LIST_LOCAL.equals(userScope)){
+			orgFlow = GlobalContext.getCurrentUser().getOrgFlow();
+		}
 		if(StringUtil.isNotBlank(orgFlow)){
 			PubPatientExample example = new PubPatientExample();
 			example.createCriteria().andProjFlowEqualTo(projFlow).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId())
@@ -436,21 +445,31 @@ public class RandomController extends GeneralController {
 			
 			Map<String,EdcRandomRec> randomRecMap = randomBiz.getPatientRandomMap(projFlow, orgFlow);
 			model.addAttribute("randomRecMap", randomRecMap);
+			
+
+			Map<String,EdcRandomRec> randomMap = randomBiz.getPatientRandomMap(projFlow,orgFlow);
+			model.addAttribute("randomMap", randomMap);
 		}
+		model.addAttribute("userScope", userScope);
  		return "/edc/random/manage";
 	}
+	
+	
+	
 	@RequestMapping(value={"/assignTrend"},method={RequestMethod.GET})
 	public String assignTrend(String orgFlow, Model model){ 
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
 		if (proj != null) {
 			String projFlow = proj.getProjFlow();
-			if (StringUtil.isNotBlank(orgFlow)) {
-				PubProjOrg projOrg = projOrgBiz.readProjOrg(projFlow, orgFlow);
-				model.addAttribute("projOrg", projOrg);
-				
-				Map<String,Object> assignMap = randomBiz.getOrgAssignMap(projFlow,orgFlow);
-				model.addAttribute("assignMap", assignMap);
-			} 
+			System.err.println(orgFlow);
+			if(StringUtil.isBlank(orgFlow)){
+				orgFlow = GlobalContext.getCurrentUser().getOrgFlow();
+			}
+			PubProjOrg projOrg = projOrgBiz.readProjOrg(projFlow, orgFlow);
+			model.addAttribute("projOrg", projOrg);
+			
+			Map<String,Object> assignMap = randomBiz.getOrgAssignMap(projFlow,orgFlow);
+			model.addAttribute("assignMap", assignMap);
 		}
  		return "/edc/random/assignTrend";
 	}
@@ -480,6 +499,40 @@ public class RandomController extends GeneralController {
 		model.addAttribute("randomInfo", randomInfo);
 		return "/edc/random/breakBlind";
 	}
+	
+	@RequestMapping(value={"/breakBlindApply"},method={RequestMethod.GET})
+	@ResponseBody
+	public String breakBlindApply(String patientFlow, Model model){ 
+		RandomInfo randomInfo = randomBiz.getRandomInfo(patientFlow);
+		EdcRandomRec rec = randomInfo.getRandomRec();
+		
+		if(rec != null){
+			rec.setPromptStatusId(EdcRandomPromptStatusEnum.Apply.getId());
+			rec.setPromptStatusName(EdcRandomPromptStatusEnum.Apply.getName());
+			
+			randomBiz.modifyEdcRandomRec(rec);
+		}
+		
+		return GlobalConstant.OPRE_SUCCESSED;
+	}
+	@RequestMapping(value={"/agreePompt"},method={RequestMethod.GET})
+	@ResponseBody
+	public String agreePompt(String patientFlow, Model model){ 
+		RandomInfo randomInfo = randomBiz.getRandomInfo(patientFlow);
+		EdcRandomRec rec = randomInfo.getRandomRec();
+		
+		if(rec != null){
+			rec.setPromptStatusId(EdcRandomPromptStatusEnum.Agree.getId());
+			rec.setPromptStatusName(EdcRandomPromptStatusEnum.Agree.getName());
+			
+			randomBiz.modifyEdcRandomRec(rec);
+		}
+		
+		return GlobalConstant.OPRE_SUCCESSED;
+	}
+	
+	
+	
 	@RequestMapping(value={"/breakBlind"},method={RequestMethod.POST})
 	@ResponseBody
 	public String saveBreakBlind(String patientFlow, Model model){ 
@@ -493,9 +546,9 @@ public class RandomController extends GeneralController {
 		
 		int result =  randomBiz.modifyEdcRandomRec(randomRec);
 		if(result != GlobalConstant.ZERO_LINE){
-			return GlobalConstant.PROMPT_SUCCESSED +",Ò©Îï×é±ð£º"+randomRec.getDrugGroup();
+			EdcGroup group = groupBiz.searchEdcGroup(randomInfo.getPatient().getProjFlow(), randomRec.getDrugGroup());
+			return group.getGroupNote();
 		}
-		
 		return GlobalConstant.PROMPT_FAIL;
 	}
 	
@@ -722,6 +775,9 @@ public class RandomController extends GeneralController {
 		EdcProjParam projParam = randomBiz.readProjParam(patient.getProjFlow());
 	    model.addAttribute("isBlind", GeneralMethod.isBlind(projParam));
 	    
+	    
+	    EdcGroup group = groupBiz.searchEdcGroup(patient.getProjFlow(), randomInfo.getRandomRec().getDrugGroup());
+	    model.addAttribute("group", group);
 		return "/edc/random/randomInfo";
 	}
 	
@@ -866,4 +922,6 @@ public class RandomController extends GeneralController {
 		}
 		return "/edc/random/druglist";
 	}
+	
+	
 }

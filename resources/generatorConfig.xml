@@ -4,7 +4,7 @@
 	<classPathEntry location="D:\Repositories\ojdbc6.jar" />
 	<context id="sciContext">
 		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-			connectionURL="jdbc:oracle:thin:@192.168.2.11:1521:orcl" userId="pdsci"
+			connectionURL="jdbc:oracle:thin:@192.168.58.128:1521:orcl" userId="pdsci"
 			password="123456" />
 		<javaModelGenerator targetPackage="com.pinde.sci.model.mo"
 			targetProject="pdsci">
@@ -20,7 +20,7 @@
 			
 			
 		
-		<table schema="pdsci" tableName="edu_student_course"></table>
+		<table schema="pdsci" tableName="EDC_GROUP"></table>
 		
 		
 		

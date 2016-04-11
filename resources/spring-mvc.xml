@@ -106,6 +106,9 @@
             <mvc:exclude-mapping path="/jsp/sczyres/images/**" />
             <mvc:exclude-mapping path="/jsp/sczyres/js/**" />
             <mvc:exclude-mapping path="/enso/oauth/**" />
+            <mvc:exclude-mapping path="/jsp/enso/css/**" />
+            <mvc:exclude-mapping path="/jsp/enso/images/**" />
+             <mvc:exclude-mapping path="/jsp/enso/js/**" />
             
             <bean class="com.pinde.sci.common.UserInterceptor"></bean>  
         </mvc:interceptor>       	

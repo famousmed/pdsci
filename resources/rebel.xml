@@ -3,15 +3,14 @@
 
 	<classpath>
 		<dir name="D:/workspace/pdsci/build/classes"></dir>
-		<dir name="D:/workspace/pdcore/bin"></dir>
+		<dir name="D:/workspace/pdcode/bin"></dir>
 	</classpath>
-
 	<web>
 		<link target="/">
-			<dir name="E:/shengzhang/pdsci/WebContent">
+			<dir name="D:/workspace/pdsci/WebContent">
 			</dir>
 		</link>
-	</web>
+	</web> 
 	
 
 </application>

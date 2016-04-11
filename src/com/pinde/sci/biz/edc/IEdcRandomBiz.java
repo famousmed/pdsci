@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.pinde.sci.model.edc.RandomDrugGroupForm;
 import com.pinde.sci.model.edc.RandomInfo;
+import com.pinde.sci.model.mo.EdcGroup;
 import com.pinde.sci.model.mo.EdcProjOrg;
 import com.pinde.sci.model.mo.EdcProjParam;
 import com.pinde.sci.model.mo.EdcRandomRec;
@@ -100,5 +101,5 @@ public interface IEdcRandomBiz {
 	Integer searchMaxVisit(String projFlow);
 
 	Integer searchMaxVisitFollow(String projFlow, int i);
-	  
+
 } 

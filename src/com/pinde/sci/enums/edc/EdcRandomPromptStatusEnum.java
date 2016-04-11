@@ -5,7 +5,9 @@ import com.pinde.core.util.EnumUtil;
 
 public enum EdcRandomPromptStatusEnum implements GeneralEnum<String> {
 	
-	UnPrompt("UnPrompt","Œ¥Ω“√§"),
+	UnPrompt("UnPrompt","Œ¥Ω“√§"), 
+	Apply("Apply","…Í«ÎΩ“√§"),
+	Agree("Agree","Õ¨“‚Ω“√§"),
 	Prompted("Prompted","“—Ω“√§"),
 	;
 
