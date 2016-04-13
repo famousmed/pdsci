@@ -1,5 +1,6 @@
 package com.pinde.sci.ctrl.edc;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -8,13 +9,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.poi.hssf.util.HSSFColor.GOLD;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,13 +28,13 @@ import com.pinde.core.util.DateUtil;
 import com.pinde.core.util.PkUtil;
 import com.pinde.core.util.StringUtil;
 import com.pinde.sci.biz.edc.IEdcModuleBiz;
-import com.pinde.sci.biz.edc.IEdcProjBiz;
 import com.pinde.sci.biz.edc.IInputBiz;
 import com.pinde.sci.biz.edc.IProjOrgBiz;
 import com.pinde.sci.biz.edc.IProjUserBiz;
 import com.pinde.sci.biz.edc.IVisitBiz;
 import com.pinde.sci.biz.hbres.NoticeBiz;
 import com.pinde.sci.biz.pub.IPubPatientBiz;
+import com.pinde.sci.biz.pub.IPubPatientWindowBiz;
 import com.pinde.sci.biz.srm.IPubProjBiz;
 import com.pinde.sci.biz.sys.IRoleBiz;
 import com.pinde.sci.biz.sys.IUserRoleBiz;
@@ -43,25 +46,28 @@ import com.pinde.sci.dao.base.SysLogMapper;
 import com.pinde.sci.dao.base.SysUserMapper;
 import com.pinde.sci.enums.edc.EdcInputStatusEnum;
 import com.pinde.sci.enums.edc.PatientTypeEnum;
-import com.pinde.sci.enums.edc.ProjInputTypeEnum;
+import com.pinde.sci.enums.gcp.GcpProjStatusEnum;
 import com.pinde.sci.enums.pub.PatientSourceEnum;
 import com.pinde.sci.enums.pub.PatientStageEnum;
 import com.pinde.sci.enums.pub.UserSexEnum;
 import com.pinde.sci.model.edc.EdcDesignForm;
+import com.pinde.sci.model.irb.ProjInfoForm;
 import com.pinde.sci.model.mo.EdcAttribute;
+import com.pinde.sci.model.mo.EdcGroup;
 import com.pinde.sci.model.mo.EdcPatientVisit;
 import com.pinde.sci.model.mo.EdcPatientVisitData;
 import com.pinde.sci.model.mo.EdcProjParam;
+import com.pinde.sci.model.mo.EdcRandomRec;
 import com.pinde.sci.model.mo.EdcVisit;
 import com.pinde.sci.model.mo.InxInfo;
 import com.pinde.sci.model.mo.PubPatient;
 import com.pinde.sci.model.mo.PubPatientVisit;
+import com.pinde.sci.model.mo.PubPatientWindow;
 import com.pinde.sci.model.mo.PubProj;
 import com.pinde.sci.model.mo.PubProjOrg;
 import com.pinde.sci.model.mo.PubProjUser;
 import com.pinde.sci.model.mo.SysRole;
 import com.pinde.sci.model.mo.SysUser;
-import com.sun.net.httpserver.HttpsServer;
 
 @Controller
 @RequestMapping("/enso")
@@ -93,12 +99,28 @@ public class EnSoController extends GeneralController{
 	private IEdcModuleBiz edcModuleBiz; 
 	@Autowired
 	private IInputBiz inputBiz; 
+	@Autowired
+	private IPubPatientWindowBiz windowBiz;
 	
 	
 	@RequestMapping(value={"/main"},method={RequestMethod.GET})
-	public String ensoAuth(String projFlow, String roleFlow,Model model,HttpServletRequest request){
+	public String ensoAuth(String projFlow, String roleFlow,Model model,HttpServletRequest request) throws DocumentException{
 		PubProj proj = projBiz.readProject(projFlow);
 		model.addAttribute("proj", proj);
+		
+		String projInfo = proj.getProjInfo();
+		Document doc = DocumentHelper.parseText(projInfo);
+		ProjInfoForm projInfoForm = new ProjInfoForm();
+		Element e = (Element) doc.selectSingleNode("projInfo/generalInfo");
+		if(e != null){
+			Element infoElement  = e.element("info");
+			Element indicationElement  = e.element("indication");
+			
+			projInfoForm.setInfo(infoElement == null ? "" : infoElement.getTextTrim());
+			projInfoForm.setIndication(indicationElement == null ? "" : indicationElement.getTextTrim());
+			model.addAttribute("projInfoForm", projInfoForm);
+		}
+		
 		
 		setSessionAttribute(GlobalConstant.EDC_CURR_PROJ, proj);
 		
@@ -132,6 +154,103 @@ public class EnSoController extends GeneralController{
 		return "inx/enso/index"; 
 	}
 	
+	@RequestMapping(value={"/followRemind"},method={RequestMethod.GET})
+	public String followRemind(Model model){
+		String noGroupKey = "noGroup";
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
+		String userFlow = GlobalContext.getCurrentUser().getUserFlow();
+		String orgFlow = GlobalContext.getCurrentUser().getOrgFlow();
+		
+		PubPatient searchPatient = new PubPatient();
+		searchPatient.setProjFlow(proj.getProjFlow());
+		searchPatient.setOrgFlow(orgFlow);
+		searchPatient.setInDate(GlobalConstant.FLAG_N);
+		List<PubPatient> patientList = patientBiz.searchPatientList(searchPatient);
+		List<String> patientFlows = new ArrayList<String>();
+		for(PubPatient patient : patientList){
+			patientFlows.add(patient.getPatientFlow());
+		}
+		model.addAttribute("patientList",patientList);
+		if(patientList != null && !patientList.isEmpty()){
+			
+			List<EdcVisit> visitTempList = visitBiz.searchVisitList(proj.getProjFlow(),GlobalConstant.FLAG_Y);
+			List<String> visitFlows = new ArrayList<String>();
+			for(EdcVisit visit : visitTempList){
+				visitFlows.add(visit.getVisitFlow());
+			}
+		
+		//获取上一次和下一次访视信息
+		if(visitTempList.size()>0){
+			String currDate = DateUtil.getCurrDate();
+			final Map<String,Map<String,Object>> patientVisitMap = new HashMap<String,Map<String,Object>>();
+			//获取所有该项目病人访视窗
+			List<PubPatientWindow> windowList = windowBiz.searchPatientWindowByPatientFlows(proj.getProjFlow(),patientFlows);
+			if(windowList!=null && windowList.size()>0){
+				Map<String,PubPatientWindow> windowMap = new HashMap<String, PubPatientWindow>();
+				Map<String,List<PubPatientWindow>> WindowListMap = new HashMap<String, List<PubPatientWindow>>();
+				for(PubPatientWindow window : windowList){
+					windowMap.put(window.getPatientFlow()+window.getVisitFlow(),window);
+					if(WindowListMap.get(window.getPatientFlow())==null){
+						List<PubPatientWindow> windowListTemp = new ArrayList<PubPatientWindow>();
+						windowListTemp.add(window);
+						WindowListMap.put(window.getPatientFlow(),windowListTemp);
+					}else{
+						WindowListMap.get(window.getPatientFlow()).add(window);
+					}
+				}
+				for(String patientFlow : patientFlows){
+					Map<String,Object> patientVisitInfo = new HashMap<String, Object>();
+					int index = 0;
+					if(WindowListMap.get(patientFlow)!=null && WindowListMap.get(patientFlow).size()>0){
+						PubPatientWindow beforwindow = WindowListMap.get(patientFlow).get(0);
+						if(beforwindow!=null){
+							patientVisitInfo.put("beforeVisit",windowMap.get(patientFlow+(beforwindow.getVisitFlow())));
+							index = visitFlows.indexOf(beforwindow.getVisitFlow())+1;
+						}
+					}
+					if(index<visitFlows.size()){
+						PubPatientWindow windowTemp = windowMap.get(patientFlow+visitFlows.get(index));
+						if(windowTemp!=null){
+							patientVisitInfo.put("nextWindow",windowTemp);
+							if(StringUtil.isNotBlank(windowTemp.getWindowVisitLeft()) && StringUtil.isNotBlank(windowTemp.getWindowVisitRight())){
+								patientVisitInfo.put("remindDays",DateUtil.signDaysBetweenTowDate(windowTemp.getWindowVisitLeft(),currDate));
+								patientVisitInfo.put("outDays",DateUtil.signDaysBetweenTowDate(currDate,windowTemp.getWindowVisitRight()));
+							}
+						}	
+					}
+					patientVisitMap.put(patientFlow,patientVisitInfo);
+				}
+			}
+			//排序
+			Collections.sort(patientList,new Comparator<PubPatient>() {
+				@Override
+				public int compare(PubPatient p1, PubPatient p2) {
+					Map<String,Object> p1VisitInfoMap = patientVisitMap.get(p1.getPatientFlow());
+					Map<String,Object> p2VisitInfoMap = patientVisitMap.get(p2.getPatientFlow());
+					if(p1VisitInfoMap==null && p2VisitInfoMap!=null){
+						return 1;
+					}else if(p2VisitInfoMap==null && p1VisitInfoMap!=null){
+						return -1;
+					}else if(p1VisitInfoMap!=null && p2VisitInfoMap!=null){
+						Long p1RemindDays = (Long)p1VisitInfoMap.get("remindDays");
+						Long p2RemindDays = (Long)p2VisitInfoMap.get("remindDays");
+						if(p1RemindDays!=null && p2RemindDays!=null){
+							return (int) (p1RemindDays-p2RemindDays);
+						}else if(p1RemindDays==null && p2RemindDays!=null){
+							return 1;
+						}else if(p2RemindDays==null && p1RemindDays!=null){
+							return -1;
+						}
+					}
+					return 0;
+				}
+			});
+			model.addAttribute("patientVisitMap",patientVisitMap);
+		}
+		}
+		return "enso/reacher/followRemind";
+	}
+	
 	@RequestMapping("/noticelist")
 	public String noticeList(Integer currentPage , Model model){
 		InxInfo info = new InxInfo();
@@ -150,6 +269,28 @@ public class EnSoController extends GeneralController{
 		
 		List<PubProj> projList = projBiz.searchProjListWithBlob(new PubProj());
 		
+		List<ProjInfoForm> ProjInfoFormList = new ArrayList<ProjInfoForm>();
+		for(PubProj proj : projList){
+			ProjInfoForm projInfoForm = new ProjInfoForm();
+			projInfoForm.setProj(proj);
+			String projInfo = proj.getProjInfo();
+			if (StringUtil.isNotBlank(projInfo)) {
+				System.err.println(proj.getProjFlow());
+				Document doc = DocumentHelper.parseText(projInfo);
+				Element e = (Element) doc.selectSingleNode("projInfo/generalInfo");
+				if(e != null){
+					Element infoElement  = e.element("info");
+					Element indicationElement  = e.element("indication");
+					
+					projInfoForm.setInfo(infoElement == null ? "" : infoElement.getTextTrim());
+					projInfoForm.setIndication(indicationElement == null ? "" : indicationElement.getTextTrim());
+					model.addAttribute("projInfoForm", projInfoForm);
+				}
+			}
+			ProjInfoFormList.add(projInfoForm);
+		}
+		
+		
 		PubProjUser projUser = new PubProjUser();
 		projUser.setUserFlow(GlobalContext.getCurrentUser().getUserFlow());
 		List<PubProjUser> projUserList = projUserBiz.search(projUser);
@@ -158,18 +299,18 @@ public class EnSoController extends GeneralController{
 			roleMap.put(pjuser.getProjFlow(), pjuser.getRoleFlow());
 		}
 		//排序
-		Collections.sort(projList, new Comparator<PubProj>() {
+		Collections.sort(ProjInfoFormList, new Comparator<ProjInfoForm>() {
 			
 
 			@Override
-			public int compare(PubProj p1, PubProj p2) {
-				if(roleMap.containsKey(p1.getProjFlow()) && roleMap.containsKey(p2.getProjFlow())){
+			public int compare(ProjInfoForm p1, ProjInfoForm p2) {
+				if(roleMap.containsKey(p1.getProj().getProjFlow()) && roleMap.containsKey(p2.getProj().getProjFlow())){
 					return 0;
 				}
-				if(roleMap.containsKey(p1.getProjFlow()) && !roleMap.containsKey(p2.getProjFlow())){
+				if(roleMap.containsKey(p1.getProj().getProjFlow()) && !roleMap.containsKey(p2.getProj().getProjFlow())){
 					return -1;
 				}
-				if(!roleMap.containsKey(p1.getProjFlow()) && roleMap.containsKey(p2.getProjFlow())){
+				if(!roleMap.containsKey(p1.getProj().getProjFlow()) && roleMap.containsKey(p2.getProj().getProjFlow())){
 					return 1;
 				}
 				return 0;
@@ -177,7 +318,7 @@ public class EnSoController extends GeneralController{
 			
 		});
 		
-		model.addAttribute("projList", projList);
+		model.addAttribute("ProjInfoFormList", ProjInfoFormList);
 		model.addAttribute("roleMap", roleMap);
 		
 		//注销edc design
@@ -210,7 +351,7 @@ public class EnSoController extends GeneralController{
 		patient.setProjFlow(proj.getProjFlow());
 		patient.setOrgFlow(GlobalContext.getCurrentUser().getOrgFlow());
 		patient.setPatientTypeId(PatientTypeEnum.Real.getId());
-		patient.setPatientName(PatientTypeEnum.Real.getName());
+		patient.setPatientTypeName(PatientTypeEnum.Real.getName());
 		if(StringUtil.isNotBlank(patient.getPatientSourceId())){
 			patient.setPatientSourceName(PatientSourceEnum.getNameById(patient.getPatientSourceId())); 
 		}

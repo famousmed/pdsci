@@ -7,6 +7,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +44,7 @@ import com.pinde.sci.enums.pub.ProjOrgTypeEnum;
 import com.pinde.sci.enums.sys.RoleLevelEnum;
 import com.pinde.sci.form.pub.ProjFileForm;
 import com.pinde.sci.model.edc.RandomInfo;
+import com.pinde.sci.model.irb.ProjInfoForm;
 import com.pinde.sci.model.mo.EdcProjOrg;
 import com.pinde.sci.model.mo.EdcProjParam;
 import com.pinde.sci.model.mo.EdcVisit;
@@ -94,20 +99,81 @@ public class ProjController extends GeneralController {
 	
 	
 	@RequestMapping(value = "/edit",method={RequestMethod.GET})
-	public String edit(String projFlow,Model model){
+	public String edit(String projFlow,Model model) throws DocumentException{
 		if(StringUtil.isNotBlank(projFlow)){
 			PubProj proj=projBiz.read(projFlow);
 			model.addAttribute("proj", proj);
+			
+			ProjInfoForm projInfoForm = null;
+			projInfoForm = new ProjInfoForm();
+			projInfoForm.setProj(proj);
+			String projInfo = proj.getProjInfo();
+			if (StringUtil.isNotBlank(projInfo)) {
+				Document doc = DocumentHelper.parseText(projInfo);
+				Element e = (Element) doc.selectSingleNode("projInfo/generalInfo");
+				if(e != null){
+					Element infoElement  = e.element("info");
+					Element indicationElement  = e.element("indication");
+					
+					projInfoForm.setInfo(infoElement == null ? "" : infoElement.getTextTrim());
+					projInfoForm.setIndication(indicationElement == null ? "" : indicationElement.getTextTrim());
+					model.addAttribute("projInfoForm", projInfoForm);
+				}
+			}
 		}
 		return "edc/proj/edit";
 	} 
 	
 	@RequestMapping(value={"/save"},method=RequestMethod.POST)
 	@ResponseBody
-	public String save(PubProj proj,HttpServletRequest request){
+	public String save(PubProj proj,ProjInfoForm projInfoForm,HttpServletRequest request){
+		
+		//其他字段存入proj.projInfo
+		String projInfo = addProjInfo(proj, projInfoForm);
+		proj.setProjInfo(projInfo);
+		
 		projBiz.save(proj);
+		
 		return GlobalConstant.SAVE_SUCCESSED;		
 	}
+	
+	public String addProjInfo(PubProj proj, ProjInfoForm projInfoForm) {
+		String projInfo = proj.getProjInfo();
+		if(StringUtil.isBlank(projInfo)){ 
+			projInfo = "<projInfo/>";
+		} 
+		Document doc = null;
+		try {
+			String indication = StringUtil.defaultIfEmpty(projInfoForm.getIndication(),""); 
+			String info = StringUtil.defaultIfEmpty(projInfoForm.getInfo(),""); 
+			
+			doc = DocumentHelper.parseText(projInfo);
+			Element root = doc.getRootElement();
+			Element generalInfoElement = root.element("generalInfo");
+			if(generalInfoElement==null){//新增
+				generalInfoElement = root.addElement("generalInfo");
+			}
+			//适应症
+			Element indicationElement = generalInfoElement.element("indication");
+			if (indicationElement == null) {
+				indicationElement = generalInfoElement.addElement("indication");
+			}
+			indicationElement.setText(indication);
+			
+			//简介
+			Element infoElement = generalInfoElement.element("info");
+			if (infoElement == null) {
+				infoElement = generalInfoElement.addElement("info");
+			}
+			infoElement.setText(info);
+			
+			return doc.asXML();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		return projInfo;
+	}
+	
 	
 	@RequestMapping(value="/delete",method=RequestMethod.GET)
 	@ResponseBody
