@@ -78,5 +78,7 @@ public interface IPubPatientBiz {
 
 	PubPatient searchMaxInDatePatient(String projFlow, String orgFlow);
 
+	PubPatient readPatientByCode(String projFlow, String patientCode);
+
 }  
   

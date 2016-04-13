@@ -675,5 +675,36 @@ public class PubPatientBizImpl implements IPubPatientBiz{
 		}
 		return patient;
 	}
+	@Override
+	public PubPatient readPatientByCode(String projFlow,String patientCode) {
+		PubPatientExample example = new PubPatientExample(); 
+		com.pinde.sci.model.mo.PubPatientExample.Criteria criteria = example.createCriteria().
+		andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId()).andProjFlowEqualTo(projFlow);
+		criteria.andPatientCodeEqualTo(patientCode);
+		
+		List<PubPatient> patients =  searchPatient(example);
+		if(patients.size()>0){
+			return patients.get(0);
+		}else {
+			example = new PubPatientExample(); 
+			criteria = example.createCriteria().
+			andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId()).andProjFlowEqualTo(projFlow);
+			criteria.andPatientNameEqualTo(patientCode);
+			patients =  searchPatient(example);
+			if(patients.size()>0){
+				return patients.get(0);
+			}else {
+				example = new PubPatientExample(); 
+				criteria = example.createCriteria().
+						andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId()).andProjFlowEqualTo(projFlow);
+						criteria.andPatientNamePyEqualTo(patientCode);
+						patients =  searchPatient(example);
+						if(patients.size()>0){
+							return patients.get(0);
+						}
+			}
+		}
+		return null;
+	}
 }  
  
