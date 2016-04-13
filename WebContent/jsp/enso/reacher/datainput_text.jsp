@@ -14,14 +14,14 @@ ${elementName }.
 		</label>
 		<div class="frm_controls">
 			<span
-				class="frm_input_box with_counter counter_in append vote_title js_question_title count">
+				class="frm_input_box with_counter counter_in append vote_title js_question_title count" style="width: 300px;">
 				<input autofocus="" type="text" placeholder=""
 				class="frm_input js_option_input frm_msg_content"
 				name="${attrCode}" elementSerialSeq="1" value="${value }"
 				autocomplete="off"> <em
 				class="frm_input_append frm_counter"></em>
 			</span>
-			<p class="frm_msg fail" style="display: none">
+			<p class="frm_msg fail" style="display: none;">
 				<span for="${attrCode}" class="frm_msg_content"
 					style="display: inline;">错误描述</span>
 			</p>

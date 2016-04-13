@@ -272,44 +272,44 @@
 				<div class="body">
 					<div class="container">
 						<div class="content" style="margin-top: 15px;height:100%" id="horz">
-						<c:forEach items="${projList }" var="proj">
+						<c:forEach items="${ProjInfoFormList }" var="projForm">
 								<table class="reorder">
 									<tr>
 										<td style="width: 47px;">
-										<c:if test="${!empty roleMap[proj.projFlow] }">
+										<c:if test="${!empty roleMap[projForm.proj.projFlow] }">
 											<div class="sch_img_1">
 												<img alt="" src="/pdsci/css/skin/LightBlue/images/yck_1.png">
 											</div>
 										</c:if>
-										<c:if test="${empty roleMap[proj.projFlow] }">
+										<c:if test="${empty roleMap[projForm.proj.projFlow] }">
 											<div class="sch_img_1">
 												<img alt="" src="/pdsci/css/skin/LightBlue/images/wrk_1.png">
 											</div>
 										</c:if>
 										</td>
 										<td
-											style="text-align: left;  padding-left: 45px;" onclick="showProjInfo('${proj.projFlow}');">
-											<h3>${proj.projName }</h3>
-											<p style="margin-top: 10px;">项目类型：${proj.projSubTypeName } &#12288;&#12288;
-											计划病例数：250例&#12288;&#12288;适应症：高血压&#12288;&#12288;申办单位：${proj.projShortDeclarer}</p>
+											style="text-align: left;  padding-left: 45px;" onclick="showProjInfo('${projForm.proj.projFlow}');">
+											<h3>${projForm.proj.projName }</h3>
+											<p style="margin-top: 10px;">项目类型：${projForm.proj.projSubTypeName } &#12288;&#12288;
+											计划病例数：250例&#12288;&#12288;适应症：${projForm.indication}&#12288;&#12288;申办单位：${projForm.proj.projShortDeclarer}</p>
 										</td>
-										<td width="150px;">${sysRoleMap[roleMap[proj.projFlow]].roleName }</td>
+										<td width="150px;">${sysRoleMap[roleMap[projForm.proj.projFlow]].roleName }</td>
 										<td style="text-align: right;width: 100px;">
 											<c:choose>
-											<c:when test="${empty roleMap[proj.projFlow] }">
-											 	<div class="sch_date_item" onclick="joinProj('${proj.projFlow}');">参加研究</div>
+											<c:when test="${empty roleMap[projForm.proj.projFlow] }">
+											 	<div class="sch_date_item" onclick="joinProj('${projForm.proj.projFlow}');">参加研究</div>
 											 </c:when> 
 											 <c:otherwise>
-												<div class="sch_date_item btn_green" style="color:#ffffff" onclick="intoProj('${proj.projFlow}','${roleMap[proj.projFlow] }');">进入>></div>
+												<div class="sch_date_item btn_green" style="color:#ffffff" onclick="intoProj('${projForm.proj.projFlow}','${roleMap[projForm.proj.projFlow] }');">进入>></div>
 											</c:otherwise>
 											</c:choose>
 										</td>
 									</tr>
 							</table>	
-							<table class="${proj.projFlow }" style="margin-bottom: 20px;border: 1px solid #ddd;border-top: 0px;width: 100%;display: none;">
+							<table class="${projForm.proj.projFlow }" style="margin-bottom: 20px;border: 1px solid #ddd;border-top: 0px;width: 100%;display: none;">
 								<tr><td  style="padding-left: 20px;padding-top:20px;font-size: 16px;">项目介绍：</td></tr>
 								<tr><td  style="padding-left: 20px;font-size: 14px;width: 100%"><pre style="font-family: Microsoft Yahei;line-height:25px;white-space: pre-wrap ">
-								${proj.projInfo}</pre>
+								${projForm.info}</pre>
 								</td></tr>
 							</table>
 						</c:forEach>

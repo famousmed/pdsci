@@ -9,10 +9,6 @@ $(document).ready(function(){
 	$(".js_faq_trigger").mouseover(function(){
 	    $(".js_faq_main_panel").show();
 	});
-	 $(".to_top").click(function(){
-		  $("#indexBody").scrollTo('.content_main',500, { offset:{ top:0} } );
-	  });
-	
 });
 function showContent(contentid,obj){
 	$(".js_faqscene_content").hide();
@@ -39,9 +35,7 @@ $(function () {
         }
     });
 }); 
-function scrollToModule(recordFlow){
-	 $("#indexBody").scrollTo('.'+recordFlow,500, { offset:{ top:-20} } );
-}
+
 function expAll(){
 	$(".caseDiv").show();
 }
@@ -51,7 +45,7 @@ function cosAll(){
 </script>
 <div class="faqscene" id="js_faqscene_p">
 	<div class="faqscene_inner">
-		<div class="faqscene_name js_faq_trigger" style="margin-right:-25px;">录入帮助</div>
+		<div class="faqscene_name js_faq_trigger" style="margin-right:-25px;width: 33px;border-left-width: 0px;">录入帮助</div>
 		<div class="faqscene_panel js_faq_main_panel" style="display: none;margin-right:8px;">
 			<a href="###" class="faqscene_close">x</a>
 			<div class="faqscene_hd">病例录入说明</div>

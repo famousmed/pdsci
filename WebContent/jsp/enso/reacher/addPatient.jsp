@@ -1,12 +1,11 @@
 <jsp:include page="/jsp/enso/htmlhead-enso.jsp">
-	<jsp:param name="jquery_datePicker" value="true"/>
 	<jsp:param name="jquery_validation" value="true"/>
 </jsp:include>
 <script type="text/javascript">
-
+/*
 $(function(){
 	$('.datepicker').datepicker();
-});
+});*/
 
 
 

@@ -82,6 +82,13 @@ function visit(patientFlow){
 function drugs(){
 	jboxLoad("content","<s:url value='/enso/drug'/>",true);
 }
+$(document).ready(function(){
+	//加载随访提醒
+	followRemind();
+});
+function followRemind(){
+	jboxLoad("followRemind","<s:url value='/enso/followRemind'/>",true);
+}
 </script>
 <style>
 body{overflow:hidden;}
@@ -163,7 +170,7 @@ body{overflow:hidden;}
             </ul>
           </div>
         </div>
-         <div class="index_form">
+         <div class="index_form" id="followRemind">
           <h3>随访提醒&#12288;
           <!-- 
            <span style="float: right">
@@ -227,7 +234,7 @@ body{overflow:hidden;}
             	</tr>
             	<tr >
             		<td style="width: 100px;padding-left: 20px;">&#12288;适应症：</td>
-            		<td style="text-align: left;" >${proj.projShortDeclarer}</td>
+            		<td style="text-align: left;" >${projInfoForm.indication}</td>
             		<td style="width: 100px;padding-left: 20px;text-align: right">申办单位：</td>
             		<td style="text-align: left;">${proj.projShortDeclarer}</td>
             	</tr>

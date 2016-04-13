@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="<s:url value='/jsp/enso/css/stat_overview.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
 <link rel="stylesheet" type="text/css" 	href="<s:url value='/jsp/enso/css/dropdown.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
+
 <script>
 
 $(document).ready(function(){
@@ -16,6 +17,7 @@ $(document).ready(function(){
 		$(".selected").removeClass("selected");
 		$(this).addClass("selected");
 	});
+	
 	
 	jboxEndLoading();
 });
@@ -210,6 +212,12 @@ function delTr(elementCode){
 	}
 	//window.location.href="<s:url value='/edc/input/inputMain?patientFlow='/>"+patientFlow+"&visitFlow="+visitFlow+"&inputOperFlow="+currOperFlow+"&inputStatusId="+inputStatusId;
 }
+function scrollToModule(recordFlow){
+	 $("#indexBody").scrollTo('.'+recordFlow,500, { offset:{ top:-20} } );
+}
+$(".to_top").click(function(){
+	  $("#indexBody").scrollTo('.content_main',500, { offset:{ top:0} } );
+});
 </script>
 <style>
 .btn_primary {
@@ -238,7 +246,8 @@ function delTr(elementCode){
 	<!-- 
 		<label>受试者编号：*****3031&#12288;</label>
 	 -->
-		<div class="dropdown_menu time" style="width: 300px;"><a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
+	
+		<div class="dropdown_menu time" style="width: 300px;" ><a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
 			
 			<label class="jsBtLabel" ><c:if test="${empty currVisit }">请选择访视</c:if>
 			<c:if test="${!empty param.visitFlow }">${currVisit.visitName }</c:if>
@@ -255,6 +264,7 @@ function delTr(elementCode){
 			    	</c:forEach>
 			    </ul>
 			</div>
+			
 		</div>
 		<c:if test="${!empty edcPatientVisit }">
    		 <div class="section_tab" style="float: right;padding-right: 50px;">
@@ -289,6 +299,15 @@ function delTr(elementCode){
 			 </li>
           </ul>
         </div>
+</c:if>
+<c:if test="${!empty param.visitFlow }">
+<div class="index_form visitDate" style="margin-bottom: 10px;" >
+         <h3>访视窗
+         </h3>
+          <div  class="caseDiv" >
+          	<jsp:include page="/jsp/enso/reacher/datainput_visit.jsp" ></jsp:include>
+          </div>
+  </div>
 </c:if>
 <form id="inputForm" name="inputForm">
 <!-- 模块 -->
