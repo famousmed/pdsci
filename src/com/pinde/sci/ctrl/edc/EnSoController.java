@@ -106,6 +106,11 @@ public class EnSoController extends GeneralController{
 			EdcDesignForm designForm = edcModuleBiz.getCrfDescForm(projFlow);
 			setSessionAttribute(GlobalConstant.PROJ_DESC_FORM, designForm);
 		}
+		InxInfo info = new InxInfo();
+		List<InxInfo> infos = this.noticeBiz.findNoticeWithBLOBs(info);
+		model.addAttribute("infos",infos);
+		
+		
 		
 		SysRole role = roleBiz.read(roleFlow); 
 		model.addAttribute("role",role);
@@ -296,44 +301,61 @@ public class EnSoController extends GeneralController{
 		return "enso/pi/overview";
 	}
 	@RequestMapping(value="/visit")
-	public String visit(Model model,HttpServletRequest request,String patientFlow) throws Exception{
-		PubPatient patient = patientBiz.readPatient(patientFlow);
-		
-		setSessionAttribute(GlobalConstant.EDC_CURR_PATIENT, patient);
+	public String visit(Model model,HttpServletRequest request,String patientFlow,String patientCode) throws Exception{
+		System.err.println(patientFlow+"=="+patientCode);
+		if(StringUtil.isNotBlank(patientFlow)){
+			PubPatient patient = patientBiz.readPatient(patientFlow);
+			setSessionAttribute(GlobalConstant.EDC_CURR_PATIENT, patient);
+		}else if(StringUtil.isNotBlank(patientCode)){
+			
+			PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
+			PubPatient patient = patientBiz.readPatientByCode(proj.getProjFlow(),patientCode);
+			setSessionAttribute(GlobalConstant.EDC_CURR_PATIENT, patient);
+		}
 		
 		return "enso/reacher/visit";
 	}
 	@RequestMapping(value="/datainput")
-	public String datainput(Model model,HttpServletRequest request,String visitFlow) throws Exception{
+	public String datainput(Model model,HttpServletRequest request,String visitFlow,String operUserFlow) throws Exception{
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
 		List<EdcVisit> visitList = visitBiz.searchVisitList(proj.getProjFlow());
 		model.addAttribute("visitList", visitList);
 		
+		EdcProjParam param = inputBiz.readProjParam(proj.getProjFlow());
+		boolean isSingle = GeneralMethod.isSingleInput(param);
+		model.addAttribute("isSingle", isSingle);
+		
+		
 		EdcVisit visit = visitBiz.readVisit(visitFlow);
-		model.addAttribute("visit", visit);
+		setSessionAttribute(GlobalConstant.EDC_CURR_VISIT,visit);
 		
 		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
 		
-		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(proj.getProjFlow(),visitFlow,patient.getPatientFlow());
-		if(pateintVisit != null ){
-			EdcPatientVisit edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
-			model.addAttribute("edcPatientVisit", edcPatientVisit);
-			
-			
-			//页面使用，单次，多次 通用
-			Map<String,Map<String,Map<String,EdcPatientVisitData>>> elementSerialSeqValueMap  = 	inputBiz.getelementSerialSeqValueMap(pateintVisit.getRecordFlow());
-			model.addAttribute("elementSerialSeqValueMap", elementSerialSeqValueMap);
-
-			SysUser user = GlobalContext.getCurrentUser();
-			String inputOperFlow = "";
-			if(user.getUserFlow().equals(edcPatientVisit.getInputOper1Flow())){
-				inputOperFlow = edcPatientVisit.getInputOper1Flow();
-			}else if(user.getUserFlow().equals(edcPatientVisit.getInputOper2Flow())){
-				inputOperFlow = edcPatientVisit.getInputOper2Flow();
+		SysUser user = GlobalContext.getCurrentUser();
+		if(patient!=null){
+			PubPatientVisit pateintVisit = inputBiz.readPatientVisit(proj.getProjFlow(),visitFlow,patient.getPatientFlow());
+			if(pateintVisit != null ){
+				EdcPatientVisit edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
+				model.addAttribute("edcPatientVisit", edcPatientVisit);
+				
+				
+				//页面使用，单次，多次 通用
+				Map<String,Map<String,Map<String,EdcPatientVisitData>>> elementSerialSeqValueMap  = 	inputBiz.getelementSerialSeqValueMap(pateintVisit.getRecordFlow());
+				model.addAttribute("elementSerialSeqValueMap", elementSerialSeqValueMap);
+	
+				if(StringUtil.isBlank(operUserFlow)){
+					if(user.getUserFlow().equals(edcPatientVisit.getInputOper1Flow())){
+						operUserFlow = edcPatientVisit.getInputOper1Flow();
+					}else if(user.getUserFlow().equals(edcPatientVisit.getInputOper2Flow())){
+						operUserFlow = edcPatientVisit.getInputOper2Flow();
+					}else {
+						operUserFlow = edcPatientVisit.getInputOper1Flow();
+					}
+					
+				}
+				model.addAttribute("operUserFlow", operUserFlow);
 			}
-			model.addAttribute("inputOperFlow", inputOperFlow);
 		}
-		
 		
 		return "enso/reacher/datainput";
 	}
@@ -344,17 +366,22 @@ public class EnSoController extends GeneralController{
 	}
 	@RequestMapping(value="/saveData")
 	@ResponseBody
-	public String saveData(@RequestBody List<EdcPatientVisitData> datas,Model model,HttpServletRequest request,String visitFlow,String status) throws Exception{
+	public String saveData(@RequestBody List<EdcPatientVisitData> datas,Model model,HttpServletRequest request,String status,String operUserFlow) throws Exception{
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
 		String projFlow = proj.getProjFlow();
 		EdcProjParam projParam = inputBiz.readProjParam(projFlow);
 		EdcDesignForm designForm = (EdcDesignForm) getSessionAttribute(GlobalConstant.PROJ_DESC_FORM);
-		SysUser currUser = GlobalContext.getCurrentUser();
+		
+		SysUser operUser = userMapper.selectByPrimaryKey(operUserFlow);
+		if(operUser == null){
+			operUser = GlobalContext.getCurrentUser();
+		}
 		
 		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
 		String patientFlow = patient.getPatientFlow();
 		
-		EdcVisit visit = visitBiz.readVisit(visitFlow);
+		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
+		String visitFlow = visit.getVisitFlow();
 		
 		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(projFlow,visitFlow,patientFlow);
 		EdcPatientVisit edcPatientVisit = null;
@@ -367,10 +394,10 @@ public class EnSoController extends GeneralController{
 		edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
 		if(edcPatientVisit == null ){
 			edcPatientVisit = _addEdcPatientVisit(pateintVisit.getRecordFlow());
-			setOper(projParam,edcPatientVisit,currUser,status);
+			setOper(projParam,edcPatientVisit,operUser,status);
 			inputBiz.addEdcPatientVisit(edcPatientVisit);
 		}else {
-			setOper(projParam,edcPatientVisit,currUser,status );
+			setOper(projParam,edcPatientVisit,operUser,status );
 			inputBiz.modifyEdcPatientVisit(edcPatientVisit);
 		}
 		
@@ -381,14 +408,14 @@ public class EnSoController extends GeneralController{
 				if(visitData!=null && visitData.size()>0){
 					data = visitData.get(0);
 					
-					setDataValueAndTip(temp.getAttrValue(), currUser, edcPatientVisit, projParam,  data);
+					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data);
 					inputBiz.modifyVisitData(data);
 				}else {
 					EdcAttribute attr = designForm.getAttrMap().get(temp.getAttrCode());
 					data = _addVisitData(visitFlow, patientFlow,
-							temp.getAttrCode(), temp.getAttrValue(), temp.getElementSerialSeq(), currUser, projFlow,
+							temp.getAttrCode(), temp.getAttrValue(), temp.getElementSerialSeq(), operUser, projFlow,
 							edcPatientVisit, attr, projParam);
-					setDataValueAndTip(temp.getAttrValue(), currUser, edcPatientVisit, projParam,  data);
+					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data);
 					inputBiz.addVisitData(data);
 				}
 			}
@@ -413,81 +440,65 @@ public class EnSoController extends GeneralController{
 		return visit;
 	}
 	private void setOper(EdcProjParam projParam,  EdcPatientVisit pateintVisit, SysUser currUser,String status) {
-		if(EdcInputStatusEnum.Checked.getId().equals(pateintVisit.getInputOperStatusId())){
-			return;
-		}
+		
 		String statusId = EdcInputStatusEnum.Save.getId().equals(status)? EdcInputStatusEnum.Save.getId():EdcInputStatusEnum.Submit.getId();
 		String statusName = EdcInputStatusEnum.Save.getId().equals(status)? EdcInputStatusEnum.Save.getName():EdcInputStatusEnum.Submit.getName();
 		String time = DateUtil.getCurrDateTime();
 		if(GeneralMethod.isSingleInput(projParam)){
 			pateintVisit.setInputOper1Flow(currUser.getUserFlow());
 			pateintVisit.setInputOper1Name(currUser.getUserName());
-			pateintVisit.setInputOper1StatusId(statusId);
-			pateintVisit.setInputOper1StatusName(statusName);
+			pateintVisit.setInputOper1StatusId(EdcInputStatusEnum.Save.getId());
+			pateintVisit.setInputOper1StatusName(EdcInputStatusEnum.Save.getName());
 			pateintVisit.setInputOper1Time(time);
 			
-			pateintVisit.setInputOper2Flow(currUser.getUserFlow());
-			pateintVisit.setInputOper2Name(currUser.getUserName());
-			pateintVisit.setInputOper2StatusId(statusId);
-			pateintVisit.setInputOper2StatusName(statusName);
-			pateintVisit.setInputOper2Time(time);
+//			pateintVisit.setInputOper2Flow(currUser.getUserFlow());
+//			pateintVisit.setInputOper2Name(currUser.getUserName());
+//			pateintVisit.setInputOper2StatusId(EdcInputStatusEnum.Save.getId());
+//			pateintVisit.setInputOper2StatusName(EdcInputStatusEnum.Save.getName());
+//			pateintVisit.setInputOper2Time(time);
 			
-			pateintVisit.setInputOperFlow(currUser.getUserFlow());
-			pateintVisit.setInputOperName(currUser.getUserName());
+			
 			if(EdcInputStatusEnum.Submit.getId().equals(statusId)){
-				pateintVisit.setInputOperStatusId(EdcInputStatusEnum.Checked.getId());
-				pateintVisit.setInputOperStatusName(EdcInputStatusEnum.Checked.getName());
-			}else {
-				pateintVisit.setInputOperStatusId(statusId);
-				pateintVisit.setInputOperStatusName(statusName);
+				pateintVisit.setInputOperStatusId(EdcInputStatusEnum.Submit.getId());
+				pateintVisit.setInputOperStatusName(EdcInputStatusEnum.Submit.getName());
+				pateintVisit.setInputOperFlow(currUser.getUserFlow());
+				pateintVisit.setInputOperName(currUser.getUserName());
+				pateintVisit.setInputOperTime(time);
 			}
-			pateintVisit.setInputOperTime(time);
-			
-			
-			
 		}else {
 			if(StringUtil.isBlank(pateintVisit.getInputOper1Flow())){
 				pateintVisit.setInputOper1Flow(currUser.getUserFlow());
 				pateintVisit.setInputOper1Name(currUser.getUserName());
-				pateintVisit.setInputOper1StatusId(statusId);
-				pateintVisit.setInputOper1StatusName(statusName);
+				pateintVisit.setInputOper1StatusId(EdcInputStatusEnum.Save.getId());
+				pateintVisit.setInputOper1StatusName(EdcInputStatusEnum.Save.getName());
 				pateintVisit.setInputOper1Time(time);
 				
 			}else {
 				if(currUser.getUserFlow().equals(pateintVisit.getInputOper1Flow())){
-					if(!EdcInputStatusEnum.Submit.getId().equals(pateintVisit.getInputOper1StatusId())){
-						pateintVisit.setInputOper1StatusId(statusId);
-						pateintVisit.setInputOper1StatusName(statusName);
-					}
 					pateintVisit.setInputOper1Time(time);
 				}else if(currUser.getUserFlow().equals(pateintVisit.getInputOper2Flow())||StringUtil.isBlank(pateintVisit.getInputOper2Flow())){
 					pateintVisit.setInputOper2Flow(currUser.getUserFlow());
 					pateintVisit.setInputOper2Name(currUser.getUserName());
-					//防止异步出错
-					if(!EdcInputStatusEnum.Submit.getId().equals(pateintVisit.getInputOper2StatusId())){
-						pateintVisit.setInputOper2StatusId(statusId);
-						pateintVisit.setInputOper2StatusName(statusName);
-					}
+					pateintVisit.setInputOper2StatusId(EdcInputStatusEnum.Save.getId());
+					pateintVisit.setInputOper2StatusName(EdcInputStatusEnum.Save.getName());
 					pateintVisit.setInputOper2Time(time);
 				}
 			}
-			//提交一份数据后 将 核对录入字段标记为 2  另外一份提交判断核对
 			if(EdcInputStatusEnum.Submit.getId().equals(statusId)){
 				pateintVisit.setInputOperStatusId(statusId);
 				pateintVisit.setInputOperStatusName(statusName);
+				pateintVisit.setInputOperFlow(currUser.getUserFlow());
+				pateintVisit.setInputOperName(currUser.getUserName());
+				pateintVisit.setInputOperTime(time);
 			}
 		} 
 	}
 	private void setDataValueAndTip(String attrValue, SysUser currUser,
 			EdcPatientVisit edcPateintVisit, EdcProjParam param,
 			EdcPatientVisitData data) {
-		if(EdcInputStatusEnum.Checked.getId().equals(edcPateintVisit.getInputOperStatusId())){
-			data.setAttrValue(attrValue);
-			return;
-		}
 		if(GeneralMethod.isSingleInput(param)){
 			data.setAttrValue1(attrValue);
-			data.setAttrValue2(attrValue);
+			//data.setAttrValue2(attrValue);
 			data.setAttrValue(attrValue);
 		}else {
 			if(currUser.getUserFlow().equals(edcPateintVisit.getInputOper1Flow())){ 
