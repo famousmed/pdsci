@@ -271,12 +271,9 @@
 
 				<div class="body">
 					<div class="container">
-
-
 						<div class="content" style="margin-top: 15px;height:100%" id="horz">
 						<c:forEach items="${projList }" var="proj">
 								<table class="reorder">
-								
 									<tr>
 										<td style="width: 47px;">
 										<c:if test="${!empty roleMap[proj.projFlow] }">
