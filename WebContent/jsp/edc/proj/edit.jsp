@@ -20,7 +20,9 @@
 	<jsp:param name="jquery_fixedtableheader" value="true"/>
 	<jsp:param name="jquery_placeholder" value="true"/>
 	<jsp:param name="jquery_iealert" value="false"/>
+	<jsp:param name="ueditor" value="true"/>
 </jsp:include>
+
 </head>
 <body>
 	<script type="text/javascript">
@@ -42,12 +44,30 @@
 		function doClose() {
 			jboxClose();			
 		}
+		$(document).ready(function(){
+				initUE("projInfo");
+		});
+		function initUE(id){
+			var uecfg = {
+				    autoHeight: false,
+				    imagePath: '${sysCfgMap['upload_base_url']}/',
+				    imageManagerPath: '${sysCfgMap['upload_base_url']}/',
+				    filePath: '${sysCfgMap['upload_base_url']}/',
+				    videoPath: '${sysCfgMap['upload_base_url']}/',
+				    wordImagePath: '${sysCfgMap['upload_base_url']}/',
+				    snapscreenPath: '${sysCfgMap['upload_base_url']}/',
+				    catcherPath: '${sysCfgMap['upload_base_url']}/',
+				    scrawlPath: '${sysCfgMap['upload_base_url']}/'
+				};
+			 UE.getEditor(id, uecfg);//实例化编辑器
+		}
 	</script>
-<form id="projForm" style="padding-left: 30px;height: 100px;" >
-<div class="content">
+	<div class="mainright">
+<form id="projForm" style="padding-left: 30px;height: 100%" >
+<div class="content" style="overflow: auto;">
 	<div class="title1 clearfix">
-		<div id="tagContent">
-			<div class="tagContent selectTag" id="tagContent0">
+		<div id="tagContent" >
+			<div class="tagContent selectTag" id="tagContent0" >
 				<table width="800" cellpadding="0" cellspacing="0" class="basic">
 					<tr>
 						<th width="20%">项目名称：</th>
@@ -86,7 +106,11 @@
 						<th></th>
 						<td></td>
 					</tr>
-						
+					<tr>
+						<td colspan="4" >
+							<script id="projInfo" name="projInfo" type="text/plain" style="width:100%;height:200px;position:relative;margin-top: 10px;">${proj.projInfo}</script>
+						</td>
+					</tr>
 			
 				</table>
 				<div class="button" style="width: 800px;">
@@ -99,5 +123,6 @@
 	</div>
 </div>
 </form>
+</div>
 </body>
 </html>
