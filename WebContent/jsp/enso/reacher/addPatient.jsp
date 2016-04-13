@@ -69,7 +69,7 @@ function writeBirthday(obj){
 			        <th>证件号：</th>
 			        <td ><input name="patientCode"  class="validate[required,custom[chinaIdLoose]] input " onblur="writeBirthday(this);" style="width:260px;"/><span style="color: red;">*</span></td>     
 			    	 <th>生&#12288;&#12288;日：</th>
-			        <td colspan="2"><input name="patientBirthday" readonly="readonly" id="patientBirthday" class="validate[required] input " style="width: 149px;"/>&#12288;<span style="color: red;">*</span></td>
+			        <td colspan="2"><input name="patientBirthday" readonly="readonly" id="patientBirthday" class="validate[required] input " />&#12288;<span style="color: red;">*</span></td>
 			    </tr>
 			     <tr>
 			    	<th>来&#12288;&#12288;源：</th>
@@ -83,12 +83,22 @@ function writeBirthday(obj){
 			    <tr>
 			    	<th>手&#12288;&#12288;机：</th>
 			        <td><input name="patientPhone"  class="validate[required,custom[mobile]] input"/>&#12288;<span style="color: red;">*</span></td>
+		       		<th></th>
+		       		<td colspan="2"></td>
+		       		<!-- 
 		       		<th>电子邮箱：</th>
 			    	<td colspan="2"><input name="patientEmail"  class="validate[required,custom[email]] input" />&#12288;<span style="color: red;">*</span></td>	        
+		       		 -->
 			    </tr>
+			    <!-- 
 			    <tr>
 			    	<th>通讯地址：</th>
 			        <td colspan="4"><input name="patientAddress"  class=" input"  style="width:560px;"/>&#12288;</td>
+			    </tr>
+			     -->
+			    <tr>
+			    	<th>备注：</th>
+			        <td colspan="4"><textarea name="patientStageNote"  class="input" style="height: 100px;width: 560px;margin-top: 5px;margin-bottom: 5px;"></textarea></td>
 			    </tr>
 			 </tbody>
 		</table>

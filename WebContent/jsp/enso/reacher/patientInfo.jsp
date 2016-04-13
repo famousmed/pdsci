@@ -55,14 +55,16 @@ function idToggle(){
 			</tr>
 			<tr>
 				<th>手机：</th>
-				<td ></td>
+				<td >${patient.patientPhone }</td>
+				<!-- 
 				<th>电子邮箱：</th>
 				<td ></td>
+				 -->
 				
 			</tr>
 			<tr>
-				<th>通讯地址：</th>
-				<td colspan="3"></td>
+				<th>备注：</th>
+				<td colspan="3">${patient.patientStageNote }</td>
 			</tr>
 		</table>
 		 <div>
