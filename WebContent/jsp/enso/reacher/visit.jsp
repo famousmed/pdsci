@@ -17,10 +17,16 @@
 			$(this).removeClass("tab");
 			$(this).addClass("tab_select");
 		});
-		datainput('');
+		datainput('','');
 	});
-	function datainput(visitFlow){
-		jboxLoad("div_table_0","<s:url value='/enso/datainput'/>?visitFlow="+visitFlow,true);
+	function datainput(visitFlow,operUserFlow){
+		jboxLoad("div_table_0","<s:url value='/enso/datainput'/>?visitFlow="+visitFlow+"&operUserFlow="+operUserFlow,true);
+	}
+	function searchPatient(patientCode){
+		var patientCode = {
+				"patientCode" : $("#patientCode").val()
+		};
+		jboxPostLoad("content","<s:url value='/enso/visit'/>",patientCode,true);
 	}
 </script>
 <style>
@@ -31,7 +37,7 @@
 	<div class="title_tab" id="toptab">
 		<ul>
 			<li  class="tab" onclick=""><a>用药记录</a></li>
-			<li  class="tab_select" onclick="datainput('');"><a>病例录入</a></li>
+			<li  class="tab_select" onclick="datainput('','');"><a>病例录入</a></li>
 			<li  class="tab" onclick=""><a>数据澄清</a></li>
 		</ul>
 	</div>
@@ -39,10 +45,10 @@
 	    <a class="del_btn jsSearchInputClose" href="javascript:" style="display:none">
 	        <i class="icon_search_del"></i>&nbsp;
 	    </a>
-	    <a href="javascript:" class="frm_input_append jsSearchInputBt">
+	    <a href="javascript:searchPatient();" class="frm_input_append jsSearchInputBt">
 	    	<i class="icon16_common search_gray">搜索</i>&nbsp;
 	    </a>
-	    <input type="text" class="frm_input jsSearchInput" value="受试者编号:${pdfn:encryptIdNo(currPatient.patientCode,4)}" placeholder="受试者编号/姓名">
+	    <input type="text" class="frm_input jsSearchInput" id="patientCode" value="${pdfn:encryptIdNo(currPatient.patientCode,4)}" placeholder="受试者编号/姓名">
 		</span>
 	</div>
 </div>

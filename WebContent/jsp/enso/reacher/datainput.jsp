@@ -3,24 +3,21 @@
 <script>
 
 $(document).ready(function(){
+	if($("#elementCode").val()==''){
+		$("#indexBody").scrollTo('.bd_bg',0, { offset:{ top:0} } );
+	}else {
+		setTimeout(function(){
+			$("#indexBody").scrollTo('.'+$("#elementCode").val()+'_tbody',0, { offset:{ top:0} } );
+		},500);
+		
+	}
+	
 	$(".tab_navs li").bind("click",function(){
 		$(".selected").removeClass("selected");
 		$(this).addClass("selected");
 	});
 	
 	jboxEndLoading();
-});
-$(document).ready(function(){
-	$(".jsDropdownBt").bind("click",function(){
-		$(this).next(".jsDropdownList").show();
-	});
-	$(".jsDropdownItem").bind("click",function(){
-		$(this).parents(".jsDropdownList").hide();
-		$(this).parent().parent().parent().siblings(".jsDropdownBt").find(".jsBtLabel").html(($(this).html()));
-		$(this).parent().parent().parent().siblings(".jsDropdownHidden").val($(this).attr("data-value"));
-	});
-	
-	
 });
 
 $(function(){
@@ -40,7 +37,29 @@ function togleShow(moduleCode){
 		$("#"+moduleCode+"_div").show();
 	}
 }
-$(document).ready(function(){
+/*
+function radioCheckboxClick(obj){
+	if($(obj).attr("inputTypeId")=="radio"){
+		if(!$(obj).hasClass("selected")){
+			$(obj).siblings().each(function(){
+				$(this).removeClass("selected");
+				$(this).find("input[type='radio']").attr("checked",false);
+			});
+			$(obj).addClass("selected");
+			$(obj).find("input[type='radio']").attr("checked",true);
+		}
+	}else if($(obj).attr("inputTypeId")=="checkbox"){
+		if($(obj).hasClass("selected")){
+			$(obj).find("input[type='checkbox']").attr("checked",false);
+			$(obj).removeClass("selected");
+		}else{
+			$(obj).addClass("selected");
+			$(obj).find("input[type='checkbox']").attr("checked",true);
+		}
+	}
+}*/
+function initRadioCheckbox(){
+	
 	$(".frm_radio_label").click(function(){
 		if(!$(this).hasClass("selected")){
 			$(this).siblings().each(function(){
@@ -61,21 +80,34 @@ $(document).ready(function(){
 		}
 	});
 	
-  $("#to_top").click(function(){
-	  $("#indexBody").scrollTo('.content_main',500, { offset:{ top:0} } );
-  });
-  //下拉/raido/checkbox默认值
+	//初始化下拉
+	$(".jsDropdownBt").bind("click",function(){
+		$(this).next(".jsDropdownList").show();
+	});
+	$(".jsDropdownItem").bind("click",function(){
+		$(this).parents(".jsDropdownList").hide();
+		$(this).parent().parent().parent().siblings(".jsDropdownBt").find(".jsBtLabel").html(($(this).html()));
+		$(this).parent().parent().parent().siblings(".jsDropdownHidden").val($(this).attr("data-value"));
+	});
+	
+	
+	//下拉/raido/checkbox默认值
 	  $(".jsBtLabelSel").each(function(){
 		  $(this).html($(this).parent().next("div").find("li .selected").attr("data-name"));
 	  }); 
-  
+	
 	  $("input[type='radio']:checked").closest("label").addClass("selected");
 	  $("input[type='checkbox']:checked").closest("label").addClass("selected");
-  
+}
+$(document).ready(function(){
+	initRadioCheckbox();
 });
 function saveData(status){
 	var datas =[];
 	$("#inputForm input").each(function(){
+		if($(this).attr("name")=="elementSerialSeq"){
+			return true;
+		}
 		if($(this).attr("type") == "radio" ){
 			if($(this).attr("checked")=="checked"){
 				var data ={
@@ -87,6 +119,7 @@ function saveData(status){
 			}
 		}else if($(this).attr("type") == "checkbox" ){
 			var attrValue = "";
+			var attrCode = $(this).attr("name");
 			$("[name='"+attrCode+"']").each(function(){
 				if($(this).attr("checked")=="checked"){
 					if(attrValue!=""){
@@ -112,15 +145,71 @@ function saveData(status){
 		}
 	});
 	
-	jboxStartLoading();
-	jboxPostJson("<s:url value='/enso/saveData'/>?visitFlow=${param.visitFlow}&status="+status,JSON.stringify(datas),function(resp){
-		if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
-			jboxTip(resp);
-			datainput('${param.visitFlow}');
-		}
-	},null,true);
+	if(status == '${edcInputStatusEnumSubmit.id }'){
+		jboxConfirm("确认提交?提交后无法修改数据",function(){
+			jboxStartLoading();
+			jboxPostJson("<s:url value='/enso/saveData'/>?status="+status+"&operUserFlow=${operUserFlow}",JSON.stringify(datas),function(resp){
+				if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
+					jboxTip(resp);
+					jboxEndLoading();
+					datainput('${param.visitFlow}','${inputOperFlow}');
+				}
+			},null,true);
+		});
+	}else {
+		jboxStartLoading();
+		jboxPostJson("<s:url value='/enso/saveData'/>?visitFlow=${param.visitFlow}&status="+status,JSON.stringify(datas),function(resp){
+			if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
+				jboxTip(resp);
+				//datainput('${param.visitFlow}');
+				jboxEndLoading();
+			}
+		},null,true);
+	}
 }
-
+function addTr(elementCode){
+	var currTrCount = $("#"+elementCode+"_TBODY").children().length;
+	 var tr =  ($("#"+elementCode+"_TBODY tr:eq(0)").clone(true));
+	 
+	 //重置序号列以外的name
+	  tr.find("input").each(function(){
+		 $(this).attr("elementSerialSeq",currTrCount+1);
+	  });
+	 
+	 $("#"+elementCode+"_TBODY").append(tr);
+	 
+	 //重置值
+	 tr.find("td input[name=elementSerialSeq] :first").val(currTrCount+1);
+	 tr.find("td div :first").html(currTrCount+1);
+	 //tr.find("td input[name$=SerialSeq]").val(currTrCount+1);
+	  
+	 tr.find("td :text[attrType!='${GlobalConstant.DEFAULT_ATTR_UNIT_VAR_NAME}']").val("");
+	 tr.find("td :checkbox[attrType!='${GlobalConstant.DEFAULT_ATTR_UNIT_VAR_NAME}']").attr("checked",false);
+	 tr.find("td :radio[attrType!='${GlobalConstant.DEFAULT_ATTR_UNIT_VAR_NAME}']").attr("checked",false);
+	 tr.find("td select[attrType!='${GlobalConstant.DEFAULT_ATTR_UNIT_VAR_NAME}']").val("");
+	 
+}
+function delTr(elementCode){
+	var seqStr  ="";
+	$("#"+elementCode+"_TBODY").find("input[name=elementSerialSeq]:checked").each(function(){
+		if(seqStr==""){
+			seqStr+=$(this).val();
+		}else {
+			seqStr+=","+$(this).val();
+		}
+	});
+	if(seqStr != ""){
+		jboxConfirm("确认删除？",function () {
+			jboxGet("<s:url value='/edc/input/delSerialSeqData'/>?elementCode="+elementCode+"&elementSerialSeq="+seqStr,null,function(){
+				//$("#"+elementCode+"_TBODY").find("input[name=elementSerialSeq]:checked").closest("tr").remove();
+				jboxLoad("div_table_0","<s:url value='/enso/datainput'/>?visitFlow=${currVisit.visitFlow}&elementCode="+elementCode,false);
+			},null);	
+		});
+	}else {
+		jboxTip("请选择要删除的数据!");
+	}
+	//window.location.href="<s:url value='/edc/input/inputMain?patientFlow='/>"+patientFlow+"&visitFlow="+visitFlow+"&inputOperFlow="+currOperFlow+"&inputStatusId="+inputStatusId;
+}
 </script>
 <style>
 .btn_primary {
@@ -151,34 +240,39 @@ function saveData(status){
 	 -->
 		<div class="dropdown_menu time" style="width: 300px;"><a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
 			
-			<label class="jsBtLabel" ><c:if test="${empty param.visitFlow }">请选择访视</c:if>
-			<c:if test="${!empty param.visitFlow }">${visit.visitName }</c:if>
+			<label class="jsBtLabel" ><c:if test="${empty currVisit }">请选择访视</c:if>
+			<c:if test="${!empty param.visitFlow }">${currVisit.visitName }</c:if>
 			</label><i class="arrow"></i></a>
 			<div class="dropdown_data_container jsDropdownList" style="display: none;">
 			    <ul class="dropdown_data_list">
 			    		<li class="dropdown_data_item ">  
-			                <a onclick="datainput('');" href="javascript:;" class="jsDropdownItem" data-value="" data-index="0" data-name="00">&#12288;</a>
+			                <a onclick="datainput('','');" href="javascript:;" class="jsDropdownItem" data-value="" data-index="0" data-name="00">&#12288;</a>
 			            </li>
 			    	<c:forEach items="${visitList }" var="visit" varStatus="index">
 			    		  <li class="dropdown_data_item visit" >  
-			                <a onclick="datainput('${visit.visitFlow}');" href="javascript:;" class="jsDropdownItem" data-value="${visit.visitFlow}" data-index="${index }" data-name="${visit.visitName}" >${visit.visitName}</a>
+			                <a onclick="datainput('${visit.visitFlow}','${inputOperFlow}');" href="javascript:;" class="jsDropdownItem" data-value="${visit.visitFlow}" data-index="${index }" data-name="${visit.visitName}" >${visit.visitName}</a>
 			              </li>
 			    	</c:forEach>
 			    </ul>
 			</div>
 		</div>
 		<c:if test="${!empty edcPatientVisit }">
-   		 <div class="section_tab" style="float: right;padding-right: 20px;">
+   		 <div class="section_tab" style="float: right;padding-right: 50px;">
 	        <ul class="tab_navs">
+	        	<script>
+		        	$(document).ready(function(){
+		        		$(".tab_nav :last").addClass("no_extra");
+		        	});
+	        	</script>
 	        		<c:if test="${!empty edcPatientVisit.inputOper1Name}">
-	                <li class="tab_nav selected">
-	                    <a href="javascript:void(0);" class="js_typeSelect" type="1">录入员：${edcPatientVisit.inputOper1Name }             
+	                <li class="tab_nav  <c:if test="${operUserFlow == edcPatientVisit.inputOper1Flow}">selected</c:if>">
+	                    <a href="javascript:datainput('${currVisit.visitFlow}','${edcPatientVisit.inputOper1Flow}');" class="js_typeSelect" type="1">录入员：${edcPatientVisit.inputOper1Name }            
 	                    </a>
 	                </li>
 	                </c:if>
-	                <c:if test="${!empty edcPatientVisit.inputOper2Name}">
-	                 <li class="tab_nav no_extra  " >
-	                    <a href="javascript:void(0);" class="js_typeSelect" type="2">录入员：${edcPatientVisit.inputOper2Name }    
+	                <c:if test="${!isSingle}">
+	                 <li class="tab_nav   <c:if test="${edcPatientVisit.inputOper1Flow!=operUserFlow}">selected</c:if>" >
+	                    <a href="javascript:datainput('${currVisit.visitFlow}','${!empty edcPatientVisit.inputOper2Name?edcPatientVisit.inputOper2Flow:sessionScope.currUser.userFlow}');" class="js_typeSelect" type="2">录入员：${edcPatientVisit.inputOper2Name }    
 	                    </a>
 	                </li>
 	                </c:if>
@@ -197,103 +291,214 @@ function saveData(status){
         </div>
 </c:if>
 <form id="inputForm" name="inputForm">
-<c:forEach items="${sessionScope.projDescForm.visitModuleMap[visit.visitFlow]}" var="visitModule" varStatus="status">
- <c:set var="commCode" value="${visit.visitFlow }_${visitModule.moduleCode  }"></c:set>
+<!-- 模块 -->
+<c:forEach items="${sessionScope.projDescForm.visitModuleMap[currVisit.visitFlow]}" var="visitModule" varStatus="status">
+ <c:set var="commCode" value="${currVisit.visitFlow }_${visitModule.moduleCode  }"></c:set>
  	<div class="index_form ${visitModule.recordFlow }" style="margin-bottom: 10px;" >
          <h3>${visitModule.moduleName}
          	<a href="javascript:togleShow('${visitModule.moduleCode }');" id="${visitModule.moduleCode }_href" style="float: right" >收起</a>
          </h3>
          <div id="${visitModule.moduleCode }_div" class="caseDiv" >
+         			<!-- 元素 -->
 	         				<c:forEach items="${sessionScope.projDescForm.visitModuleElementMap[commCode]}" var="visitElement">
-			   					<c:set var="commAttrCode" value="${visit.visitFlow }_${visitModule.moduleCode }_${ visitElement.elementCode}"></c:set>
-			   					<c:forEach items="${sessionScope.projDescForm.visitElementAttributeMap[commAttrCode]}" var="attr" >
-			   						<c:set var="value" value="${pdfn:getVisitData(attr.attrCode,elementSerialSeqValueMap[visitElement.elementCode]['1'],inputOperFlow,edcPatientVisit) }"></c:set>
-			   						<c:set var="commCodeFlow" value="${commAttrCode}_${attr.attrCode}"></c:set>
-			   						<c:choose>
-			   							<c:when test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumRadio.id or 
-										  sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumCheckbox.id}">
-										  <c:set var="inputTypeId" value="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId }" />
-			   								<div class="vote_meta_detail js_vote_type vote_meta_radio">
-												<div class="frm_control_group">
-													<label for="" class="frm_label" style="margin-top: -.3em;width: 8em">
-													${sessionScope.projDescForm.elementMap[visitElement.elementCode].elementName }.
-													${sessionScope.projDescForm.attrMap[attr.attrCode].attrName }</label>
-													<div class="frm_controls vote_meta_radio">
-														<c:forEach items="${sessionScope.projDescForm.visitAttrCodeMap[commCodeFlow]}" var="code">
-														<c:set var="edcAttrCode" value="${sessionScope.projDescForm.codeMap[code.codeFlow]}" />
-														
-														<label class="vote_${inputTypeId }_label frm_${inputTypeId }_label" for="">
-															<i class="icon_${inputTypeId }"></i>
-															<span type="label_content">${edcAttrCode.codeName}</span>
-															<input name="${attr.attrCode }" elementSerialSeq="1"  type="${inputTypeId }" 
-															<c:if test="${fn:indexOf(value,edcAttrCode.codeValue)>-1 }">checked="checked"</c:if>
-															value="${edcAttrCode.codeValue }" class="frm_${inputTypeId }" >
-														</label>
-														<!-- 
-														<label class="frm_checkbox_label" for="">
-															<i class="icon_checkbox"></i>
-															<span type="label_content">${edcAttrCode.codeName}</span>
-															<input type="checkbox"  class="frm_checkbox" value="${edcAttrCode.codeValue }" >
-														</label>
-														 -->
+	         					<c:set var="elementCode" value="${visitElement.elementCode }"/>
+			   					<c:set var="commAttrCode" value="${currVisit.visitFlow }_${visitModule.moduleCode }_${ elementCode}"></c:set>
+			   					<!-- 单次录入 -->
+			   					<c:if test="${sessionScope.projDescForm.elementMap[elementCode].elementSerial eq GlobalConstant.FLAG_N}">
+				   					<!-- 属性 -->
+				   					<c:forEach items="${sessionScope.projDescForm.visitElementAttributeMap[commAttrCode]}" var="attr" >
+				   						<c:set var="value" value="${pdfn:getVisitData(attr.attrCode,elementSerialSeqValueMap[elementCode]['1'],operUserFlow,edcPatientVisit) }"/>
+				   						<c:set var="commCodeFlow" value="${commAttrCode}_${attr.attrCode}"></c:set>
+				   						 <c:set var="showEleName" value="${sessionScope.projDescForm.elementMap[elementCode].isViewName!=GlobalConstant.FLAG_N }"/>
+										  <c:set var="elementName" value="${sessionScope.projDescForm.elementMap[elementCode].elementName }"/>
+										  <c:set var="attrName" value="${sessionScope.projDescForm.attrMap[attr.attrCode].attrName }"/>
+				   						<c:choose>
+				   							<c:when test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumRadio.id or 
+											  sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumCheckbox.id}">
+											  <!-- 单选/复选 -->
+											  	<jsp:include page="/jsp/enso/reacher/datainput_radio.jsp" flush="true">
+											 		<jsp:param value="${showEleName }" name="showEleName"/>
+													<jsp:param value="${elementName }" name="elementName"/>
+													<jsp:param value="${attrName}" name="attrName"/>
+													<jsp:param value="${value}" name="value"/>
+													<jsp:param value="${attr.attrCode}" name="attrCode"/>
+													<jsp:param value="${commCodeFlow}" name="commCodeFlow"/>
+													<jsp:param value="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId }" name="inputTypeId"/>
+												</jsp:include>
+				   								
+											</c:when>
+											
+											<c:when test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumSelect.id }">
+												<!-- 下拉 -->
+												<jsp:include page="/jsp/enso/reacher/datainput_select.jsp" flush="true">
+													<jsp:param value="${showEleName }" name="showEleName"/>
+													<jsp:param value="${elementName }" name="elementName"/>
+													<jsp:param value="${attrName}" name="attrName"/>
+													<jsp:param value="${value}" name="value"/>
+													<jsp:param value="${attr.attrCode}" name="attrCode"/>
+													<jsp:param value="${commCodeFlow}" name="commCodeFlow"/>
+													<jsp:param value="${commCodeFlow}" name="commCodeFlow"/>
+												</jsp:include>
+											</c:when>
+											<c:otherwise>
+												<!-- 文本 -->
+												<jsp:include page="/jsp/enso/reacher/datainput_text.jsp" flush="true">
+													<jsp:param value="${showEleName }" name="showEleName"/>
+													<jsp:param value="${elementName }" name="elementName"/>
+													<jsp:param value="${attrName}" name="attrName"/>
+													<jsp:param value="${value}" name="value"/>
+													<jsp:param value="${attr.attrCode}" name="attrCode"/>
+												</jsp:include>
+											</c:otherwise>
+											</c:choose>
+											
+				   					</c:forEach>
+			   					</c:if>
+			   					<!-- 多次录入 -->
+			   					<c:if test="${sessionScope.projDescForm.elementMap[elementCode].elementSerial eq GlobalConstant.FLAG_Y}">
+									<div class="vote_meta_detail js_vote_type vote_meta_radio">
+										<table  class="grid repVertb" style="margin-bottom: 20px;">
+												<tr>
+													<th style="width: 80px;" class="${elementCode }_tbody"><img title="新增"
+														src="<s:url value="/css/skin/${skinPath}/images/add3.png" />"
+														style="cursor: pointer;" onclick="addTr('${elementCode}');" /> <img
+														title="删除"
+														src="<s:url value='/css/skin/${skinPath}/images/del1.png'/>"
+														onclick="delTr('${elementCode}')" style="cursor: pointer;" />
+													</th>
+													<th style="width: 50px;">序号</th>
+													<c:forEach items="${sessionScope.projDescForm.visitElementAttributeMap[commAttrCode] }" var="attr">
+														<th width="150px;">${sessionScope.projDescForm.attrMap[attr.attrCode].attrName}</th>
+													</c:forEach>
+												</tr>
+												<tbody id="${elementCode }_TBODY">
+												<c:set var="seqValueMap" value="${elementSerialSeqValueMap[elementCode]}"></c:set>
+												<c:choose>
+													<c:when test="${fn:length(elementSerialSeqValueMap[elementCode])>0}">
+														<c:forEach items="${seqValueMap }" var="valueMapRecord" >
+															<tr id="serialSeqTr">
+																<td style="text-align: center;padding: 0;">
+																<label class="vote_checkbox_label frm_checkbox_label"  
+																for="" inputTypeId="checkbox"> <i class="icon_checkbox"></i> <span
+																type="label_content"></span> 
+																<input 	name="elementSerialSeq" value="${valueMapRecord.key }"  type="checkbox"
+																 class="frm_checkbox">
+															</label>
+																</td>
+																<td style="text-align: center;padding: 0;"><div>${valueMapRecord.key }</div></td>
+																<c:forEach items="${sessionScope.projDescForm.visitElementAttributeMap[commAttrCode] }" var="attr"
+																varStatus="status">
+																<c:set var="value" value="${pdfn:getVisitData(attr.attrCode,valueMapRecord.value,operUserFlow,edcPatientVisit) }"></c:set>
+																	<td>
+																	<c:choose>
+											  							<c:when test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumSelect.id }">
+											  								<div class="dropdown_menu time" >
+																				<a href="javascript:;" class="btn dropdown_switch jsDropdownBt" style="text-decoration: none;">
+																					<label class="jsBtLabel jsBtLabelSel">${value }</label> <i
+																					class="arrow"></i>
+																				</a>
+																				<div class="dropdown_data_container jsDropdownList"
+																					style="display: none;">
+																					<ul class="dropdown_data_list">
+																						<li class="dropdown_data_item "><a onclick="return false;"  style="text-decoration: none;color: black"
+																							href="javascript:;" class="jsDropdownItem" data-value=""
+																							data-index="0" data-name="00">&#12288;</a></li>
+																						<c:forEach
+																							items="${sessionScope.projDescForm.visitAttrCodeMap[commCodeFlow]}"
+																							var="code">
+																							<c:set var="edcAttrCode"
+																								value="${sessionScope.projDescForm.codeMap[code.codeFlow]}" />
+																							<li class="dropdown_data_item "><a onclick="return false;" style="text-decoration: none;color: black"
+																								href="javascript:;"
+																								class="jsDropdownItem <c:if test="${value==edcAttrCode.codeValue }">selected</c:if>" 
+																								data-value="${edcAttrCode.codeValue }" data-index=""
+																								data-name="${edcAttrCode.codeName }">${edcAttrCode.codeName}</a>
+																							</li>
+																						</c:forEach>
+																
+																					</ul>
+																				</div>
+																				<input type="hidden" class="jsDropdownHidden"
+																					name="${attr.attrCode }" value="${value }" elementSerialSeq="${ valueMapRecord.key}" />
+																			</div>
+											  							</c:when>
+											  							<c:otherwise>
+											  							<span
+																				class="frm_input_box" style="width: 100px;">
+											  								<input autofocus="" type="text" placeholder=""
+																					class="frm_input js_option_input frm_msg_content"
+																					name="${attr.attrCode}" elementSerialSeq="${ valueMapRecord.key}" value="${value }"
+																				autocomplete="off">
+																				</span>
+											  							</c:otherwise>
+										   							</c:choose>
+									   							</td>
+																</c:forEach>
+															</tr>
 														</c:forEach>
-													</div>
-												</div>	
-											</div>
-										</c:when>
-										<c:when test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumSelect.id }">
-											<div class="vote_meta_detail" style="padding-top: 10px;">
-												<div class="frm_control_group">
-													<label for="" class="frm_label" style="margin-top: -.3em;width: 8em">
-													${sessionScope.projDescForm.elementMap[visitElement.elementCode].elementName }.
-													${sessionScope.projDescForm.attrMap[attr.attrCode].attrName }</label>
-													<div class="frm_controls">
-														<div class="dropdown_menu time" style="width: 300px;">
-															<a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
-																<label class="jsBtLabel jsBtLabelSel" >${value}</label>
-																<i class="arrow"></i>
-															</a>
-															<div class="dropdown_data_container jsDropdownList"  style="display: none;">
-															    <ul class="dropdown_data_list">
-															    		<li class="dropdown_data_item ">  
-															                <a onclick="return false;" href="javascript:;" class="jsDropdownItem" data-value="" data-index="0" data-name="00">&#12288;</a>
-															            </li>
-															    		<c:forEach items="${sessionScope.projDescForm.visitAttrCodeMap[commCodeFlow]}" var="code">
-															    		<c:set var="edcAttrCode" value="${sessionScope.projDescForm.codeMap[code.codeFlow]}" />
-															    		  <li class="dropdown_data_item " >  
-																                <a onclick="return false;" href="javascript:;" class="jsDropdownItem <c:if test="${value==edcAttrCode.codeValue }">selected</c:if>" data-value="${edcAttrCode.codeValue }" data-index="" data-name="${edcAttrCode.codeName }" >${edcAttrCode.codeName}</a>
-																          </li>
-															    		</c:forEach>
-														               
-															    </ul>
-															</div>
-															<input type="hidden" class="jsDropdownHidden" name="${attr.attrCode }" value="${value }" elementSerialSeq="1"/>
-														</div>
-														<p class="frm_msg fail" style="display: none"><span for="${attr.attrCode}_1" class="frm_msg_content" style="display: inline;">错误描述</span></p><span class="frm_tips"></span>
-														
-													</div>
-												</div>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="vote_meta_detail" style="padding-top: 10px;">
-												<div class="frm_control_group">
-													<label for="" class="frm_label" style="margin-top: -.3em;width: 8em">
-													${sessionScope.projDescForm.elementMap[visitElement.elementCode].elementName }.
-													${sessionScope.projDescForm.attrMap[attr.attrCode].attrName }</label>
-													<div class="frm_controls">
-														<span class="frm_input_box with_counter counter_in append vote_title js_question_title count">
-															<input autofocus="" type="text" placeholder=""  class="frm_input js_option_input frm_msg_content" name="${attr.attrCode}" elementSerialSeq="1" value="${value }" autocomplete="off">
-															<em class="frm_input_append frm_counter"></em>
-														</span>
-														<p class="frm_msg fail" style="display: none"><span for="${attr.attrCode}" class="frm_msg_content" style="display: inline;">错误描述</span></p><span class="frm_tips"></span>
-													</div>
-												</div>
-											</div>
-										</c:otherwise>
-										</c:choose>
-										
-			   					</c:forEach>
+													</c:when>
+													<c:otherwise>
+													<!-- 默认一条记录 -->
+													<td width="50px" style="text-align: center;padding: 0;">
+														<label class="vote_checkbox_label frm_checkbox_label"  
+																for="" inputTypeId="checkbox"> <i class="icon_checkbox"></i> <span
+																type="label_content"></span> 
+																<input 	name="elementSerialSeq" value="1"  type="checkbox"
+																 class="frm_checkbox">
+															</label>
+														<td width="50px" style="text-align: center;padding: 0;"><div>1</div></td>
+														<c:forEach items="${sessionScope.projDescForm.visitElementAttributeMap[commAttrCode] }"   var="attr" varStatus="status">
+										   						<td>
+										   							<c:choose>
+											  							<c:when test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumSelect.id }">
+											  								<div class="dropdown_menu time" >
+																				<a href="javascript:;" class="btn dropdown_switch jsDropdownBt" style="text-decoration: none;">
+																					<label class="jsBtLabel jsBtLabelSel"></label> <i
+																					class="arrow"></i>
+																				</a>
+																				<div class="dropdown_data_container jsDropdownList"
+																					style="display: none;">
+																					<ul class="dropdown_data_list">
+																						<li class="dropdown_data_item "><a onclick="return false;"  style="text-decoration: none;color: black"
+																							href="javascript:;" class="jsDropdownItem" data-value=""
+																							data-index="0" data-name="00">&#12288;</a></li>
+																						<c:forEach
+																							items="${sessionScope.projDescForm.visitAttrCodeMap[commCodeFlow]}"
+																							var="code">
+																							<c:set var="edcAttrCode"
+																								value="${sessionScope.projDescForm.codeMap[code.codeFlow]}" />
+																							<li class="dropdown_data_item "><a onclick="return false;" style="text-decoration: none;color: black"
+																								href="javascript:;"
+																								class="jsDropdownItem "
+																								data-value="${edcAttrCode.codeValue }" data-index=""
+																								data-name="${edcAttrCode.codeName }">${edcAttrCode.codeName}</a>
+																							</li>
+																						</c:forEach>
+																
+																					</ul>
+																				</div>
+																				<input type="hidden" class="jsDropdownHidden"
+																					name="${attr.attrCode }" value="${value }" elementSerialSeq="1" />
+																			</div>
+											  							</c:when>
+											  							<c:otherwise>
+											  							<span
+																				class="frm_input_box" style="width: 100px;">
+											  								<input autofocus="" type="text" placeholder=""
+																					class="frm_input js_option_input frm_msg_content"
+																					name="${attr.attrCode}" elementSerialSeq="1" value=""
+																				autocomplete="off">
+																				</span>
+											  							</c:otherwise>
+										   							</c:choose>
+										   						</td>
+											   				</c:forEach>
+													</c:otherwise>
+												</c:choose>
+												</tbody>
+										</table>	
+									</div>				   						
+			   					</c:if>
 			   				</c:forEach>
 			   				
 				   			<c:if test="${empty  sessionScope.projDescForm.visitModuleElementMap[commCode]}">
@@ -305,7 +510,8 @@ function saveData(status){
  </form>
 </div>
 <c:if test="${!empty param.visitFlow }">
-	<jsp:include page="/jsp/enso/reacher/inputAssist.jsp" ></jsp:include>
+	<jsp:include page="/jsp/enso/reacher/inputAssist2.jsp" ></jsp:include>
 </c:if>
+<input type="hidden" id="elementCode" value="${param.elementCode}"/>
 </body>
 </html>

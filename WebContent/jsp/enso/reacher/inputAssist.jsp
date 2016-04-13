@@ -51,8 +51,14 @@
         				<div >保存后可继续修改数据</div>
         				<div >提交后无法修改</div>
         				<p style="margin-bottom: 10px;margin-top: 10px;text-align: left;">
+        				<c:if test="${edcPatientVisit.inputOperStatusId != edcInputStatusEnumSubmit.id}">
         				<a href="javascript:javascript:saveData('${edcInputStatusEnumSave.id}');" style="color: ;" class="btn btn_default btn_input">保&#12288;存</a>&#12288;
-        				<a href="javascript:javascript:submitData('${edcInputStatusEnumSubmit.id }');" style="color: " class="btn btn_primary js_complete_bnt">提&#12288;交</a></p>
+        				<a href="javascript:javascript:saveData('${edcInputStatusEnumSubmit.id }');" style="color: " class="btn btn_primary js_complete_bnt">提&#12288;交</a>
+        				</c:if>
+        				<c:if test="${edcPatientVisit.inputOperStatusId == edcInputStatusEnumSubmit.id}">
+        				<a href="javascript:void(0);" style="color: " class="btn btn_primary js_complete_bnt">已提交</a>
+        				</c:if>
+        				</p>
       		</div>
       		
 		</div>
@@ -65,7 +71,7 @@
 						<td>
 							<ul class="dbsx">
 								<li>
-									<c:forEach items="${sessionScope.projDescForm.visitModuleMap[visit.visitFlow]}" var="visitModule">
+									<c:forEach items="${sessionScope.projDescForm.visitModuleMap[currVisit.visitFlow]}" var="visitModule">
 										<span style="margin-left: 5px;"><a href="javascript:scrollToModule('${visitModule.recordFlow }');">${visitModule.moduleName}</a></span>
 									</c:forEach>
 								</li>

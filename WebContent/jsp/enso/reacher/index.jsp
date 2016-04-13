@@ -107,6 +107,7 @@ body{overflow:hidden;}
           <dd class="menu_item"><a href="javascript:addPatient();">添加受试者</a></dd>
           <dd class="menu_item"><a href="javascript:patients('${sessionScope.currUser.orgFlow }','');">受试者访视/随访</a></dd>
         </dl>
+        <!-- 
         <dl class="menu">
           <dt class="menu_title">
             <i class="icon_menu menu_statistics"></i>统计查询
@@ -115,6 +116,7 @@ body{overflow:hidden;}
           <dd class="menu_item"><a href="javascript:orgList('');">机构入组概况</a></dd>
           <dd class="menu_item"><a href="javascript:overview();">聚集抽样分析</a></dd>
         </dl>
+         -->
         <dl class="menu">
           <dt class="menu_title">
             <i class="icon_menu menu_setup"></i>设置
@@ -131,7 +133,7 @@ body{overflow:hidden;}
                 <a href="javascript:noticeList();" style="cursor: point;">
                   <span class="tap_inner">
                     <i class="message"></i>
-                    <em class="number">${13 }</em>
+                    <em class="number">${infos.size()}</em>
                     <strong  class="title">消息数</strong>
                   </span>
                 </a>
