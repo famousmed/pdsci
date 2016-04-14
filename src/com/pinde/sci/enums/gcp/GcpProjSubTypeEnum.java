@@ -9,6 +9,7 @@ public enum GcpProjSubTypeEnum implements GeneralEnum<String> {
 	Ⅱ("Ⅱ","Ⅱ期"),
 	Ⅲ("Ⅲ","Ⅲ期"),
 	Ⅳ("Ⅳ","Ⅳ期"),
+	RWS("RWS","真实世界研究"),
 	Ky("ky","临床科研"),
 	Qx("qx","医疗器械"),
 	Qt("qt","其他")
