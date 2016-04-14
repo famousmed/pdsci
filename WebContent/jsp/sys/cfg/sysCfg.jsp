@@ -177,7 +177,8 @@ $(document).ready(function(){
 			<input type="radio"  name="sys_login_img" value="edc" <c:if test="${sysCfgMap['sys_login_img']=='edc'}">checked="checked"</c:if> />E-CRF
 			<input type="radio"  name="sys_login_img"  value="gcp" <c:if test="${sysCfgMap['sys_login_img']=='gcp'}">checked="checked"</c:if> />GCP
 			<input type="radio"  name="sys_login_img" value="irb" <c:if test="${sysCfgMap['sys_login_img']=='irb'}">checked="checked"</c:if> />IRB
-			<input type="radio"  name="sys_login_img" value="srm" <c:if test="${sysCfgMap['sys_login_img']=='srm'}">checked="checked"</c:if> />SRM
+			<input type="radio"  name="sys_login_img" value="pharmasun" <c:if test="${sysCfgMap['sys_login_img']=='pharmasun'}">checked="checked"</c:if> />pharmasun
+			<input type="radio"  name="sys_login_img" value="medroad" <c:if test="${sysCfgMap['sys_login_img']=='medroad'}">checked="checked"</c:if> />medroad
 			<input type="hidden" name="sys_login_img_ws_id"  value="sys">		
 			<input type="hidden" name="sys_login_img_desc"  value="登录图片">		
 	</td>
