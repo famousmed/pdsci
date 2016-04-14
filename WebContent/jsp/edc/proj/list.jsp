@@ -23,10 +23,10 @@
 </jsp:include>
 <script type="text/javascript">
 	function add() {
-		jboxOpen("<s:url value='/edc/proj/edit'/>" ,  "新增项目信息", 900, 300);
+		jboxOpen("<s:url value='/edc/proj/edit'/>" ,  "新增项目信息", 900, 500);
 	}
 	function edit(projFlow) {
-		jboxOpen("<s:url value='/edc/proj/edit?projFlow='/>"+projFlow , "编辑项目信息", 900, 300);
+		jboxOpen("<s:url value='/edc/proj/edit?projFlow='/>"+projFlow , "编辑项目信息", 900, 500);
 	}
 	function projOrgList(projFlow) {
 		window.location.href="<s:url value='/edc/projOrg/list?projFlow='/>" + projFlow;
