@@ -48,7 +48,7 @@ function checkForm(){
 <body class="enso">
 <div class="m">
 <div class="bg">
-<div class="bgt">医路临床科研信息化管理系统</div>
+<div class="bgt">真实世界研究-RWS</div>
 <div class="bgform">
 <form name="loginForm" action="<s:url value='/inx/enso/login'/>" method="post">
 <table align="left" cellpadding="0" cellspacing="0">
