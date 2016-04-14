@@ -208,9 +208,11 @@ public class EnSoController extends GeneralController{
 				if(e != null){
 					Element infoElement  = e.element("info");
 					Element indicationElement  = e.element("indication");
+					Element caseCountElement  = e.element("caseCount");
 					
 					projInfoForm.setInfo(infoElement == null ? "" : infoElement.getTextTrim());
 					projInfoForm.setIndication(indicationElement == null ? "" : indicationElement.getTextTrim());
+					projInfoForm.setCaseCount(caseCountElement == null ? "" : caseCountElement.getTextTrim());
 					model.addAttribute("projInfoForm", projInfoForm);
 				}
 			}
@@ -426,7 +428,7 @@ public class EnSoController extends GeneralController{
 				
 				//访视窗
 				PubPatientWindow window = patientWindowBiz.readPatientWindow(patient.getPatientFlow(), visitFlow);
-				model.addAttribute("window", window);
+				model.addAttribute("visitWindow", window);
 			}
 		
 		}
@@ -474,8 +476,6 @@ public class EnSoController extends GeneralController{
 		
 		
 		//添加访视窗
-		System.err.println("visitDate="+visitDate );
-		System.err.println(visitWindow );
 		if(StringUtil.isNotBlank(visitWindow)){
 			PubPatientWindow window = patientWindowBiz.readPatientWindow(patientFlow,visitFlow);
 			String leftWindow = StringUtil.split(visitWindow, "~")[0];
@@ -518,14 +518,14 @@ public class EnSoController extends GeneralController{
 				if(visitData!=null && visitData.size()>0){
 					data = visitData.get(0);
 					
-					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data);
+					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data,status);
 					inputBiz.modifyVisitData(data);
 				}else {
 					EdcAttribute attr = designForm.getAttrMap().get(temp.getAttrCode());
 					data = _addVisitData(visitFlow, patientFlow,
 							temp.getAttrCode(), temp.getAttrValue(), temp.getElementSerialSeq(), operUser, projFlow,
 							edcPatientVisit, attr, projParam);
-					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data);
+					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data,status);
 					inputBiz.addVisitData(data);
 				}
 			}
@@ -577,8 +577,10 @@ public class EnSoController extends GeneralController{
 			}
 		}else {
 			if(StringUtil.isBlank(pateintVisit.getInputOper1Flow())){
-				pateintVisit.setInputOper1Flow(currUser.getUserFlow());
-				pateintVisit.setInputOper1Name(currUser.getUserName());
+				if(StringUtil.isBlank(pateintVisit.getInputOper1Flow())){ 
+					pateintVisit.setInputOper1Flow(currUser.getUserFlow());
+					pateintVisit.setInputOper1Name(currUser.getUserName());
+				}
 				pateintVisit.setInputOper1StatusId(EdcInputStatusEnum.Save.getId());
 				pateintVisit.setInputOper1StatusName(EdcInputStatusEnum.Save.getName());
 				pateintVisit.setInputOper1Time(time);
@@ -587,8 +589,10 @@ public class EnSoController extends GeneralController{
 				if(currUser.getUserFlow().equals(pateintVisit.getInputOper1Flow())){
 					pateintVisit.setInputOper1Time(time);
 				}else if(currUser.getUserFlow().equals(pateintVisit.getInputOper2Flow())||StringUtil.isBlank(pateintVisit.getInputOper2Flow())){
-					pateintVisit.setInputOper2Flow(currUser.getUserFlow());
-					pateintVisit.setInputOper2Name(currUser.getUserName());
+					if(StringUtil.isBlank(pateintVisit.getInputOper2Flow())){ 
+						pateintVisit.setInputOper2Flow(currUser.getUserFlow());
+						pateintVisit.setInputOper2Name(currUser.getUserName());
+					}
 					pateintVisit.setInputOper2StatusId(EdcInputStatusEnum.Save.getId());
 					pateintVisit.setInputOper2StatusName(EdcInputStatusEnum.Save.getName());
 					pateintVisit.setInputOper2Time(time);
@@ -605,7 +609,7 @@ public class EnSoController extends GeneralController{
 	}
 	private void setDataValueAndTip(String attrValue, SysUser currUser,
 			EdcPatientVisit edcPateintVisit, EdcProjParam param,
-			EdcPatientVisitData data) {
+			EdcPatientVisitData data,String statusId) {
 		if(GeneralMethod.isSingleInput(param)){
 			data.setAttrValue1(attrValue);
 			//data.setAttrValue2(attrValue);
@@ -615,6 +619,9 @@ public class EnSoController extends GeneralController{
 				data.setAttrValue1(attrValue);
 			}else if(StringUtil.isBlank(edcPateintVisit.getInputOper2Flow())||currUser.getUserFlow().equals(edcPateintVisit.getInputOper2Flow())){
 				data.setAttrValue2(attrValue);
+			}
+			if(EdcInputStatusEnum.Submit.getId().equals(statusId)){
+				data.setAttrValue(attrValue);
 			}
 		}
 	}
@@ -634,6 +641,42 @@ public class EnSoController extends GeneralController{
 		data.setElementSerialSeq(elementSerialSeq);
 		data.setAttrCode(attrCode);
 		return data;
+	}
+	
+	@RequestMapping(value={"/checkSubmit"},method={RequestMethod.GET})
+	@ResponseBody
+	public String checkSubmit(Model model,HttpServletRequest request) throws Exception{
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
+		String projFlow = proj.getProjFlow();
+		
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
+		String patientFlow = patient.getPatientFlow();
+		
+		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
+		String visitFlow = visit.getVisitFlow();
+		
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(projFlow,visitFlow,patientFlow);
+		if(pateintVisit==null){
+			return "录二还未保存数据,无法提交";
+		}
+		EdcPatientVisit edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
+		if(edcPatientVisit == null || StringUtil.isBlank(edcPatientVisit.getInputOper2Flow())){
+			return "录二还未保存数据,无法提交";
+		}else {
+			int diffCount = 0;
+			List<EdcPatientVisitData> visitData = inputBiz.searchPatientVisitData(pateintVisit.getRecordFlow());
+			for(EdcPatientVisitData data : visitData){
+				String value1 = data.getAttrValue1();
+				String value2 = data.getAttrValue2();
+				if(StringUtil.isNotEquals(value1, value2)){
+					diffCount++;
+				}
+			}
+			if(diffCount>0){
+				return "双份录入存在  "+diffCount+"  处不同,请修改一致后提交";
+			}
+		}
+		return GlobalConstant.OPRE_SUCCESSED;
 	}
 }
 
