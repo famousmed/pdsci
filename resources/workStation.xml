@@ -359,7 +359,7 @@
 			</menuset>
 		</module>
 	</workStation>
-	<workStation id='edc' name="E-CRF信息管理系统">
+	<workStation id='edc' name="临床科研管理系统">
 		<module id='xtpz' name="系统配置">
 			<menuset id="xmxx" name="项目信息">
 				<menu id="xmwh" name="项目维护" url="/edc/proj/list"></menu>
@@ -407,14 +407,6 @@
 				<menu id="blsj" name="不良事件" url="/edc/visit/list"></menu> -->
 			</menuset>
 			<menuset id="edcsszgl" name="受试者管理">
-				<menu id="edcsszgl1" name="受试者管理" url="/pub/patient/manage/global"></menu>
-			</menuset>
-		</module>
-		<module id='yjz' name="研究者">
-			<menuset id="xmgl" name="项目信息">
-				<menu id="xmsq" name="项目申请" url="/edc/proj/applyList"></menu>
-			</menuset>
-			<menuset id="yjsj" name="我的项目">
 				<menu id="edcsszgl1" name="受试者管理" url="/pub/patient/manage/global"></menu>
 			</menuset>
 		</module>
