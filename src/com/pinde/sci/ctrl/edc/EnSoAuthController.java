@@ -75,9 +75,9 @@ public class EnSoAuthController extends GeneralController{
 		logger.debug("sessionid==="+sessionid);
 		String url = "http://www.enso.net.cn/checklogin/"+sessionid+"/c6289c8201b745df94436abdee882c2c";
 		String response =
-				//"{'success' : true,'user' :{'userid':'1234567890','username':'enso','realname':'恩索测试','mobile':'15252452508'}}";
+				"{'success' : true,'user' :{'userid':'1234567890','username':'enso','realname':'恩索测试','mobile':'15252452508'}}";
 			//{"success":false,"msg":认证失败,"user":{}}
-				_get(url);
+				//_get(url);
 		logger.debug("response ==="+response);
 		Map responseMap = JSON.parseObject(response, Map.class);
 		boolean success = (Boolean) responseMap.get("success");
@@ -111,14 +111,14 @@ public class EnSoAuthController extends GeneralController{
 				GeneralMethod.setRecordInfo(sysUser, true);
 				userMapper.insertSelective(sysUser);
 				
-				//add role
-				SysUserRole role = new SysUserRole();
-				role.setUserFlow(sysUser.getUserFlow());
-				role.setRoleFlow(doctorRole);
-				role.setWsId("edc");
-				role.setAuthTime(DateUtil.getCurrDateTime());
-				role.setAuthUserFlow("enso");
-				userRoleBiz.saveSysUserRole(role);
+//				//add role
+//				SysUserRole role = new SysUserRole();
+//				role.setUserFlow(sysUser.getUserFlow());
+//				role.setRoleFlow(doctorRole);
+//				role.setWsId("edc");
+//				role.setAuthTime(DateUtil.getCurrDateTime());
+//				role.setAuthUserFlow("enso");
+//				userRoleBiz.saveSysUserRole(role);
 			}
 				
 			if(!GlobalConstant.ROOT_USER_CODE.equals(sysUser.getUserCode())){
@@ -132,11 +132,11 @@ public class EnSoAuthController extends GeneralController{
 			setSessionAttribute(GlobalConstant.CURRENT_USER, sysUser);
 			
 			//加载系统权限
-			LoginUtil.loadSysRole(sysUser.getUserFlow(), userRoleBiz, roleBiz);
+//			LoginUtil.loadSysRole(sysUser.getUserFlow(), userRoleBiz, roleBiz);
 			//加载EDC项目权限
-			LoginUtil.loadEDCProjRole(sysUser.getUserFlow(), null, projUserBiz, roleBiz);
-			List<String> currUserWorkStationIdList = (List<String>) GlobalContext.getSessionAttribute(GlobalConstant.CURRENT_WORKSTATION_ID_LIST);
-			if (currUserWorkStationIdList != null && currUserWorkStationIdList.size() > 0) {
+//			LoginUtil.loadEDCProjRole(sysUser.getUserFlow(), null, projUserBiz, roleBiz);
+//			List<String> currUserWorkStationIdList = (List<String>) GlobalContext.getSessionAttribute(GlobalConstant.CURRENT_WORKSTATION_ID_LIST);
+//			if (currUserWorkStationIdList != null && currUserWorkStationIdList.size() > 0) {
 				//在线用户功能使用
 				SessionData sessionData = new SessionData();
 				sessionData.setSysUser(sysUser);
@@ -152,18 +152,18 @@ public class EnSoAuthController extends GeneralController{
 				log.setOperId(OperTypeEnum.LogIn.getId());
 				log.setOperName(OperTypeEnum.LogIn.getName());
 				log.setLogDesc("登录IP["+request.getRemoteAddr()+"]");
-				log.setWsId(GlobalConstant.SYS_WS_ID);
+				log.setWsId(GlobalConstant.EDC_WS_ID);
 				GeneralMethod.addSysLog(log);
 				logMapper.insert(log);
 			}else {
-				model.addAttribute("authFailNote", "用户未赋权");
+				model.addAttribute("authFailNote", "认证失败");
 				return "inx/enso/authFail";
 			}
-			return "redirect:/main?time="+new Date();
-		}else {
-			model.addAttribute("authFailNote", "认证失败");
-			return "inx/enso/authFail";
-		}
+			return "redirect:/enso/projlist?time="+new Date();
+//		}else {
+//			model.addAttribute("authFailNote", "认证失败");
+//			return "inx/enso/authFail";
+//		}
 	}
 	
 	private static String _get(String url){
