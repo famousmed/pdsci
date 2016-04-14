@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.dom4j.Document;
@@ -99,8 +100,8 @@ public class EnSoController extends GeneralController{
 	private IEdcModuleBiz edcModuleBiz; 
 	@Autowired
 	private IInputBiz inputBiz; 
-	@Autowired
-	private IPubPatientWindowBiz windowBiz;
+	@Resource
+	private IPubPatientWindowBiz patientWindowBiz;
 	
 	
 	@RequestMapping(value={"/main"},method={RequestMethod.GET})
@@ -109,16 +110,20 @@ public class EnSoController extends GeneralController{
 		model.addAttribute("proj", proj);
 		
 		String projInfo = proj.getProjInfo();
-		Document doc = DocumentHelper.parseText(projInfo);
-		ProjInfoForm projInfoForm = new ProjInfoForm();
-		Element e = (Element) doc.selectSingleNode("projInfo/generalInfo");
-		if(e != null){
-			Element infoElement  = e.element("info");
-			Element indicationElement  = e.element("indication");
-			
-			projInfoForm.setInfo(infoElement == null ? "" : infoElement.getTextTrim());
-			projInfoForm.setIndication(indicationElement == null ? "" : indicationElement.getTextTrim());
-			model.addAttribute("projInfoForm", projInfoForm);
+		if(StringUtil.isNotBlank(projInfo)){
+			Document doc = DocumentHelper.parseText(projInfo);
+			ProjInfoForm projInfoForm = new ProjInfoForm();
+			Element e = (Element) doc.selectSingleNode("projInfo/generalInfo");
+			if(e != null){
+				Element infoElement  = e.element("info");
+				Element indicationElement  = e.element("indication");
+				Element caseCountElement  = e.element("caseCount");
+				
+				projInfoForm.setInfo(infoElement == null ? "" : infoElement.getTextTrim());
+				projInfoForm.setIndication(indicationElement == null ? "" : indicationElement.getTextTrim());
+				projInfoForm.setCaseCount(caseCountElement == null ? "" : caseCountElement.getTextTrim());
+				model.addAttribute("projInfoForm", projInfoForm);
+			}
 		}
 		
 		
@@ -156,98 +161,20 @@ public class EnSoController extends GeneralController{
 	
 	@RequestMapping(value={"/followRemind"},method={RequestMethod.GET})
 	public String followRemind(Model model){
-		String noGroupKey = "noGroup";
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
-		String userFlow = GlobalContext.getCurrentUser().getUserFlow();
 		String orgFlow = GlobalContext.getCurrentUser().getOrgFlow();
 		
-		PubPatient searchPatient = new PubPatient();
-		searchPatient.setProjFlow(proj.getProjFlow());
-		searchPatient.setOrgFlow(orgFlow);
-		searchPatient.setInDate(GlobalConstant.FLAG_N);
-		List<PubPatient> patientList = patientBiz.searchPatientList(searchPatient);
-		List<String> patientFlows = new ArrayList<String>();
-		for(PubPatient patient : patientList){
-			patientFlows.add(patient.getPatientFlow());
-		}
-		model.addAttribute("patientList",patientList);
-		if(patientList != null && !patientList.isEmpty()){
-			
-			List<EdcVisit> visitTempList = visitBiz.searchVisitList(proj.getProjFlow(),GlobalConstant.FLAG_Y);
-			List<String> visitFlows = new ArrayList<String>();
-			for(EdcVisit visit : visitTempList){
-				visitFlows.add(visit.getVisitFlow());
+		List<PubPatientWindow> windowList = patientWindowBiz.searchRemaind(proj.getProjFlow(),orgFlow);
+		Map<String,PubPatientWindow > patientVisitMap = new HashMap<String, PubPatientWindow>();
+		Map<String,PubPatient> patientMap = new HashMap<String, PubPatient>();
+		for(PubPatientWindow window : windowList){
+			if(!patientVisitMap.containsKey(window.getPatientFlow())){
+				patientVisitMap.put(window.getPatientFlow(), window);
+				patientMap.put(window.getPatientFlow(), patientBiz.readPatient(window.getPatientFlow())); 
 			}
-		
-		//获取上一次和下一次访视信息
-		if(visitTempList.size()>0){
-			String currDate = DateUtil.getCurrDate();
-			final Map<String,Map<String,Object>> patientVisitMap = new HashMap<String,Map<String,Object>>();
-			//获取所有该项目病人访视窗
-			List<PubPatientWindow> windowList = windowBiz.searchPatientWindowByPatientFlows(proj.getProjFlow(),patientFlows);
-			if(windowList!=null && windowList.size()>0){
-				Map<String,PubPatientWindow> windowMap = new HashMap<String, PubPatientWindow>();
-				Map<String,List<PubPatientWindow>> WindowListMap = new HashMap<String, List<PubPatientWindow>>();
-				for(PubPatientWindow window : windowList){
-					windowMap.put(window.getPatientFlow()+window.getVisitFlow(),window);
-					if(WindowListMap.get(window.getPatientFlow())==null){
-						List<PubPatientWindow> windowListTemp = new ArrayList<PubPatientWindow>();
-						windowListTemp.add(window);
-						WindowListMap.put(window.getPatientFlow(),windowListTemp);
-					}else{
-						WindowListMap.get(window.getPatientFlow()).add(window);
-					}
-				}
-				for(String patientFlow : patientFlows){
-					Map<String,Object> patientVisitInfo = new HashMap<String, Object>();
-					int index = 0;
-					if(WindowListMap.get(patientFlow)!=null && WindowListMap.get(patientFlow).size()>0){
-						PubPatientWindow beforwindow = WindowListMap.get(patientFlow).get(0);
-						if(beforwindow!=null){
-							patientVisitInfo.put("beforeVisit",windowMap.get(patientFlow+(beforwindow.getVisitFlow())));
-							index = visitFlows.indexOf(beforwindow.getVisitFlow())+1;
-						}
-					}
-					if(index<visitFlows.size()){
-						PubPatientWindow windowTemp = windowMap.get(patientFlow+visitFlows.get(index));
-						if(windowTemp!=null){
-							patientVisitInfo.put("nextWindow",windowTemp);
-							if(StringUtil.isNotBlank(windowTemp.getWindowVisitLeft()) && StringUtil.isNotBlank(windowTemp.getWindowVisitRight())){
-								patientVisitInfo.put("remindDays",DateUtil.signDaysBetweenTowDate(windowTemp.getWindowVisitLeft(),currDate));
-								patientVisitInfo.put("outDays",DateUtil.signDaysBetweenTowDate(currDate,windowTemp.getWindowVisitRight()));
-							}
-						}	
-					}
-					patientVisitMap.put(patientFlow,patientVisitInfo);
-				}
-			}
-			//排序
-			Collections.sort(patientList,new Comparator<PubPatient>() {
-				@Override
-				public int compare(PubPatient p1, PubPatient p2) {
-					Map<String,Object> p1VisitInfoMap = patientVisitMap.get(p1.getPatientFlow());
-					Map<String,Object> p2VisitInfoMap = patientVisitMap.get(p2.getPatientFlow());
-					if(p1VisitInfoMap==null && p2VisitInfoMap!=null){
-						return 1;
-					}else if(p2VisitInfoMap==null && p1VisitInfoMap!=null){
-						return -1;
-					}else if(p1VisitInfoMap!=null && p2VisitInfoMap!=null){
-						Long p1RemindDays = (Long)p1VisitInfoMap.get("remindDays");
-						Long p2RemindDays = (Long)p2VisitInfoMap.get("remindDays");
-						if(p1RemindDays!=null && p2RemindDays!=null){
-							return (int) (p1RemindDays-p2RemindDays);
-						}else if(p1RemindDays==null && p2RemindDays!=null){
-							return 1;
-						}else if(p2RemindDays==null && p1RemindDays!=null){
-							return -1;
-						}
-					}
-					return 0;
-				}
-			});
-			model.addAttribute("patientVisitMap",patientVisitMap);
 		}
-		}
+		model.addAttribute("patientMap",patientMap);
+		model.addAttribute("patientVisitMap",patientVisitMap);
 		return "enso/reacher/followRemind";
 	}
 	
@@ -495,8 +422,16 @@ public class EnSoController extends GeneralController{
 					
 				}
 				model.addAttribute("operUserFlow", operUserFlow);
+				
+				
+				//访视窗
+				PubPatientWindow window = patientWindowBiz.readPatientWindow(patient.getPatientFlow(), visitFlow);
+				model.addAttribute("window", window);
 			}
+		
 		}
+		
+		
 		
 		return "enso/reacher/datainput";
 	}
@@ -507,7 +442,7 @@ public class EnSoController extends GeneralController{
 	}
 	@RequestMapping(value="/saveData")
 	@ResponseBody
-	public String saveData(@RequestBody List<EdcPatientVisitData> datas,Model model,HttpServletRequest request,String status,String operUserFlow) throws Exception{
+	public String saveData(@RequestBody List<EdcPatientVisitData> datas,Model model,HttpServletRequest request,String status,String operUserFlow,String visitDate,String visitWindow) throws Exception{
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
 		String projFlow = proj.getProjFlow();
 		EdcProjParam projParam = inputBiz.readProjParam(projFlow);
@@ -530,7 +465,41 @@ public class EnSoController extends GeneralController{
 		
 		if(pateintVisit == null){
 			pateintVisit =  _addPatientVisit(patientFlow, visitFlow, projFlow, patient, visit);
+			pateintVisit.setVisitDate(visitDate);
 			inputBiz.addPatientVisit(pateintVisit);
+		}else {
+			pateintVisit.setVisitDate(visitDate);
+			inputBiz.modifyPatientVisit(pateintVisit);
+		}
+		
+		
+		//添加访视窗
+		System.err.println("visitDate="+visitDate );
+		System.err.println(visitWindow );
+		if(StringUtil.isNotBlank(visitWindow)){
+			PubPatientWindow window = patientWindowBiz.readPatientWindow(patientFlow,visitFlow);
+			String leftWindow = StringUtil.split(visitWindow, "~")[0];
+			String rightWindow = StringUtil.split(visitWindow, "~")[1];
+			if(window!=null){
+				window.setVisitDate(visitDate);
+				window.setWindowVisitLeft(leftWindow);
+				window.setWindowVisitRight(rightWindow);
+				patientWindowBiz.savePatientWindow(window);
+			}else {
+				window = new PubPatientWindow();
+				window.setProjFlow(projFlow);
+				window.setOrgFlow(patient.getOrgFlow());
+				window.setPatientFlow(patientFlow);
+				window.setPatientName(patient.getPatientName());
+				window.setPatientCode(patient.getPatientCode());
+				window.setInDate(patient.getInDate());
+				window.setVisitFlow(visitFlow);
+				window.setVisitName(visit.getVisitName());
+				window.setVisitDate(visitDate);
+				window.setWindowVisitLeft(leftWindow);
+				window.setWindowVisitRight(rightWindow);
+				patientWindowBiz.savePatientWindow(window);
+			}
 		}
 		edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
 		if(edcPatientVisit == null ){

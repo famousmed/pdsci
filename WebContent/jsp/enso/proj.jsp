@@ -278,12 +278,12 @@
 										<td style="width: 47px;">
 										<c:if test="${!empty roleMap[projForm.proj.projFlow] }">
 											<div class="sch_img_1">
-												<img alt="" src="/pdsci/css/skin/LightBlue/images/yck_1.png">
+												<img alt="" src="<s:url value='/css/skin/${skinPath}/images/yck_1.png'/>">
 											</div>
 										</c:if>
 										<c:if test="${empty roleMap[projForm.proj.projFlow] }">
 											<div class="sch_img_1">
-												<img alt="" src="/pdsci/css/skin/LightBlue/images/wrk_1.png">
+												<img alt="" src="<s:url value='/css/skin/${skinPath}/images/wrk_1.png'/>">
 											</div>
 										</c:if>
 										</td>

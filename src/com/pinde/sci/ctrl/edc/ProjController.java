@@ -114,9 +114,12 @@ public class ProjController extends GeneralController {
 				if(e != null){
 					Element infoElement  = e.element("info");
 					Element indicationElement  = e.element("indication");
+					Element caseCountElement  = e.element("caseCount");
+					
 					
 					projInfoForm.setInfo(infoElement == null ? "" : infoElement.getTextTrim());
 					projInfoForm.setIndication(indicationElement == null ? "" : indicationElement.getTextTrim());
+					projInfoForm.setCaseCount(caseCountElement == null ? "" : caseCountElement.getTextTrim());
 					model.addAttribute("projInfoForm", projInfoForm);
 				}
 			}
@@ -146,6 +149,7 @@ public class ProjController extends GeneralController {
 		try {
 			String indication = StringUtil.defaultIfEmpty(projInfoForm.getIndication(),""); 
 			String info = StringUtil.defaultIfEmpty(projInfoForm.getInfo(),""); 
+			String caseCount = StringUtil.defaultIfEmpty(projInfoForm.getCaseCount(),""); 
 			
 			doc = DocumentHelper.parseText(projInfo);
 			Element root = doc.getRootElement();
@@ -166,6 +170,13 @@ public class ProjController extends GeneralController {
 				infoElement = generalInfoElement.addElement("info");
 			}
 			infoElement.setText(info);
+			
+			//¼ò½é
+			Element caseCountElement = generalInfoElement.element("caseCount");
+			if (caseCountElement == null) {
+				caseCountElement = generalInfoElement.addElement("caseCount");
+			}
+			caseCountElement.setText(caseCount);
 			
 			return doc.asXML();
 		} catch (DocumentException e) {

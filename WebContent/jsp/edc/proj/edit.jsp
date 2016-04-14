@@ -45,7 +45,7 @@
 			jboxClose();			
 		}
 		$(document).ready(function(){
-				initUE("projInfo");
+				initUE("info");
 		});
 		function initUE(id){
 			var uecfg = {
@@ -103,12 +103,20 @@
 								</c:forEach>
 							</select>
 						</td>
-						<th></th>
-						<td></td>
+						<th>适应症</th>
+						<td><input class="xltext" name="indication" type="text" value="${projInfoForm.indication }"/></td>
+					</tr>
+					<tr>
+						<th>计划病例数：</th>
+						<td>
+							<input class="xltext" name="caseCount" type="text" value="${projInfoForm.caseCount }"/>
+						</td>
+						<th>申办单位</th>
+						<td><input class="xltext" name="projShortDeclarer" type="text" value="${proj.projShortDeclarer}"/></td>
 					</tr>
 					<tr>
 						<td colspan="4" >
-							<script id="projInfo" name="projInfo" type="text/plain" style="width:100%;height:200px;position:relative;margin-top: 10px;">${proj.projInfo}</script>
+							<script id="info" name="info" type="text/plain" style="width:100%;height:200px;position:relative;margin-top: 10px;">${projInfoForm.info}</script>
 						</td>
 					</tr>
 			

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pinde.core.util.DateUtil;
 import com.pinde.core.util.PkUtil;
 import com.pinde.core.util.StringUtil;
 import com.pinde.sci.biz.pub.IPubPatientWindowBiz;
@@ -119,6 +120,15 @@ public class PubPatientWindowBizImpl implements IPubPatientWindowBiz{
 			window = null;
 		}
 		return window;
+	}
+
+	@Override
+	public List<PubPatientWindow> searchRemaind(String projFlow, String orgFlow) {
+		PubPatientWindowExample example = new PubPatientWindowExample();
+		example.createCriteria().andProjFlowEqualTo(projFlow).andOrgFlowEqualTo(orgFlow)
+		.andWindowVisitRightGreaterThan(DateUtil.getCurrDate()).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
+		example.setOrderByClause("window_visit_right");
+		return windowMapper.selectByExample(example);
 	}
 
 }  

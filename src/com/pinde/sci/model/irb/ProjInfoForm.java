@@ -49,7 +49,36 @@ public class ProjInfoForm implements Serializable{
 	private String leaderOrgIrbLinkManPhone;
 	private String leaderOrgIrbLinkManEmail;
 	
+	private String indication;
 	
+	private String info;
+	private String caseCount;
+	
+	
+	public String getCaseCount() {
+		return caseCount;
+	}
+
+	public void setCaseCount(String caseCount) {
+		this.caseCount = caseCount;
+	}
+
+	public String getIndication() {
+		return indication;
+	}
+
+	public void setIndication(String indication) {
+		this.indication = indication;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
 	public PubProj getProj() {
 		return proj;
 	}

@@ -171,47 +171,7 @@ body{overflow:hidden;}
           </div>
         </div>
          <div class="index_form" id="followRemind">
-          <h3>随访提醒&#12288;
-          <!-- 
-           <span style="float: right">
-          <label><input type="checkbox" checked="checked">7天</input></label>
-          &#12288;<label><input type="checkbox">10天</input></label>
-         	&#12288;<label> <input type="checkbox">15天</input></label>
-          </span>
-           -->
-         
-          </h3>
-          <table border="0" cellpadding="0" cellspacing="0" class="grid" style="border-top: 0px;">
-            	<tr >
-            		<td style="padding-left: 20px;text-align: left;">受试者编号：003X </td>
-            		<td  style="padding-left: 20px;text-align: left;"> 联系方式：17652233456</td>
-            		<td  style="padding-left: 20px;text-align: left;">访视次数：1/5&nbsp;(上次访视：2016-3-12)</td>
-            		<td  style="padding-left: 20px;text-align: left;">随访日期：2016-4-28 </td>
-            		<td><a href="javascript:visit();" title="访视">>></a> </td>
-            	</tr>
-            	<tr >
-            		<td style="padding-left: 20px;text-align: left;">受试者编号：3212 </td>
-            		<td  style="padding-left: 20px;text-align: left;"> 联系方式：18976233456</td>
-            		<td  style="padding-left: 20px;text-align: left;">访视次数：1/5&nbsp;(上次访视：2016-3-12)</td>
-            		<td  style="padding-left: 20px;text-align: left;">随访日期：2016-5-23</td>
-            		<td> <a href="javascript:visit();" title="访视">>></a> </td>
-            	</tr>
-            	<tr >
-            		<td style="padding-left: 20px;text-align: left;">受试者编号：2313 </td>
-            		<td  style="padding-left: 20px;text-align: left;"> 联系方式：15252235612</td>
-            		<td  style="padding-left: 20px;text-align: left;">访视次数：3/5&nbsp;(上次访视：2016-3-12)</td>
-            		<td  style="padding-left: 20px;text-align: left;">随访日期：2016-5-24</td>
-            		<td><a href="javascript:visit();" title="访视">>></a> </td>
-            	</tr>
-            	<tr >
-            		<td style="padding-left: 20px;text-align: left;">受试者编号：3672 </td>
-            		<td  style="padding-left: 20px;text-align: left;"> 联系方式：15252212311</td>
-            		<td  style="padding-left: 20px;text-align: left;">访视次数：2/5&nbsp;(上次访视：2016-3-12)</td>
-            		<td  style="padding-left: 20px;text-align: left;">随访日期：2016-5-28</td>
-            		<td><a href="javascript:visit();" title="访视">>></a> </td>
-            	</tr>
-            	
-          </table>
+          
         </div>
          <div class="index_form" style="margin-top: 20px;">
           <h3>项目概况</h3>
@@ -230,7 +190,7 @@ body{overflow:hidden;}
             		<td style="width: 100px;padding-left: 20px;">项目类型：</td>
             		<td style="text-align: left;width: 400px;">${proj.projSubTypeName}</td>
             		<td style="width: 100px;padding-left: 20px;text-align: right">计划病例数：</td>
-            		<td style="text-align: left;">100000例</td>
+            		<td style="text-align: left;">${projInfoForm.caseCount}</td>
             	</tr>
             	<tr >
             		<td style="width: 100px;padding-left: 20px;">&#12288;适应症：</td>

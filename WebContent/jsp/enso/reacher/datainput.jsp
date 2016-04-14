@@ -18,7 +18,6 @@ $(document).ready(function(){
 		$(this).addClass("selected");
 	});
 	
-	
 	jboxEndLoading();
 });
 
@@ -105,9 +104,10 @@ $(document).ready(function(){
 	initRadioCheckbox();
 });
 function saveData(status){
+	
 	var datas =[];
 	$("#inputForm input").each(function(){
-		if($(this).attr("name")=="elementSerialSeq"){
+		if($(this).attr("name")=="elementSerialSeq" || $(this).attr("name")=="visitDate" || $(this).attr("name")=="visitWindow" ){
 			return true;
 		}
 		if($(this).attr("type") == "radio" ){
@@ -146,11 +146,11 @@ function saveData(status){
 			datas.push(data);
 		}
 	});
-	
+	var visitdata = "&visitDate="+$("#visitDate").val()+"&visitWindow="+$("#visitWindow").val();
 	if(status == '${edcInputStatusEnumSubmit.id }'){
 		jboxConfirm("确认提交?提交后无法修改数据",function(){
 			jboxStartLoading();
-			jboxPostJson("<s:url value='/enso/saveData'/>?status="+status+"&operUserFlow=${operUserFlow}",JSON.stringify(datas),function(resp){
+			jboxPostJson("<s:url value='/enso/saveData'/>?status="+status+"&operUserFlow=${operUserFlow}"+visitdata,JSON.stringify(datas),function(resp){
 				if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
 					jboxTip(resp);
 					jboxEndLoading();
@@ -160,7 +160,7 @@ function saveData(status){
 		});
 	}else {
 		jboxStartLoading();
-		jboxPostJson("<s:url value='/enso/saveData'/>?visitFlow=${param.visitFlow}&status="+status,JSON.stringify(datas),function(resp){
+		jboxPostJson("<s:url value='/enso/saveData'/>?visitFlow=${param.visitFlow}&status="+status+visitdata,JSON.stringify(datas),function(resp){
 			if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
 				jboxTip(resp);
 				//datainput('${param.visitFlow}');
@@ -290,7 +290,17 @@ $(".to_top").click(function(){
    		 </div>
    		 </c:if>
     </div>
-<c:if test="${empty param.visitFlow }">
+    <form id="inputForm" name="inputForm">
+    <c:if test="${!empty param.visitFlow && currVisit.isVisit == GlobalConstant.FLAG_Y}">
+<div class="index_form visitDate" style="margin-bottom: 10px;" >
+         <h3>访视窗
+         </h3>
+          <div  class="caseDiv" >
+          	<jsp:include page="/jsp/enso/reacher/datainput_visit.jsp" ></jsp:include>
+          </div>
+  </div>
+</c:if>
+<c:if test="${empty param.visitFlow || empty sessionScope.projDescForm.visitModuleMap[currVisit.visitFlow]}">
 <div class="index_form" style="margin-bottom: 10px;">
           <h3>未发现病例</h3>
           	<ul class="form_main">
@@ -300,16 +310,7 @@ $(".to_top").click(function(){
           </ul>
         </div>
 </c:if>
-<c:if test="${!empty param.visitFlow }">
-<div class="index_form visitDate" style="margin-bottom: 10px;" >
-         <h3>访视窗
-         </h3>
-          <div  class="caseDiv" >
-          	<jsp:include page="/jsp/enso/reacher/datainput_visit.jsp" ></jsp:include>
-          </div>
-  </div>
-</c:if>
-<form id="inputForm" name="inputForm">
+
 <!-- 模块 -->
 <c:forEach items="${sessionScope.projDescForm.visitModuleMap[currVisit.visitFlow]}" var="visitModule" varStatus="status">
  <c:set var="commCode" value="${currVisit.visitFlow }_${visitModule.moduleCode  }"></c:set>
@@ -528,7 +529,7 @@ $(".to_top").click(function(){
  </c:forEach>
  </form>
 </div>
-<c:if test="${!empty param.visitFlow }">
+<c:if test="${!empty param.visitFlow && sessionScope.projDescForm.visitModuleMap[currVisit.visitFlow].size()>0}">
 	<jsp:include page="/jsp/enso/reacher/inputAssist2.jsp" ></jsp:include>
 </c:if>
 <input type="hidden" id="elementCode" value="${param.elementCode}"/>
