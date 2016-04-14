@@ -237,6 +237,10 @@
 		window.location.href = "<s:url value='/enso/main'/>?projFlow="+projFlow+"&roleFlow="+roleFlow;
 	}
 	function joinProj(projFlow){
+		if(${empty sessionScope.currUser.orgFlow}){
+			jboxTip("您的资料未完善,请联系管理员!");
+			return false;
+		}
 		jboxConfirm("确认以研究者的身份参与该项目?",function(){
 			jboxGet("<s:url value='/enso/joinProj'/>?projFlow="+projFlow,null,function(resp){
 				if(resp == '${GlobalConstant.SAVE_SUCCESSED}'){
@@ -291,9 +295,9 @@
 											style="text-align: left;  padding-left: 45px;" onclick="showProjInfo('${projForm.proj.projFlow}');">
 											<h3>${projForm.proj.projName }</h3>
 											<p style="margin-top: 10px;">项目类型：${projForm.proj.projSubTypeName } &#12288;&#12288;
-											计划病例数：250例&#12288;&#12288;适应症：${projForm.indication}&#12288;&#12288;申办单位：${projForm.proj.projShortDeclarer}</p>
+											计划病例数：${projForm.caseCount}&#12288;&#12288;适应症：${projForm.indication}&#12288;&#12288;申办单位：${projForm.proj.projShortDeclarer}</p>
 										</td>
-										<td width="150px;">${sysRoleMap[roleMap[projForm.proj.projFlow]].roleName }</td>
+										<td width="100px;">${sysRoleMap[roleMap[projForm.proj.projFlow]].roleName }</td>
 										<td style="text-align: right;width: 100px;">
 											<c:choose>
 											<c:when test="${empty roleMap[projForm.proj.projFlow] }">
