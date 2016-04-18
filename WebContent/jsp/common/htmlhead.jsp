@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<title>${applicationScope.sysCfgMap['sys_title_name']}V${applicationScope.sysCfgMap['sys_version']}<%-- --http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath} --%></title>
+<title>${applicationScope.sysCfgMap['sys_title_name']}<%-- --http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath} --%></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <c:if test="${param.compatible=='true'}">
