@@ -148,19 +148,39 @@ function saveData(status){
 	});
 	var visitdata = "&visitDate="+$("#visitDate").val()+"&visitWindow="+$("#visitWindow").val();
 	if(status == '${edcInputStatusEnumSubmit.id }'){
-		jboxConfirm("确认提交?提交后无法修改数据",function(){
-			jboxStartLoading();
-			jboxPostJson("<s:url value='/enso/saveData'/>?status="+status+"&operUserFlow=${operUserFlow}"+visitdata,JSON.stringify(datas),function(resp){
-				if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
+		if(${!isSingle}){ 
+			jboxGet("<s:url value='/enso/checkSubmit'/>",null,function(resp){
+				if(resp == '${GlobalConstant.OPRE_SUCCESSED}'){
+					jboxConfirm("确认提交?提交后无法修改数据",function(){
+						jboxStartLoading();
+						jboxPostJson("<s:url value='/enso/saveData'/>?status="+status+"&operUserFlow=${operUserFlow}"+visitdata,JSON.stringify(datas),function(resp){
+							if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
+								jboxTip(resp);
+								jboxEndLoading();
+								datainput('${param.visitFlow}','${inputOperFlow}');
+							}
+						},null,true);
+					});
+				}else {
 					jboxTip(resp);
-					jboxEndLoading();
-					datainput('${param.visitFlow}','${inputOperFlow}');
+					//$(".fail").show();
 				}
 			},null,true);
-		});
+		}else {
+			jboxConfirm("确认提交?提交后无法修改数据",function(){
+				jboxStartLoading();
+				jboxPostJson("<s:url value='/enso/saveData'/>?status="+status+"&operUserFlow=${operUserFlow}"+visitdata,JSON.stringify(datas),function(resp){
+					if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
+						jboxTip(resp);
+						jboxEndLoading();
+						datainput('${param.visitFlow}','${inputOperFlow}');
+					}
+				},null,true);
+			});
+		}
 	}else {
 		jboxStartLoading();
-		jboxPostJson("<s:url value='/enso/saveData'/>?visitFlow=${param.visitFlow}&status="+status+visitdata,JSON.stringify(datas),function(resp){
+		jboxPostJson("<s:url value='/enso/saveData'/>?status="+status+"&operUserFlow=${operUserFlow}"+visitdata,JSON.stringify(datas),function(resp){
 			if(resp=='${GlobalConstant.OPRE_SUCCESSED}'){
 				jboxTip(resp);
 				//datainput('${param.visitFlow}');
@@ -169,6 +189,7 @@ function saveData(status){
 		},null,true);
 	}
 }
+
 function addTr(elementCode){
 	var currTrCount = $("#"+elementCode+"_TBODY").children().length;
 	 var tr =  ($("#"+elementCode+"_TBODY tr:eq(0)").clone(true));

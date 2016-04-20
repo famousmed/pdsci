@@ -36,6 +36,12 @@
 							</label>
 							 -->
 			</c:forEach>
+			<p class="frm_msg fail" style="display: none">
+				<span for="${attrCode}_1" class="frm_msg_content"
+					style="display: inline;">错误描述</span>
+			</p>
+			<span class="frm_tips"></span>
 		</div>
+			
 	</div>
 </div>

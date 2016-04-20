@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>临床科研信息化管理系统</title>
+<title>${applicationScope.sysCfgMap['sys_title_name']}</title>
 <jsp:include page="/jsp/enso/htmlhead-enso.jsp">
 	<jsp:param name="basic" value="true"/>
 	<jsp:param name="jbox" value="true"/>
@@ -99,7 +99,7 @@ body{overflow:hidden;}
 <div style="overflow:auto;" id="indexBody">
 <div class="bd_bg">
 <div class="yw">
-<jsp:include page="/jsp/enso/head.jsp">
+<jsp:include page="/jsp/enso/head.jsp" flush="true">
     <jsp:param value="/enso/main?projFlow=${proj.projFlow}&roleFlow=${role.roleFlow}" name="indexUrl"/>
 </jsp:include>
 

@@ -3,7 +3,7 @@
 <div class="head">
 	<div class="head_inner">
 		<h1 class="logo">
-			<a href="<s:url value='${param.indexUrl}'/>">临床科研信息化管理系统</a>
+			<a href="<s:url value='${param.indexUrl}'/>">${applicationScope.sysCfgMap['sys_title_name']}</a>
 		</h1>
 		<c:if test="${not param.notShowAccount}">
 		<div class="account">
@@ -16,5 +16,5 @@
 		</div>
 		</c:if>
 		
-	</div>
+	</div> 
 </div>

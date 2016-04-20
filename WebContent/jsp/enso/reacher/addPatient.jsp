@@ -47,17 +47,10 @@ function writeBirthday(obj){
 		<div class="search_table">
 		<h4>基本信息</h4>
 		<table border="0" cellpadding="0" cellspacing="0" class="base_info" >
-			<colgroup>
-				<col width="14%"/>
-				<col width="30%"/>
-				<col width="14%"/>
-				<col width="26%"/>
-				<col width="16%"/>
-			</colgroup>
 			<tbody>
 			    <tr>
 			    	<th>姓&#12288;&#12288;名：</th>
-			        <td><input name="patientName"  class="validate[required] input"/>&#12288;<span style="color: red;">*</span></td>
+			        <td><input name="patientName"  class="validate[required] input" style="width:250px;"/><span style="color: red;">*</span></td>
 			        <th>性&#12288;&#12288;别：</th>
 			        <td colspan="2">
 			        	&nbsp;<label><input type="radio" class='validate[required]' value="${userSexEnumMan.id }" style="width:auto;" name="sexId" />&nbsp;${userSexEnumMan.name}</label>&#12288;
@@ -66,9 +59,9 @@ function writeBirthday(obj){
 			    </tr>
 			    <tr>
 			        <th>证件号：</th>
-			        <td ><input name="patientCode"  class="validate[required,custom[chinaIdLoose]] input " onblur="writeBirthday(this);" style="width:260px;"/><span style="color: red;">*</span></td>     
+			        <td ><input name="patientCode"  class="validate[required,custom[chinaIdLoose]] input " onblur="writeBirthday(this);" style="width:250px;"/><span style="color: red;">*</span></td>     
 			    	 <th>生&#12288;&#12288;日：</th>
-			        <td colspan="2"><input name="patientBirthday" readonly="readonly" id="patientBirthday" class="validate[required] input " />&#12288;<span style="color: red;">*</span></td>
+			        <td colspan="2"><input name="patientBirthday" readonly="readonly" id="patientBirthday" class="validate[required] input " style="width:250px;"/><span style="color: red;">*</span></td>
 			    </tr>
 			     <tr>
 			    	<th>来&#12288;&#12288;源：</th>
@@ -76,12 +69,12 @@ function writeBirthday(obj){
                         <label><input type="radio" class='validate[required]' style="width:auto;" name="patientSourceId" value='${patientSourceEnumInPatient.id}' />&nbsp;住院</label>&#12288;<span style="color: red;">*</span></td>
 			        <th>病历/住院号：</th>
 			        <td colspan="2">
-			        	<input name="patientNo"  class=" input"/>
+			        	<input name="patientNo"  class=" input" style="width:250px;"/>
 			        </td>
 			    </tr>
 			    <tr>
 			    	<th>手&#12288;&#12288;机：</th>
-			        <td><input name="patientPhone"  class="validate[required,custom[mobile]] input"/>&#12288;<span style="color: red;">*</span></td>
+			        <td><input name="patientPhone"  class="validate[required,custom[mobile]] input" style="width:250px;"/><span style="color: red;">*</span></td>
 		       		<th></th>
 		       		<td colspan="2"></td>
 		       		<!-- 
@@ -97,7 +90,7 @@ function writeBirthday(obj){
 			     -->
 			    <tr>
 			    	<th>备注：</th>
-			        <td colspan="4"><textarea name="patientStageNote"  class="input" style="height: 100px;width: 560px;margin-top: 5px;margin-bottom: 5px;"></textarea></td>
+			        <td colspan="4"><textarea name="patientStageNote"  class="input" style="height: 100px;width: 560px;margin-top: 5px;margin-bottom: 5px;text-indent:0"></textarea></td>
 			    </tr>
 			 </tbody>
 		</table>

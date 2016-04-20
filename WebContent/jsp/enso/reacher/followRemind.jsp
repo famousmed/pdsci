@@ -19,7 +19,8 @@
 			or pdfn:getCurrDate()>map.value.windowVisitLeft
 		}">
 			<tr>
-				<td style="padding-left: 10px; text-align: left;">受试者姓名：${map.value.patientName }</td>
+				<td style="padding-left: 10px; text-align: left;">
+				姓名：${map.value.patientName }</td>
 				<td style="padding-left: 10px; text-align: left;">
 					联系方式：${patientMap[map.key].patientPhone }</td>
 				<td style="padding-left: 10px; text-align: left;">上次访视：${map.value.visitDate }</td>

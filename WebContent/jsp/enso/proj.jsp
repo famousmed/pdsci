@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>临床科研信息化管理系统</title>
+<title>${applicationScope.sysCfgMap['sys_title_name']}</title>
 <jsp:include page="/jsp/enso/htmlhead-enso.jsp">
 	<jsp:param name="basic" value="true" />
 	<jsp:param name="jbox" value="true" />
@@ -259,7 +259,7 @@
 				<div class="head">
 					<div class="head_inner">
 						<h1 class="logo">
-							<a href="javascript:refresh();">临床科研信息化管理系统</a>
+							<a href="javascript:refresh();">${applicationScope.sysCfgMap['sys_title_name']}</a>
 						</h1>
 						<div class="account">
 							<h2 style="text-align: right">${sessionScope.currUser.userName

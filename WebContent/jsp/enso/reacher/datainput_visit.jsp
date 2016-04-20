@@ -11,14 +11,16 @@
 					class="frm_input_box" style="width:150px;">
 						<input autofocus="" type="text" placeholder="" id="visitDate" name="visitDate";
 						class="frm_input js_option_input frm_msg_content validate[required]" readonly="readonly"
-						 value="${window.visitDate }"
+						 value="${visitWindow.visitDate }"
 					autocomplete="off">
 					</span>
-	&#12288;&#12288;下次随访日期：<span
+	&#12288;&#12288;下次随访日期：
+				<c:set var="window" value="${window.windowVisitLeft }~${window.windowVisitRight}"/>
+				<span
 					class="frm_input_box" style="width: 250px;"> 
 						<input autofocus="" type="text" placeholder="" readonly="readonly" name="visitWindow";
 						class="frm_input js_option_input frm_msg_content validate[required]" id="visitWindow"
-						 value="${window.windowVisitLeft }~${window.windowVisitRight}"
+						 value=""
 					autocomplete="off">
 					</span><span>&#12288;可据节假日或特殊情况自行调整</span>
 
@@ -26,7 +28,9 @@
       $(document).ready(function() {
     	  //scrollToModule("section_tab_wrap");
           var visitDateOptions = {
+        		
         		  locale: {
+        			 
         		      format: 'YYYY-MM-DD',
         		      applyLabel : '确定',
         		      separator: "~",
@@ -76,6 +80,8 @@
         	 		 $('#visitWindow').daterangepicker(visitDateOptions, function(start, end, label) { });
           });
           visitDateOptions.singleDatePicker = false;
+          visitDateOptions.startDate = ${empty visitWindow}?moment():'${visitWindow.windowVisitLeft}';
+          visitDateOptions.endDate =  ${empty visitWindow}?moment():'${visitWindow.windowVisitRight}';
           visitDateOptions.ranges = 
 		  {
 		        "间隔一周(7天)": [

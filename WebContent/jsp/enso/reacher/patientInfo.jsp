@@ -91,9 +91,9 @@ function idToggle(){
 		             <c:forEach items="${patientList}" var="patient">
 		             	<c:if test="${patient.projFlow != edcCurrProj.projFlow }">
 		                 <tr>
-		                     <td style="text-align:center;">${projMap[patient.projFlow].projShortName}</td>
-		                     <td style="text-align:center;">${projMap[patient.projFlow].projSubTypeName}</td>
-		                     <td style="text-align:center;"></td>
+		                     <td style="text-align:center;">${projMap[patient.projFlow].proj.projShortName}</td>
+		                     <td style="text-align:center;">${projMap[patient.projFlow].proj.projSubTypeName}</td>
+		                     <td style="text-align:center;">${projMap[patient.projFlow].indication}</td>
 		                     <td style="text-align:center;">${pdfn:transDate (patient.inDate)}</td>
 		                     <td style="text-align:center;">${patient.patientStageName}</td>
 		                     <td style="text-align:center;"></td>
