@@ -9,6 +9,10 @@ import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +27,7 @@ import com.pinde.sci.common.GlobalConstant;
 import com.pinde.sci.dao.base.PubProjMapper;
 import com.pinde.sci.dao.pub.PubProjExtMapper;
 import com.pinde.sci.enums.edc.PatientTypeEnum;
+import com.pinde.sci.model.irb.ProjInfoForm;
 import com.pinde.sci.model.mo.PubFile;
 import com.pinde.sci.model.mo.PubPatient;
 import com.pinde.sci.model.mo.PubPatientExample;
@@ -299,13 +304,37 @@ public class PubProjBizImpl implements IPubProjBiz{
 
 	@Override
 	public List<PubPatient> searchPubProjListByPatientCode(String projFlow,
-			String patientCode,Map<String,PubProj> projMap) {
+			String patientCode,Map<String,ProjInfoForm> projMap) {
 		PubPatientExample example = new PubPatientExample();
 		example.createCriteria().andPatientCodeEqualTo(patientCode).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId());
 		example.setOrderByClause("in_date desc");
 		List<PubPatient> patientList = patientBiz.searchPatient(example);
 		for(PubPatient patient : patientList){
-			projMap.put(patient.getProjFlow(), projMapper.selectByPrimaryKey(patient.getProjFlow()));
+			ProjInfoForm form = new ProjInfoForm();
+			PubProj proj = projMapper.selectByPrimaryKey(patient.getProjFlow());
+			form.setProj(proj);
+			
+			String projInfo = proj.getProjInfo();
+			if(StringUtil.isNotBlank(projInfo)){
+				Document doc;
+				try {
+					doc = DocumentHelper.parseText(projInfo);
+					Element e = (Element) doc.selectSingleNode("projInfo/generalInfo");
+					if(e != null){
+						Element infoElement  = e.element("info");
+						Element indicationElement  = e.element("indication");
+						Element caseCountElement  = e.element("caseCount");
+						
+						form.setInfo(infoElement == null ? "" : infoElement.getTextTrim());
+						form.setIndication(indicationElement == null ? "" : indicationElement.getTextTrim());
+						form.setCaseCount(caseCountElement == null ? "" : caseCountElement.getTextTrim());
+					}
+				} catch (DocumentException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+			projMap.put(patient.getProjFlow(), form);
 		}
 		return patientList;
 	} 
