@@ -3,6 +3,7 @@ package com.pinde.sci.biz.srm;
 import java.util.List;
 import java.util.Map;
 
+import com.pinde.sci.model.irb.ProjInfoForm;
 import com.pinde.sci.model.mo.PubFile;
 import com.pinde.sci.model.mo.PubPatient;
 import com.pinde.sci.model.mo.PubProj;
@@ -88,6 +89,6 @@ public interface IPubProjBiz {
 	List<ReportForm> findReportForm(PubProj proj);
 
 	public List<PubPatient> searchPubProjListByPatientCode(String projFlow,
-			String patientCode, Map<String, PubProj> projMap);
+			String patientCode, Map<String, ProjInfoForm> projMap);
 
 }
