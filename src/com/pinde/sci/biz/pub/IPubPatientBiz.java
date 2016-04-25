@@ -80,5 +80,7 @@ public interface IPubPatientBiz {
 
 	PubPatient readPatientByCode(String projFlow, String patientCode);
 
+	List<PubPatient> searchPatientExt(PubPatient patient);
+
 }  
   

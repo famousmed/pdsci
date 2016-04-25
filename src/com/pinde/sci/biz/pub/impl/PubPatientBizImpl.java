@@ -91,6 +91,8 @@ public class PubPatientBizImpl implements IPubPatientBiz{
 	private IEdcGroupBiz groupBiz;
 	@Resource
 	private IEdcRandomBiz randomBiz;
+	@Resource
+	private PubPatientExtMapper patientExtMapper;
 	
 	@Override
 	public List<PubPatient> searchPatient(PubPatientExample example) {
@@ -360,6 +362,9 @@ public class PubPatientBizImpl implements IPubPatientBiz{
 			}
 			if(StringUtil.isNotBlank(patient.getProjFlow())){
 				criteria.andProjFlowEqualTo(patient.getProjFlow());
+			}
+			if(StringUtil.isNotBlank(patient.getPatientCode())){
+				criteria.andPatientCodeLike("%"+patient.getPatientCode()+"%");
 			}
 		}
 		example.setOrderByClause("in_date desc");
@@ -705,6 +710,19 @@ public class PubPatientBizImpl implements IPubPatientBiz{
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<PubPatient> searchPatientExt(PubPatient patient) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("projFlow", patient.getProjFlow());
+		param.put("orgFlow", patient.getOrgFlow());
+		if(StringUtil.isNotBlank(patient.getPatientCode())){ 
+			System.err.println( patient.getPatientCode().toUpperCase());
+			String patientCode = patient.getPatientCode().toUpperCase();
+			param.put("patientCode", patientCode); 
+		}
+		return patientExtMapper.searchPatient(param);
 	}
 }  
  
