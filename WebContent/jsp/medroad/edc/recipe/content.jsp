@@ -1,3 +1,5 @@
+
+<script type="text/javascript" src="<s:url value='/js/ajaxfileupload.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 <!-- 
 <script type="text/javascript" src="<s:url value='/jsp/medroad/js/jquery.mCustomScrollbar.concat.min.js'/>"></script>    
 <link rel="stylesheet" href="<s:url value='/jsp/medroad/css/jquery.mCustomScrollbar.css'/>">
@@ -15,7 +17,48 @@ function saveRecipe(){
 		$("."+'${visit.visitFlow}'+'_visitDate').html($("#visitDate").val());
 	},null,true);
 }
+function userRecipeFile(type){
+	$.ajaxFileUpload({
+		url:"<s:url value='/medroad/userRecipeFile'/>?filetype="+type+"&visitFlow=${visit.visitFlow}",
+		secureuri:false,
+		fileElementId:type+'File',
+		dataType: 'json',
+		success: function (data){
+			if(data=="${GlobalConstant.UPLOAD_SUCCESSED}"){
+				jboxTip('${GlobalConstant.UPLOAD_SUCCESSED}');
+				loadDetail('${visit.visitFlow}');
+			}else{
+				jboxTip('${GlobalConstant.UPLOAD_FAIL}');
+			}
+		},
+		error: function (data, status, e){
+			jboxTip('${GlobalConstant.UPLOAD_FAIL}');
+		},
+		complete:function(){
+			$("#imageFile").val("");
+		}
+	});
+}
+
+$(document).ready(function(){
+	$("li").on("mouseenter mouseleave",function(){
+		$(this).find("span").toggle();
+	});
+});
+function delRecipeFile(name,type,url){
+	jboxConfirm("确认删除  "+name+" ?",function(){
+		jboxGet("<s:url value='/medroad/delRecipeFile'/>?visitFlow=${visit.visitFlow}&type="+type+"&url="+url,null,function(resp){
+			if(resp=="${GlobalConstant.OPERATE_SUCCESSED}"){
+				jboxTip(resp);
+				loadDetail('${visit.visitFlow}');
+			}else{
+				jboxTip(resp);
+			}
+		},null,true);
+	});
+}
 </script>
+
 <div id="recipeContent" style="width: 100%;height: 100%;background-color: white;overflow: auto;">
 	<div class="main_hd" >
     <form id="recipeForm">
@@ -29,34 +72,90 @@ function saveRecipe(){
 	          </div>
 		 </div>
 		  <div class="index_form" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;" >
-	         <h3>检查内容</h3>
+	         <h3>处方用药</h3>
 	          <div style="border: 1px solid #ddd;border-top-width: 0px;">
-	          		<textarea name="doctorExplain" class="input" style="height: 100px;width: 650px;margin-top: 5px;margin-bottom: 5px;text-indent:0">${visitInfoMap.doctorExplain }</textarea>
+	          		<textarea name="doctorExplain" class="input" style="height: 100px;width: 630px;margin-top: 5px;margin-bottom: 5px;text-indent:0">${visitInfoMap.doctorExplain }</textarea>
 	          </div>
 		 </div>
 		 <div class="index_form" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;" >
-	         <h3>理化检查 </h3>
+	         <h3>检查单 <i id="js_ask_keys" class="icon18_common upload_gray " onclick="$('#labExamFile').click();" style="float: right;margin-top: 10px;cursor: pointer;"></i></h3>
 	          <div style="border: 1px solid #ddd;border-top-width: 0px;padding-left: 30px;">
-	         		 未上传
+	         		<c:choose>
+	         			<c:when test="${! empty visitInfoMap.labExam }">
+	         				<ul>
+	         					<c:forEach items="${visitInfoMap.labExam }" var="file">
+	         					<li><a href="${sysCfgMap['upload_base_url']}${fn:split(file,':')[1] }" target="_blank">${fn:split(file,':')[0] }</a>
+	         						<span style="display:none;float: right;margin-right: 20px;">
+										<a href="javascript:delRecipeFile('${fn:split(file,':')[0]}','labExam','${fn:split(file,':')[1] }');" style="color: gray;">删除</a>
+		            				</span>
+	         					</li>
+	         					</c:forEach>
+	         				</ul>
+	         			</c:when>
+	         			<c:otherwise>未上传</c:otherwise>
+	         		</c:choose>
 	          </div>
+	          <input type="file" id="labExamFile" name="recipeFile" style="display: none" onchange="userRecipeFile('labExam')"/>
 		 </div>
 		 <div class="index_form" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;" >
-	         <h3>病理 </h3>
+	         <h3>病理 <i id="js_ask_keys" class="icon18_common upload_gray " onclick="$('#blFile').click();" style="float: right;margin-top: 10px;cursor: pointer;"></i> </h3>
 	          <div style="border: 1px solid #ddd;border-top-width: 0px;padding-left: 30px;">
-	          	未上传
+	          	<c:choose>
+	         			<c:when test="${! empty visitInfoMap.bl }">
+	         				<ul>
+	         					<c:forEach items="${visitInfoMap.bl }" var="file">
+	         					<li><a href="${sysCfgMap['upload_base_url']}${fn:split(file,':')[1] }" target="_blank">${fn:split(file,':')[0] }</a>
+	         						<span style="display:none;float: right;margin-right: 20px;">
+										<a href="javascript:delRecipeFile('${fn:split(file,':')[0]}','bl','${fn:split(file,':')[1] }');" style="color: gray;">删除</a>
+		            				</span>
+	         					</li>
+	         					</c:forEach>
+	         				</ul>
+	         			</c:when>
+	         			<c:otherwise>未上传</c:otherwise>
+	         		</c:choose>
 	          </div>
+	          <input type="file" id="blFile" name="recipeFile" style="display: none" onchange="userRecipeFile('bl')"/>
 		 </div>
 		 <div class="index_form" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;" >
-	         <h3>影像 </h3>
+	         <h3>影像 <i id="js_ask_keys" class="icon18_common upload_gray " onclick="$('#pacsFile').click();" style="float: right;margin-top: 10px;cursor: pointer;"></i> </h3>
 	          <div style="border: 1px solid #ddd;border-top-width: 0px;padding-left: 30px;">
-	          	未上传
+	          	<c:choose>
+	         			<c:when test="${! empty visitInfoMap.pacs }">
+	         				<ul>
+	         					<c:forEach items="${visitInfoMap.pacs }" var="file">
+	         					<li><a href="${sysCfgMap['upload_base_url']}${fn:split(file,':')[1] }" target="_blank">${fn:split(file,':')[0] }</a>
+	         						<span style="display:none;float: right;margin-right: 10px;">
+										<a href="javascript:delRecipeFile('${fn:split(file,':')[0]}','pacs','${fn:split(file,':')[1] }');" style="color: gray;">删除</a>
+		            				</span>
+	         					</li>
+	         					</c:forEach>
+	         				</ul>
+	         			</c:when>
+	         			<c:otherwise>未上传</c:otherwise>
+	         		</c:choose>
 	          </div>
+	          <input type="file" id="pacsFile" name="recipeFile" style="display: none" onchange="userRecipeFile('pacs')"/>
 		 </div>
 		 <div class="index_form" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;margin-bottom: 20px;" >
-	         <h3>心电图 </h3>
+	         <h3>心电图  <i id="js_ask_keys" class="icon18_common upload_gray " onclick="$('#egFile').click();" style="float: right;margin-top: 10px;cursor: pointer;"></i></h3>
 	          <div style="border: 1px solid #ddd;border-top-width: 0px;padding-left: 30px;">
-	          		未上传
+	          		<c:choose>
+	         			<c:when test="${! empty visitInfoMap.eg }">
+	         				<ul>
+	         					<c:forEach items="${visitInfoMap.eg }" var="file">
+	         					<li><a href="${sysCfgMap['upload_base_url']}${fn:split(file,':')[1] }" target="_blank">${fn:split(file,':')[0] }</a>
+	         						<span style="display:none;float: right;margin-right: 20px;">
+										<a href="javascript:delRecipeFile('${fn:split(file,':')[0]}','eg','${fn:split(file,':')[1] }');" style="color: gray;">删除</a>
+		            				</span>
+	         					</li>
+	         					</c:forEach>
+	         				</ul>
+	         			</c:when>
+	         			<c:otherwise>未上传</c:otherwise>
+	         		</c:choose>
 	          </div>
+	           <input type="file" id="egFile" name="recipeFile" style="display: none" onchange="userRecipeFile('eg')"/>
 		 </div>
 		 <!-- 
 		  <div class="index_form" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;margin-bottom: 20px;" >

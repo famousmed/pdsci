@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" 	href="<s:url value='/jsp/medroad/css/base.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
 <script type="text/javascript">
 	function toPage(page) {
 		if(page){
@@ -8,13 +9,37 @@
 	function getInfo(patientFlow){
 		jboxOpen("<s:url value='/medroad/patientInfo'/>?patientFlow="+patientFlow,"受试者信息",1000,550);
 	}
-	
+	function searchPatients(){
+		var data = {
+				"patientCode":$("#patientCode").val(),
+				"projFlow":'${sessionScope.edcCurrProj.projFlow}',
+				"orgFlow":'${sessionScope.currUser.orgFlow}'
+		}
+		jboxPostLoad("content","<s:url value='/medroad/patientList'/>",data,true);
+	}
+	function EnterPress(e){ //传入 event
+		var e = e || window.event;
+		if(e.keyCode == 13){
+			searchPatients();
+		}
+	}
 </script>
 <div class="main_hd">
 	<h2 class="underline">受试者列表
+	<!-- 
 	<input type="button" style="float: right;margin-right: 10px;margin-top: 30px;" class="btn_green" onclick="addPatient();" value="受试者登记"></input>
+	 -->
 	</h2>
-	
+	<div class="extra_info search_bar" id="searchBar"><span class="frm_input_box search with_del append ">
+	    <a class="del_btn jsSearchInputClose" href="javascript:searchPatients();" style="display:">
+	        <i class="icon16_common search_gray"></i>&nbsp;
+	    </a>
+	    <a href="javascript:addPatient();" class="frm_input_append jsSearchInputBt">
+	    	<i class="icon16_common add_gray" title="添加受试者" >添加受试者</i>&nbsp;
+	    </a>
+	    <input type="text" class="frm_input jsSearchInput" id="patientCode" onkeypress="EnterPress(event)" onkeydown="EnterPress()"  value="${param.patientCode }" placeholder="受试者编号/姓名">
+		</span>
+	</div>
 </div>
 <div class="main_bd" id="div_table_0" >
     <div class="div_table">
