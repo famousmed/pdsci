@@ -33,7 +33,7 @@ function checkForm(){
 	return true;
 }
 </script>
-<title>医路临床科研信息化管理系统 | Enso</title>
+<title>${applicationScope.sysCfgMap['sys_title_name']}</title>
 <script Language=JavaScript> 
      function Click(){ 
      alert('江苏法迈生医学科技有限公司版权所有'); 
@@ -43,12 +43,12 @@ function checkForm(){
 </script>
 </head>
 <style>
-.enso{background: #EAEAEA url(<s:url value='/css/img/medroad.jpg' />) no-repeat top center;}
+.enso{background: #EAEAEA url(<s:url value='/css/img/aidi.jpg' />) no-repeat top center;}
 </style>
 <body class="enso">
 <div class="m">
 <div class="bg">
-<div class="bgt">真实世界研究-RWS</div>
+<div class="bgt">艾迪注射液10万例真实世界研究系统</div>
 <div class="bgform">
 <form name="loginForm" action="<s:url value='/inx/enso/login'/>" method="post">
 <table align="left" cellpadding="0" cellspacing="0">
@@ -87,7 +87,7 @@ function checkForm(){
 	</form>
     </div>
 </div>
-<div class="footer">Copyright © 医路临床科研信息化管理系统 江苏法迈生医学科技有限公司 All rights reserved. v2015.1</div>
+<div class="footer">Copyright © 医路Medroad <a href="http://www.famousmed.cn" target="_blank">江苏法迈生医学科技有限公司</a> All rights reserved. v1.0</div>
 </div>
 </body>
 </html>
