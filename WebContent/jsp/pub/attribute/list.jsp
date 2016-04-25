@@ -6,7 +6,7 @@
 
 <script type="text/javascript">
 	function editAttr(attrCode){
-		jboxOpen("<s:url value='/pub/module/editAttr'/>?attrCode="+attrCode+"&moduleCode=${element.moduleCode}", "属性维护", 600, 600);
+		jboxOpen("<s:url value='/pub/module/editAttr'/>?attrCode="+attrCode+"&moduleCode=${element.moduleCode}", "属性维护", 850, 500);
 	}
 	function deleteAttr(attrFlow,attrCode){
 		jboxGet("<s:url value='/pub/module/delAttrConfirm'/>?attrCode="+attrCode,null,function(resp){

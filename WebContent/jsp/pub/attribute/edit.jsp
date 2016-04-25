@@ -103,9 +103,10 @@
 		   }
 	</script>
 	
-	<div style="margin-top: 25px;height:100%;"  class="mainright"  >
-	<form id="attrForm" style="padding-left: 30px;">
-   		 		<table class="mation" style="width: 520px"  >
+	<div style="height:100%;"  class="mainright"  >
+	<div style="float: left;">
+	<form id="attrForm" style="padding-left: 10px;">
+   		 		<table class="mation">
    		 					<tr>
    		 						<td style="text-align: right" width="100px">元素名称：</td>
    		 						<td>${element.elementName }</td>
@@ -180,10 +181,24 @@
 				     				</select>
 				     			</td>
 							</tr>
+							<tr>
+								<td style="text-align: right" width="100px">单位：</td>
+								<td style="text-align: left; padding-left: 5px" >
+				     				<input    style="width: 150px" name="attrUnit" type="text" value="${attr.attrUnit}" />
+				     			</td>
+							</tr>
+							<tr>
+								<td style="text-align: right" width="100px">备注：</td>
+								<td style="text-align: left; padding-left: 5px" >
+				     				<input  style="width: 150px" name="attrNote" type="text" value="${attr.attrNote}" />
+				     			</td>
+							</tr>
                             </table>
                             </form>
+                            </div>
+                            <div style="float: left;">
                             <form id="attrCodeForm" style="padding-left: 30px;">
-							<fieldset style="width: 500px"  class="mation" >
+							<fieldset  class="mation" >
 								<legend>属性代码[<a href="javascript:addTr();">新增</a>]
 								<c:if test="${module.moduleTypeId == GlobalConstant.MODULD_TYPE_LB }">
 								[<a href="javascript:addStandardUnit();">单位代码</a>]
@@ -191,7 +206,7 @@
 								</legend>
 									<table>
 										<thead>
-										<tr><th width="50px">序号</th><th width="100px">代码值</th><th width="200px">代码描述</th><th width="80px">操作</th></tr>
+										<tr><th width="50px">序号</th><th width="100px">代码值</th><th width="150px">代码描述</th><th width="80px">操作</th></tr>
 										</thead>
 										<tbody  id="attrCodeTable">
 											<c:forEach items="${ attrCodeList}" var="code">
@@ -199,8 +214,8 @@
 													<td><input type="text" style="width: 30px" class="validate[custom[number]] text" name="ordinal" value="${code.ordinal }"/>
 													 <input type="hidden" name="codeFlow" value="${code.codeFlow }"/>
 													</td>
-													<td><input type="text"  style="width: 80px" class="validate[required] text" name="codeValue" value="${code.codeValue }"/></td>
-													<td><input type="text"  style="width: 180px" class="validate[required] text" name="codeName" value="${code.codeName }"/></td>
+													<td><input type="text"   class="validate[required] text" name="codeValue" value="${code.codeValue }"/></td>
+													<td><input type="text"   class="validate[required] text" name="codeName" value="${code.codeName }"/></td>
 													<td> [<label onclick="delAttrCode('${code.codeFlow}','${code.attrCode}','${code.codeValue}',this)" style="color:blue" >删除</label>]</td>
 												</tr>
 											</c:forEach>
@@ -212,12 +227,13 @@
 									<input type="button" class="search"  value="关&#12288;闭" onclick="jboxClose();"> 
 							</div>
              </form>
+             </div>
    </div>
    <table style="display: none" id="template">
  <tr >
 	   		<td ><input type="text" style="width: 30px" class="validate[custom[number]] text" name="ordinal" value=""/></td>	  
 			<td ><input type="text"  style="width: 80px" class="validate[required] text" name="codeValue" value=""/></td>
-			<td ><input type="text"  style="width: 180px" class="validate[required] text" name="codeName" value=""/></td>
+			<td ><input type="text"  style="width: 120px" class="validate[required] text" name="codeName" value=""/></td>
 			<td>	
 				  [<label onclick="delEmptyTr(this)" style="color:blue" >删除</label>]
 			</td>
