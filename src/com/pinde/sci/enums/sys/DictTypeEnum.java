@@ -142,7 +142,7 @@ public enum DictTypeEnum implements GeneralEnum<String> {
 	DoctorTrainingSpe("DoctorTrainingSpe","培训专业","sch,res"),
 	DoctorSessionNumber("DoctorSessionNumber","届数","sch,res"),
 	ExamSite("ExamSite","考点","res"),
-	InfoColumn("InfoColumn","通知栏目","res"),
+	InfoColumn("InfoColumn","通知栏目","edc,res"),
 	TeachType("TeachType","教学形式","res"),
 	StandardDept("StandardDept","标准科室","res",3),
 	ResGroup("ResGroup","组别","res"),
