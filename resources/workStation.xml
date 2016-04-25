@@ -362,6 +362,7 @@
 	<workStation id='edc' name="临床科研管理系统">
 		<module id='xtpz' name="系统配置">
 			<menuset id="xmxx" name="项目信息">
+			<menu id="tzgg" name="科教通知" url="/res/platform/notice/charge"></menu>
 				<menu id="xmwh" name="项目维护" url="/edc/proj/list"></menu>
 				<menu id="jgwh" name="机构维护" url="/sys/org/list"></menu>
 				<menu id="rywh" name="人员维护" url="/sys/user/list/global"></menu>
