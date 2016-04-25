@@ -7,7 +7,7 @@ public enum EdcRandomTypeEnum implements GeneralEnum<String> {
 	
 	
 	Dynamic("Dynamic","动态随机"),
-	BlockCompetition("BlockCompetition","区组竞争随机")
+	BlockCompetition("BlockCompetition","区组竞争随机"),
 	;
 
 	private final String id;
