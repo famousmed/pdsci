@@ -22,7 +22,10 @@ public interface IPubPatientWindowBiz {
 
 	PubPatientWindow readPatientWindow(String patientFlow, String visitFlow);
 
-	List<PubPatientWindow> searchRemaind(String projFlow, String orgFlow); 
+	List<PubPatientWindow> searchRemaind(String projFlow, String orgFlow);
+
+	List<PubPatientWindow> searchPatientWindowByPatientFlows(String projFlow,
+			String patientFlow); 
 
 }  
   

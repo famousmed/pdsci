@@ -131,5 +131,15 @@ public class PubPatientWindowBizImpl implements IPubPatientWindowBiz{
 		return windowMapper.selectByExample(example);
 	}
 
+	@Override
+	public List<PubPatientWindow> searchPatientWindowByPatientFlows(
+			String projFlow, String patientFlow) {
+		PubPatientWindowExample example = new PubPatientWindowExample();
+		example.createCriteria().andProjFlowEqualTo(projFlow).andPatientFlowEqualTo(patientFlow).andWindowVisitLeftIsNotNull()
+		.andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
+		example.setOrderByClause("VISIT_DATE");
+		return windowMapper.selectByExample(example);
+	}
+
 }  
  

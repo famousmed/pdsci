@@ -306,12 +306,12 @@ public class PubProjBizImpl implements IPubProjBiz{
 	public List<PubPatient> searchPubProjListByPatientCode(String projFlow,
 			String patientCode,Map<String,ProjInfoForm> projMap) {
 		PubPatientExample example = new PubPatientExample();
-		example.createCriteria().andPatientCodeEqualTo(patientCode).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId());
+		example.createCriteria().andPatientCodeEqualTo(patientCode).andPatientTypeIdEqualTo(PatientTypeEnum.Real.getId()).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
 		example.setOrderByClause("in_date desc");
 		List<PubPatient> patientList = patientBiz.searchPatient(example);
 		for(PubPatient patient : patientList){
 			ProjInfoForm form = new ProjInfoForm();
-			PubProj proj = projMapper.selectByPrimaryKey(patient.getProjFlow());
+			PubProj proj = projMapper.selectByPrimaryKey(patient.getProjFlow()); 
 			form.setProj(proj);
 			
 			String projInfo = proj.getProjInfo();
