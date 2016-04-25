@@ -108,7 +108,7 @@ public class InputBizImpl implements IInputBiz{
 			String patientFlow) {
 		PubPatientVisitExample example = new PubPatientVisitExample();
 		example.createCriteria().andProjFlowEqualTo(projFlow).andVisitFlowEqualTo(visitFlow).andPatientFlowEqualTo(patientFlow).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
-		List<PubPatientVisit> pvList = patientVisitMapper.selectByExample(example);
+		List<PubPatientVisit> pvList = patientVisitMapper.selectByExampleWithBLOBs(example);
 		if(pvList!=null && pvList.size()>0){
 			return pvList.get(0);
 		}
