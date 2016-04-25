@@ -1,0 +1,137 @@
+/* CSS Document */
+/*初始化*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+img{border:0; font-size:0;}
+button,input,select,textarea{font-size:100%; font-family:inherit}
+ul,ol{list-style:none;}
+html,body{ font:14px/22px "微软雅黑","Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif; color:#333; background:#f2f2f2 url(../images/bg.jpg) repeat-x; -webkit-text-size-adjust:none;}
+a{color:#558abe;text-decoration:none;}
+
+/*全局样式*/
+.clear{ clear:both; height:0; margin:0; padding:0; font-size:0; overflow:hidden;}
+.clearfix:after{ content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{*zoom:1;}
+.fl{ float:left;}
+.fr{ float:right;}
+.clear{ clear:both;}
+.inner{ width:1024px; margin:0 auto; position:relative;zoom:1;}
+.button{  outline: none; text-align: center;  padding: .6em 3em .65em; -webkit-border-radius: .5em; -moz-border-radius: .5em; border-radius: .5em;  border:1px solid #d7d6db; background:#e7e6eb; color:#666; margin:0 15px;transition: background 0.5s;-moz-transition: background 0.5s;-webkit-transition: background 0.5s;-o-transition: background 0.5s; }
+.none{ display:none;}
+.button:hover{ background:#dbdadf;}
+.button-blue{ background:#55b2e4; border:1px solid #4fa7d6; color:#fff;transition: background 0.5s;-moz-transition: background 0.5s;-webkit-transition: background 0.5s;-o-transition: background 0.5s;}
+.button-blue:hover{background:#4ca2cf;}
+
+.top{ height:70px;width:1022px; margin:0 auto; margin:0 auto; color:#fff;  line-height:100px;  font-size:36px; overflow:hidden;}
+.content{ width:1200px; border:1px solid #d9dadc; background:#fff; margin:24px auto 60px;}
+.step{background:#d9dadc; height:45px; border-bottom:1px solid #d9dadc; position:relative;}
+.step a{ position:absolute;width:254px; height:46px; line-height:46px; text-align:center;color:#6b6b6b; background:url(../images/step.png) no-repeat}
+
+.step .step1{ width:253px; left:0; top:-1px; background-position:-1px 0; text-align:center; }
+.step .step1.active1{ width:254px;left:-1px; top:-1px; background-position:0 -46px; color:#fff;}
+
+.step .step2{left:239px; top:-1px;background-position:-254px 0px;}
+.step .step2.active2{ background-position:-254px -46px;color:#fff;}
+
+.step .step3{left:479px;top:-1px;background-position:-254px 0px;}
+.step .step3.active3{background-position:-254px -46px;color:#fff;}
+
+.step .step4{left:719px;top:-1px;background-position:-254px 0px;}
+.step .step4.active4{background-position:-254px -46px;color:#fff;}
+
+.step .step5{ width:241px; right:0;top:-1px;background-position:-508px 0px;}
+.step .step5.active5{width:242px; right:-1px;background-position:-508px -46px;color:#fff;}
+
+/*第一步*/
+.firstStep{ padding:40px 0;}
+.firstStep .left{ width:412px; padding:0 144px; border-right:1px solid #d6d7d9;}
+.firstStep .right{ width:499px; text-align:center;line-height:70px;}
+.firstStep .left>p{ text-indent:35px; background:url(../images/info.png) no-repeat left 20px; color:#000; line-height:70px; }
+.firstStep .left dl{ overflow:hidden; margin-top:20px;}
+.firstStep .left dl dt{ width:70px; float:left; line-height:30px;}
+.firstStep .left dl .import{ width:320px; float:right; }
+.firstStep .left dl .import input{ padding-left:5px; border:1px solid #d6d7d9; height:30px; line-height:30px; width:313px; outline:none;}
+.firstStep .left dl .import img{ vertical-align:-11px; +vertical-align:-3px;padding:0 5px;}
+.firstStep .left dl .import .yzm{ width:98px;}
+.firstStep .left dl .message{float:left; width:310px; padding-left:70px; margin-top:5px;}
+.firstStep .left dl .message span{ color:#c00; line-height:32px;}
+.firstStep .left dl .message p{ color:#999;}
+.firstStep .left .agree{ text-indent:70px;padding:40px 0;border-bottom:1px solid #d6d7d9;}
+.firstStep .left .agree input{ vertical-align:-2px; margin-right:3px; }
+.buts{ padding:30px 0; text-align:center;}
+/*第二步*/
+.secondStep{ padding:40px 210px;  min-height:576px;}
+.secondStep dd{ width:550px; padding-top:5px; padding-left:10px;}
+.secondStep dd p{ color:#999;}
+.secondStep .buts{ margin-left:52px; margin-top:10px; text-align:left;}
+.secondStep .buts .button{ margin:0}
+.secondStep .noEamil{margin-left:52px; margin-top:30px;}
+/*第三步*/
+.thirdStep{ padding:40px;  min-height:576px;}
+.thirdStep span{ line-height:60px; }
+.thirdStep li{ float:left; width:258px; margin: 0 10px; border:1px solid #d6d7d9; cursor:pointer;}
+.thirdStep li:hover{ border:1px solid #6CF; box-shadow:0 0 3px #6CF}
+.thirdStep li h3{ line-height:48px; text-indent:55px;  font-size:16px; margin:20px 12px 12px; font-weight:normal; background:url(../images/typeIcons1.png) no-repeat;}
+.thirdStep li .type2{ background:url(../images/typeIcons2.png) no-repeat;}
+.thirdStep li .type3{ background:url(../images/typeIcons3.png) no-repeat;}
+.thirdStep li .type4{ background:url(../images/typeIcons4.png) no-repeat;}
+.thirdStep li p{ color:#999;margin:0 12px; padding-bottom:20px; min-height:150px;}
+.thirdStep li a{ display:block; line-height:42px; background:#fbfbfb url(../images/go.png) no-repeat  235px 16px; text-align:right; padding-right:30px; border-top:1px solid #d6d7d9;}
+/*第四步*/
+.fourthStep{ padding:40px 0;}
+.fourthStep h3{ border-bottom:1px solid #e7e7eb; line-height:48px; font-weight:normal; margin:0 135px 30px; color:#f60;}
+.fourthStep h3:first-child{margin-bottom:0;}
+.fourthStep>p,.fourthStep ul{ margin:5px 135px 10px;}
+.fourthStep dl{margin:0 135px 24px;}
+.fourthStep dt{ width:130px; float:left; line-height:32px;}
+.fourthStep .import{ float:left;}
+.fourthStep .import input{ width:293px; vertical-align: middle;padding:0 4px; font-family:'微软雅黑';border:1px solid #e7e7eb; height:30px; line-height:30px; outline:none;}
+.fourthStep .import p{/*width:178px;*/ height:30px; line-height:30px;}
+.fourthStep .import select{ width:178px;outline:none;border: 1px solid #e7e7eb;height: 30px; }
+.fourthStep .import .fileStyle{ border:none;}
+.fourthStep .message{ float:left; width:360px; margin-left:30px; line-height:32px; color:#999;}
+.fourthStep .message_1{padding-left: 131px;line-height: 32px;float: left;}
+.fifthStep{ min-height:660px; height:100%; text-align:center; padding:60px 0;}
+.fifthStep img{ margin:50px auto 0; display:block;}
+/*mail.html*/
+.mail{ margin:0 70px; text-align:center; color:#636363; padding-bottom:260px;}
+.mail h3{ color:#000; text-align:left; height:60px; font-size:24px; font-weight:normal; line-height:60px; border-bottom:1px dashed #ddd; text-indent:60px; background:url(../images/mail.png) no-repeat 20px 14px; margin-bottom:150px;}
+.mail h4{ font-weight:normal; font-size:20px; line-height:26px; margin-top:30px;}
+.mail p{ line-height:28px;}
+.mail b{ color:#c00; font-weight:normal;}
+.mail input{ margin:30px 0;}
+.footer{  height:58px; background:#b8b9b9;color:#eee; text-align:center; line-height:58px;}
+/*notPass.html*/
+.notPass{ text-align:center; min-height:580px; height:100%; padding:60px 0;}
+.notPass_left{ width:55%; display:inline-block;height: 100%;vertical-align: middle;}
+.notPass_left img{vertical-align: middle; margin-top:80px;}
+.notPass_right{ float:right; width:44%; min-height: 580px; display:inline-block; background:url(../images/reg_line.png) repeat-y;}
+.notPass_right img{ vertical-align: middle; display:inline-block;}
+.notPass p{ line-height:40px;  min-height:300px; width:80%;margin: 50px auto 0;text-align: left; }
+.notPass input { margin-top:30px;}
+.wjpsw h3,.zhpsw h3{ height:45px; border-bottom:1px solid #ccc; line-height:45px; font-size:18px; text-align:left; font-weight:normal; color:#666; margin:0 20px 100px;}
+.wjpsw .txt{ width: 298px;border: 1px solid #e7e7eb;  height: 36px; line-height: 30px; outline: none; text-indent:10px; color:#999;margin-top:0px;}
+.wjpsw .button{ cursor:pointer;margin-top:0px;}
+.zhpsw th{ font-size:16px;}
+.zhpsw{ text-align:center;}
+.zhpsw table{ width:420px; margin:100px  auto 0;}
+.zhpsw table th{ text-align:right; padding-right:10px; height:50px; width:70px;}
+.zhpsw .txt{ margin-top: 0px;width: 200px;border: 1px solid #e7e7eb;  height: 30px; line-height: 30px; outline: none; text-indent:10px;}
+.zhpsw .button{ margin-top:30px; cursor:pointer;}
+.yw{ background:url(../images/yw.png) no-repeat center 9px;}
+/*忘记密码样式*/
+.reg_title{
+	margin: 0px 0px 10px 30px; 
+	color:#1595d4; 
+	padding-top: 20px;
+	font-size: 22px; 
+	font-weight: bold;
+}
+.line{
+	padding:0 0 10px 30px;
+	color:#999999;
+	border-bottom:1px dashed #dadada;
+}
+.line_c{
+	color:#f80;
+}
