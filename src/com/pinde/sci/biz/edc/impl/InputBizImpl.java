@@ -2,6 +2,8 @@ package com.pinde.sci.biz.edc.impl;
 
 
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +12,17 @@ import java.util.TreeMap;
 
 import javax.annotation.Resource;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pinde.core.util.DateUtil;
+import com.pinde.core.util.PkUtil;
 import com.pinde.core.util.StringUtil;
 import com.pinde.sci.biz.edc.IInputBiz;
 import com.pinde.sci.biz.edc.IProjOrgBiz;
@@ -23,6 +31,7 @@ import com.pinde.sci.biz.pub.IPubPatientBiz;
 import com.pinde.sci.common.GeneralMethod;
 import com.pinde.sci.common.GlobalConstant;
 import com.pinde.sci.common.GlobalContext;
+import com.pinde.sci.common.InitConfig;
 import com.pinde.sci.dao.base.EdcPatientVisitDataMapper;
 import com.pinde.sci.dao.base.EdcPatientVisitMapper;
 import com.pinde.sci.dao.base.EdcProjParamMapper;
@@ -128,7 +137,7 @@ public class InputBizImpl implements IInputBiz{
 	@Override
 	public void modifyPatientVisit(PubPatientVisit pateintVisit) {
 		GeneralMethod.setRecordInfo(pateintVisit, false);
-		patientVisitMapper.updateByPrimaryKeySelective(pateintVisit);
+		patientVisitMapper.updateByPrimaryKeyWithBLOBs(pateintVisit);
 	}
 
 	@Override
@@ -419,6 +428,123 @@ public class InputBizImpl implements IInputBiz{
 		visitMap.put(EdcInputStatusEnum.Submit.getId(), submitCount);
 		visitMap.put(EdcInputStatusEnum.Checked.getId(), checkedCount);
 		return visitMap;
+	}
+
+	@Override
+	public void uploadPatientVisitFile(PubPatientVisit pateintVisit, String filetype,MultipartFile file) {
+		 if (file != null) {
+	            List<String> mimeList = new ArrayList<String>();
+
+	            String fileType = file.getContentType();//MIME类型;
+	            String fileName = file.getOriginalFilename();//文件名
+	            String suffix = fileName.substring(fileName.lastIndexOf("."));//后缀名
+	           
+	            try {
+	                /*创建目录*/
+	                String dateString = DateUtil.getCurrDate2();
+	                String newDir = StringUtil.defaultString(InitConfig.getSysCfg("upload_base_dir")) + File.separator + "visitFile" + File.separator + dateString;
+	                File fileDir = new File(newDir);
+	                if (!fileDir.exists()) {
+	                    fileDir.mkdirs();
+	                }
+	                /*文件名*/
+	                fileName = file.getOriginalFilename();
+	                fileName = PkUtil.getUUID() + fileName.substring(fileName.lastIndexOf("."));
+	                File newFile = new File(fileDir, fileName);
+	                file.transferTo(newFile);
+	                
+	                
+	                String fileUrl = "visitFile/" + dateString + "/" + fileName;
+	                String visitInfo = createVisitInfoXml(pateintVisit.getVisitInfo(),filetype,file.getOriginalFilename(),fileUrl,false);
+	                pateintVisit.setVisitInfo(visitInfo);
+	                
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	}
+	
+	@Override
+	public String createVisitInfoXml(String visitInfo,String name,String value,String url,boolean isSingle){
+		Document document = null;
+		Element rootElement = null;
+		try {
+			if(StringUtil.isNotBlank(visitInfo)){
+				document = DocumentHelper.parseText(visitInfo);
+				rootElement = document.getRootElement();
+			}else{
+				document = DocumentHelper.createDocument();
+				rootElement = document.addElement("visitInfo");
+			}
+			Element item = (Element) rootElement.selectSingleNode("item[@name='"+name+"']");
+			if(item==null){
+				item = rootElement.addElement("item");
+				item.addAttribute("name",name);
+			}
+			if(isSingle){
+				item.setText(value);
+			}else {
+				Element valueEle =	item.addElement("value");
+				valueEle.setText(value);
+				if(StringUtil.isNotBlank(url)){
+					valueEle.addAttribute("url", url);
+				}
+			
+			}
+			
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		return document.asXML();
+	}
+	@Override
+	public Map<String,Object> createVisitInfoMap(String visitInfo){
+		Map<String,Object> visitInfoMap = null;
+		if(StringUtil.isNotBlank(visitInfo)){
+			visitInfoMap = new HashMap<String,Object>();
+			try {
+				Document document = DocumentHelper.parseText(visitInfo);
+				Element root = document.getRootElement();
+				List<Element> items = root.elements("item");
+				if(items!=null && items.size()>0){
+					for(Element element : items){
+						List<Element> valueEles = element.elements("value");
+						if(valueEles!=null && valueEles.size()>0){ 
+							List<String> values = new ArrayList<String>();
+							for(Element ele : valueEles){
+								values.add(ele.getText()+":"+ele.attributeValue("url"));
+							}
+							visitInfoMap.put(element.attributeValue("name"),values);
+						}else {
+							visitInfoMap.put(element.attributeValue("name"),element.getText());
+						}
+					}
+				}
+			} catch (DocumentException e) {
+				e.printStackTrace();
+			}
+		}
+		return visitInfoMap;
+	}
+
+	@Override
+	public void delRecipeFile(PubPatientVisit pateintVisit,String type, String url) {
+		String visitInfo = pateintVisit.getVisitInfo();
+		try {
+			Document document = DocumentHelper.parseText(visitInfo);
+			Element rootElement = document.getRootElement();
+			System.err.println(type);
+			System.err.println(url);
+			Element item = (Element) rootElement.selectSingleNode("item[@name='"+type+"']/value[@url='"+url+"']");
+			System.err.println("item="+item); 
+			if(item!=null){
+				item.detach();
+			}
+			pateintVisit.setVisitInfo(document.asXML());
+			modifyPatientVisit(pateintVisit);
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 	}
 }  
  

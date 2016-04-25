@@ -3,6 +3,8 @@ package com.pinde.sci.biz.edc;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.pinde.sci.form.edc.EdcPatientVisitDataForm;
 import com.pinde.sci.model.edc.PatientVisitForm;
 import com.pinde.sci.model.mo.EdcPatientVisit;
@@ -84,6 +86,15 @@ public interface IInputBiz {
 	List<PubPatientVisit> searchPatientVisit(String projFlow, String orgFlow);
 
 	Map<String, String> searchEdcPatientVistMap(String projFlow);
+
+	void uploadPatientVisitFile( PubPatientVisit pateintVisit, String filetype,MultipartFile file);
+
+	String createVisitInfoXml(String visitInfo, String string,
+			String value,String attr,boolean isSingle);
+
+	Map<String, Object> createVisitInfoMap(String visitInfo);
+
+	void delRecipeFile(PubPatientVisit pateintVisit,String type, String url);
 
 }   
   
