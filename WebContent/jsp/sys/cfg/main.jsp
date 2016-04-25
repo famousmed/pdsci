@@ -73,7 +73,7 @@ function initUE(id){
 					<a id="systemCfg" onclick="selectTag(this,'<s:url value='/sys/cfg/edit'/>?tagId=systemCfg')" href="javascript:void(0)">系统设置</a>
 				</li>
 				<li>
-					<a id="emailWeixin" onclick="selectTag(this,'<s:url value='/sys/cfg/edit'/>?tagId=emailWeixin')" href="javascript:void(0)">邮件/微信</a>
+					<a id="emailWeixin" onclick="selectTag(this,'<s:url value='/sys/cfg/edit'/>?tagId=emailWeixin')" href="javascript:void(0)">邮件/短信/微信</a>
 				</li>
 				<li>
 					<a id="editorCfg" onclick="selectTag(this,'<s:url value='/sys/cfg/edit'/>?tagId=editorCfg')" href="javascript:void(0)">编辑器</a>

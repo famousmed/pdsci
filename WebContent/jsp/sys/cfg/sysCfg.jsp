@@ -31,6 +31,9 @@ $(document).ready(function(){
 	jboxGet("<s:url value='/sys/cfg/getErrorMsg'/>?msgTypeId=${msgTypeEnumWeixin.id}",null,function(resp){
 		$("#weixinErrorCount").html(resp);
 	},null,false);
+	jboxGet("<s:url value='/sys/cfg/getErrorMsg'/>?msgTypeId=${msgTypeEnumSms.id}",null,function(resp){
+		$("#smsErrorCount").html(resp);
+	},null,false);
 });
 </script>
 <c:if test="${'systemCfg'==param.tagId }">
@@ -326,6 +329,34 @@ $(document).ready(function(){
 </c:if>
 <c:if test="${'emailWeixin'==param.tagId }">
 <fieldset>
+<legend>短信相关配置</legend>
+<table class="xllist">
+	<thead>
+		<tr>
+			<th width="20%">配置项</th>
+			<th width="80%">配置内容</th>
+		</tr>
+	</thead>
+	<tr>
+		<td style="text-align: right" width="100px">系统发送短信开关：</td>
+		<td style="text-align: left;padding-left: 5px" width="200px">
+				<input type="hidden" name="cfgCode" value="sys_sysSmsSendJob">
+				<input type="radio"  name="sys_sysSmsSendJob" value="Y" <c:if test="${sysCfgMap['sys_sysSmsSendJob']=='Y'}">checked="checked"</c:if> />开
+				<input type="radio"  name="sys_sysSmsSendJob" value="N" <c:if test="${sysCfgMap['sys_sysSmsSendJob']=='N'}">checked="checked"</c:if> />关
+				<input type="hidden" name="sys_sysSmsSendJob_ws_id"  value="sys">		
+				<input type="hidden" name="sys_sysSmsSendJob_desc"  value="系统发送短信开关">		
+		</td>
+	</tr>
+	
+	<tr>
+		<td style="text-align: right" width="100px">发送状态：</td>
+		<td style="text-align: left;padding-left: 5px" width="200px">
+		未发送短信数：<span id="smsErrorCount"></span>&#12288;&#12288;未发送邮件数：<span id="emailErrorCount"></span>&#12288;&#12288;	未发送微信数：<span id="weixinErrorCount"></span>
+		</td>
+	</tr>
+</table>
+</fieldset>
+<fieldset>
 <legend>邮件相关配置 <input class="search" type="button" value="测&#12288;试" onclick="testEmail();" /></legend>
 <table class="xllist">
 	<thead>
@@ -390,12 +421,6 @@ $(document).ready(function(){
 				<input type="text" class="xltext" name="sys_mail_max_error_times"  value="${sysCfgMap['sys_mail_max_error_times']}" style="width: 200px;"/>
 				<input type="hidden" name="sys_mail_max_error_times_ws_id"  value="sys">		
 				<input type="hidden" name="sys_mail_max_error_times_desc"  value="最大允许错误发送次数">		
-		</td>
-	</tr>
-	<tr>
-		<td style="text-align: right" width="100px">发送状态：</td>
-		<td style="text-align: left;padding-left: 5px" width="200px">
-		未发送邮件数：<span id="emailErrorCount"></span>&#12288;&#12288;&#12288;&#12288;	未发送微信数：<span id="weixinErrorCount"></span>
 		</td>
 	</tr>
 </table>
