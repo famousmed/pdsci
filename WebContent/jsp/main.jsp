@@ -202,7 +202,12 @@ function resizeWin() {
 					<div class="top">
 						<p class="tleft">
 							<c:if test="${sessionScope.currWsId==GlobalConstant.EDC_WS_ID}">
-								<img src="<s:url value='/css/skin/${skinPath}/images/sci_head.png'/>" />
+								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='pharmasun'}">
+									<img src="<s:url value='/css/skin/${skinPath}/images/sci_head.png'/>" />
+								</c:if>
+								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='medroad'}">
+									<img src="<s:url value='/css/skin/${skinPath}/images/medroad_head.png'/>" />
+								</c:if>
 							</c:if>
 								<c:if test="${sessionScope.currWsId==GlobalConstant.GCP_WS_ID}">
 								<img src="<s:url value='/css/skin/${skinPath}/images/gcp_head.png'/>" />
