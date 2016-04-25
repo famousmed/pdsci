@@ -52,7 +52,7 @@ div{display:block;}
   </div>
   
   <div class="footer">
-  技术支持：南京品德网络信息技术有限公司
+  技术支持：江苏法迈生医学科技有限公司
   </div>
 <div class="mainright">
 	<div class="content">
