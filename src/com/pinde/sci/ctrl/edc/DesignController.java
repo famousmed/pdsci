@@ -259,6 +259,8 @@ public class DesignController extends GeneralController{
 		targetAttr.setInputTypeId(pubAttr.getInputTypeId());
 		targetAttr.setInputTypeName(pubAttr.getInputTypeName());
 		targetAttr.setIsViewName(pubAttr.getIsViewName());
+		targetAttr.setAttrUnit(pubAttr.getAttrUnit());
+		targetAttr.setAttrNote(pubAttr.getAttrNote());
 		targetAttr.setOrdinal(pubAttr.getOrdinal());
 	}
 
