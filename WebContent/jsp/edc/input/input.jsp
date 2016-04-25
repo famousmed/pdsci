@@ -198,7 +198,7 @@ function disInput(){
 	$("select").each(function(i){
 		  $(this).attr("disabled",true);
 	 });
-	$("img").each(function(i){			//多次录入元素的新增删除不可操作
+	$("img[class!='actionImg']").each(function(i){			//多次录入元素的新增删除不可操作
 		  $(this).attr("onclick",false);
 	 });
 	$("#visitFlow").attr("disabled",false);	//访视名称切换
@@ -397,6 +397,9 @@ function expAll(){
 function cosAll(){
 	$(".moduleBody").hide();
 }
+function showPatientCase(){
+	jboxOpen("<s:url value='/edc/input/showPatientCase'/>","病例查看",600,500);
+}
 </script>
 <style>
 .select2{height: 25px; line-height: 25px; padding: 0 3px; border: 1px solid #bdbebe; margin-right: 20px;  cursor: pointer;}
@@ -425,8 +428,9 @@ function cosAll(){
 			     			<span><input type="button" value="返&#12288;回" id="backBtn" class="search" onclick="doBack();"  /></span>
 						
 						<span style="float: right;padding-right: 2.5%">
-			     	<img style="cursor: pointer;" title="全部展开" onclick="expAll();" src="<s:url value='/css/skin/${skinPath}/images/arrow_expand.png'/>"/>
-			     	<img style="cursor: pointer;" title="全部收缩" onclick="cosAll();" src="<s:url value='/css/skin/${skinPath}/images/arrow_contract.png'/>"/>
+					<img style="cursor: pointer;" class="actionImg" onclick="showPatientCase();" src="<s:url value='/css/skin/${skinPath}/images/camera.png'/>"/>
+			     	<img style="cursor: pointer;"  class="actionImg" title="全部展开" onclick="expAll();" src="<s:url value='/css/skin/${skinPath}/images/arrow_expand.png'/>"/>
+			     	<img style="cursor: pointer;"  class="actionImg" title="全部收缩" onclick="cosAll();" src="<s:url value='/css/skin/${skinPath}/images/arrow_contract.png'/>"/>
 			     	</span>
 						<br/><br/>
 			     	&#12288;&#12288;受试者信息：&#12288;序号
