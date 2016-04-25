@@ -308,6 +308,22 @@ function modCodeNewLine(attrFlow,obj){
 	};
 	jboxPost("<s:url value='/edc/design/modAttr'/>",data,null,null,false);
 }
+function modUnit(attrFlow,obj){
+	var data = {
+			attrFlow:attrFlow,
+			attrUnit:$(obj).val()
+	};
+	jboxPost("<s:url value='/edc/design/modAttr'/>",data,null,null,false);
+}
+function modNote(attrFlow,obj){
+	var data = {
+			attrFlow:attrFlow,
+			attrNote:$(obj).val()
+	};
+	jboxPost("<s:url value='/edc/design/modAttr'/>",data,null,null,false);
+}
+
+
 
 function selModule(){
 	window.location.href="<s:url value='/edc/visit/designManage'/>?moduleCode="+$("#moduleCode").val();
@@ -443,11 +459,13 @@ $(function() {
 					<th style="text-align: center" width="80px">属性<br/>单独行</th>
 					<th style="text-align: center" width="80px">代码<br/>单独行</th>
 					<th style="text-align: center" width="80px">录入方式</th>
+					<th style="text-align: center" width="80px">单位</th>
+					<th style="text-align: center" width="80px">备注</th>
 					<th style="text-align: center" width="320px">代码</th>
 				</tr>
 					<c:forEach	items="${edcDesignForm.moduleElementMap[module.moduleCode] }" var="element"> 
 					<tr>
-						<th	colspan="10" style="text-align: left">&nbsp;
+						<th	colspan="12" style="text-align: left">&nbsp;
 							<input type="text" style="width: 25px;text-align: center;" onfocus="changeStyle(this,'edit');" oldvalue="${element.ordinal }" class="edit validate[custom[integer]]" onblur="modEdcElementOrdinal('${element.elementFlow }',this);" value="${element.ordinal }" />
 							&nbsp;元素名称：<input type="text" style="text-align: left;" onfocus="changeStyle(this,'edit');" oldvalue="${element.elementName }" title="${element.elementName }" class="edit validate[required]" onblur="modElementName('${element.elementFlow}',this);" value="${element.elementName }"/>
 							&#12288;元素变量名：<input type="text" style="text-align: left;" value="${element.elementVarName}" onfocus="changeStyle(this,'edit');" class="edit validate[required]" onblur="modElementVarName('${element.elementCode}','${element.elementFlow}',this);" oldvalue="${element.elementVarName }"/>
@@ -583,6 +601,8 @@ $(function() {
 								</c:otherwise>
 							</c:choose>
 						</td>
+						<td><input type="text" style="text-align: center;width: 80%" onfocus="changeStyle(this,'edit3');" oldvalue="${attribute.attrUnit}" class="edit3" onblur="modUnit('${attribute.attrFlow}',this);" value="${attribute.attrUnit}"/></td>
+						<td><input type="text" style="text-align: center;width: 80%" onfocus="changeStyle(this,'edit3');" oldvalue="${attribute.attrNote}" class="edit3" onblur="modNote('${attribute.attrFlow}',this);" title="${ attribute.attrNote}" value="${attribute.attrNote}"/></td>
 						<td style="text-align: left;padding-left:10px;width:320px;" >
 							<ul>
 							<c:forEach	items="${edcDesignForm.attrCodeMap[attribute.attrCode] }" var="attrCode"> 
