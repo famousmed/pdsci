@@ -28,4 +28,19 @@
 		 and drug_group=#{groupName} and record_status='Y')
 		 order by patient_seq
   	</select>
+  	
+  	 <select id="searchPatient" parameterType="java.util.Map" resultMap="com.pinde.sci.dao.base.PubPatientMapper.BaseResultMap">
+   select * from pub_patient where record_status='Y' and patient_type_id='Real'  
+       
+        <if test='projFlow!=null and projFlow!=""'>
+            and proj_flow = '${projFlow}'
+        </if>
+        <if test='orgFlow!=null and orgFlow!=""'>
+            and org_flow = '${orgFlow}'
+        </if>
+         <if test='patientCode!=null and patientCode!=""'>
+            and (patient_code like '%${patientCode}%'   or patient_name like '%${patientCode}%'   or patient_name_py like '%${patientCode}%')
+        </if>
+        order by in_date desc
+   </select>
 </mapper>

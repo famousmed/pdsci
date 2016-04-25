@@ -13,4 +13,6 @@ public interface PubPatientExtMapper {
 	List<PubPatient> searchPatientByGroup(Map<String, Object> paramMap);
 
 	List<PubPatient> searchAssignPatientByGroup(Map<String, Object> paramMap); 
+	
+	List<PubPatient> searchPatient(Map<String, Object> paramMap);
 }
