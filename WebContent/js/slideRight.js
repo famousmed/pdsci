@@ -88,7 +88,8 @@
 						e.stopPropagation();
 					});
 					$(document).mouseup(function(e){
-						if((document.body.offsetWidth-options.width)>e.pageX && e.pageX>0){
+						if((document.body.offsetWidth-options.width)>e.pageX && e.pageX>0 &&
+								$(e.target).closest($(".reorder")).length==0){
 							div.rightSlideClose((typeof options.outClose == "function")?(options.outClose):false);
 						}
 					});
