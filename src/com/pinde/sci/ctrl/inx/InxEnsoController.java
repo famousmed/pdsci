@@ -170,7 +170,7 @@ public class InxEnsoController extends GeneralController{
 //		}else {
 //			model.addAttribute("projFlow",projUserList.get(0).getProjFlow());
 			//return "redirect:/enso/main/"+projUserList.get(0).getRoleFlow();
-			return "redirect:/enso/projlist";
+			return "redirect:/medroad/main";
 //		}
 	}
 	
