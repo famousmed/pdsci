@@ -31,12 +31,17 @@ import com.pinde.core.util.PkUtil;
 import com.pinde.core.util.PyUtil;
 import com.pinde.core.util.StringUtil;
 import com.pinde.sci.biz.edc.IEdcModuleBiz;
+import com.pinde.sci.biz.edc.IEdcProjBiz;
+import com.pinde.sci.biz.edc.IEdcRandomBiz;
 import com.pinde.sci.biz.edc.IInputBiz;
 import com.pinde.sci.biz.edc.IProjOrgBiz;
 import com.pinde.sci.biz.edc.IProjUserBiz;
 import com.pinde.sci.biz.edc.IVisitBiz;
+import com.pinde.sci.biz.gcp.IGcpDrugBiz;
 import com.pinde.sci.biz.hbres.NoticeBiz;
+import com.pinde.sci.biz.pub.IMsgBiz;
 import com.pinde.sci.biz.pub.IPubPatientBiz;
+import com.pinde.sci.biz.pub.IPubPatientRecipeBiz;
 import com.pinde.sci.biz.pub.IPubPatientWindowBiz;
 import com.pinde.sci.biz.srm.IPubProjBiz;
 import com.pinde.sci.biz.sys.IRoleBiz;
@@ -49,19 +54,24 @@ import com.pinde.sci.dao.base.SysLogMapper;
 import com.pinde.sci.dao.base.SysUserMapper;
 import com.pinde.sci.enums.edc.EdcInputStatusEnum;
 import com.pinde.sci.enums.edc.PatientTypeEnum;
+import com.pinde.sci.enums.pub.PatientRecipeStatusEnum;
 import com.pinde.sci.enums.pub.PatientSourceEnum;
 import com.pinde.sci.enums.pub.PatientStageEnum;
 import com.pinde.sci.enums.pub.UserSexEnum;
+import com.pinde.sci.form.pub.ProjFileForm;
 import com.pinde.sci.model.edc.EdcDesignForm;
-import com.pinde.sci.model.edc.VisitForm;
 import com.pinde.sci.model.irb.ProjInfoForm;
 import com.pinde.sci.model.mo.EdcAttribute;
 import com.pinde.sci.model.mo.EdcPatientVisit;
 import com.pinde.sci.model.mo.EdcPatientVisitData;
 import com.pinde.sci.model.mo.EdcProjParam;
 import com.pinde.sci.model.mo.EdcVisit;
+import com.pinde.sci.model.mo.GcpDrug;
+import com.pinde.sci.model.mo.GcpDrugIn;
 import com.pinde.sci.model.mo.InxInfo;
 import com.pinde.sci.model.mo.PubPatient;
+import com.pinde.sci.model.mo.PubPatientRecipe;
+import com.pinde.sci.model.mo.PubPatientRecipeDrug;
 import com.pinde.sci.model.mo.PubPatientVisit;
 import com.pinde.sci.model.mo.PubPatientWindow;
 import com.pinde.sci.model.mo.PubProj;
@@ -89,6 +99,8 @@ public class MedRoadController extends GeneralController{
 	@Autowired
 	private IPubProjBiz projBiz;	
 	@Autowired
+	private IEdcProjBiz edcProjBiz;	
+	@Autowired
 	private NoticeBiz noticeBiz;
 	@Autowired
 	private IPubPatientBiz patientBiz;
@@ -102,9 +114,15 @@ public class MedRoadController extends GeneralController{
 	private IInputBiz inputBiz; 
 	@Resource
 	private IPubPatientWindowBiz patientWindowBiz;
+	@Resource
+	private IMsgBiz messageBiz;
+	@Autowired
+	private IEdcRandomBiz randomBiz;
+	@Autowired
+	private IGcpDrugBiz gcpDrugBiz;
+	@Autowired
+	private IPubPatientRecipeBiz recipeBiz;
 	
-	
-
 	@RequestMapping(value={"/main"},method={RequestMethod.GET})
 	public String main(String projFlow, String roleFlow,Model model,HttpServletRequest request) throws DocumentException{
 		
@@ -159,6 +177,13 @@ public class MedRoadController extends GeneralController{
 		if (GlobalConstant.PI_ROLE_FLOW.equals(roleFlow)) {//项目管理员
 			return "medroad/edc/pi/index";
 		} else if (GlobalConstant.REACHER_ROLE_FLOW.equals(roleFlow)) {//研究者
+			//echart
+			
+			
+			Map<String,Object> assignMap = randomBiz.getOrgAssignMap(projFlow,GlobalContext.getCurrentUser().getOrgFlow());
+			model.addAttribute("assignMap", assignMap);
+			
+			
 			return "medroad/edc/index";
 		}else if (GlobalConstant.CRC_ROLE_FLOW.equals(roleFlow)) {//CRC
 			return "medroad/edc/crc/index";
@@ -183,7 +208,7 @@ public class MedRoadController extends GeneralController{
 		}
 		model.addAttribute("patientMap",patientMap);
 		model.addAttribute("patientVisitMap",patientVisitMap);
-		return "medroad/edc/reacher/followRemind";
+		return "medroad/edc/followup/list";
 	}
 	
 	@RequestMapping("/noticelist")
@@ -729,16 +754,44 @@ public class MedRoadController extends GeneralController{
 		PubPatientWindow visitWindow = patientWindowBiz.readPatientWindow(patientFlow, visitFlow);
 		model.addAttribute("visitWindow",visitWindow);
 		
+		//
+		List<GcpDrug> drugList = gcpDrugBiz.searchDrugByProj(patient.getProjFlow());
+		model.addAttribute("drugList",drugList);
+		Map<String,GcpDrug> drugMap = new HashMap<String, GcpDrug>();
+		for(GcpDrug drug : drugList){
+			drugMap.put(drug.getDrugFlow(), drug);
+		}
+		model.addAttribute("drugMap",drugMap);
 		
+		Map<String,Map<String,Integer>> drugLotMap = new HashMap<String, Map<String,Integer>>();
+		for(GcpDrug drug : drugList){
+			Map<String, Integer> drugLotSurplusCountMap = getSurplusDrugCountMap(drug.getDrugFlow(), patient.getProjFlow(),patient.getOrgFlow());
+			drugLotMap.put(drug.getDrugFlow(), drugLotSurplusCountMap);
+		}
+		model.addAttribute("drugLotMap",drugLotMap);
+		//
+		PubPatientRecipe patientRecipe = new PubPatientRecipe();
+		patientRecipe.setPatientFlow(patientFlow);
+		patientRecipe.setVisitFlow(visitFlow);
+		List<PubPatientRecipe> recipeList = recipeBiz.searchPatientRecipeByPatientRecipe(patientRecipe);
+		
+		model.addAttribute("recipeList",recipeList);
+		Map<String,List<PubPatientRecipeDrug>> recipeDrugMap = new HashMap<String, List<PubPatientRecipeDrug>>();
+		for(PubPatientRecipe recipe : recipeList){
+			recipeDrugMap.put(recipe.getRecipeFlow(), recipeBiz.searchPatientRecipeDrug(recipe.getRecipeFlow())); 
+		}
+		model.addAttribute("recipeDrugMap",recipeDrugMap);
 		return "medroad/edc/recipe/content";
 	}
 	@RequestMapping(value="/saveVisitDate")
 	@ResponseBody
-	public String saveVisitDate(String visitFlow,String doctorExplain,String visitDate,String visitWindow,HttpServletRequest request) {
+	public String saveVisitDate(String drugFlow,String drugAmount,String visitFlow,String doctorExplain,String visitDate,String visitWindow,HttpServletRequest request) {
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
 		String projFlow = proj.getProjFlow();
 		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
 		String patientFlow = patient.getPatientFlow();
+		
+		SysUser user = GlobalContext.getCurrentUser();
 		
 		EdcVisit visit = visitBiz.readVisit(visitFlow);
 		
@@ -788,6 +841,25 @@ public class MedRoadController extends GeneralController{
 				patientWindowBiz.savePatientWindow(window);
 			}
 		}
+		//处方发药
+		if(StringUtil.isNotBlank(drugFlow)){
+			String flow = StringUtil.split(drugFlow, "_")[0];
+			String lot = StringUtil.split(drugFlow, "_")[1];
+			
+			PubPatientRecipe patientRecipe = new PubPatientRecipe();
+			patientRecipe.setPatientFlow(patientFlow);
+			patientRecipe.setVisitFlow(visitFlow);
+			patientRecipe.setPatientCode(patient.getPatientCode());
+			patientRecipe.setPatientNamePy(patient.getPatientNamePy());
+			patientRecipe.setOrgFlow(user.getOrgFlow());
+			patientRecipe.setProjFlow(proj.getProjFlow());
+			patientRecipe.setRecipeDate(DateUtil.getCurrDateTime());
+			patientRecipe.setRecipeDoctorFlow(user.getUserFlow());
+			patientRecipe.setRecipeDoctorName(user.getUserName());
+			patientRecipe.setRecipeStatusId(PatientRecipeStatusEnum.Dispensed.getId());
+			patientRecipe.setRecipeStatusName(PatientRecipeStatusEnum.Dispensed.getName());
+			gcpDrugBiz.saveRecipe(patientRecipe, flow, lot,drugAmount);
+		}
 		return GlobalConstant.OPRE_SUCCESSED;
 	}
 	
@@ -825,6 +897,112 @@ public class MedRoadController extends GeneralController{
 			inputBiz.delRecipeFile(pateintVisit,type,url);
 			return GlobalConstant.OPERATE_SUCCESSED;
 	}
-	
+	@RequestMapping(value="/followup")
+	public String followup(Model model){
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
+		String orgFlow = GlobalContext.getCurrentUser().getOrgFlow();
+		List<PubPatientWindow> windowList = patientWindowBiz.searchRemaind(proj.getProjFlow(),orgFlow);
+		model.addAttribute("windowList", windowList);
+		
+		PubPatient patientSearch = new PubPatient();
+		patientSearch.setProjFlow(proj.getProjFlow());
+		patientSearch.setOrgFlow(orgFlow);
+		patientSearch.setPatientTypeId(PatientTypeEnum.Real.getId());
+		List<PubPatient> patientList = patientBiz.searchPatient(patientSearch);
+		Map<String,PubPatient> patientMap = new HashMap<String, PubPatient>();
+		for(PubPatient patient : patientList){
+			patientMap.put(patient.getPatientFlow(), patient);
+		}
+		model.addAttribute("patientMap", patientMap);
+		return "medroad/edc/followup/main";
+	}
+	@RequestMapping(value="/sendFollowSms")
+	@ResponseBody
+	public String sendFollowSms(String recordFlow,String patientPhone,String msgContent){
+		PubPatientWindow window = patientWindowBiz.readPatientWindow(recordFlow);
+		PubPatient patient = patientBiz.readPatient(window.getPatientFlow());
+		if(patient!=null && StringUtil.isNotBlank(patient.getPatientPhone())){
+			messageBiz.addSmsMsg(patient.getPatientPhone(), msgContent);
+			window.setIsNotice(GlobalConstant.FLAG_Y);
+			patientWindowBiz.savePatientWindow(window);
+		}
+		return GlobalConstant.OPRE_SUCCESSED;
+	}
+	@RequestMapping(value="/proj/file")
+	public String projFile(Model model) throws Exception{ 
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
+		List<ProjFileForm> fileList = edcProjBiz.searchProjFiles(proj.getProjFlow());
+		model.addAttribute("fileList", fileList);
+		
+		return "medroad/edc/proj/file";
+	}
+	@RequestMapping(value="/drug/list")
+	public String drugList(Model model) throws Exception{ 
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
+		List<GcpDrug> drugList = gcpDrugBiz.searchDrugByProj(proj.getProjFlow());
+		model.addAttribute("drugList", drugList);
+		return "medroad/edc/drug/list";
+	}
+	@RequestMapping(value="/drug/info")
+	public String drugInfo(String drugFlow,Model model) throws Exception{ 
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
+		String projFlow = proj.getProjFlow();
+		String orgFlow = GlobalContext.getCurrentUser().getOrgFlow();
+		GcpDrug drug = gcpDrugBiz.readDrugInfo(drugFlow);
+		model.addAttribute("drug", drug);
+		
+		Map<String, Integer> drugLotSurplusCountMap = getSurplusDrugCountMap(
+				drugFlow, projFlow, orgFlow);
+		model.addAttribute("drugLotSurplusCountMap", drugLotSurplusCountMap);
+		return "medroad/edc/drug/info";
+	}
+
+	private Map<String, Integer> getSurplusDrugCountMap(String drugFlow,
+			String projFlow, String orgFlow) {
+		//库存
+		GcpDrugIn gcpDrugIn = new GcpDrugIn();
+		gcpDrugIn.setProjFlow(projFlow);
+		gcpDrugIn.setOrgFlow(orgFlow);
+		gcpDrugIn.setDrugFlow(drugFlow);
+		List<GcpDrugIn> drugInList = gcpDrugBiz.searchDrugInList(gcpDrugIn);
+		Map<String,Integer> drugLotCountMap = new HashMap<String, Integer>();
+		for(GcpDrugIn in : drugInList){
+			Integer count = drugLotCountMap.get(in.getLotNo());
+			if(count == null){
+				count = 0;
+			}
+			if(StringUtil.isNotBlank(in.getDrugAmount())){ 
+				count +=  Integer.parseInt(in.getDrugAmount());
+			}
+			drugLotCountMap.put(in.getLotNo(), count);
+		}
+		//用量
+		List<PubPatientRecipeDrug> recipeDrugList = recipeBiz.searchRecipeDrug(projFlow,orgFlow,drugFlow);
+		Map<String,Integer> drugLotUsedCountMap = new HashMap<String, Integer>();
+		for(PubPatientRecipeDrug recipeDrug : recipeDrugList){
+			Integer count = drugLotUsedCountMap.get(recipeDrug.getLotNo());
+			if(count == null){
+				count = 0;
+			}
+			if(StringUtil.isNotBlank(recipeDrug.getDrugAmount())){ 
+				count +=  Integer.parseInt(recipeDrug.getDrugAmount());
+			}
+			drugLotUsedCountMap.put(recipeDrug.getLotNo(), count);
+		}
+		Map<String,Integer> drugLotSurplusCountMap = new HashMap<String, Integer>();
+		for(Map.Entry<String, Integer> map : drugLotCountMap.entrySet() ){
+			String lot = map.getKey();
+			Integer count = map.getValue();
+			
+			Integer surplusDrug = 0;
+			if(drugLotUsedCountMap.containsKey(lot)){
+				surplusDrug = count - drugLotUsedCountMap.get(lot);
+			}else {
+				surplusDrug = count;
+			}
+			drugLotSurplusCountMap.put(lot, surplusDrug); 
+		}
+		return drugLotSurplusCountMap;
+	}
 }
 
