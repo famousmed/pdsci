@@ -31,5 +31,8 @@ public interface IPubPatientRecipeBiz {
 	List<PubPatientRecipe> searchPatientRecipeByPatientRecipe(
 			PubPatientRecipe patientRecipe);
 
+	List<PubPatientRecipeDrug> searchRecipeDrug(String projFlow,
+			String orgFlow, String drugFlow);
+
 }  
   

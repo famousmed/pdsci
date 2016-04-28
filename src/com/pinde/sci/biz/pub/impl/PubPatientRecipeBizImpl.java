@@ -121,5 +121,14 @@ public class PubPatientRecipeBizImpl implements IPubPatientRecipeBiz{
 		example.setOrderByClause("SEND_DATE DESC,recipe_date desc");
 		return recipeMapper.selectByExample(example);
 	}
+
+	@Override
+	public List<PubPatientRecipeDrug> searchRecipeDrug(String projFlow,
+			String orgFlow, String drugFlow) {
+		PubPatientRecipeDrugExample example = new PubPatientRecipeDrugExample();
+		example.createCriteria().andProjFlowEqualTo(projFlow).andOrgFlowEqualTo(orgFlow).andDrugFlowEqualTo(drugFlow)
+		.andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
+		return recipeDrugMapper.selectByExample(example);
+	}
 }  
  
