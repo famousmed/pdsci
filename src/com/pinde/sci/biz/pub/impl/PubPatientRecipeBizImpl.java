@@ -118,16 +118,30 @@ public class PubPatientRecipeBizImpl implements IPubPatientRecipeBiz{
 		if(StringUtil.isNotBlank(patientRecipe.getVisitFlow())){
 			criteria.andVisitFlowEqualTo(patientRecipe.getVisitFlow());
 		}
+		if(StringUtil.isNotBlank(patientRecipe.getProjFlow())){
+			criteria.andProjFlowEqualTo(patientRecipe.getProjFlow());
+		}
+		if(StringUtil.isNotBlank(patientRecipe.getOrgFlow())){
+			criteria.andOrgFlowEqualTo(patientRecipe.getOrgFlow());
+		}
 		example.setOrderByClause("SEND_DATE DESC,recipe_date desc");
 		return recipeMapper.selectByExample(example);
 	}
 
 	@Override
-	public List<PubPatientRecipeDrug> searchRecipeDrug(String projFlow,
-			String orgFlow, String drugFlow) {
+	public List<PubPatientRecipeDrug> searchRecipeDrug(PubPatientRecipeDrug recipeDrug) {
 		PubPatientRecipeDrugExample example = new PubPatientRecipeDrugExample();
-		example.createCriteria().andProjFlowEqualTo(projFlow).andOrgFlowEqualTo(orgFlow).andDrugFlowEqualTo(drugFlow)
-		.andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
+		com.pinde.sci.model.mo.PubPatientRecipeDrugExample.Criteria criteria = example.createCriteria().andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
+		if(StringUtil.isNotBlank(recipeDrug.getProjFlow())){
+			criteria.andProjFlowEqualTo(recipeDrug.getProjFlow());
+		}
+		if(StringUtil.isNotBlank(recipeDrug.getOrgFlow())){ 
+			criteria.andOrgFlowEqualTo(recipeDrug.getOrgFlow());
+		}
+		if(StringUtil.isNotBlank(recipeDrug.getDrugFlow())){
+			criteria.andDrugFlowEqualTo(recipeDrug.getDrugFlow());
+		}
+		example.setOrderByClause("drug_name,create_time");
 		return recipeDrugMapper.selectByExample(example);
 	}
 }  
