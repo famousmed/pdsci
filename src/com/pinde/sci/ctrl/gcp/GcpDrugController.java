@@ -71,7 +71,7 @@ public class GcpDrugController extends GeneralController{
 	public String editDrugInfo(String drugFlow,String projFlow,Model model){
 		PubProj proj=new PubProj();
 		proj.setApplyOrgFlow(GlobalContext.getCurrentUser().getOrgFlow());
-		proj.setProjStageId(GcpProjStageEnum.Schedule.getId());
+		//proj.setProjStageId(GcpProjStageEnum.Schedule.getId());
 		List<PubProj> projList = this.pubProjBiz.queryProjList(proj);
 		model.addAttribute("projList", projList);
 		if(StringUtil.isNotBlank(drugFlow)){
