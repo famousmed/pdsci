@@ -48,7 +48,7 @@ function selectPagesize(obj){
 <style>
 .fenye_select{ padding:4px 0;vertical-align: middle;border: 1px solid #e7e7eb;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;font-size: 14px; color:#363636; font-family: "Microsoft YaHei"; outline:none;}
 </style>
-<span>
+<span style="margin-right: 30px;">
 	<label style="font-size: 14px">
 	<span id="pageSpan" class="page_num">
 	<c:set var="cfgCode" value="${pageServletPath}/${sessionScope.currUser.userFlow }"/>
