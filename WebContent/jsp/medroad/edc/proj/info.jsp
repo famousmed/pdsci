@@ -37,7 +37,7 @@ function writeBirthday(obj){
  <div class="col_main" id="content">
        <div class="content_main">
          <div class="index_form" >
-          <h3>项目概况</h3>
+          <h3>项目信息</h3>
           <table border="0" cellpadding="0" cellspacing="0" class="grid" style="border-top: 0px;">
             	<tr >
             		<td style="width: 100px;padding-left: 20px;">项目名称：</td>
@@ -72,5 +72,24 @@ function writeBirthday(obj){
 			</td></tr>
 		</table>
         </div>
+        <div class="index_form" style="margin-top: 20px;">
+          <h3>诊疗方案</h3>
+         <table class="${projForm.proj.projFlow }" style="margin-bottom: 20px;border: 1px solid #ddd;border-top: 0px;width: 100%;">
+			<tr><td  style="padding-left: 20px;padding-top:20px;font-size: 16px;">未维护</td></tr>
+			<tr><td  style="padding-left: 20px;font-size: 14px;width: 100%"><pre style="font-family: Microsoft Yahei;line-height:25px;white-space: pre-wrap ">
+			</pre>
+			</td></tr>
+		</table>
+        </div>
+        <div class="index_form" style="margin-top: 20px;">
+          <h3>临床路径释义</h3>
+          <table class="${projForm.proj.projFlow }" style="margin-bottom: 20px;border: 1px solid #ddd;border-top: 0px;width: 100%;">
+			<tr><td  style="padding-left: 20px;padding-top:20px;font-size: 16px;">未维护</td></tr>
+			<tr><td  style="padding-left: 20px;font-size: 14px;width: 100%"><pre style="font-family: Microsoft Yahei;line-height:25px;white-space: pre-wrap ">
+			</pre>
+			</td></tr>
+		</table>
+        </div>
         </div>
 </div>
+<jsp:include page="/jsp/medroad/edc/proj/tool.jsp" />

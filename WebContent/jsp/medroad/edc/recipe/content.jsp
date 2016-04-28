@@ -1,4 +1,5 @@
-
+<link rel="stylesheet" type="text/css" href="<s:url value='/jsp/medroad/css/stat_overview.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
+<link rel="stylesheet" type="text/css" 	href="<s:url value='/jsp/medroad/css/dropdown.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
 <script type="text/javascript" src="<s:url value='/js/ajaxfileupload.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 <!-- 
 <script type="text/javascript" src="<s:url value='/jsp/medroad/js/jquery.mCustomScrollbar.concat.min.js'/>"></script>    
@@ -12,9 +13,18 @@ $("#recipeContent").mCustomScrollbar({
 
 function saveRecipe(){
 	//var visitdata = "&visitDate="+$("#visitDate").val()+"&visitWindow="+$("#visitWindow").val();
+	var drugAmount = $("#drugAmount").val();
+	var drugFlow = $("#drugFlow").val();
+	if(drugAmount &&drugFlow){
+		if(parseInt(drugAmount)>parseInt(drugFlow.split("_")[2])){
+			jboxTip("发药量大于库存量!");
+			return;
+		}
+	}
 	jboxPost("<s:url value='/medroad/saveVisitDate'/>?visitFlow=${visit.visitFlow}",$("#recipeForm").serialize(),function(resp){
 		jboxTip(resp);
 		$("."+'${visit.visitFlow}'+'_visitDate').html($("#visitDate").val());
+		loadDetail('${visit.visitFlow}');
 	},null,true);
 }
 function userRecipeFile(type){
@@ -44,6 +54,17 @@ $(document).ready(function(){
 	$("li").on("mouseenter mouseleave",function(){
 		$(this).find("span").toggle();
 	});
+	
+	//初始化下拉
+	$(".jsDropdownBt").bind("click",function(){
+		$(this).next(".jsDropdownList").show();
+	});
+	$(".jsDropdownItem").bind("click",function(){
+		$(this).parents(".jsDropdownList").hide();
+		$(this).parent().parent().parent().siblings(".jsDropdownBt").find(".jsBtLabel").html(($(this).html()));
+		$(this).parent().parent().parent().siblings(".jsDropdownHidden").val($(this).attr("data-value"));
+	});
+
 });
 function delRecipeFile(name,type,url){
 	jboxConfirm("确认删除  "+name+" ?",function(){
@@ -57,6 +78,7 @@ function delRecipeFile(name,type,url){
 		},null,true);
 	});
 }
+
 </script>
 
 <div id="recipeContent" style="width: 100%;height: 100%;background-color: white;overflow: auto;">
@@ -74,7 +96,72 @@ function delRecipeFile(name,type,url){
 		  <div class="index_form" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;" >
 	         <h3>处方用药</h3>
 	          <div style="border: 1px solid #ddd;border-top-width: 0px;">
-	          		<textarea name="doctorExplain" class="input" style="height: 100px;width: 630px;margin-top: 5px;margin-bottom: 5px;text-indent:0">${visitInfoMap.doctorExplain }</textarea>
+	          <c:if test="${drugList.size()==1 }">
+					<c:set var="preparationUnitName" value="${drugList[0].preparationUnitName }"/>
+				</c:if>
+	          <c:choose>
+	          		<c:when test="${empty  recipeList}">
+	          				<div class="frm_controls" style="padding-left: 10px;float: left;">
+									<div class="dropdown_menu time" style="width: 300px;float: left;margin-top: 6px;margin-left:-3px;">
+										<a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
+											<label class="jsBtLabel jsBtLabelSel">--选择药物--</label> <i
+											class="arrow"></i>
+										</a>
+										<div class="dropdown_data_container jsDropdownList" 
+											style="display: none;">
+											<ul class="dropdown_data_list">
+												<c:forEach items="${drugList}" var="drug">
+													<c:forEach items="${drugLotMap[drug.drugFlow]}" var="lotCountMap">
+														<li class="dropdown_data_item "><a onclick="return false;"
+															href="javascript:"
+															class="jsDropdownItem"
+															data-value="${drug.drugFlow}_${lotCountMap.key}_${lotCountMap.value}" data-index=""
+															data-name="${drug.drugFlow }">${drug.drugName}--${lotCountMap.key}(${lotCountMap.value }${preparationUnitName })</a>
+														</li>
+													</c:forEach>
+												</c:forEach>
+											</ul>
+										</div>
+										<input type="hidden" class="jsDropdownHidden" id="drugFlow" 	name="drugFlow" value="" />
+									</div>
+									<div style="float: left">&#12288;发药量：
+									<div class="dropdown_menu time" style="width: 100px;">
+										<a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
+											<label class="jsBtLabel jsBtLabelSel"></label> <i
+											class="arrow"></i>
+										</a>
+										<div class="dropdown_data_container jsDropdownList" 
+											style="display: none;">
+											<ul class="dropdown_data_list">
+												<c:forEach
+													step="1" begin="1" end="10"
+													var="count">
+													<li class="dropdown_data_item "><a onclick="return false;"
+														href="javascript:;"
+														class="jsDropdownItem "
+														data-value="${count}" data-index=""
+														data-name="${count}">${count }</a>
+													</li>
+												</c:forEach>
+											</ul>
+										</div>
+										<input type="hidden" class="jsDropdownHidden" id="drugAmount" 	name="drugAmount" value="" />
+									</div>&#12288;<span id="drugPreparationUnitName">${preparationUnitName }</span>
+									</div>
+								</div>
+						          				
+	          		</c:when>
+	          		<c:otherwise>
+	          			<c:forEach items="${recipeList }" var="recipe">
+	          				<c:forEach items="${recipeDrugMap[recipe.recipeFlow] }" var="recipeDrug">
+	          					<p>&#12288;药物名称：${recipeDrug.drugName}&#12288;批号：${recipeDrug.lotNo }&#12288;发药量：${recipeDrug.drugAmount }&#12288;${preparationUnitName }</p>
+	          				</c:forEach>
+	          			</c:forEach>
+	          			
+	          		</c:otherwise>
+	          </c:choose>
+	       
+	          		<textarea name="doctorExplain" class="input" placeholder="处方医嘱" style="height: 100px;width: 630px;margin-top: 5px;margin-bottom: 5px;text-indent:0">${visitInfoMap.doctorExplain }</textarea>
 	          </div>
 		 </div>
 		 <div class="index_form" style="margin-top: 10px;margin-left: 10px;margin-right: 10px;" >

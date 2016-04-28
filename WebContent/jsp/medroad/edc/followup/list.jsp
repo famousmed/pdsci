@@ -1,6 +1,6 @@
 
 <h3>
-	随访提醒&#12288;
+	随访提醒&#12288;(只提示7天之内需要随访的受试者)
 	<!-- 
            <span style="float: right">
           <label><input type="checkbox" checked="checked">7天</input></label>
@@ -15,8 +15,8 @@
 	<c:set var="count" value="0"/>
 	<c:forEach items="${patientVisitMap}" var="map">
 	
-		<c:if test="${pdfn:signDaysBetweenTowDate(map.value.windowVisitLeft,pdfn:getCurrDate())<=3
-			or pdfn:getCurrDate()>map.value.windowVisitLeft
+		<c:if test="${pdfn:signDaysBetweenTowDate(map.value.windowVisitLeft,pdfn:getCurrDate())<=7
+			or pdfn:getCurrDate()>map.value.windowVisitLeft && patientMap[map.key].patientStageId==patientStageEnumIn.id
 		}">
 			<tr>
 				<td style="padding-left: 10px; text-align: left;">

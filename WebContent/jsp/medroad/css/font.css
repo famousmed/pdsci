@@ -2,7 +2,7 @@
 /* CSS Document */
 body{ font-family: "Microsoft YaHei",Tahoma,Verdana,Arial;color:#222;font-size:14px;background-color:#fff;height:100%;}
 html, body, div, iframe,button, h1, h2, h3, h4, h5, h6, p, a, del, em, b, i, s, img, strong, dd, dl, dt,  ol, ul, li, label, form, table, tbody, thead, tr, th, td, address, span, cite { margin:0; padding:0; border:medium none; }
-body,input{  font:13px 'Microsoft Yahei'; color:#000; _word-break:break-all; white-space:normal;}
+body,input{  font:14px 'Microsoft Yahei'; color:#000; _word-break:break-all; white-space:normal;}
 h1, h2, h3, h4, h5, h6 {font-size:100%;}
 button,input{ margin:0; padding:0; border:0;font:13px 'Microsoft Yahei', sans-serif;list-style-type:none;}
 table { border-spacing:0 0;border-collapse:collapse;}

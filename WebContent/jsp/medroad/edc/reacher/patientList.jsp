@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" 	href="<s:url value='/jsp/medroad/css/base.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
+<script type="text/javascript" src="<s:url value='/jsp/medroad/js/sort.js'/>"></script>
 <script type="text/javascript">
 	function toPage(page) {
 		if(page){
@@ -43,15 +43,23 @@
 </div>
 <div class="main_bd" id="div_table_0" >
     <div class="div_table">
-           <table border="0" cellpadding="0" cellspacing="0" class="grid" style="width: 100%">
+           <table border="0" cellpadding="0" cellspacing="0" class="grid" style="width: 100%" id="patientTab">
             <tr>
                 <th width="200px;">编号(身份证后四位)</th>
                 <th>姓名</th>
                 <th>性别</th>
-                <th>入组日期</th>
+                <th>入组日期
+                <!-- 
+                	<span class="icon_rank">
+                         <i class="arrow arrow_up"></i>
+                         <i class="arrow arrow_down"></i>
+                     </span>
+                 -->
+                </th>
                 <th>入组医师</th>
                  <th  width="250px;">操作</th>
             </tr>
+            <tbody>  
             <c:forEach items="${patientList }" var= "patient"> 
             <tr>
                 <td>${pdfn:encryptIdNo(patient.patientCode,4)}</td>
@@ -65,6 +73,7 @@
                 </td>
             </tr>
             </c:forEach>
+            </tbody>
         </table>
         </div>
          <div class="page" style="padding-right: 40px;">

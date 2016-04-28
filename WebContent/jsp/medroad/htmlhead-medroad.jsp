@@ -25,7 +25,9 @@
 <script type="text/javascript" src="<s:url value='/jsp/edu/js/common-edu-jbox.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 
 </c:if>
-
+<c:if test="${param.jquery_scrollTo=='true'}">
+<script type="text/javascript" src="<s:url value='/js/jquery.scrollTo${min}.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
+</c:if>
 <c:if test="${param.jquery_ui_tooltip=='true'}">
 <link rel="stylesheet" type="text/css" href="<s:url value='/css/jquery-ui/product/jquery-ui.min.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
 <script type="text/javascript" src="<s:url value='/js/jquery-ui/jquery.ui.core.min.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
@@ -107,7 +109,7 @@ window.UEDITOR_HOME_URL = "${ctxPath}/ueditor/";
 <script type="text/javascript" src="<s:url value='/jsp/medroad/js/jquery.easing${min}.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 </c:if>
 <c:if test="${param.echarts=='true'}">
-<script type="text/javascript" src="<s:url value='/js/echarts/echarts.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
+<script type="text/javascript" src="<s:url value='/js/echarts/echarts.min.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 <script type="text/javascript">
         // 路径配置
         require.config({

@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" 	href="<s:url value='/jsp/medroad/css/base.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
-<script type="text/javascript" src="<s:url value='/js/jquery.scrollTo${min}.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 <script type="text/javascript">
 	function toPage(page) {
 		if(page){
@@ -55,7 +53,7 @@
 	    <a href="javascript:searchPatient();" class="frm_input_append jsSearchInputBt">
 	    	<i class="icon16_common search_gray">搜索</i>&nbsp;
 	    </a>
-	    <input type="text" class="frm_input jsSearchInput" id="patientCode" readonly="readonly" value="${pdfn:encryptIdNo(currPatient.patientCode,4)}(${currPatient.patientName })" placeholder="受试者编号/姓名">
+	    <input type="text" class="frm_input jsSearchInput" id="patientCode" readonly="readonly" value="${currPatient.patientName }(${pdfn:encryptIdNo(currPatient.patientCode,4)})" placeholder="受试者编号/姓名">
 		</span>
 	</div>
 </div>
