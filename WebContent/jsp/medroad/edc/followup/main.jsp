@@ -47,9 +47,13 @@ $(function(){
 });
 
 </script>
+<div class="main_hd">
+	<h2 class="underline">随访提醒
+	</h2>
+</div>
  <div class="col_main" id="content">
        <div class="content_main">
-	       	<div style="margin-top: 20px;font-size: 24px;">
+	       	<div style="font-size: 24px;">
 	 			当前共有&nbsp;<span id="patientCountSpan"></span>&nbsp;名受试者需要访视&#12288;
 	 			距离最近患者需要随访还有&nbsp;<span id="signDaysSpan"></span>&nbsp;天
 	 		</div>
@@ -97,17 +101,18 @@ $(function(){
 		            		<input type="hidden" id="signDays" value="${signDays }"/>
 	            </table>
 	       </div>
+	        <div class="popover pos_center " style="display:none;z-index: 999;">
+			    <div class="popover_inner">
+			        <div class="popover_content jsPopOverContent">短信内容   
+			         <span class="frm_textarea_box with_counter counter_in append count" style="width: 220px;">
+			       	<textarea  class="frm_textarea">您好，请您于20XX-XX-XX至 20XX-XX-XX日前往市中心医院进行跟踪治疗!</textarea></span>
+			   </div>
+			        <div class="popover_bar"><a href="javascript:sendFollowSms();" class="btn btn_primary jsPopoverBt">确定</a>&nbsp;<a href="javascript:$('.popover').hide();" class="btn btn_default jsPopoverBt">取消</a></div>
+			    </div>
+			    <i class="popover_arrow popover_arrow_out"></i>
+			    <i class="popover_arrow popover_arrow_in"></i> 
+			    <input type="hidden" id="recordFlow" value=""/>
+			</div>
        </div>
-       <div class="popover pos_center " style="display:none;z-index: 999;">
-		    <div class="popover_inner">
-		        <div class="popover_content jsPopOverContent">短信内容   
-		         <span class="frm_textarea_box with_counter counter_in append count" style="width: 220px;">
-		       	<textarea  class="frm_textarea">您好，请您于20XX-XX-XX至 20XX-XX-XX日前往市中心医院进行跟踪治疗!</textarea></span>
-		   </div>
-		        <div class="popover_bar"><a href="javascript:sendFollowSms();" class="btn btn_primary jsPopoverBt">确定</a>&nbsp;<a href="javascript:$('.popover').hide();" class="btn btn_default jsPopoverBt">取消</a></div>
-		    </div>
-		    <i class="popover_arrow popover_arrow_out"></i>
-		    <i class="popover_arrow popover_arrow_in"></i> 
-		    <input type="hidden" id="recordFlow" value=""/>
-		</div>
+      
 </div>

@@ -274,7 +274,10 @@
 										</c:if>
 										<c:if test="${empty patientVisitMap[visit.visitFlow].visitDate && visit.isVisit == GlobalConstant.FLAG_Y && !empty leftDate}">
 											<div class="sch_date_item" style="width: 350px;">
-												访视窗：${leftDate}&#12288;~&#12288;${rightDate}(距今${pdfn:signDaysBetweenTowDate(leftDate,pdfn:getCurrDate()) }天)
+												<c:choose>
+													<c:when test="${pdfn:getCurrDate()>=leftDate }">访视窗：${leftDate}&#12288;~&#12288;${rightDate}(访视中...)</c:when>
+													<c:otherwise>访视窗：${leftDate}&#12288;~&#12288;${rightDate}(距今${pdfn:signDaysBetweenTowDate(leftDate,pdfn:getCurrDate()) }天)</c:otherwise>
+												</c:choose>
 												<c:set var="leftDate" value=""/>
 												<c:set var="rightDate" value=""/>
 											</div>

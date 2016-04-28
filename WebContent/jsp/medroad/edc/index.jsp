@@ -212,7 +212,12 @@ function projFile(){
 function drugList(){
 	jboxLoad("content","<s:url value='/medroad/drug/list'/>",true);
 }
-
+function record(currentPage){
+	jboxLoad("content","<s:url value='/medroad/drug/record'/>?currentPage="+currentPage,true);
+}
+function store(){
+	jboxLoad("content","<s:url value='/medroad/drug/store'/>",true);
+}
 </script>
 <style>
 body{overflow:hidden;}
@@ -247,8 +252,8 @@ body{overflow:hidden;}
           <dd class="menu_item"><a href="javascript:projInfo();">项目概况</a></dd>
           <!-- 
           <dd class="menu_item"><a href="javascript:projPath();">诊疗方案</a></dd>
-           -->
            <dd class="menu_item"><a href="javascript:void();">项目进展</a></dd>
+           -->
           <dd class="menu_item"><a href="javascript:projFile();">项目文档</a></dd>
         </dl>
         <dl class="menu menu_first">
@@ -274,9 +279,11 @@ body{overflow:hidden;}
             <i class="icon_menu menu_statistics"></i>药品管理
           </dt>
           <dd class="menu_item"><a href="javascript:drugList();">药物信息</a></dd>
-          <dd class="menu_item"><a href="javascript:void('');">使用记录</a></dd>
+          <dd class="menu_item"><a href="javascript:record('');">使用记录</a></dd>
+          <!-- 
           <dd class="menu_item"><a href="javascript:void();">储运记录</a></dd>
-           <dd class="menu_item"><a href="javascript:drugs();">库存记录</a></dd>
+           -->
+           <dd class="menu_item"><a href="javascript:store();">库存记录</a></dd>
         </dl>
         <dl class="menu">
           <dt class="menu_title">

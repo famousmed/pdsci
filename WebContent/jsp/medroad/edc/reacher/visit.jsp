@@ -29,7 +29,10 @@
 		*/
 	}
 	function recipe(){
-		jboxLoad("div_table_0","<s:url value='/medroad/recipe'/>",true);	
+		jboxLoad("div_table_0","<s:url value='/medroad/recipe/list'/>",true);	
+	}
+	function recipeDrug(){
+		jboxLoad("div_table_0","<s:url value='/medroad/recipe/drug'/>",true);	
 	}
 </script>
 <style>
@@ -40,9 +43,7 @@
 	<div class="title_tab" id="toptab">
 		<ul>
 			<li  class="tab_select " onclick="recipe();"><a>就诊记录</a></li>
-			<!-- 
-			<li  class="tab" onclick=""><a>随访管理</a></li>
-			 -->
+			<li  class="tab" onclick="recipeDrug();"><a>用药记录</a></li>
 			<li  class="tab "  onclick="datainput('${currVisit.visitFlow}','');"><a>病例录入</a></li>
 		</ul>
 	</div>
