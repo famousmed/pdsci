@@ -467,9 +467,14 @@ public class GcpDrugBizImpl implements IGcpDrugBiz{
 				PubPatientRecipeDrug patientRecipeDrug = new PubPatientRecipeDrug();
 				patientRecipeDrug.setRecipeFlow(patientRecipe.getRecipeFlow());
 				patientRecipeDrug.setDrugFlow(drugFlow);
+				patientRecipeDrug.setProjFlow(patientRecipe.getProjFlow());
+				patientRecipeDrug.setOrgFlow(patientRecipe.getOrgFlow());
 				GcpDrug drug = readDrugInfo(drugFlow);
 				if(drug!=null){
 					patientRecipeDrug.setDrugName(drug.getDrugName());
+				}
+				if (StringUtil.isNotBlank(drugPack)) {
+					patientRecipeDrug.setDrugPack(drugPack);
 				}
 				if (StringUtil.isNotBlank(drugPack)) {
 					patientRecipeDrug.setDrugPack(drugPack);
@@ -478,6 +483,26 @@ public class GcpDrugBizImpl implements IGcpDrugBiz{
 			}
 			return GlobalConstant.ONE_LINE;
 		}
+		return GlobalConstant.ZERO_LINE;
+	}
+	@Override
+	public int saveRecipe(PubPatientRecipe patientRecipe,String drugFlow,String lotNo,String drugAmount){
+		recipeBiz.savePatientRecipe(patientRecipe);
+		
+		PubPatientRecipeDrug patientRecipeDrug = new PubPatientRecipeDrug();
+		patientRecipeDrug.setRecipeFlow(patientRecipe.getRecipeFlow());
+		patientRecipeDrug.setDrugFlow(drugFlow);
+		patientRecipeDrug.setProjFlow(patientRecipe.getProjFlow());
+		patientRecipeDrug.setOrgFlow(patientRecipe.getOrgFlow());
+		patientRecipeDrug.setDrugAmount(drugAmount);
+		GcpDrug drug = readDrugInfo(drugFlow);
+		if(drug!=null){
+			patientRecipeDrug.setDrugName(drug.getDrugName());
+		}
+		if (StringUtil.isNotBlank(lotNo)) {
+			patientRecipeDrug.setLotNo(lotNo);
+		}
+		recipeBiz.savePatientRecipeDrug(patientRecipeDrug);
 		return GlobalConstant.ZERO_LINE;
 	}
 	

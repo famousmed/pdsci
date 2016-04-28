@@ -81,6 +81,8 @@ public interface IGcpDrugBiz {
 	List<GcpDrug> searchDrugList(GcpDrug gcpDrug);
 	int saveRecipe(PubPatientRecipe patientRecipe, String[] drugFlows,
 			String drugPack);
+	int saveRecipe(PubPatientRecipe patientRecipe, String drugFlow,
+			String lotNo,String drugAmount);
 	int dispensDrug(PubPatientRecipe recipe, GcpDrugStoreRec drugStoreRec);
 	List<String> searchDrugPacks(String projFlow,String orgFlow,String recipeStatusId);
 	List<GcpDrugStoreRec> searchDrugStoreRec(String projFlow,
