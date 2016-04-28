@@ -72,6 +72,7 @@ import com.pinde.sci.model.mo.InxInfo;
 import com.pinde.sci.model.mo.PubPatient;
 import com.pinde.sci.model.mo.PubPatientRecipe;
 import com.pinde.sci.model.mo.PubPatientRecipeDrug;
+import com.pinde.sci.model.mo.PubPatientRecipeExample;
 import com.pinde.sci.model.mo.PubPatientVisit;
 import com.pinde.sci.model.mo.PubPatientWindow;
 import com.pinde.sci.model.mo.PubProj;
@@ -709,7 +710,7 @@ public class MedRoadController extends GeneralController{
 		return GlobalConstant.OPRE_SUCCESSED;
 	}
 	
-	@RequestMapping(value="/recipe")
+	@RequestMapping(value="/recipe/list")
 	public String recipe(Model model,HttpServletRequest request) throws Exception{
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
 		List<EdcVisit> visitList = visitBiz.searchVisitList(proj.getProjFlow());
@@ -977,7 +978,11 @@ public class MedRoadController extends GeneralController{
 			drugLotCountMap.put(in.getLotNo(), count);
 		}
 		//”√¡ø
-		List<PubPatientRecipeDrug> recipeDrugList = recipeBiz.searchRecipeDrug(projFlow,orgFlow,drugFlow);
+		PubPatientRecipeDrug temp = new PubPatientRecipeDrug();
+		temp.setProjFlow(projFlow);
+		temp.setOrgFlow(orgFlow);
+		temp.setDrugFlow(drugFlow);
+		List<PubPatientRecipeDrug> recipeDrugList = recipeBiz.searchRecipeDrug(temp);
 		Map<String,Integer> drugLotUsedCountMap = new HashMap<String, Integer>();
 		for(PubPatientRecipeDrug recipeDrug : recipeDrugList){
 			Integer count = drugLotUsedCountMap.get(recipeDrug.getLotNo());
@@ -1004,5 +1009,80 @@ public class MedRoadController extends GeneralController{
 		}
 		return drugLotSurplusCountMap;
 	}
+	@RequestMapping(value="/drug/record")
+	public String useRecord(Model model , Integer currentPage,HttpServletRequest request) throws Exception{ 
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
+		String projFlow = proj.getProjFlow();
+		String orgFlow = GlobalContext.getCurrentUser().getOrgFlow();
+		
+		
+		
+		PubPatientRecipe recipe = new PubPatientRecipe();
+		recipe.setProjFlow(projFlow);
+		recipe.setOrgFlow(orgFlow);
+		List<PubPatientRecipe> recipeList = recipeBiz.searchPatientRecipeByPatientRecipe(recipe);
+		Map<String ,PubPatientRecipe> recipeMap = new HashMap<String, PubPatientRecipe>();
+		for(PubPatientRecipe temp : recipeList){
+			recipeMap.put(temp.getRecipeFlow(), temp);
+		}
+		
+		PageHelper.startPage(currentPage, getPageSize(request));
+		PubPatientRecipeDrug temp = new PubPatientRecipeDrug();
+		temp.setProjFlow(projFlow);
+		temp.setOrgFlow(orgFlow);
+		List<PubPatientRecipeDrug> recipeDrugList = recipeBiz.searchRecipeDrug(temp);
+		
+		model.addAttribute("recipeDrugList", recipeDrugList);
+		model.addAttribute("recipeMap", recipeMap);
+		return "medroad/edc/drug/record";
+	}
+	@RequestMapping(value="/drug/store")
+	public String store(Model model ) throws Exception{ 
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
+		String projFlow = proj.getProjFlow();
+		String orgFlow = GlobalContext.getCurrentUser().getOrgFlow();
+		List<GcpDrug> gcpDrugList = gcpDrugBiz.searchDrugByProj(projFlow);
+		model.addAttribute("drugList", gcpDrugList);
+		
+		GcpDrugIn in = new GcpDrugIn();
+		in.setProjFlow(projFlow);
+		in.setOrgFlow(orgFlow);
+		List<GcpDrugIn> drugInList = gcpDrugBiz.searchDrugInList(in);
+		Map<String,List<GcpDrugIn>> drugInMap = new HashMap<String, List<GcpDrugIn>>();
+		for(GcpDrugIn temp : drugInList){
+			List<GcpDrugIn> list = drugInMap.get(temp.getDrugFlow());
+			if(list == null){
+				list = new ArrayList<GcpDrugIn>();
+			}
+			list.add(temp);
+			drugInMap.put(temp.getDrugFlow(), list);
+		}
+		model.addAttribute("drugInMap", drugInMap);
+		
+		Map<String,Map<String,Integer>> drugLotMap = new HashMap<String, Map<String,Integer>>();
+		for(GcpDrug drug : gcpDrugList){
+			Map<String, Integer> drugLotSurplusCountMap = getSurplusDrugCountMap(drug.getDrugFlow(),projFlow,orgFlow);
+			drugLotMap.put(drug.getDrugFlow(), drugLotSurplusCountMap);
+		}
+		model.addAttribute("drugLotMap", drugLotMap);
+		return "medroad/edc/drug/store";
+	}
+	
+	@RequestMapping(value="/recipe/drug")
+	public String recipeDrug(Model model) throws Exception{ 
+		
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT); 
+		
+		List<PubPatientRecipe> recipeList = recipeBiz.searchPatientRecipe(patient.getPatientFlow());
+		Map<String ,List<PubPatientRecipeDrug>> recipeDrugMap = new HashMap<String, List<PubPatientRecipeDrug>>();
+		for(PubPatientRecipe recipe : recipeList){
+			recipeDrugMap.put(recipe.getRecipeFlow(), recipeBiz.searchPatientRecipeDrug(recipe.getRecipeFlow()));
+		}
+		
+		model.addAttribute("recipeList", recipeList);
+		model.addAttribute("recipeDrugMap", recipeDrugMap);
+		return "medroad/edc/recipe/drug";
+	}
+	
 }
 
