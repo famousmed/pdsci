@@ -7,7 +7,8 @@ public enum OperTypeEnum implements GeneralEnum<String> {
 	
 	LogIn("LogIn","登录"),
 	LogOut("LogOut","退出"),
-	Course("Course","课程")
+	Course("Course","课程"),
+	DataInput("DataInput","数据录入")
 	;
 
 	private final String id;
