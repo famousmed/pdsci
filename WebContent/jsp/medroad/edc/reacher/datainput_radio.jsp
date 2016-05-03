@@ -9,7 +9,7 @@
 <c:set var="attrUnit" value="${param.attrUnit }" />
 <c:set var="attrNote" value="${param.attrNote }" />
 
-<div class="vote_meta_detail js_vote_type vote_meta_radio">
+<div class="vote_meta_detail js_vote_type vote_meta_radio ${attrCode}_div">
 	<div class="frm_control_group">
 		<label for="" class="frm_label" style="margin-top: -.1em; width: 8em">
 			<c:if test="${showEleName}">

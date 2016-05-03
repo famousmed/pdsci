@@ -600,7 +600,7 @@ $(document).ready(function(){
 </div>
 
 <c:if test="${!empty param.visitFlow && sessionScope.projDescForm.visitModuleMap[currVisit.visitFlow].size()>0}">
-	<jsp:include page="/jsp/medroad/edc/reacher/inputAssist2.jsp" ></jsp:include>
+	<jsp:include page="/jsp/medroad/edc/reacher/inputAssist.jsp" ></jsp:include>
 </c:if>
 <input type="hidden" id="elementCode" value="${param.elementCode}"/>
 </body>

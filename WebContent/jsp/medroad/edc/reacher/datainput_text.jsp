@@ -6,8 +6,8 @@
 <c:set var="attrCode" value="${param.attrCode }" />
 <c:set var="attrUnit" value="${param.attrUnit }" />
 <c:set var="attrNote" value="${param.attrNote }" />
-<div class="vote_meta_detail" style="padding-top: 10px;">
-	<div class="frm_control_group" >
+<div class="vote_meta_detail ${attrCode}_div" style="padding-top: 10px;">
+	<div class="frm_control_group">
 		<label for="" class="frm_label"
 			style="margin-top: -.1em; width: 8em"> <c:if
 				test="${showEleName}">

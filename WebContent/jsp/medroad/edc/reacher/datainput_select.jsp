@@ -8,7 +8,7 @@
 <c:set var="attrUnit" value="${param.attrUnit }" />
 <c:set var="attrNote" value="${param.attrNote }" />
 
-<div class="vote_meta_detail" style="padding-top: 10px;">
+<div class="vote_meta_detail ${attrCode}_div" style="padding-top: 10px;">
 	<div class="frm_control_group">
 		<label for="" class="frm_label"
 			style="margin-top: -.3em; width: 8em"> <c:if
@@ -16,7 +16,7 @@
 ${elementName }.
 </c:if> ${attrName }
 		</label>
-		<div class="frm_controls">
+		<div class="frm_controls ">
 			<div class="dropdown_menu time" style="width: 300px;">
 				<a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
 					<label class="jsBtLabel jsBtLabelSel ${attrCode}_label">${value}</label> <i
