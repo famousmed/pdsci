@@ -34,6 +34,7 @@ import com.pinde.sci.biz.edc.IEdcModuleBiz;
 import com.pinde.sci.biz.edc.IEdcProjBiz;
 import com.pinde.sci.biz.edc.IEdcRandomBiz;
 import com.pinde.sci.biz.edc.IInputBiz;
+import com.pinde.sci.biz.edc.IInspectBiz;
 import com.pinde.sci.biz.edc.IProjOrgBiz;
 import com.pinde.sci.biz.edc.IProjUserBiz;
 import com.pinde.sci.biz.edc.IVisitBiz;
@@ -62,10 +63,13 @@ import com.pinde.sci.form.pub.ProjFileForm;
 import com.pinde.sci.model.edc.EdcDesignForm;
 import com.pinde.sci.model.irb.ProjInfoForm;
 import com.pinde.sci.model.mo.EdcAttribute;
+import com.pinde.sci.model.mo.EdcElement;
+import com.pinde.sci.model.mo.EdcModule;
 import com.pinde.sci.model.mo.EdcPatientVisit;
 import com.pinde.sci.model.mo.EdcPatientVisitData;
 import com.pinde.sci.model.mo.EdcProjParam;
 import com.pinde.sci.model.mo.EdcVisit;
+import com.pinde.sci.model.mo.EdcVisitDataEvent;
 import com.pinde.sci.model.mo.GcpDrug;
 import com.pinde.sci.model.mo.GcpDrugIn;
 import com.pinde.sci.model.mo.InxInfo;
@@ -123,6 +127,8 @@ public class MedRoadController extends GeneralController{
 	private IGcpDrugBiz gcpDrugBiz;
 	@Autowired
 	private IPubPatientRecipeBiz recipeBiz;
+	@Autowired
+	private IInspectBiz inspectBiz; 
 	
 	@RequestMapping(value={"/main"},method={RequestMethod.GET})
 	public String main(String projFlow, String roleFlow,Model model,HttpServletRequest request) throws DocumentException{
@@ -555,7 +561,7 @@ public class MedRoadController extends GeneralController{
 					EdcAttribute attr = designForm.getAttrMap().get(temp.getAttrCode());
 					data = _addVisitData(visitFlow, patientFlow,
 							temp.getAttrCode(), temp.getAttrValue(), temp.getElementSerialSeq(), operUser, projFlow,
-							edcPatientVisit, attr, projParam);
+							edcPatientVisit, attr);
 					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data,status);
 					inputBiz.addVisitData(data);
 				}
@@ -659,7 +665,7 @@ public class MedRoadController extends GeneralController{
 	private EdcPatientVisitData _addVisitData(String visitFlow, String patientFlow,
 			String attrCode, String attrValue, String elementSerialSeq,
 			SysUser currUser, String projFlow, EdcPatientVisit edcPatientVisit,
-			EdcAttribute attr,EdcProjParam param) {
+			EdcAttribute attr) {
 		EdcPatientVisitData data  = new EdcPatientVisitData();
 		data.setRecordFlow(PkUtil.getUUID());
 		data.setVisitRecordFlow(edcPatientVisit.getRecordFlow());
@@ -1083,6 +1089,88 @@ public class MedRoadController extends GeneralController{
 		model.addAttribute("recipeDrugMap", recipeDrugMap);
 		return "medroad/edc/recipe/drug";
 	}
-	
+	@RequestMapping(value="/querydata")
+	public String querydata(String visitFlow,String attrCode,String recordFlow,Model model) throws Exception{ 
+		EdcDesignForm designForm = (EdcDesignForm) getSessionAttribute(GlobalConstant.PROJ_DESC_FORM);
+		EdcAttribute attribute = designForm.getAttrMap().get(attrCode);
+		if(attribute!=null){
+			EdcModule module = designForm.getModuleMap().get(attribute.getModuleCode());
+			EdcElement element = designForm.getElementMap().get(attribute.getElementCode());
+			model.addAttribute("module", module);
+			model.addAttribute("element", element);
+			model.addAttribute("attr", attribute);
+			model.addAttribute("visitFlow", visitFlow);
+			
+			List<EdcPatientVisitData> visitData = inputBiz.searchPatientVisitData(recordFlow,attrCode,"1"); 
+			if(visitData.size()>0){
+				model.addAttribute("visitData", visitData.get(0)); 
+			}
+		}
+		
+		return "medroad/edc/reacher/querydata";
+	}
+	@RequestMapping(value="/updateData")
+	@ResponseBody
+	public String updateData(String visitFlow,String attrCode,String elementSerialSeq,String recordFlow,String eventNote,String value,Model model) throws Exception{ 
+		EdcDesignForm designForm = (EdcDesignForm) getSessionAttribute(GlobalConstant.PROJ_DESC_FORM);
+		
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT); 
+		List<EdcPatientVisitData> visitData = inputBiz.searchPatientVisitData(recordFlow,attrCode,elementSerialSeq);
+		String oldValue = "";
+		EdcPatientVisitData data = null;
+		
+		SysUser user = GlobalContext.getCurrentUser();
+		
+		if(visitData!=null && visitData.size()>0){
+			data = visitData.get(0);
+			
+			oldValue = data.getAttrValue();
+			
+			data.setAttrValue(value);
+			inputBiz.modifyVisitData(data);
+		}else {
+			PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visitFlow,patient.getPatientFlow());
+			EdcPatientVisit edcPatientVisit  = null;
+			if(pateintVisit != null ){
+				 edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
+			}
+			data = _addVisitData(visitFlow, patient.getPatientFlow(),
+					attrCode, value, elementSerialSeq, user, patient.getProjFlow(),
+					edcPatientVisit, designForm.getAttrMap().get(attrCode));
+			data.setAttrValue(value);
+			inputBiz.addVisitData(data);
+		}
+		
+		//同步修改Event 包括疑问，提交后修改 留痕
+		_addVisitDataEvent(patient,data,oldValue,designForm,eventNote);
+		return GlobalConstant.OPRE_SUCCESSED;
+	}
+	private void _addVisitDataEvent(PubPatient patient,EdcPatientVisitData data,String oldValue,EdcDesignForm designForm,String eventNote) {
+		EdcVisitDataEvent dataEvent = new EdcVisitDataEvent();
+		dataEvent.setRecordFlow(PkUtil.getUUID());
+		dataEvent.setProjFlow(data.getProjFlow());
+		dataEvent.setOrgFlow(patient.getOrgFlow());
+		dataEvent.setPatientFlow(patient.getPatientFlow());
+		dataEvent.setPatientCode(patient.getPatientCode());
+		dataEvent.setDataRecordFlow(data.getRecordFlow());
+		dataEvent.setVisitFlow(data.getVisitFlow());
+		dataEvent.setVisitName(designForm.getVisitMap().get(data.getVisitFlow()).getVisitName());
+		dataEvent.setModuleCode(data.getModuleCode());
+		dataEvent.setModuleName(designForm.getModuleMap().get(data.getModuleCode()).getModuleName());
+		dataEvent.setElementCode(data.getElementCode());
+		dataEvent.setElementName(designForm.getElementMap().get(data.getElementCode()).getElementName());
+		dataEvent.setElementSerialSeq(data.getElementSerialSeq());
+		dataEvent.setAttrCode(data.getAttrCode());
+		dataEvent.setAttrName(designForm.getAttrMap().get(data.getAttrCode()).getAttrName());
+		dataEvent.setEventSeq("");
+		dataEvent.setAttrValue(oldValue);
+		dataEvent.setAttrEventValue(data.getAttrValue());
+		dataEvent.setEventTime(DateUtil.getCurrDateTime());
+		dataEvent.setEventUserFlow(GlobalContext.getCurrentUser().getUserFlow());
+		dataEvent.setEventUserName(GlobalContext.getCurrentUser().getUserName());
+		dataEvent.setQueryFlow("");
+		dataEvent.setEventNote(eventNote);
+		inspectBiz.addVisitDataEvent(dataEvent);
+	}
 }
 
