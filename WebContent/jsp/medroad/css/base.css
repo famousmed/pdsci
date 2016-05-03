@@ -3104,7 +3104,7 @@ button.btn {
 
 .popover .frm_input_box {
 	display: block;
-	width: auto
+	/*width: auto*/
 }
 
 .popover .popover_bar {
