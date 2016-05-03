@@ -405,7 +405,7 @@ public class GeneralMethod {
 				if(StringUtil.isNotBlank(result)){
 					result+=",";
 				}
-				result += value;
+				result += StringUtil.defaultIfEmpty(value, "");
 			}
 			if(StringUtil.isBlank(result)){
 				return attrValue;
