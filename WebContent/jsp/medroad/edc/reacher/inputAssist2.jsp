@@ -9,6 +9,13 @@ $(document).ready(function(){
 	$(".js_faq_trigger").mouseover(function(){
 	    $(".js_faq_main_panel").show();
 	});
+	
+	var dropDiv = $('.faqscene_panel');
+	dropDiv.on('click',function(e){e.stopPropagation();});
+	dropDiv.on('click',function(){
+		$(this).find(".faqscene_panel").stop().show();
+    });
+    $(document).on('click',function(){$(".faqscene_panel").hide();});
 });
 function showContent(contentid,obj){
 	$(".js_faqscene_content").hide();
@@ -59,7 +66,7 @@ function cosAll(){
 
 							<li data-report-id="234"><a  href="javascript:showContent('234',this);">快速定位</a></li>
 
-							<li data-report-id="235"><a href="javascript:showContent('235',this);">问题跟踪</a></li>
+							<li data-report-id="235"><a href="javascript:showContent('235',this);">修改记录</a></li>
 
 							<li data-report-id="236"><a href="javascript:showContent('236',this);">操作日志</a></li>
 

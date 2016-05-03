@@ -1,4 +1,5 @@
 <c:set var="showEleName" value="${param.showEleName }" />
+<c:set var="moduleCode" value="${param.moduleCode }" />
 <c:set var="elementName" value="${param.elementName }" />
 <c:set var="attrName" value="${param.attrName}" />
 <c:set var="value" value="${param.value }" />
@@ -18,7 +19,7 @@ ${elementName }.
 		<div class="frm_controls">
 			<div class="dropdown_menu time" style="width: 300px;">
 				<a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
-					<label class="jsBtLabel jsBtLabelSel">${value}</label> <i
+					<label class="jsBtLabel jsBtLabelSel ${attrCode}_label">${value}</label> <i
 					class="arrow"></i>
 				</a>
 				<div class="dropdown_data_container jsDropdownList"
@@ -45,6 +46,9 @@ ${elementName }.
 				<input type="hidden" class="jsDropdownHidden"
 					name="${attrCode }" value="${value }" elementSerialSeq="1" />
 			</div>
+			<c:if test="${edcPatientVisit.inputOperStatusId == edcInputStatusEnumSubmit.id}">
+			<i class="icon_msg_mini ask" attrCode='${attrCode }' moduleCode='${ moduleCode}' style="margin-left: 5px;cursor: pointer;" id="js_ask_trend"></i>
+			</c:if>
 			<span class="frm_tips">${attrNote}</span>
 			<p class="frm_msg fail" style="display: none">
 				<span for="${attrCode}_1" class="frm_msg_content"

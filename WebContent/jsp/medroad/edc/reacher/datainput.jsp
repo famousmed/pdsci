@@ -28,6 +28,8 @@ $(function(){
 		$(this).find("div").stop().show();
     });
     $(document).on('click',function(){$(".jsDropdownList").hide();});
+    
+    
 });
 function togleShow(moduleCode){
 	if($("#"+moduleCode+"_div").is(":visible")==true){
@@ -60,31 +62,34 @@ function radioCheckboxClick(obj){
 	}
 }*/
 function initRadioCheckbox(){
-	
-	$(".frm_radio_label").click(function(){
-		if(!$(this).hasClass("selected")){
-			$(this).siblings().each(function(){
+	<c:if test="${edcPatientVisit.inputOperStatusId != edcInputStatusEnumSubmit.id}">
+		$(".frm_radio_label").click(function(){
+			if(!$(this).hasClass("selected")){
+				$(this).siblings().each(function(){
+					$(this).removeClass("selected");
+					$(this).find("input[type='radio']").attr("checked",false);
+				});
+				$(this).addClass("selected");
+				$(this).find("input[type='radio']").attr("checked",true);
+			}
+		});
+		$(".frm_checkbox_label").click(function(){
+			if($(this).hasClass("selected")){
+				$(this).find("input[type='checkbox']").attr("checked",false);
 				$(this).removeClass("selected");
-				$(this).find("input[type='radio']").attr("checked",false);
-			});
-			$(this).addClass("selected");
-			$(this).find("input[type='radio']").attr("checked",true);
-		}
-	});
-	$(".frm_checkbox_label").click(function(){
-		if($(this).hasClass("selected")){
-			$(this).find("input[type='checkbox']").attr("checked",false);
-			$(this).removeClass("selected");
-		}else{
-			$(this).addClass("selected");
-			$(this).find("input[type='checkbox']").attr("checked",true);
-		}
-	});
+			}else{
+				$(this).addClass("selected");
+				$(this).find("input[type='checkbox']").attr("checked",true);
+			}
+		});
 	
 	//初始化下拉
 	$(".jsDropdownBt").bind("click",function(){
 		$(this).next(".jsDropdownList").show();
 	});
+	</c:if>
+	
+	
 	$(".jsDropdownItem").bind("click",function(){
 		$(this).parents(".jsDropdownList").hide();
 		$(this).parent().parent().parent().siblings(".jsDropdownBt").find(".jsBtLabel").html(($(this).html()));
@@ -102,7 +107,14 @@ function initRadioCheckbox(){
 }
 $(document).ready(function(){
 	initRadioCheckbox();
+	
+	aliveVisitSel();
 });
+function aliveVisitSel(){
+	$("#visitSelBt").bind("click",function(){
+		$(this).next(".jsDropdownList").show();
+	});
+}
 function saveData(status){
 	
 	var datas =[];
@@ -239,6 +251,26 @@ function scrollToModule(recordFlow){
 $(".to_top").click(function(){
 	  $("#indexBody").scrollTo('.main_hd',500, { offset:{ top:0} } );
 });
+//疑问相关
+$(document).ready(function(){
+	
+	var dropBtn = $('.ask');
+	dropBtn.on('click',function(e){e.stopPropagation();});
+	dropBtn.on('click',function(){
+		 $(".rich_buddy").hide();
+         $("."+$(this).attr("moduleCode")+"_query").css({"left":$(this).position().left+30,"top":$(this).position().top-20});
+         jboxLoad($(this).attr("moduleCode")+"_query","<s:url value='/medroad/querydata'/>?visitFlow=${ param.visitFlow}&attrCode="+$(this).attr("attrCode")+"&recordFlow=${edcPatientVisit.recordFlow}",false);
+         $("."+$(this).attr("moduleCode")+"_query").show();
+    });
+	
+	var dropDiv = $('.rich_buddy');
+	dropDiv.on('click',function(e){e.stopPropagation();});
+	dropDiv.on('click',function(){
+		$(this).find(".rich_buddy").stop().show();
+    });
+    $(document).on('click',function(){$(".rich_buddy").hide();});
+});
+
 </script>
 <style>
 .btn_primary {
@@ -268,12 +300,12 @@ $(".to_top").click(function(){
 		<label>受试者编号：*****3031&#12288;</label>
 	 -->
 	
-		<div class="dropdown_menu time" style="width: 300px;" ><a href="javascript:;" class="btn dropdown_switch jsDropdownBt">
+		<div class="dropdown_menu time" style="width: 300px;" ><a href="javascript:;" id='visitSelBt' class="btn dropdown_switch jsDropdownBt">
 			
 			<label class="jsBtLabel" ><c:if test="${empty currVisit }">请选择访视</c:if>
 			<c:if test="${!empty param.visitFlow }">${currVisit.visitName }</c:if>
 			</label><i class="arrow"></i></a>
-			<div class="dropdown_data_container jsDropdownList" style="display: none;">
+			<div class="dropdown_data_container jsDropdownList"  style="display: none;">
 			    <ul class="dropdown_data_list">
 			    		<li class="dropdown_data_item ">  
 			                <a onclick="datainput('','');" href="javascript:;" class="jsDropdownItem" data-value="" data-index="0" data-name="00">&#12288;</a>
@@ -335,20 +367,20 @@ $(".to_top").click(function(){
 <!-- 模块 -->
 <c:forEach items="${sessionScope.projDescForm.visitModuleMap[currVisit.visitFlow]}" var="visitModule" varStatus="status">
  <c:set var="commCode" value="${currVisit.visitFlow }_${visitModule.moduleCode  }"></c:set>
- 	<div class="index_form ${visitModule.recordFlow }" style="margin-bottom: 10px;" >
+ 	<div class="index_form ${visitModule.recordFlow }" style="margin-bottom: 10px;position: relative;" >
          <h3>${visitModule.moduleName}
          	<a href="javascript:togleShow('${visitModule.moduleCode }');" id="${visitModule.moduleCode }_href" style="float: right" >收起</a>
          </h3>
-         <div id="${visitModule.moduleCode }_div" class="caseDiv" >
+         <div id="${visitModule.moduleCode }_div" class="caseDiv" style="position: relative;" > 
          			<!-- 元素 -->
-	         				<c:forEach items="${sessionScope.projDescForm.visitModuleElementMap[commCode]}" var="visitElement">
+        				<c:forEach items="${sessionScope.projDescForm.visitModuleElementMap[commCode]}" var="visitElement">
 	         					<c:set var="elementCode" value="${visitElement.elementCode }"/>
 			   					<c:set var="commAttrCode" value="${currVisit.visitFlow }_${visitModule.moduleCode }_${ elementCode}"></c:set>
 			   					<!-- 单次录入 -->
 			   					<c:if test="${sessionScope.projDescForm.elementMap[elementCode].elementSerial eq GlobalConstant.FLAG_N}">
-				   					<!-- 属性 -->
+				   					<!-- 属性 --> 
 				   					<c:forEach items="${sessionScope.projDescForm.visitElementAttributeMap[commAttrCode]}" var="attr" >
-				   						<c:set var="value" value="${pdfn:getVisitData(attr.attrCode,elementSerialSeqValueMap[elementCode]['1'],operUserFlow,edcPatientVisit) }"/>
+				   						<c:set var="value" value="${pdfn:getVisitDataNoCheck(attr.attrCode,elementSerialSeqValueMap[elementCode]['1'],operUserFlow,edcPatientVisit) }"/>
 				   						<c:set var="commCodeFlow" value="${commAttrCode}_${attr.attrCode}"></c:set>
 				   						 <c:set var="showEleName" value="${sessionScope.projDescForm.elementMap[elementCode].isViewName!=GlobalConstant.FLAG_N }"/>
 										  <c:set var="elementName" value="${sessionScope.projDescForm.elementMap[elementCode].elementName }"/>
@@ -360,6 +392,7 @@ $(".to_top").click(function(){
 											  sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumCheckbox.id}">
 											  <!-- 单选/复选 -->
 											  	<jsp:include page="/jsp/medroad/edc/reacher/datainput_radio.jsp" flush="true">
+											  		<jsp:param value="${visitModule.moduleCode }" name="moduleCode"/>
 											 		<jsp:param value="${showEleName }" name="showEleName"/>
 													<jsp:param value="${elementName }" name="elementName"/>
 													<jsp:param value="${attrName}" name="attrName"/>
@@ -376,12 +409,12 @@ $(".to_top").click(function(){
 											<c:when test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumSelect.id }">
 												<!-- 下拉 -->
 												<jsp:include page="/jsp/medroad/edc/reacher/datainput_select.jsp" flush="true">
+													<jsp:param value="${visitModule.moduleCode }" name="moduleCode"/>
 													<jsp:param value="${showEleName }" name="showEleName"/>
 													<jsp:param value="${elementName }" name="elementName"/>
 													<jsp:param value="${attrName}" name="attrName"/>
 													<jsp:param value="${value}" name="value"/>
 													<jsp:param value="${attr.attrCode}" name="attrCode"/>
-													<jsp:param value="${commCodeFlow}" name="commCodeFlow"/>
 													<jsp:param value="${commCodeFlow}" name="commCodeFlow"/>
 													<jsp:param value="${attrUnit}" name="attrUnit"/>
 													<jsp:param value="${attrNote}" name="attrNote"/>
@@ -390,6 +423,7 @@ $(".to_top").click(function(){
 											<c:otherwise>
 												<!-- 文本 -->
 												<jsp:include page="/jsp/medroad/edc/reacher/datainput_text.jsp" flush="true">
+													<jsp:param value="${visitModule.moduleCode }" name="moduleCode"/>
 													<jsp:param value="${showEleName }" name="showEleName"/>
 													<jsp:param value="${elementName }" name="elementName"/>
 													<jsp:param value="${attrName}" name="attrName"/>
@@ -553,11 +587,18 @@ $(".to_top").click(function(){
 				   			<c:if test="${empty  sessionScope.projDescForm.visitModuleElementMap[commCode]}">
 								    <strong>无记录!</strong>
 				   			</c:if>
-	         			</div>
+		         			<!-- 疑问 -->
+							<div id="${visitModule.moduleCode}_query" class="rich_buddy popover  ${visitModule.moduleCode}_query"  style="width:450px;left: 480px; top: 10px; display:none;">
+							   
+					        </div>
+				    </div>
+					         			
   </div>
  </c:forEach>
  </form>
+ 
 </div>
+
 <c:if test="${!empty param.visitFlow && sessionScope.projDescForm.visitModuleMap[currVisit.visitFlow].size()>0}">
 	<jsp:include page="/jsp/medroad/edc/reacher/inputAssist2.jsp" ></jsp:include>
 </c:if>
