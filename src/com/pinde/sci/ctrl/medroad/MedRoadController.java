@@ -59,6 +59,8 @@ import com.pinde.sci.enums.pub.PatientRecipeStatusEnum;
 import com.pinde.sci.enums.pub.PatientSourceEnum;
 import com.pinde.sci.enums.pub.PatientStageEnum;
 import com.pinde.sci.enums.pub.UserSexEnum;
+import com.pinde.sci.enums.sys.OperTypeEnum;
+import com.pinde.sci.enums.sys.ReqTypeEnum;
 import com.pinde.sci.form.pub.ProjFileForm;
 import com.pinde.sci.model.edc.EdcDesignForm;
 import com.pinde.sci.model.irb.ProjInfoForm;
@@ -70,6 +72,7 @@ import com.pinde.sci.model.mo.EdcPatientVisitData;
 import com.pinde.sci.model.mo.EdcProjParam;
 import com.pinde.sci.model.mo.EdcVisit;
 import com.pinde.sci.model.mo.EdcVisitDataEvent;
+import com.pinde.sci.model.mo.EdcVisitDataEventExample;
 import com.pinde.sci.model.mo.GcpDrug;
 import com.pinde.sci.model.mo.GcpDrugIn;
 import com.pinde.sci.model.mo.InxInfo;
@@ -82,8 +85,11 @@ import com.pinde.sci.model.mo.PubPatientWindow;
 import com.pinde.sci.model.mo.PubProj;
 import com.pinde.sci.model.mo.PubProjOrg;
 import com.pinde.sci.model.mo.PubProjUser;
+import com.pinde.sci.model.mo.SysLog;
+import com.pinde.sci.model.mo.SysLogExample;
 import com.pinde.sci.model.mo.SysRole;
 import com.pinde.sci.model.mo.SysUser;
+import com.pinde.sci.model.mo.SysLogExample.Criteria;
 
 @Controller
 @RequestMapping("/medroad")
@@ -588,6 +594,8 @@ public class MedRoadController extends GeneralController{
 	}
 	private void setOper(EdcProjParam projParam,  EdcPatientVisit pateintVisit, SysUser currUser,String status) {
 		
+		String LogDesc = "";
+		
 		String statusId = EdcInputStatusEnum.Save.getId().equals(status)? EdcInputStatusEnum.Save.getId():EdcInputStatusEnum.Submit.getId();
 		String statusName = EdcInputStatusEnum.Save.getId().equals(status)? EdcInputStatusEnum.Save.getName():EdcInputStatusEnum.Submit.getName();
 		String time = DateUtil.getCurrDateTime();
@@ -603,7 +611,7 @@ public class MedRoadController extends GeneralController{
 //			pateintVisit.setInputOper2StatusId(EdcInputStatusEnum.Save.getId());
 //			pateintVisit.setInputOper2StatusName(EdcInputStatusEnum.Save.getName());
 //			pateintVisit.setInputOper2Time(time);
-			
+			LogDesc = currUser.getUserName()+"保存数据";
 			
 			if(EdcInputStatusEnum.Submit.getId().equals(statusId)){
 				pateintVisit.setInputOperStatusId(EdcInputStatusEnum.Submit.getId());
@@ -611,6 +619,7 @@ public class MedRoadController extends GeneralController{
 				pateintVisit.setInputOperFlow(currUser.getUserFlow());
 				pateintVisit.setInputOperName(currUser.getUserName());
 				pateintVisit.setInputOperTime(time);
+				LogDesc = currUser.getUserName()+"提交数据";
 			}
 		}else {
 			if(StringUtil.isBlank(pateintVisit.getInputOper1Flow())){
@@ -621,7 +630,7 @@ public class MedRoadController extends GeneralController{
 				pateintVisit.setInputOper1StatusId(EdcInputStatusEnum.Save.getId());
 				pateintVisit.setInputOper1StatusName(EdcInputStatusEnum.Save.getName());
 				pateintVisit.setInputOper1Time(time);
-				
+				LogDesc = currUser.getUserName()+"(录一)保存数据";
 			}else {
 				if(currUser.getUserFlow().equals(pateintVisit.getInputOper1Flow())){
 					pateintVisit.setInputOper1Time(time);
@@ -633,6 +642,7 @@ public class MedRoadController extends GeneralController{
 					pateintVisit.setInputOper2StatusId(EdcInputStatusEnum.Save.getId());
 					pateintVisit.setInputOper2StatusName(EdcInputStatusEnum.Save.getName());
 					pateintVisit.setInputOper2Time(time);
+					LogDesc = currUser.getUserName()+"(录二)保存数据";
 				}
 			}
 			if(EdcInputStatusEnum.Submit.getId().equals(statusId)){
@@ -641,8 +651,20 @@ public class MedRoadController extends GeneralController{
 				pateintVisit.setInputOperFlow(currUser.getUserFlow());
 				pateintVisit.setInputOperName(currUser.getUserName());
 				pateintVisit.setInputOperTime(time);
+				
+				LogDesc = currUser.getUserName()+"提交数据";
 			}
 		} 
+		//记录日志
+		SysLog log = new SysLog();
+		log.setReqTypeId(ReqTypeEnum.POST.getId());
+		log.setOperId(OperTypeEnum.DataInput.getId());
+		log.setOperName(OperTypeEnum.DataInput.getName());
+		log.setLogDesc(LogDesc);
+		log.setWsId(GlobalConstant.EDC_WS_ID);
+		GeneralMethod.addSysLog(log);
+		log.setResourceFlow(pateintVisit.getRecordFlow());
+		logMapper.insert(log);
 	}
 	private void setDataValueAndTip(String attrValue, SysUser currUser,
 			EdcPatientVisit edcPateintVisit, EdcProjParam param,
@@ -1172,5 +1194,30 @@ public class MedRoadController extends GeneralController{
 		dataEvent.setEventNote(eventNote);
 		inspectBiz.addVisitDataEvent(dataEvent);
 	}
+	@RequestMapping(value="/dataevent")
+	public String dataevent(Model model) throws Exception{
+		
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT); 
+		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
+		String visitFlow = visit.getVisitFlow();
+		
+		EdcVisitDataEventExample example = new EdcVisitDataEventExample();
+		EdcVisitDataEventExample.Criteria criteria =  example.createCriteria()
+				.andProjFlowEqualTo(patient.getProjFlow()).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y)
+				.andPatientFlowEqualTo(patient.getPatientFlow()).andVisitFlowEqualTo(visitFlow); 
+		example.setOrderByClause("EVENT_TIME DESC");
+		List<EdcVisitDataEvent> eventList = inspectBiz.searchEdcDataVisitEvent(example);
+		model.addAttribute("eventList", eventList);
+		return "medroad/edc/reacher/dataevent";
+	}
+	@RequestMapping(value="/datainputlog")
+	public String datainputlog(Model model) throws Exception{
+		SysLogExample example = new SysLogExample();
+		example.createCriteria().andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y).andOperIdEqualTo(OperTypeEnum.DataInput.getId());
+		example.setOrderByClause("LOG_TIME");
+		model.addAttribute("logList",logMapper.selectByExample(example));
+		return "medroad/edc/reacher/datainputlog";
+	}
+	
 }
 
