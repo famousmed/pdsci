@@ -347,6 +347,21 @@ public class GeneralMethod {
 		}
 		return "";
 	}
+	//无核对
+	public static String getVisitDataNoCheck(String attrCode, Map<String,EdcPatientVisitData> valueMap,String userFlow,EdcPatientVisit visit){
+		if(valueMap == null  || !valueMap.containsKey(attrCode)|| visit ==null){
+			return "";
+		}
+		if(EdcInputStatusEnum.Submit.getId().equals(visit.getInputOperStatusId())){
+			return valueMap.get(attrCode).getAttrValue();
+		}
+		if(userFlow.equals(visit.getInputOper1Flow())){		
+			return valueMap.get(attrCode).getAttrValue1();
+		}else if(userFlow.equals(visit.getInputOper2Flow())){	 //双份录入
+			return valueMap.get(attrCode).getAttrValue2();
+		}
+		return "";
+	}
 	public static boolean isRandom(EdcProjParam projParam){
 		if(projParam == null){
 			return false;
