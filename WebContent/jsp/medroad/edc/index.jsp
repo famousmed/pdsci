@@ -232,8 +232,8 @@ body{overflow:hidden;}
 </style>
 </head>
 
-<body>
-<div style="overflow:auto;" id="indexBody">
+<body >
+<div style="overflow:auto;position: relative;" id="indexBody">
 <div class="bd_bg">
 <div class="yw">
 <jsp:include page="/jsp/medroad/head.jsp" flush="true">
@@ -380,7 +380,11 @@ body{overflow:hidden;}
    </div>
  </div>
 </div>
+
 </div>
 <jsp:include page="/jsp/medroad/foot.jsp" />
+
+ 
 </body>
+
 </html>
