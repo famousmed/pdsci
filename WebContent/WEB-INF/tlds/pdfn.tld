@@ -188,6 +188,13 @@
 	</function>
 	<function>
 		<description></description>
+		<name>getVisitDataNoCheck</name>
+		<function-class>com.pinde.sci.common.GeneralMethod</function-class>
+		<function-signature>java.lang.String getVisitDataNoCheck(java.lang.String,java.util.Map,java.lang.String,  com.pinde.sci.model.mo.EdcPatientVisit ) </function-signature>
+	</function>
+	
+	<function>
+		<description></description>
 		<name>getAttrValue</name>
 		<function-class>com.pinde.sci.common.GeneralMethod</function-class>
 		<function-signature>java.lang.String getAttrValue(com.pinde.sci.model.edc.EdcDesignForm ,java.lang.String,java.lang.String ) </function-signature>
@@ -369,7 +376,7 @@
 	</function>
 	<function>
 		<description></description>
-		<name>toJsonString</name>
+		<name>toJsonString</name> 
 		<function-class>com.pinde.core.util.StringUtil</function-class>
 		<function-signature>java.lang.String toJsonString(java.lang.String)</function-signature>
 	</function>
