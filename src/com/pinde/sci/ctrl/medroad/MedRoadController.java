@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -58,6 +59,7 @@ import com.pinde.sci.common.GeneralController;
 import com.pinde.sci.common.GeneralMethod;
 import com.pinde.sci.common.GlobalConstant;
 import com.pinde.sci.common.GlobalContext;
+import com.pinde.sci.common.InitConfig;
 import com.pinde.sci.dao.base.SysLogMapper;
 import com.pinde.sci.dao.base.SysUserMapper;
 import com.pinde.sci.enums.edc.AppResultTypeEnum;
@@ -565,21 +567,26 @@ public class MedRoadController extends GeneralController{
 		}
 		
 		if(datas!=null && datas.size()>0){
+			
+			List<EdcPatientVisitData> existData = inputBiz.searchPatientVisitData(edcPatientVisit.getRecordFlow());
+			Map<String,EdcPatientVisitData> dataMap = new HashMap<String, EdcPatientVisitData>();
+			for(EdcPatientVisitData visitData : existData){
+				dataMap.put(visitData.getAttrCode()+"_"+visitData.getElementSerialSeq(), visitData);
+			}
+			
 			for(EdcPatientVisitData temp : datas){
-				List<EdcPatientVisitData> visitData = inputBiz.searchPatientVisitData(pateintVisit.getRecordFlow(),temp.getAttrCode(),
-						temp.getElementSerialSeq()); 
-				if(visitData!=null && visitData.size()>0){
-					data = visitData.get(0);
-					
-					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data,status);
-					inputBiz.modifyVisitData(data);
-				}else {
-					EdcAttribute attr = designForm.getAttrMap().get(temp.getAttrCode());
-					data = _addVisitData(visitFlow, patientFlow,
-							temp.getAttrCode(), temp.getAttrValue(), temp.getElementSerialSeq(), operUser, projFlow,
-							edcPatientVisit, attr);
-					setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data,status);
-					inputBiz.addVisitData(data);
+				
+					data = dataMap.get(temp.getAttrCode()+"_"+temp.getElementSerialSeq());
+					if(data != null){
+						setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data,status);
+						inputBiz.modifyVisitData(data);
+					}else {
+						EdcAttribute attr = designForm.getAttrMap().get(temp.getAttrCode());
+						data = _addVisitData(visitFlow, patientFlow,
+								temp.getAttrCode(), temp.getAttrValue(), temp.getElementSerialSeq(), operUser, projFlow,
+								edcPatientVisit, attr);
+						setDataValueAndTip(temp.getAttrValue(), operUser, edcPatientVisit, projParam,  data,status);
+						inputBiz.addVisitData(data);
 				}
 			}
 		}
@@ -1330,6 +1337,23 @@ public class MedRoadController extends GeneralController{
 	@RequestMapping(value="/addCrfPhoto")
 	@ResponseBody
 	public String addCrfPhoto(MultipartFile imgFile){
+		List<String> mimeList = new ArrayList<String>();
+		if(StringUtil.isNotBlank(StringUtil.defaultString(InitConfig.getSysCfg("inx_image_support_mime")))){
+			mimeList = Arrays.asList(StringUtil.defaultString(InitConfig.getSysCfg("inx_image_support_mime")).split(","));
+		}
+		List<String> suffixList = new ArrayList<String>();
+		if(StringUtil.isNotBlank(StringUtil.defaultString(InitConfig.getSysCfg("inx_image_support_suffix")))){
+			suffixList = Arrays.asList(StringUtil.defaultString(InitConfig.getSysCfg("inx_image_support_suffix")).split(","));
+		}
+		
+		String fileType = imgFile.getContentType();//MIME类型;
+		String originalFileName = imgFile.getOriginalFilename();//文件名
+		String filesuffix = originalFileName.substring(originalFileName.lastIndexOf("."));//后缀名
+		if(!(mimeList.contains(fileType) &&  suffixList.contains(filesuffix))){
+			return GlobalConstant.UPLOAD_IMG_TYPE_ERROR;
+		}
+		 
+		
 		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
 		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
 	
