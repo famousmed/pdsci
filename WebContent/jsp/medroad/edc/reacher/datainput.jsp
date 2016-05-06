@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<s:url value='/jsp/medroad/css/stat_overview.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
 <link rel="stylesheet" type="text/css" 	href="<s:url value='/jsp/medroad/css/dropdown.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
-
 <script>
 
 $(document).ready(function(){
@@ -270,6 +269,29 @@ $(document).ready(function(){
     });
     $(document).on('click',function(){$(".rich_buddy").hide();});
 });
+//分屏录入
+$(function(){
+	$("#crfPic").slideInit({
+		width:550,
+		speed:500,
+		outClose:false
+	});
+});
+function splitInput(){
+	//$(".content_side").hide();
+	jboxStartLoading();
+	if($("#initViewerFlag").val()=="N"){
+		jboxGet("<s:url value='/medroad/crfViewer'/>?visitFlow=${param.visitFlow}",null,function(resp){
+			$("#crfPic").html(resp).rightSlideOpen();
+			$("#initViewerFlag").val("Y");
+			jboxEndLoading();
+		},function(){jboxEndLoading();},false);
+	}else {
+		$("#crfPic").rightSlideOpen();
+		jboxEndLoading();
+	}
+	
+}
 
 </script>
 <style>
@@ -317,16 +339,16 @@ $(document).ready(function(){
 			    	</c:forEach>
 			    </ul>
 			</div>
-			
 		</div>
-		<c:if test="${!empty edcPatientVisit }">
    		 <div class="section_tab" style="float: right;padding-right: 50px;">
+		
 	        <ul class="tab_navs">
 	        	<script>
 		        	$(document).ready(function(){
 		        		$(".tab_nav :last").addClass("no_extra");
 		        	});
 	        	</script>
+	        	<c:if test="${!empty edcPatientVisit }">
 	        		<c:if test="${!empty edcPatientVisit.inputOper1Name}">
 	                <li class="tab_nav  <c:if test="${operUserFlow == edcPatientVisit.inputOper1Flow}">selected</c:if>">
 	                    <a href="javascript:datainput('${currVisit.visitFlow}','${edcPatientVisit.inputOper1Flow}');" class="js_typeSelect" type="1">录入员：${edcPatientVisit.inputOper1Name }            
@@ -339,9 +361,14 @@ $(document).ready(function(){
 	                    </a>
 	                </li>
 	                </c:if>
+	                     &#12288; <img src="<s:url value='/css/skin/${skinPath}/images/menu.png'/>" title="原始病例" onclick="splitInput();" style="width:30px;vertical-align:middle;margin-top:5px; cursor: pointer;float: right;"/>
+	                 </c:if>
+   		 
 	        </ul>
+	       
+   		
    		 </div>
-   		 </c:if>
+	            
     </div>
     <form id="inputForm" name="inputForm">
     <c:if test="${!empty param.visitFlow && currVisit.isVisit == GlobalConstant.FLAG_Y && false}">
@@ -603,5 +630,10 @@ $(document).ready(function(){
 	<jsp:include page="/jsp/medroad/edc/reacher/inputAssist.jsp" ></jsp:include>
 </c:if>
 <input type="hidden" id="elementCode" value="${param.elementCode}"/>
+<input type="hidden" id="initViewerFlag" value="N"/>  
+<div class="crfPicDiv" id="crfPic" style='background: url("<s:url value='/css/skin/${skinPath}/images/detail_shadow.jpg'/>") repeat-y left; top: 0px; width: 800px;height: 100%; right: 0px; padding-left: 11px; display: block; position: fixed; z-index: 1000;'>
+							
+</div>
 </body>
+
 </html>

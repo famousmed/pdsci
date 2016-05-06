@@ -139,8 +139,7 @@ public class MobileController extends GeneralController{
 	private ICfgBiz cfgBiz;
 	@Autowired
 	private IProjUserBiz projUserBiz;
-	@Autowired
-	private PubPatientIeMapper patientIeMapper;
+	
 	
 	
 	@RequestMapping(value={"/test"},method={RequestMethod.GET})
@@ -915,18 +914,16 @@ public class MobileController extends GeneralController{
 	@RequestMapping(value={"/patientCase"},method={RequestMethod.GET})
 	private String patientCase(String callback,String patientFlow,String visitFlow, Model model) {
 		model.addAttribute("callback",callback);
-		
+		PubPatient patient = patientBiz.readPatient(patientFlow);
 		List<Map<String,String>> dataList = new ArrayList<Map<String,String>>(); 
-		PubPatientIeExample  example = new PubPatientIeExample();
-		example.createCriteria().andPatientFlowEqualTo(patientFlow).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
-		List<PubPatientIe> recList = patientIeMapper.selectByExampleWithBLOBs(example);
-		if(recList.size()>0){
-			PubPatientIe record = recList.get(0);
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visitFlow,patient.getPatientFlow());
+		if(pateintVisit!=null && StringUtil.isNotBlank(pateintVisit.getVisitInfo())){
 			try {
-				Document doc = DocumentHelper.parseText(record.getIeInfo());
+				Document doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
 				Element rootEle = doc.getRootElement();
-				List<Element> images = rootEle.elements();
-				if(images!=null){
+				Element PatientCase = rootEle.element("PatientCase");
+				if(PatientCase!=null){ 
+					List<Element> images = PatientCase.elements("image");
 					for(Element ele : images){
 						Map<String,String> map = new HashMap<String, String>();
 						map.put("imageFlow", ele.attributeValue("imageFlow"));
@@ -937,11 +934,9 @@ public class MobileController extends GeneralController{
 						dataList.add(map);
 					}
 				}
-				
 			} catch (DocumentException e) {
 				e.printStackTrace();
 			}
-			
 		}
 		model.addAttribute("dataList",dataList);
 		model.addAttribute("resultId", AppResultTypeEnum.Success.getId());
@@ -952,7 +947,7 @@ public class MobileController extends GeneralController{
 	private String uploadPatientCase(String photoData,String patientFlow,String visitFlow, Model model) {
 		SysCfg cfg = cfgBiz.read("upload_base_dir");
 		String dateString = DateUtil.getCurrDate2();
-		String newDir = cfg.getCfgValue()+File.separator+"case"+File.separator +dateString;
+		String newDir = cfg.getCfgValue()+File.separator+"visitFile"+File.separator +dateString;
 		String preffix = DateUtil.getCurrDateTime();
 		String suffix = ".jpg";//后缀名
 		String fileName = preffix+suffix;
@@ -994,7 +989,7 @@ public class MobileController extends GeneralController{
             thumbfos.flush();
             thumbfos.close();  
 	        //
-			addPatientIe(patientFlow, dateString, fileName,thumbFileName);
+            addPatientCrfPhoto(patientFlow,visitFlow, dateString, fileName,thumbFileName);
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -1010,29 +1005,38 @@ public class MobileController extends GeneralController{
 		return "mobile/uploadPatientCase";
 	}
 
-	private void addPatientIe(String patientFlow, String dateString,
+	private void addPatientCrfPhoto(String patientFlow,String visitFlow, String dateString,
 			String fileName,  String thumbFileName)
 			throws DocumentException {
 		String fileFlow = PkUtil.getUUID();
-		PubPatientIeExample  example = new PubPatientIeExample();
-		example.createCriteria().andPatientFlowEqualTo(patientFlow).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
-		List<PubPatientIe> recList = patientIeMapper.selectByExampleWithBLOBs(example);
-		PubPatientIe record  = null;
+		PubPatient patient = patientBiz.readPatient(patientFlow);
+		EdcVisit visit = visitBiz.readVisit(visitFlow);
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visitFlow,patientFlow);
+		
 		Document doc = null;
 		SysCfg urlCfg = cfgBiz.read("upload_base_url");
-		if(recList.size()>0){
-			record = recList.get(0);
-			doc = DocumentHelper.parseText(record.getIeInfo());
+		if(pateintVisit!=null){
+			if(StringUtil.isBlank(pateintVisit.getVisitInfo())){
+				doc = DocumentHelper.parseText("<visitInfo/>");
+			}else {
+				doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
+			}
 			
 			Element rootEle = doc.getRootElement();
+			
+			Element patientCase = rootEle.element("PatientCase");
+			if(patientCase==null){
+				patientCase = DocumentHelper.createElement("PatientCase");
+				rootEle.add(patientCase);
+			}
 			Element imgEle = DocumentHelper.createElement("image");
 			
 			imgEle.addAttribute("imageFlow",fileFlow);
 			
 			Element imageUrl =  DocumentHelper.createElement("imageUrl");
-			imageUrl.setText(urlCfg.getCfgValue()+"/case/"+dateString+"/"+fileName);
+			imageUrl.setText(urlCfg.getCfgValue()+"/visitFile/"+dateString+"/"+fileName);
 			Element thumbUrl =  DocumentHelper.createElement("thumbUrl");
-			thumbUrl.setText(urlCfg.getCfgValue()+"/case/"+dateString+"/"+thumbFileName);
+			thumbUrl.setText(urlCfg.getCfgValue()+"/visitFile/"+dateString+"/"+thumbFileName);
 			Element time =  DocumentHelper.createElement("time");
 			time.setText(DateUtil.transDate(DateUtil.getCurrDateTime(), "yyyy-MM-dd HH:mm:ss"));
 			
@@ -1040,23 +1044,28 @@ public class MobileController extends GeneralController{
 			imgEle.add(thumbUrl);
 			imgEle.add(time);
 			
-			rootEle.add(imgEle);
-			record.setIeInfo(rootEle.asXML());
-			patientIeMapper.updateByPrimaryKeyWithBLOBs(record);
+			patientCase.add(imgEle);
+			pateintVisit.setVisitInfo(rootEle.asXML());
+			inputBiz.modifyPatientVisit(pateintVisit);
 		}else {
-			record = new PubPatientIe();
-			record.setPatientFlow(patientFlow);
-			record.setRecordStatus(GlobalConstant.RECORD_STATUS_Y);
+			pateintVisit = new PubPatientVisit();
+			pateintVisit.setProjFlow(patient.getProjFlow());
+			pateintVisit.setPatientFlow(patientFlow);
+			pateintVisit.setOrgFlow(patient.getOrgFlow());
+			pateintVisit.setVisitFlow(visitFlow);
+			pateintVisit.setVisitName(visit.getVisitName());
+			pateintVisit.setRecordStatus(GlobalConstant.RECORD_STATUS_Y);
 			
-			Element rootEle = DocumentHelper.createElement("PatientCase");
+			Element rootEle = DocumentHelper.createElement("visitInfo");
+			Element patientCaseEle =  rootEle.addElement("PatientCaseEle");
 			
 			Element imgEle = DocumentHelper.createElement("image");
 			imgEle.addAttribute("imageFlow",fileFlow);
 			
 			Element imageUrl =  DocumentHelper.createElement("imageUrl");
-			imageUrl.setText(urlCfg.getCfgValue()+"/case/"+dateString+"/"+fileName);
+			imageUrl.setText(urlCfg.getCfgValue()+"/visitFile/"+dateString+"/"+fileName);
 			Element thumbUrl =  DocumentHelper.createElement("thumbUrl");
-			thumbUrl.setText(urlCfg.getCfgValue()+"/case/"+dateString+"/"+thumbFileName);
+			thumbUrl.setText(urlCfg.getCfgValue()+"/visitFile/"+dateString+"/"+thumbFileName);
 			Element time =  DocumentHelper.createElement("time");
 			time.setText(DateUtil.transDate(DateUtil.getCurrDateTime(), "yyyy-MM-dd HH:mm:ss"));
 			
@@ -1064,23 +1073,22 @@ public class MobileController extends GeneralController{
 			imgEle.add(thumbUrl);
 			imgEle.add(time);
 			
-			rootEle.add(imgEle);
-			record.setIeInfo(rootEle.asXML());
-			patientIeMapper.insertSelective(record);
+			patientCaseEle.add(imgEle);
+			pateintVisit.setVisitInfo(rootEle.asXML());
+			inputBiz.addPatientVisit(pateintVisit);
 		}
 	}
 	
 	@RequestMapping(value={"/savePhotoNote"},method={RequestMethod.POST})
-	private String savePhotoNote(String patientFlow,String imgFlow,String note, Model model) {
-		PubPatientIeExample  example = new PubPatientIeExample();
-		example.createCriteria().andPatientFlowEqualTo(patientFlow).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
-		List<PubPatientIe> recList = patientIeMapper.selectByExampleWithBLOBs(example);
-		if(recList.size()>0){
-			PubPatientIe record = recList.get(0);
+	private String savePhotoNote(String patientFlow,String visitFlow,String imgFlow,String note, Model model) {
+		PubPatient patient = patientBiz.readPatient(patientFlow);
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visitFlow,patient.getPatientFlow());
+		if(pateintVisit!=null && StringUtil.isNotBlank(pateintVisit.getVisitInfo())){
 			try {
-				Document doc = DocumentHelper.parseText(record.getIeInfo());
+				Document doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
 				Element rootEle = doc.getRootElement();
-				Element ele = (Element)rootEle.selectSingleNode("/PatientCase/image[@imageFlow='"+imgFlow+"']");
+			
+				Element ele = (Element)rootEle.selectSingleNode("/visitInfo/PatientCase/image[@imageFlow='"+imgFlow+"']");
 				
 				Element noteEle =  ele.element("note");
 				if(noteEle == null){
@@ -1090,8 +1098,8 @@ public class MobileController extends GeneralController{
 				}else {
 					noteEle.setText(note);
 				}
-				record.setIeInfo(rootEle.asXML());
-				patientIeMapper.updateByPrimaryKeyWithBLOBs(record);
+				pateintVisit.setVisitInfo(rootEle.asXML());
+				inputBiz.modifyPatientVisit(pateintVisit);
 				
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block 
@@ -1107,7 +1115,7 @@ public class MobileController extends GeneralController{
 	private String getTicket(String url,String callback,Model model) {
 		String ticket = WeixinQiYeUtil.getjsApiTicket();
 		Map<String, String> sign = Sign.sign(ticket, url);
-		System.err.println(sign); 
+		System.err.println("sign="+sign); 
 		model.addAttribute("sign", sign); 
 		model.addAttribute("callback",callback);
 		model.addAttribute("resultId", AppResultTypeEnum.Success.getId());
@@ -1116,22 +1124,23 @@ public class MobileController extends GeneralController{
 	}
 	
 	@RequestMapping(value={"/deletePhoto"},method={RequestMethod.GET})
-	private String deletePhoto(String patientFlow,String callback,String imageFlow,Model model) {
+	private String deletePhoto(String patientFlow,String visitFlow,String callback,String imageFlow,Model model) {
 		model.addAttribute("callback",callback);
-		PubPatientIeExample  example = new PubPatientIeExample();
-		example.createCriteria().andPatientFlowEqualTo(patientFlow).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
-		List<PubPatientIe> recList = patientIeMapper.selectByExampleWithBLOBs(example);
-		if(recList.size()>0){
-			PubPatientIe record = recList.get(0);
+		PubPatient patient = patientBiz.readPatient(patientFlow);
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visitFlow,patient.getPatientFlow());
+		System.err.println(pateintVisit); 
+		if(pateintVisit!=null && StringUtil.isNotBlank(pateintVisit.getVisitInfo())){
 			try {
-				Document doc = DocumentHelper.parseText(record.getIeInfo());
+				Document doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
 				Element rootEle = doc.getRootElement();
-				Element ele = (Element)rootEle.selectSingleNode("/PatientCase/image[@imageFlow='"+imageFlow+"']");
+			
+				Element ele = (Element)rootEle.selectSingleNode("/visitInfo/PatientCase/image[@imageFlow='"+imageFlow+"']");
+				System.err.println(ele); 
 				if(ele!=null){
-					rootEle.remove(ele);
+					ele.detach();
 				}
-				record.setIeInfo(rootEle.asXML());
-				patientIeMapper.updateByPrimaryKeyWithBLOBs(record);
+				pateintVisit.setVisitInfo(rootEle.asXML());
+				inputBiz.modifyPatientVisit(pateintVisit);
 				
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block 
@@ -1146,16 +1155,17 @@ public class MobileController extends GeneralController{
 	
 	
 	@RequestMapping(value={"/pullPhoto"},method={RequestMethod.GET})
-	private String pullPhoto(String patientFlow,String callback,String serverId,Model model) {
+	private String pullPhoto(String patientFlow,String visitFlow,String callback,String serverId,Model model) {
 		SysCfg cfg = cfgBiz.read("upload_base_dir");
 		String dateString = DateUtil.getCurrDate2();
-		String newDir = cfg.getCfgValue()+File.separator+"case"+File.separator +dateString;
+		String newDir = cfg.getCfgValue()+File.separator+"visitFile"+File.separator +dateString;
 		File fileDir = new File(newDir);
 		if(!fileDir.exists()){
 			fileDir.mkdirs();
 		}
 		
 		String mediaUrl = WeixinQiYeUtil.getMediaUrl(serverId);
+		logger.info("=============="+mediaUrl+"=========="+serverId);
 		String preffix = PkUtil.getUUID();
 		String suffix = ".jpg";//后缀名
 		String fileName = preffix+suffix;
@@ -1178,7 +1188,7 @@ public class MobileController extends GeneralController{
 	        thumbfos.flush();
 	        thumbfos.close();  
 	        
-	        addPatientIe( patientFlow,  dateString, fileName,   thumbFileName);
+	        addPatientCrfPhoto( patientFlow,visitFlow,  dateString, fileName,   thumbFileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace(); 
 		} catch (ImageFormatException e) {

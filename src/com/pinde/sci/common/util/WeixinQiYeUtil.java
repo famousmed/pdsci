@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.pinde.core.util.StringUtil;
+import com.pinde.sci.common.InitConfig;
 import com.pinde.sci.enums.pub.UserSexEnum;
 import com.pinde.sci.enums.pub.UserStatusEnum;
 import com.pinde.sci.enums.pub.WeixinStatusEnum;
@@ -29,10 +30,12 @@ public class WeixinQiYeUtil {
 	
 	private static Logger logger = LoggerFactory.getLogger(WeixinQiYeUtil.class);
 	
-	public static String Appid = "wx152f0049d166931e";
+	public static String Appid = InitConfig.getSysCfg("sys_weixin_qiye_app_id");
+	//"wx152f0049d166931e";
 	
 	
-	public static String Appsecret = "ed4c6030923f020aed11fca1217b6135";
+	public static String Appsecret = InitConfig.getSysCfg("sys_weixin_qiye_secret");
+			//"ed4c6030923f020aed11fca1217b6135";
 	
 	private static long last_access_token_time = 0;
 	
@@ -42,6 +45,13 @@ public class WeixinQiYeUtil {
 	
 	private static String last_access_ticket = "";
 	
+	private static long last_media_token_time = 0;
+	
+	private static String last_media_token = "";
+	
+	
+	
+
 	public static String gettoken(String corpid,String corpsecret){
 		long access_token_time = System.currentTimeMillis();
 		int gap = (int)(access_token_time-last_access_token_time)/1000;
@@ -417,8 +427,20 @@ public class WeixinQiYeUtil {
 		}
 		return StringUtil.defaultString(last_access_ticket);
 	}
+	
+	
 	public static String getMediaUrl(String serverId) {  
-		String mediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token="+gettoken(Appid, Appsecret)+"&media_id="+serverId;
+		long access_token_time = System.currentTimeMillis();
+		int gap = (int)(access_token_time-last_media_token_time)/1000;
+		if(gap>=7200l || last_media_token_time==0l){
+			String gettokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+Appid+"&secret="+Appsecret;
+			String response = _get(gettokenUrl);
+			Map responseMap = JSON.parseObject(response, Map.class);
+			String access_token = (String)responseMap.get("access_token");
+			last_media_token = access_token;
+			last_media_token_time = access_token_time;
+		}
+		String mediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token="+last_media_token+"&media_id="+serverId;
 		return mediaUrl;
 	} 
 }

@@ -1,5 +1,10 @@
 package com.pinde.sci.ctrl.medroad;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import sun.misc.BASE64Decoder;
 
 import com.pinde.core.page.PageHelper;
 import com.pinde.core.util.DateUtil;
@@ -53,6 +60,7 @@ import com.pinde.sci.common.GlobalConstant;
 import com.pinde.sci.common.GlobalContext;
 import com.pinde.sci.dao.base.SysLogMapper;
 import com.pinde.sci.dao.base.SysUserMapper;
+import com.pinde.sci.enums.edc.AppResultTypeEnum;
 import com.pinde.sci.enums.edc.EdcInputStatusEnum;
 import com.pinde.sci.enums.edc.PatientTypeEnum;
 import com.pinde.sci.enums.pub.PatientRecipeStatusEnum;
@@ -79,17 +87,19 @@ import com.pinde.sci.model.mo.InxInfo;
 import com.pinde.sci.model.mo.PubPatient;
 import com.pinde.sci.model.mo.PubPatientRecipe;
 import com.pinde.sci.model.mo.PubPatientRecipeDrug;
-import com.pinde.sci.model.mo.PubPatientRecipeExample;
 import com.pinde.sci.model.mo.PubPatientVisit;
 import com.pinde.sci.model.mo.PubPatientWindow;
 import com.pinde.sci.model.mo.PubProj;
 import com.pinde.sci.model.mo.PubProjOrg;
 import com.pinde.sci.model.mo.PubProjUser;
+import com.pinde.sci.model.mo.SysCfg;
 import com.pinde.sci.model.mo.SysLog;
 import com.pinde.sci.model.mo.SysLogExample;
 import com.pinde.sci.model.mo.SysRole;
 import com.pinde.sci.model.mo.SysUser;
-import com.pinde.sci.model.mo.SysLogExample.Criteria;
+import com.pinde.sci.util.PicZoom;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 @Controller
 @RequestMapping("/medroad")
@@ -1202,7 +1212,7 @@ public class MedRoadController extends GeneralController{
 		String visitFlow = visit.getVisitFlow();
 		
 		EdcVisitDataEventExample example = new EdcVisitDataEventExample();
-		EdcVisitDataEventExample.Criteria criteria =  example.createCriteria()
+		example.createCriteria()
 				.andProjFlowEqualTo(patient.getProjFlow()).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y)
 				.andPatientFlowEqualTo(patient.getPatientFlow()).andVisitFlowEqualTo(visitFlow); 
 		example.setOrderByClause("EVENT_TIME DESC");
@@ -1217,6 +1227,227 @@ public class MedRoadController extends GeneralController{
 		example.setOrderByClause("LOG_TIME");
 		model.addAttribute("logList",logMapper.selectByExample(example));
 		return "medroad/edc/reacher/datainputlog";
+	}
+	@RequestMapping(value="/crfViewer")
+	public String crfViewer(Model model) throws Exception{
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
+		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
+		String visitFlow = visit.getVisitFlow();
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visitFlow,patient.getPatientFlow());
+		if(pateintVisit!=null){
+			EdcPatientVisit edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
+			model.addAttribute("edcPatientVisit",edcPatientVisit);
+		}
+		
+		if(pateintVisit!=null && StringUtil.isNotBlank(pateintVisit.getVisitInfo())){
+			List<Map<String,String>> dataList = new ArrayList<Map<String,String>>(); 
+			try {
+				Document doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
+				Element rootEle = doc.getRootElement();
+				Element PatientCase = rootEle.element("PatientCase");
+				if(PatientCase!=null){ 
+					List<Element> images = PatientCase.elements("image");
+					for(Element ele : images){
+						Map<String,String> map = new HashMap<String, String>();
+						map.put("imageFlow", ele.attributeValue("imageFlow"));
+						map.put("imageUrl", ele.elementText("imageUrl"));
+						map.put("thumbUrl", ele.elementText("thumbUrl"));
+						map.put("time", ele.elementText("time"));
+						map.put("note", ele.elementText("note"));
+						dataList.add(map);
+					}
+				}
+				
+			} catch (DocumentException e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("dataList",dataList);
+		}
+		
+		return "medroad/edc/reacher/crfviewer";
+	}
+	@RequestMapping(value={"/savePhotoNote"},method={RequestMethod.POST})
+	@ResponseBody
+	private String savePhotoNote(String imgFlow,String note, Model model) {
+		
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
+		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visit.getVisitFlow(),patient.getPatientFlow());
+		if(pateintVisit!=null && StringUtil.isNotBlank(pateintVisit.getVisitInfo())){
+			try {
+				Document doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
+				Element rootEle = doc.getRootElement();
+			
+				Element ele = (Element)rootEle.selectSingleNode("/visitInfo/PatientCase/image[@imageFlow='"+imgFlow+"']");
+				
+				Element noteEle =  ele.element("note");
+				if(noteEle == null){
+					noteEle = DocumentHelper.createElement("note");
+					noteEle.setText(note);
+					ele.add(noteEle);
+				}else {
+					noteEle.setText(note);
+				}
+				pateintVisit.setVisitInfo(rootEle.asXML());
+				inputBiz.modifyPatientVisit(pateintVisit);
+				
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block 
+				e.printStackTrace();
+			} 
+		}
+		return GlobalConstant.SAVE_SUCCESSED;
+	}
+
+	@RequestMapping(value={"/deletePhoto"},method={RequestMethod.GET})
+	@ResponseBody
+	private String deletePhoto(String imageFlow,Model model) {
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
+		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visit.getVisitFlow(),patient.getPatientFlow());
+		if(pateintVisit!=null && StringUtil.isNotBlank(pateintVisit.getVisitInfo())){
+			try {
+				Document doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
+				Element rootEle = doc.getRootElement();
+			
+				Element ele = (Element)rootEle.selectSingleNode("/visitInfo/PatientCase/image[@imageFlow='"+imageFlow+"']");
+				System.err.println(ele); 
+				if(ele!=null){
+					ele.detach();
+				}
+				pateintVisit.setVisitInfo(rootEle.asXML());
+				inputBiz.modifyPatientVisit(pateintVisit);
+				
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block 
+				e.printStackTrace();
+			} 
+		}
+		return GlobalConstant.DELETE_SUCCESSED;
+	}
+	
+	
+	@RequestMapping(value="/addCrfPhoto")
+	@ResponseBody
+	public String addCrfPhoto(MultipartFile imgFile){
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
+		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
+	
+		SysCfg cfg = cfgBiz.read("upload_base_dir");
+		String dateString = DateUtil.getCurrDate2();
+		String newDir = cfg.getCfgValue()+File.separator+"visitFile"+File.separator +dateString;
+		String preffix = DateUtil.getCurrDateTime();
+		String suffix = ".jpg";//后缀名
+		String fileName = preffix+suffix;
+		File fileDir = new File(newDir);
+		if(!fileDir.exists()){
+			fileDir.mkdirs();
+		}
+		try {
+		
+        	byte []data = imgFile.getBytes();
+            
+			File imageFile = new File(fileDir,fileName);  
+			FileOutputStream fos = new FileOutputStream(imageFile);
+			fos.write(data);
+			fos.flush();
+			fos.close();
+	        //处理缩略图...
+			String thumbFileName = preffix+"_thumb"+suffix;
+	        File thumbFile = new File(fileDir,thumbFileName); 
+	        FileOutputStream thumbfos = new FileOutputStream(thumbFile);
+            //调用PicZoom类的静态方法zoom对原始图像进行缩放。   
+            BufferedImage buffImg = PicZoom.zoom(data);  
+            //创建JPEG图像编码器，用于编码内存中的图像数据到JPEG数据输出流。  
+            JPEGImageEncoder jpgEncoder = JPEGCodec.createJPEGEncoder(thumbfos);  
+            //编码BufferedImage对象到JPEG数据输出流。  
+            jpgEncoder.encode(buffImg);  
+            thumbfos.flush();
+            thumbfos.close();  
+	        //
+            addPatientCrfPhoto(patient.getPatientFlow(),visit.getVisitFlow(), dateString, fileName,thumbFileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace(); 
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		return GlobalConstant.UPLOAD_SUCCESSED;
+	}
+	private void addPatientCrfPhoto(String patientFlow,String visitFlow, String dateString,
+			String fileName,  String thumbFileName)
+			throws DocumentException {
+		String fileFlow = PkUtil.getUUID();
+		PubPatient patient = patientBiz.readPatient(patientFlow);
+		EdcVisit visit = visitBiz.readVisit(visitFlow);
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visitFlow,patientFlow);
+		
+		Document doc = null;
+		SysCfg urlCfg = cfgBiz.read("upload_base_url");
+		if(pateintVisit!=null){
+			if(StringUtil.isBlank(pateintVisit.getVisitInfo())){
+				doc = DocumentHelper.parseText("<visitInfo/>");
+			}else {
+				doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
+			}
+			
+			Element rootEle = doc.getRootElement();
+			
+			Element patientCase = rootEle.element("PatientCase");
+			if(patientCase==null){
+				patientCase = DocumentHelper.createElement("PatientCase");
+				rootEle.add(patientCase);
+			}
+			Element imgEle = DocumentHelper.createElement("image");
+			
+			imgEle.addAttribute("imageFlow",fileFlow);
+			
+			Element imageUrl =  DocumentHelper.createElement("imageUrl");
+			imageUrl.setText(urlCfg.getCfgValue()+"/visitFile/"+dateString+"/"+fileName);
+			Element thumbUrl =  DocumentHelper.createElement("thumbUrl");
+			thumbUrl.setText(urlCfg.getCfgValue()+"/visitFile/"+dateString+"/"+thumbFileName);
+			Element time =  DocumentHelper.createElement("time");
+			time.setText(DateUtil.transDate(DateUtil.getCurrDateTime(), "yyyy-MM-dd HH:mm:ss"));
+			
+			imgEle.add(imageUrl);
+			imgEle.add(thumbUrl);
+			imgEle.add(time);
+			
+			patientCase.add(imgEle);
+			pateintVisit.setVisitInfo(rootEle.asXML());
+			inputBiz.modifyPatientVisit(pateintVisit);
+		}else {
+			pateintVisit = new PubPatientVisit();
+			pateintVisit.setProjFlow(patient.getProjFlow());
+			pateintVisit.setPatientFlow(patientFlow);
+			pateintVisit.setOrgFlow(patient.getOrgFlow());
+			pateintVisit.setVisitFlow(visitFlow);
+			pateintVisit.setVisitName(visit.getVisitName());
+			pateintVisit.setRecordStatus(GlobalConstant.RECORD_STATUS_Y);
+			
+			Element rootEle = DocumentHelper.createElement("visitInfo");
+			Element patientCaseEle =  rootEle.addElement("PatientCaseEle");
+			
+			Element imgEle = DocumentHelper.createElement("image");
+			imgEle.addAttribute("imageFlow",fileFlow);
+			
+			Element imageUrl =  DocumentHelper.createElement("imageUrl");
+			imageUrl.setText(urlCfg.getCfgValue()+"/visitFile/"+dateString+"/"+fileName);
+			Element thumbUrl =  DocumentHelper.createElement("thumbUrl");
+			thumbUrl.setText(urlCfg.getCfgValue()+"/visitFile/"+dateString+"/"+thumbFileName);
+			Element time =  DocumentHelper.createElement("time");
+			time.setText(DateUtil.transDate(DateUtil.getCurrDateTime(), "yyyy-MM-dd HH:mm:ss"));
+			
+			imgEle.add(imageUrl);
+			imgEle.add(thumbUrl);
+			imgEle.add(time);
+			
+			patientCaseEle.add(imgEle);
+			pateintVisit.setVisitInfo(rootEle.asXML());
+			inputBiz.addPatientVisit(pateintVisit);
+		}
 	}
 	
 }

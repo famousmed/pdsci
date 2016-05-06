@@ -296,6 +296,7 @@ public class GcpDrugBizImpl implements IGcpDrugBiz{
 	public List<GcpDrug> searchDrugByProj(String projFlow){
 		GcpDrugExample example = new GcpDrugExample();
 		example.createCriteria().andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y).andProjFlowEqualTo(projFlow);
+		example.setOrderByClause("create_time");
 		return gcpDrugMapper.selectByExample(example);
 	}
 	

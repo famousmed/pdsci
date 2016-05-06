@@ -227,7 +227,7 @@
 	}
 	$(function(){
 		$("#detail").slideInit({
-			width:800,
+			width:850,
 			speed:500,
 			outClose:true
 		});
@@ -291,7 +291,7 @@
 							</c:if>
 						</c:forEach>
 						</div>
-						<div class="slideRightDiv" id="detail" style='background: url("/pdsci/css/skin/Blue/images/detail_shadow.jpg") repeat-y left; top: 0px; width: 800px; height: 100%; right: 0px; padding-left: 11px; display: block; position: fixed; z-index: 1000;'>
+						<div class="slideRightDiv" id="detail" style='background: url("<s:url value='/css/skin/${skinPath}/images/detail_shadow.jpg'/>") repeat-y left; top: 0px; width: 800px; height: 100%; right: 0px; padding-left: 11px; display: block; position: fixed; z-index: 1000;'>
 							
 </div>
 					

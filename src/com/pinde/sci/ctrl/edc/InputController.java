@@ -1154,10 +1154,8 @@ public class InputController extends GeneralController{
 	
 	public String showPatientCase(Model model){
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
-		String projFlow = proj.getProjFlow();
 		
 		String patientFlow =  ((PubPatient)getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT)).getPatientFlow();
-		String visitFlow =  ((EdcVisit)getSessionAttribute(GlobalConstant.EDC_CURR_VISIT)).getVisitFlow();
 		
 		PubPatientIeExample  example = new PubPatientIeExample();
 		example.createCriteria().andPatientFlowEqualTo(patientFlow).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);

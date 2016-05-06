@@ -96,5 +96,6 @@ public interface IInputBiz {
 
 	void delRecipeFile(PubPatientVisit pateintVisit,String type, String url);
 
+
 }   
   
