@@ -88,6 +88,7 @@ $(function(){
 										</c:if>
 									</c:otherwise>
 								</c:choose>
+								<c:if test="${ window.isNotice == GlobalConstant.FLAG_Y}">(已短信通知)</c:if>
 		            		</td>
 		            		<td>
 			            			<img class="img_sms" id="${window.recordFlow }" notice-flag='${window.isNotice }' record-flow='${window.recordFlow }' patient-name='${window.patientName}' window-left='${window.windowVisitLeft }' window-right='${window.windowVisitRight}'  src="<s:url value='/css/skin/${skinPath}/images/call_sms.png'/>" title="短信提醒" style="cursor: pointer;"/>
