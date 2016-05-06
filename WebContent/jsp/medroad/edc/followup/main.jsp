@@ -29,6 +29,7 @@ function sendFollowSms(){
 	jboxPost("<s:url value='/medroad/sendFollowSms'/>",data,function(resp){
 		jboxTip(resp);
 		$(".pos_center").hide();
+		$("#"+data.recordFlow).attr("notice-flag",'${GlobalConstant.FLAG_Y}');
 	},null,true);
 }
 $(function(){
@@ -89,7 +90,7 @@ $(function(){
 								</c:choose>
 		            		</td>
 		            		<td>
-			            			<img class="img_sms" notice-flag='${window.isNotice }' record-flow='${window.recordFlow }' patient-name='${window.patientName}' window-left='${window.windowVisitLeft }' window-right='${window.windowVisitRight}'  src="<s:url value='/css/skin/${skinPath}/images/call_sms.png'/>" title="短信提醒" style="cursor: pointer;"/>
+			            			<img class="img_sms" id="${window.recordFlow }" notice-flag='${window.isNotice }' record-flow='${window.recordFlow }' patient-name='${window.patientName}' window-left='${window.windowVisitLeft }' window-right='${window.windowVisitRight}'  src="<s:url value='/css/skin/${skinPath}/images/call_sms.png'/>" title="短信提醒" style="cursor: pointer;"/>
 				            			&nbsp;
 		            				<img onclick="visit('${window.patientFlow}');" src="<s:url value='/css/skin/${skinPath}/images/feedback.png'/>" title="访视" style="cursor: pointer;"/>
 		            		</td>
