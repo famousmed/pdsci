@@ -41,6 +41,7 @@
 								'七月', '八月', '九月', '十月', '十一月', '十二月' ],
         		  },
         		    "alwaysShowCalendars": true,
+        		    "opens": "left"
           };
           visitDateOptions.singleDatePicker = true;
           $('#visitDate').daterangepicker(visitDateOptions, function(start, end, label) { 
