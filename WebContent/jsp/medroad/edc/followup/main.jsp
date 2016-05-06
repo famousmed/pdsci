@@ -11,8 +11,8 @@ $(document).ready(function(){
 			jboxTip("该患者已发过随访提醒短信.");
 			return;
 		}
-		
-		$(".popover").css({"left":$(this).offset().left-135,"top":$(this).offset().top+20});
+	
+		$(".popover").css({"left":$(this).offset().left-135,"top":$(this).position().top+185});
 		$(".popover").show();
 		$("#recordFlow").val($(this).attr("record-flow"));
 		var patientName = $(this).attr("patient-name");
@@ -51,8 +51,8 @@ $(function(){
 	<h2 class="underline">随访提醒
 	</h2>
 </div>
- <div class="col_main" id="content">
-       <div class="content_main">
+ <div class="col_main" id="content" >
+       <div class="content_main" style="position: relative;">
 	       	<div style="font-size: 24px;">
 	 			当前共有&nbsp;<span id="patientCountSpan"></span>&nbsp;名受试者需要访视&#12288;
 	 			距离最近患者需要随访还有&nbsp;<span id="signDaysSpan"></span>&nbsp;天
@@ -101,7 +101,11 @@ $(function(){
 		            		<input type="hidden" id="signDays" value="${signDays }"/>
 	            </table>
 	       </div>
-	        <div class="popover pos_center " style="display:none;z-index: 999;">
+	        
+       </div>
+     
+</div>
+ <div class="popover pos_center " style="display:none;z-index: 999;">
 			    <div class="popover_inner">
 			        <div class="popover_content jsPopOverContent">短信内容   
 			         <span class="frm_textarea_box with_counter counter_in append count" style="width: 220px;">
@@ -113,6 +117,3 @@ $(function(){
 			    <i class="popover_arrow popover_arrow_in"></i> 
 			    <input type="hidden" id="recordFlow" value=""/>
 			</div>
-       </div>
-      
-</div>
