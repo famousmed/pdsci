@@ -53,6 +53,9 @@ public class WeixinQiYeUtil {
 	public static String gettoken(String corpid,String corpsecret){
 		long access_token_time = System.currentTimeMillis();
 		int gap = (int)(access_token_time-last_access_token_time)/1000;
+		
+		logger.info("gettoken ===access_token_time="+access_token_time+"==last_access_token_time="+last_access_token_time +"====gap="+gap);
+		
 		if(gap>=7200l || last_access_token_time==0l || StringUtil.isBlank(last_access_token)){  
 			String gettokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+corpid+"&secret="+corpsecret;
 			logger.info("gettokenUrl="+gettokenUrl); 
