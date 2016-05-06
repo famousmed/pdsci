@@ -85,7 +85,7 @@ function addImg(){
 				//刷新
 				jboxLoad("crfPic","<s:url value='/medroad/crfViewer'/>?visitFlow=${currVisit.visitFlow}");
 			}else{
-				jboxTip('${GlobalConstant.UPLOAD_FAIL}');
+				jboxTip(data);
 			}
 		},
 		error: function (data, status, e){
@@ -130,12 +130,12 @@ function addImg(){
 		 <div class="col-sm-8 col-md-6">
 				       <h3 class="page-header">
 				        <c:if test="${edcPatientVisit.inputOperStatusId != edcInputStatusEnumSubmit.id}">
-				        <i class="icon16_common save_gray " style="cursor: pointer;float: left;margin-left: 20px;" onclick="saveData('${edcInputStatusEnumSave.id}');"></i>
+				        <i class="icon16_common save_gray " title="保存"  style="cursor: pointer;float: left;margin-left: 20px;" onclick="saveData('${edcInputStatusEnumSave.id}');"></i>
 				       </c:if>
 				       	&#12288;原始病例图片&#12288;(${currVisit.visitName })
-				       	<i class="icon_arrow_default" style="cursor: pointer;float: right;margin-right: 20px;" onclick="slideClose();"></i>
-				       	<i class="icon14_common add_gray" style="cursor: pointer;float: right;margin-right: 20px;" onclick="$('#imgFile').click();"></i>
-				       <input type="file" id="imgFile" name="imgFile" style="display: none" onchange="addImg()"/>
+				       	<i class="icon_arrow_default" title="隐藏"  style="cursor: pointer;float: right;margin-right: 20px;" onclick="slideClose();"></i>
+				       	<i class="icon14_common add_gray" title="上传病例"  style="cursor: pointer;float: right;margin-right: 20px;" onclick="$('#imgFile').click();"></i>
+				       <input type="file" id="imgFile" name="imgFile" style="display: none" onchange="addImg()" />
 				      
 						&#12288;&#12288;
 						<span style="float: right;">

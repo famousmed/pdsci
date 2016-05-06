@@ -119,8 +119,7 @@ function cosAll(){
 					<div class="faqscene_tab_bd js_faqscene_content"
 						style="display: none;overflow: auto;height: 173px;" id="235">
 						<ul>
-
-
+							
 						</ul>
 					</div>
 

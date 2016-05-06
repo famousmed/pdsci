@@ -13,8 +13,8 @@
 	<div class="frm_control_group">
 		<label for="" class="frm_label" style="margin-top: -.1em; width: 8em">
 			<c:if test="${showEleName}">
-						${elementName}.
-						</c:if> ${attrName }
+						${elementName}
+						</c:if><c:if test="${sessionScope.projDescForm.attrMap[attrCode].attrVarName!=GlobalConstant.DEFAULT_ATTR_VALUE_VAR_NAME }"> .${attrName }</c:if>
 		</label>
 		<div class="frm_controls ">
 			<span style="width: 300px;display:inline-block;">

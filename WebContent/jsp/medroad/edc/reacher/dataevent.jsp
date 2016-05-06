@@ -11,5 +11,9 @@
 					${event.eventNote}
 				</li>
 		</c:forEach>
+		<c:if test="${empty eventList }">
+			<li>暂无澄清数据 </li>
+			<li>数据提交后修改自动留痕 </li>
+		</c:if>
 	</ul>
 </div>
