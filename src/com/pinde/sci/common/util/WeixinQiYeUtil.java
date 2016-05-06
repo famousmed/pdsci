@@ -45,9 +45,7 @@ public class WeixinQiYeUtil {
 	
 	private static String last_access_ticket = "";
 	
-	private static long last_media_token_time = 0;
 	
-	private static String last_media_token = "";
 	
 	
 	
@@ -55,7 +53,7 @@ public class WeixinQiYeUtil {
 	public static String gettoken(String corpid,String corpsecret){
 		long access_token_time = System.currentTimeMillis();
 		int gap = (int)(access_token_time-last_access_token_time)/1000;
-		if(gap>=7200l || last_access_token_time==0l){
+		if(gap>=7200l || last_access_token_time==0l || StringUtil.isBlank(last_access_token)){  
 			String gettokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+corpid+"&secret="+corpsecret;
 			logger.info("gettokenUrl="+gettokenUrl); 
 			String response = _get(gettokenUrl);
@@ -430,17 +428,7 @@ public class WeixinQiYeUtil {
 	
 	
 	public static String getMediaUrl(String serverId) {  
-		long access_token_time = System.currentTimeMillis();
-		int gap = (int)(access_token_time-last_media_token_time)/1000;
-		if(gap>=7200l || last_media_token_time==0l){
-			String gettokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+Appid+"&secret="+Appsecret;
-			String response = _get(gettokenUrl);
-			Map responseMap = JSON.parseObject(response, Map.class);
-			String access_token = (String)responseMap.get("access_token");
-			last_media_token = access_token;
-			last_media_token_time = access_token_time;
-		}
-		String mediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token="+last_media_token+"&media_id="+serverId;
+		String mediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token="+gettoken(Appid, Appsecret)+"&media_id="+serverId;
 		return mediaUrl;
 	} 
 }

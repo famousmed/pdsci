@@ -1049,6 +1049,7 @@ public class MobileController extends GeneralController{
 			inputBiz.modifyPatientVisit(pateintVisit);
 		}else {
 			pateintVisit = new PubPatientVisit();
+			pateintVisit.setRecordFlow(PkUtil.getUUID());
 			pateintVisit.setProjFlow(patient.getProjFlow());
 			pateintVisit.setPatientFlow(patientFlow);
 			pateintVisit.setOrgFlow(patient.getOrgFlow());
@@ -1057,7 +1058,7 @@ public class MobileController extends GeneralController{
 			pateintVisit.setRecordStatus(GlobalConstant.RECORD_STATUS_Y);
 			
 			Element rootEle = DocumentHelper.createElement("visitInfo");
-			Element patientCaseEle =  rootEle.addElement("PatientCaseEle");
+			Element patientCaseEle =  rootEle.addElement("PatientCase");
 			
 			Element imgEle = DocumentHelper.createElement("image");
 			imgEle.addAttribute("imageFlow",fileFlow);
@@ -1165,7 +1166,7 @@ public class MobileController extends GeneralController{
 		}
 		
 		String mediaUrl = WeixinQiYeUtil.getMediaUrl(serverId);
-		logger.info("=============="+mediaUrl+"=========="+serverId);
+		logger.info("=============="+mediaUrl+"==========");
 		String preffix = PkUtil.getUUID();
 		String suffix = ".jpg";//บ๓ืบร๛
 		String fileName = preffix+suffix;
