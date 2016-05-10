@@ -16,4 +16,5 @@ public interface EdcPatientVisitDataExtMapper {
 	List<ElementSerialSeqForm> selectSeq(Map<String,String> map);
 	List<EdcPatientVisitDataForm> searchVisitDataReport(Map<String,String> map);
 	List<EdcPatientVisitData> searchVisitDataDistinct(Map<String,String> map);
+	List<EdcPatientVisitData> searchPatientVisitDataByAttrCode(Map<String,Object> paramMap); 
 }

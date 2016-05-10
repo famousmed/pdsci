@@ -69,4 +69,12 @@
 		WHERE PROJ_FLOW = #{projFlow} AND ATTR_VALUE IS NOT NULL AND ATTR_CODE = #{attrCode} AND RECORD_STATUS = 'Y'
 		ORDER BY ${attrValue}
  	</select>
+ 	<select id="searchPatientVisitDataByAttrCode" parameterType="java.util.Map"  resultMap="com.pinde.sci.dao.base.EdcPatientVisitDataMapper.BaseResultMap">
+ 		select * from PDSCI.EDC_PATIENT_VISIT_DATA pvd where record_status='Y' and proj_flow=#{projFlow} and attr_code in 
+ 		<foreach collection="attrCodes" item="attrCode" open="(" separator="," close=")">
+			#{attrCode}
+		</foreach>
+		and exists (select null from EDC_PATIENT_VISIT where INPUT_OPER_STATUS_ID='Submit' and RECORD_FLOW = pvd.VISIT_RECORD_FLOW and record_status='Y')
+ 	</select>
+ 	
 </mapper>
