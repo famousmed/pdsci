@@ -54,7 +54,7 @@
 	    <a href="javascript:searchPatient();" class="frm_input_append jsSearchInputBt">
 	    	<i class="icon16_common search_gray">搜索</i>&nbsp;
 	    </a>
-	    <input type="text" class="frm_input jsSearchInput" id="patientCode" readonly="readonly" value="${currPatient.patientName }(${pdfn:encryptIdNo(currPatient.patientCode,4)})" placeholder="受试者编号/姓名">
+	    <input type="text" class="frm_input jsSearchInput" id="patientCode" readonly="readonly" value="${currPatient.patientNamePy }(${pdfn:encryptIdNo(currPatient.patientCode,4)})" placeholder="受试者编号/姓名">
 		</span>
 	</div>
 </div>

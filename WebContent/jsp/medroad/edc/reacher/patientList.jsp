@@ -63,7 +63,7 @@
             <c:forEach items="${patientList }" var= "patient"> 
             <tr>
                 <td>${pdfn:encryptIdNo(patient.patientCode,4)}</td>
-                <td>${patient.patientName }</td>
+                <td>${patient.patientNamePy }</td>
                 <td>${patient.sexName }</td>
                 <td>${pdfn:transDate(patient.inDate)}</td> 
                  <td>${patient.inDoctorName }</td>

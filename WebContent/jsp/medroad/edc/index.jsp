@@ -218,6 +218,9 @@ function record(currentPage){
 function store(){
 	jboxLoad("content","<s:url value='/medroad/drug/store'/>",true);
 }
+function overview(){
+	jboxLoad("content","<s:url value='/medroad/statis/overview'/>",true);
+}
 </script>
 <style>
 body{overflow:hidden;}
@@ -264,16 +267,6 @@ body{overflow:hidden;}
           <dd class="menu_item"><a href="javascript:followup();">随访提醒</a></dd>
          
         </dl>
-        <!-- 
-        <dl class="menu">
-          <dt class="menu_title">
-            <i class="icon_menu menu_statistics"></i>统计查询
-          </dt>
-           <dd class="menu_item"><a href="javascript:drugs();">药品管理</a></dd>
-          <dd class="menu_item"><a href="javascript:orgList('');">机构入组概况</a></dd>
-          <dd class="menu_item"><a href="javascript:overview();">聚集抽样分析</a></dd>
-        </dl>
-         -->
          <dl class="menu">
           <dt class="menu_title">
             <i class="icon_menu menu_statistics"></i>药品管理
@@ -284,6 +277,12 @@ body{overflow:hidden;}
           <dd class="menu_item"><a href="javascript:void();">储运记录</a></dd>
            -->
            <dd class="menu_item"><a href="javascript:store();">库存记录</a></dd>
+        </dl>
+         <dl class="menu">
+          <dt class="menu_title">
+            <i class="icon_menu menu_statistics"></i>统计查询
+          </dt>
+          <dd class="menu_item"><a href="javascript:overview();">聚集抽样分析</a></dd>
         </dl>
         <dl class="menu">
           <dt class="menu_title">

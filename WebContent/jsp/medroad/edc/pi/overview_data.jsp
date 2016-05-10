@@ -1,58 +1,4 @@
-<link rel="stylesheet" type="text/css" 	href="<s:url value='/jsp/medroad/css/stat_overview.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
-<link rel="stylesheet" type="text/css" 	href="<s:url value='/jsp/medroad/css/dropdown.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
-<script>
-	function showView() {
-		$("#view").addClass("tab_select");
-		$("#data").removeClass("tab_select");
-		jboxLoad("content", "<s:url value='/jsp/medroad/pi/overview.jsp'/>", true);
-	}
-	function showData() {
-		$("#view").removeClass("tab_select");
-		$("#data").addClass("tab_select");
-		jboxLoad("content", "<s:url value='/jsp/medroad/pi/overview_data.jsp'/>",
-				true);
-	}
-	$(document).ready(function(){
-		$(".jsDropdownBt").bind("click",function(){
-			$(this).next(".jsDropdownList").show();
-		});
-		$(".jsDropdownItem").bind("click",function(){
-			$(this).parents(".jsDropdownList").hide();
-			$(this).parent().parent().parent().siblings(".jsDropdownBt").find(".jsBtLabel").html(($(this).html()));
-		});
-	});
-	$(function(){
-		var dropBtn = $('.jsDropdownBt');
-		dropBtn.on('click',function(e){e.stopPropagation();});
-	});
-</script>
-<style>
-.dropdown_switch .arrow {
-	position: absolute;
-	right: 10px;
-	top: 50%;
-	margin-top: -2.5px;
-	display: inline-block;
-	width: 0;
-	height: 0;
-	border-width: 5px;
-	border-style: dashed;
-	border-color: transparent;
-	border-bottom-width: 0;
-	border-top-color: #c6c6c6;
-	border-top-style: solid;
-}
-</style>
-<div class="main_hd">
-	<h2>抽样分析</h2>
-	<div class="title_tab" id="toptab">
-		<ul>
-			<li id="view" class="tab" onclick="showView();"><a>概况</a></li>
-			<li id="data" class="tab_select" onclick="showData();"><a>数据明细</a></li>
-		</ul>
-	</div>
 
-	<div class="main_bd user_analysis">
 		<div class="wrp_overview">
 			<div class="info_box drop_hd_right">
 
@@ -333,6 +279,4 @@
 			</div>
 
 		</div>
-	</div>
-
-</div>
+	

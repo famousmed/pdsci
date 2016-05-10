@@ -1,5 +1,5 @@
-<script type="text/javascript" src="<s:url value='/js/echarts/echarts.min.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 <link rel="stylesheet" type="text/css" href="<s:url value='/jsp/medroad/css/stat_overview.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
+<script type="text/javascript" src="<s:url value='/js/echarts/echarts.min.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 <script>
 $(document).ready(function(){
 	var myChart = echarts.init(document.getElementById('chart1')); 
@@ -10,6 +10,7 @@ $(document).ready(function(){
 		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 		        }
 		    },
+		   
 		    legend: {
 		        data: ['<18岁', '18-65岁','≥65岁']
 		    },
@@ -379,12 +380,12 @@ $(document).ready(function(){
 function showView(){
 	$("#view").addClass("tab_select");
 	$("#data").removeClass("tab_select");
-	jboxLoad("content","<s:url value='/jsp/medroad/pi/overview.jsp'/>",true);
+	jboxLoad("content","<s:url value='/medroad/statis/overview'/>",true);
 }
 function showData(){
 	$("#view").removeClass("tab_select");
 	$("#data").addClass("tab_select");
-	jboxLoad("content","<s:url value='/jsp/medroad/pi/overview_data.jsp'/>",true);
+	jboxLoad("overviewDiv","<s:url value='/medroad/statis/overviewData'/>",true);
 }
 </script>
 <div class="main_hd">
@@ -396,11 +397,11 @@ function showData(){
           </ul>
         </div>
       </div>
-     <div class="main_bd user_analysis" >
+     <div id="overviewDiv" class="main_bd user_analysis" >
      <div class="page_msg mini top_interval">
      <div class="wrp_overview">
      <div class="info_box">
-     <div class="inner">
+     <div class="inner" style="background-color:#fff">
      <div class="info_hd append_ask">
      	<h4>抽样分析</h4>
      	<div class="ext_info help" id="js_ask">
@@ -412,11 +413,11 @@ function showData(){
      		<div class="sub_content">
                <div id="chart1" style="height: 150px;width: 800px;"></div>
            </div>
-           <div class="sub_title">癌种</div>
+           <div class="sub_title">瘤种</div>
      		<div class="sub_content">
                <div >
              		<table border="0" cellpadding="0" cellspacing="0" class="grid" style="100%">
-               			<tr><th width="100px;">癌种</th><th width="100px;">个数</th><th ></th></tr>
+               			<tr><th width="100px;">瘤种</th><th width="100px;">个数</th><th ></th></tr>
                			<tr><td>肺癌</td><td>32</td><td><div class="ui_progress">
                                                   <div style="width:32.666666666666668%;" class="ui_progress_bar"></div>
 	                                          </div></td></tr>
