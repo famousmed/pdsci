@@ -322,7 +322,7 @@ function saveChartType(attrCode,chartType){
      <div class="info_box">
      <div class="inner" style="background-color:#fff;padding: 0px 0px; ">
      <div class="info_hd append_ask">
-     	<h4>分析病例总数：${patientDataMap.size() }例</h4>
+     	<h4>分析病例总数：${!empty patientDataMap? patientDataMap.size():0 }&#12288;例</h4>
      	<div class="ext_info help" id="js_ask">
                    
         	</div>
@@ -462,6 +462,9 @@ function saveChartType(attrCode,chartType){
 									</c:forEach>
 								</tr>
 								</c:forEach>
+								<c:if test='${empty patientDataMap }'>
+									<tr style="border-bottom: 1px solid #e7e7eb;"><td colspan="20" class="table_cell tc js_new_user">无记录</td></tr>
+								</c:if>
 							</tbody>
 						</table>
 					</div>
