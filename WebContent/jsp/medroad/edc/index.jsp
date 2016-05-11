@@ -282,6 +282,9 @@ body{overflow:hidden;}
           <dt class="menu_title">
             <i class="icon_menu menu_statistics"></i>统计查询
           </dt>
+          <!-- 
+          <dd class="menu_item"><a href="javascript:search();">数据查询</a></dd>
+           -->
           <dd class="menu_item"><a href="javascript:overview();">聚集抽样分析</a></dd>
         </dl>
         <dl class="menu">
