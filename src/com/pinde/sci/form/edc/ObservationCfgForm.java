@@ -16,6 +16,13 @@ public class ObservationCfgForm implements Serializable{
 	private String attrName;
 	private String attrCode;
 	private String isCode;
+	private String chartType;
+	public String getChartType() {
+		return chartType;
+	}
+	public void setChartType(String chartType) {
+		this.chartType = chartType;
+	}
 	public String getElementName() {
 		return elementName;
 	}
