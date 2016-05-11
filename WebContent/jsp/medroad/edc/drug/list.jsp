@@ -74,6 +74,7 @@ function drugInfo(drugFlow){
 	<h2 class="underline">药物信息</h2>
 </div>
 <div class="main_bd">
+	<c:if test="${!empty drugList}">
 	<div class="tools">
 		<c:forEach items="${drugList }" var="drug" varStatus="index">
 			<c:if test="${!index.first }">
@@ -128,5 +129,14 @@ function drugInfo(drugFlow){
         </div>
          -->
 	</div>
+	</c:if>
+	<c:if test="${empty  drugList}">
+		<div class="highlight_box global icon_wrap border">
+        <span class="icon icon_profile" style="background-image:url('<s:url value='/css/skin/${skinPath}/images/icon_info.png'/>');"></span>
+        <div class="opr" style="text-align: left;float: left;">
+            		暂无药物信息
+        </div>
+    </div>
+	</c:if>
 </div>
 

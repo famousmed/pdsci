@@ -156,6 +156,16 @@
                </div>
           </div>
        </div>
-       </c:forEach>       </div>
+       </c:forEach>      
+       
+        </div>
+         <c:if test="${empty drugList }">
+		       <div class="highlight_box global icon_wrap border" style="margin-top: 20px;">
+		        <span class="icon icon_profile" style="background-image:url('<s:url value='/css/skin/${skinPath}/images/icon_info.png'/>');"></span>
+		        <div class="opr" style="text-align: left;float: left;">
+		            	暂无库存信息
+		        </div>
+		    </div>
+       </c:if>
 </div>
       

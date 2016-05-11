@@ -99,8 +99,11 @@ $(function(){
 		            	</c:if>
 		            	
 		            </c:forEach>
-		            		<input type="hidden" id="patientCount" value="${count }"/>
-		            		<input type="hidden" id="signDays" value="${signDays }"/>
+            		<input type="hidden" id="patientCount" value="${count }"/>
+            		<input type="hidden" id="signDays" value="${signDays }"/>
+            		<c:if test="${empty windowList }">
+            			<tr><td colspan="7">无记录</td></tr>
+            		</c:if>
 	            </table>
 	       </div>
 	        

@@ -73,13 +73,18 @@
                 </td>
             </tr>
             </c:forEach>
+            	<c:if test="${empty patientList}">
+            		<tr><td colspan="6">无记录</td></tr> 
+            	</c:if>
             </tbody>
         </table>
         </div>
+        <c:if test="${!empty patientList}">
          <div class="page" style="padding-right: 40px;">
        	 <input id="currentPage" type="hidden" name="currentPage" />
            <c:set var="pageView" value="${pdfn:getPageView(patientList)}" scope="request"></c:set>
 	  		 <pd:pagination-hbres toPage="toPage"/>	 
         </div>
+       	</c:if>
 </div>
       
