@@ -209,11 +209,23 @@ function resizeWin() {
 									<img src="<s:url value='/css/skin/${skinPath}/images/medroad_head.png'/>" />
 								</c:if>
 							</c:if>
-								<c:if test="${sessionScope.currWsId==GlobalConstant.GCP_WS_ID}">
-								<img src="<s:url value='/css/skin/${skinPath}/images/gcp_head.png'/>" />
+							<c:if test="${sessionScope.currWsId==GlobalConstant.GCP_WS_ID}">
+								
+								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='pharmasun'}">
+									<img src="<s:url value='/css/skin/${skinPath}/images/gcp_head.png'/>" />
+								</c:if>
+								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='medroad'}">
+									<img src="<s:url value='/css/skin/${skinPath}/images/medroad_head.png'/>" />
+								</c:if>
 							</c:if>
-								<c:if test="${sessionScope.currWsId==GlobalConstant.IRB_WS_ID}">
-								<img src="<s:url value='/css/skin/${skinPath}/images/irb_head.png'/>" />
+							<c:if test="${sessionScope.currWsId==GlobalConstant.IRB_WS_ID}">
+								
+								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='pharmasun'}">
+									<img src="<s:url value='/css/skin/${skinPath}/images/irb_head.png'/>" />
+								</c:if>
+								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='medroad'}">
+									<img src="<s:url value='/css/skin/${skinPath}/images/medroad_head.png'/>" />
+								</c:if>
 							</c:if>
 						</p>
 						<c:if test="${applicationScope.sysCfgMap['sys_skin']=='Blue' || empty applicationScope.sysCfgMap['sys_skin']}">
