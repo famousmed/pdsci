@@ -142,7 +142,4 @@ $(function(){
 							</tbody>
 						</table>
 					</div>
-				</div>
-			</div>
-
-		</div>
+				
