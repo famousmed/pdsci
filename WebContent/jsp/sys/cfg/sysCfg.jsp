@@ -54,81 +54,6 @@ $(document).ready(function(){
 			<select name="sys_version" class="xlselect">
 				<option value="">请选择</option>
 				<option value="1.0.1.76" <c:if test="${sysCfgMap['sys_version']=='1.0.1.76'}">selected="selected"</c:if>>1.0.1.76</option>
-				<option value="1.0.1.75" <c:if test="${sysCfgMap['sys_version']=='1.0.1.75'}">selected="selected"</c:if>>1.0.1.75</option>
-				<option value="1.0.1.74" <c:if test="${sysCfgMap['sys_version']=='1.0.1.74'}">selected="selected"</c:if>>1.0.1.74</option>
-				<option value="1.0.1.73" <c:if test="${sysCfgMap['sys_version']=='1.0.1.73'}">selected="selected"</c:if>>1.0.1.73</option>
-				<option value="1.0.1.72" <c:if test="${sysCfgMap['sys_version']=='1.0.1.72'}">selected="selected"</c:if>>1.0.1.72</option>
-				<option value="1.0.1.71" <c:if test="${sysCfgMap['sys_version']=='1.0.1.71'}">selected="selected"</c:if>>1.0.1.71</option>
-				<option value="1.0.1.70" <c:if test="${sysCfgMap['sys_version']=='1.0.1.70'}">selected="selected"</c:if>>1.0.1.70</option>
-				<option value="1.0.1.69" <c:if test="${sysCfgMap['sys_version']=='1.0.1.69'}">selected="selected"</c:if>>1.0.1.69</option>
-				<option value="1.0.1.68" <c:if test="${sysCfgMap['sys_version']=='1.0.1.68'}">selected="selected"</c:if>>1.0.1.68</option>
-				<option value="1.0.1.67" <c:if test="${sysCfgMap['sys_version']=='1.0.1.67'}">selected="selected"</c:if>>1.0.1.67</option>
-				<option value="1.0.1.66" <c:if test="${sysCfgMap['sys_version']=='1.0.1.66'}">selected="selected"</c:if>>1.0.1.66</option>
-				<option value="1.0.1.65" <c:if test="${sysCfgMap['sys_version']=='1.0.1.65'}">selected="selected"</c:if>>1.0.1.65</option>
-				<option value="1.0.1.64" <c:if test="${sysCfgMap['sys_version']=='1.0.1.64'}">selected="selected"</c:if>>1.0.1.64</option>
-				<option value="1.0.1.63" <c:if test="${sysCfgMap['sys_version']=='1.0.1.63'}">selected="selected"</c:if>>1.0.1.63</option>
-				<option value="1.0.1.62" <c:if test="${sysCfgMap['sys_version']=='1.0.1.62'}">selected="selected"</c:if>>1.0.1.62</option>
-				<option value="1.0.1.61" <c:if test="${sysCfgMap['sys_version']=='1.0.1.61'}">selected="selected"</c:if>>1.0.1.61</option>
-				<option value="1.0.1.60" <c:if test="${sysCfgMap['sys_version']=='1.0.1.60'}">selected="selected"</c:if>>1.0.1.60</option>
-				<option value="1.0.1.59" <c:if test="${sysCfgMap['sys_version']=='1.0.1.59'}">selected="selected"</c:if>>1.0.1.59</option>
-				<option value="1.0.1.58" <c:if test="${sysCfgMap['sys_version']=='1.0.1.58'}">selected="selected"</c:if>>1.0.1.58</option>
-				<option value="1.0.1.57" <c:if test="${sysCfgMap['sys_version']=='1.0.1.57'}">selected="selected"</c:if>>1.0.1.57</option>
-				<option value="1.0.1.56" <c:if test="${sysCfgMap['sys_version']=='1.0.1.56'}">selected="selected"</c:if>>1.0.1.56</option>
-				<option value="1.0.1.55" <c:if test="${sysCfgMap['sys_version']=='1.0.1.55'}">selected="selected"</c:if>>1.0.1.55</option>
-				<option value="1.0.1.54" <c:if test="${sysCfgMap['sys_version']=='1.0.1.54'}">selected="selected"</c:if>>1.0.1.54</option>
-				<option value="1.0.1.53" <c:if test="${sysCfgMap['sys_version']=='1.0.1.53'}">selected="selected"</c:if>>1.0.1.53</option>
-				<option value="1.0.1.52" <c:if test="${sysCfgMap['sys_version']=='1.0.1.52'}">selected="selected"</c:if>>1.0.1.52</option>
-				<option value="1.0.1.51" <c:if test="${sysCfgMap['sys_version']=='1.0.1.51'}">selected="selected"</c:if>>1.0.1.51</option>
-				<option value="1.0.1.50" <c:if test="${sysCfgMap['sys_version']=='1.0.1.50'}">selected="selected"</c:if>>1.0.1.50</option>
-				<option value="1.0.1.49" <c:if test="${sysCfgMap['sys_version']=='1.0.1.49'}">selected="selected"</c:if>>1.0.1.49</option>
-				<option value="1.0.1.48" <c:if test="${sysCfgMap['sys_version']=='1.0.1.48'}">selected="selected"</c:if>>1.0.1.48</option>
-				<option value="1.0.1.47" <c:if test="${sysCfgMap['sys_version']=='1.0.1.47'}">selected="selected"</c:if>>1.0.1.47</option>
-				<option value="1.0.1.46" <c:if test="${sysCfgMap['sys_version']=='1.0.1.46'}">selected="selected"</c:if>>1.0.1.46</option>
-				<option value="1.0.1.45" <c:if test="${sysCfgMap['sys_version']=='1.0.1.45'}">selected="selected"</c:if>>1.0.1.45</option>
-				<option value="1.0.1.44" <c:if test="${sysCfgMap['sys_version']=='1.0.1.44'}">selected="selected"</c:if>>1.0.1.44</option>
-				<option value="1.0.1.43" <c:if test="${sysCfgMap['sys_version']=='1.0.1.43'}">selected="selected"</c:if>>1.0.1.43</option>
-				<option value="1.0.1.42" <c:if test="${sysCfgMap['sys_version']=='1.0.1.42'}">selected="selected"</c:if>>1.0.1.42</option>
-				<option value="1.0.1.41" <c:if test="${sysCfgMap['sys_version']=='1.0.1.41'}">selected="selected"</c:if>>1.0.1.41</option>
-				<option value="1.0.1.40" <c:if test="${sysCfgMap['sys_version']=='1.0.1.40'}">selected="selected"</c:if>>1.0.1.40</option>
-				<option value="1.0.1.39" <c:if test="${sysCfgMap['sys_version']=='1.0.1.39'}">selected="selected"</c:if>>1.0.1.39</option>
-				<option value="1.0.1.38" <c:if test="${sysCfgMap['sys_version']=='1.0.1.38'}">selected="selected"</c:if>>1.0.1.38</option>
-				<option value="1.0.1.37" <c:if test="${sysCfgMap['sys_version']=='1.0.1.37'}">selected="selected"</c:if>>1.0.1.37</option>
-				<option value="1.0.1.36" <c:if test="${sysCfgMap['sys_version']=='1.0.1.36'}">selected="selected"</c:if>>1.0.1.36</option>
-				<option value="1.0.1.35" <c:if test="${sysCfgMap['sys_version']=='1.0.1.35'}">selected="selected"</c:if>>1.0.1.35</option>
-				<option value="1.0.1.34" <c:if test="${sysCfgMap['sys_version']=='1.0.1.34'}">selected="selected"</c:if>>1.0.1.34</option>
-				<option value="1.0.1.33" <c:if test="${sysCfgMap['sys_version']=='1.0.1.33'}">selected="selected"</c:if>>1.0.1.33</option>
-				<option value="1.0.1.32" <c:if test="${sysCfgMap['sys_version']=='1.0.1.32'}">selected="selected"</c:if>>1.0.1.32</option>
-				<option value="1.0.1.31" <c:if test="${sysCfgMap['sys_version']=='1.0.1.31'}">selected="selected"</c:if>>1.0.1.31</option>
-				<option value="1.0.1.30" <c:if test="${sysCfgMap['sys_version']=='1.0.1.30'}">selected="selected"</c:if>>1.0.1.30</option>
-				<option value="1.0.1.29" <c:if test="${sysCfgMap['sys_version']=='1.0.1.29'}">selected="selected"</c:if>>1.0.1.29</option>
-				<option value="1.0.1.28" <c:if test="${sysCfgMap['sys_version']=='1.0.1.28'}">selected="selected"</c:if>>1.0.1.28</option>
-				<option value="1.0.1.27" <c:if test="${sysCfgMap['sys_version']=='1.0.1.27'}">selected="selected"</c:if>>1.0.1.27</option>
-				<option value="1.0.1.26" <c:if test="${sysCfgMap['sys_version']=='1.0.1.26'}">selected="selected"</c:if>>1.0.1.26</option>
-				<option value="1.0.1.25" <c:if test="${sysCfgMap['sys_version']=='1.0.1.25'}">selected="selected"</c:if>>1.0.1.25</option>
-				<option value="1.0.1.24" <c:if test="${sysCfgMap['sys_version']=='1.0.1.24'}">selected="selected"</c:if>>1.0.1.24</option>
-				<option value="1.0.1.23" <c:if test="${sysCfgMap['sys_version']=='1.0.1.23'}">selected="selected"</c:if>>1.0.1.23</option>
-				<option value="1.0.1.22" <c:if test="${sysCfgMap['sys_version']=='1.0.1.22'}">selected="selected"</c:if>>1.0.1.22</option>
-				<option value="1.0.1.21" <c:if test="${sysCfgMap['sys_version']=='1.0.1.21'}">selected="selected"</c:if>>1.0.1.21</option>
-				<option value="1.0.1.20" <c:if test="${sysCfgMap['sys_version']=='1.0.1.20'}">selected="selected"</c:if>>1.0.1.20</option>
-				<option value="1.0.1.19" <c:if test="${sysCfgMap['sys_version']=='1.0.1.19'}">selected="selected"</c:if>>1.0.1.19</option>
-				<option value="1.0.1.18" <c:if test="${sysCfgMap['sys_version']=='1.0.1.18'}">selected="selected"</c:if>>1.0.1.18</option>
-				<option value="1.0.1.17" <c:if test="${sysCfgMap['sys_version']=='1.0.1.17'}">selected="selected"</c:if>>1.0.1.17</option>
-				<option value="1.0.1.16" <c:if test="${sysCfgMap['sys_version']=='1.0.1.16'}">selected="selected"</c:if>>1.0.1.16</option>
-				<option value="1.0.1.15" <c:if test="${sysCfgMap['sys_version']=='1.0.1.15'}">selected="selected"</c:if>>1.0.1.15</option>
-				<option value="1.0.1.14" <c:if test="${sysCfgMap['sys_version']=='1.0.1.14'}">selected="selected"</c:if>>1.0.1.14</option>
-				<option value="1.0.1.13" <c:if test="${sysCfgMap['sys_version']=='1.0.1.13'}">selected="selected"</c:if>>1.0.1.13</option>
-				<option value="1.0.1.12" <c:if test="${sysCfgMap['sys_version']=='1.0.1.12'}">selected="selected"</c:if>>1.0.1.12</option>
-				<option value="1.0.1.11" <c:if test="${sysCfgMap['sys_version']=='1.0.1.11'}">selected="selected"</c:if>>1.0.1.11</option>
-				<option value="1.0.1.10" <c:if test="${sysCfgMap['sys_version']=='1.0.1.10'}">selected="selected"</c:if>>1.0.1.10</option>
-				<option value="1.0.1.9" <c:if test="${sysCfgMap['sys_version']=='1.0.1.9'}">selected="selected"</c:if>>1.0.1.9</option>
-				<option value="1.0.1.8" <c:if test="${sysCfgMap['sys_version']=='1.0.1.8'}">selected="selected"</c:if>>1.0.1.8</option>
-				<option value="1.0.1.7" <c:if test="${sysCfgMap['sys_version']=='1.0.1.7'}">selected="selected"</c:if>>1.0.1.7</option>
-				<option value="1.0.1.6" <c:if test="${sysCfgMap['sys_version']=='1.0.1.6'}">selected="selected"</c:if>>1.0.1.6</option>
-				<option value="1.0.1.5" <c:if test="${sysCfgMap['sys_version']=='1.0.1.5'}">selected="selected"</c:if>>1.0.1.5</option>
-				<option value="1.0.1.4" <c:if test="${sysCfgMap['sys_version']=='1.0.1.4'}">selected="selected"</c:if>>1.0.1.4</option>
-				<option value="1.0.1.3" <c:if test="${sysCfgMap['sys_version']=='1.0.1.3'}">selected="selected"</c:if>>1.0.1.3</option>
-				<option value="1.0.1.2" <c:if test="${sysCfgMap['sys_version']=='1.0.1.2'}">selected="selected"</c:if>>1.0.1.2</option>
-				<option value="1.0.1.1" <c:if test="${sysCfgMap['sys_version']=='1.0.1.1'}">selected="selected"</c:if>>1.0.1.1</option>
 			</select>
 			<input type="hidden" name="sys_version_ws_id"  value="sys">		
 			<input type="hidden" name="sys_version_desc"  value="首页地址">		
@@ -168,6 +93,7 @@ $(document).ready(function(){
 			<input type="radio"  name="sys_index_url" value="/login" <c:if test="${sysCfgMap['sys_index_url']=='/login'}">checked="checked"</c:if> />登录页面
 			<input type="radio"  name="sys_index_url" value="/inx/pharmasun" <c:if test="${sysCfgMap['sys_index_url']=='/inx/pharmasun'}">checked="checked"</c:if> />法默生
 			<input type="radio"  name="sys_index_url" value="/inx/enso" <c:if test="${sysCfgMap['sys_index_url']=='/inx/enso'}">checked="checked"</c:if> />恩索
+			<input type="radio"  name="sys_index_url" value="/inx/jshtcm" <c:if test="${sysCfgMap['sys_index_url']=='/inx/jshtcm'}">checked="checked"</c:if> />江苏省中
 			<input type="hidden" name="sys_index_url_ws_id"  value="sys">		
 			<input type="hidden" name="sys_index_url_desc"  value="首页地址">		
 	</td>
