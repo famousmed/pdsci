@@ -139,7 +139,7 @@ $(document).ready(function(){
 			</table>
 			</fieldset>
 			<fieldset>
-			<legend>机构主视图配置</legend>
+			<legend>GCP配置</legend>
 			<table class="xllist">
 				<thead>
 					<tr>
@@ -168,6 +168,16 @@ $(document).ready(function(){
 					</select>
 					<input type="hidden" name="gcp_default_org_ws_id"  value="gcp">		
 					<input type="hidden" name="gcp_default_org_desc"  value="默认的机构">
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right" width="100px">是否CRO版本：</td>
+					<td style="text-align: left;padding-left: 5px" width="200px">
+					<input type="hidden" name="cfgCode" value="gcp_cro_flag">
+					<input type="radio"  name="gcp_cro_flag" value="${GlobalConstant.FLAG_Y }" <c:if test="${sysCfgMap['gcp_cro_flag']==GlobalConstant.FLAG_Y}">checked="checked"</c:if> />是
+					<input type="radio"  name="gcp_cro_flag" value="${GlobalConstant.FLAG_N }" <c:if test="${sysCfgMap['gcp_cro_flag']==GlobalConstant.FLAG_N }">checked="checked"</c:if> />否
+					<input type="hidden" name="gcp_cro_flag_ws_id"  value="gcp">		
+					<input type="hidden" name="gcp_cro_flag_desc"  value="是否CRO版本">
 					</td>
 				</tr>
 			</table>
