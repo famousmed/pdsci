@@ -1001,6 +1001,7 @@ public class EdcModuleBizImpl implements IEdcModuleBiz{
 							form.setAttrName(item.attributeValue("attrName"));
 							form.setElementName(item.attributeValue("elementName"));
 							form.setIsCode(item.attributeValue("isCode"));
+							form.setChartType(item.attributeValue("chartType"));
 							selAttrList.add(form);
 						}
 					}
