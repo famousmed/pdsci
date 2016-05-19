@@ -69,7 +69,7 @@ public class InitConfig implements ServletContextListener {
 		//加载部门
 		_loadDept(context);	
 		//加载科研配置
-		_loadSrmCfg(context);	
+//		_loadSrmCfg(context);	
 		//加载伦理配置
 		_loadIrbCfg(context);
 		//加载GCP配置
@@ -79,7 +79,7 @@ public class InitConfig implements ServletContextListener {
 		//加载伦理委员会
 		_loadIrb(context);
 		//加载住院医师配置
-		_loadResCfg(context);
+//		_loadResCfg(context);
 		//校验License
 		_checkLicense(context);
 		//加载工作站
@@ -104,7 +104,7 @@ public class InitConfig implements ServletContextListener {
 		//加载部门
 		_loadDept(context);
 		//加载科研配置
-		_loadSrmCfg(context);	
+//		_loadSrmCfg(context);	
 		//加载科研配置
 		_loadIrbCfg(context);
 		//加载系统配置
@@ -112,7 +112,7 @@ public class InitConfig implements ServletContextListener {
 		//加载伦理委员会
 		_loadIrb(context);
 		//加载住院医师配置
-		_loadResCfg(context);
+//		_loadResCfg(context);
 		//校验License
 		_checkLicense(context);
 		//加载工作站
