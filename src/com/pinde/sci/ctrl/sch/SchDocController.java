@@ -1457,7 +1457,7 @@ public class SchDocController extends GeneralController{
 	@RequestMapping(value = "/arrange/calculateDate",method={RequestMethod.GET})
 	@ResponseBody
 	public String calculateDate(String date,String step, Model model) throws Exception{
-		return DateUtil.addMonthForArrange(date,step);
+		return DateUtil.addMonthForArrange(date,step,false);
 	}
 	
 	/**

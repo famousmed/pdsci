@@ -31,8 +31,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import sun.misc.BASE64Decoder;
-
 import com.pinde.core.page.PageHelper;
 import com.pinde.core.util.DateUtil;
 import com.pinde.core.util.PkUtil;
@@ -62,8 +60,9 @@ import com.pinde.sci.common.GlobalContext;
 import com.pinde.sci.common.InitConfig;
 import com.pinde.sci.dao.base.SysLogMapper;
 import com.pinde.sci.dao.base.SysUserMapper;
-import com.pinde.sci.enums.edc.AppResultTypeEnum;
+import com.pinde.sci.dao.edc.EdcPatientVisitDataExtMapper;
 import com.pinde.sci.enums.edc.EdcInputStatusEnum;
+import com.pinde.sci.enums.edc.InspectTypeEnum;
 import com.pinde.sci.enums.edc.PatientTypeEnum;
 import com.pinde.sci.enums.pub.PatientRecipeStatusEnum;
 import com.pinde.sci.enums.pub.PatientSourceEnum;
@@ -71,11 +70,14 @@ import com.pinde.sci.enums.pub.PatientStageEnum;
 import com.pinde.sci.enums.pub.UserSexEnum;
 import com.pinde.sci.enums.sys.OperTypeEnum;
 import com.pinde.sci.enums.sys.ReqTypeEnum;
+import com.pinde.sci.form.edc.ObservationCfgForm;
 import com.pinde.sci.form.pub.ProjFileForm;
 import com.pinde.sci.model.edc.EdcDesignForm;
 import com.pinde.sci.model.irb.ProjInfoForm;
+import com.pinde.sci.model.mo.EdcAttrCode;
 import com.pinde.sci.model.mo.EdcAttribute;
 import com.pinde.sci.model.mo.EdcElement;
+import com.pinde.sci.model.mo.EdcInspect;
 import com.pinde.sci.model.mo.EdcModule;
 import com.pinde.sci.model.mo.EdcPatientVisit;
 import com.pinde.sci.model.mo.EdcPatientVisitData;
@@ -147,6 +149,8 @@ public class MedRoadController extends GeneralController{
 	private IPubPatientRecipeBiz recipeBiz;
 	@Autowired
 	private IInspectBiz inspectBiz; 
+	@Autowired
+	private EdcPatientVisitDataExtMapper patientVisitDataExtMapper;
 	
 	@RequestMapping(value={"/main"},method={RequestMethod.GET})
 	public String main(String projFlow, String roleFlow,Model model,HttpServletRequest request) throws DocumentException{
@@ -451,11 +455,100 @@ public class MedRoadController extends GeneralController{
 		model.addAttribute("orgPatientCountMap", orgPatientCountMap);
 		return "medroad/edc/pi/orgList";
 	}
-	@RequestMapping(value="/overview")
+	@RequestMapping(value="/statis/overview")
 	public String overview(Integer currentPage,Model model,HttpServletRequest request,String orgName,String orgCode) throws Exception{
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
+		String projFlow = proj.getProjFlow();
 		
-		return "medroad/edc/pi/overview";
+		EdcInspect inspect = edcModuleBiz.readInspect(projFlow,InspectTypeEnum.Observation.getId());
+		if(inspect!=null){
+			List<ObservationCfgForm> formList = edcModuleBiz.parseInspectInfo(inspect.getInspectInfo());
+			if(formList!=null && formList.size()>0){
+				
+				
+				Map<String,ObservationCfgForm> observationCfgFormMap = new HashMap<String, ObservationCfgForm>();
+				List<String> attrCodes = new ArrayList<String>();
+				for(ObservationCfgForm form : formList){
+					observationCfgFormMap.put(form.getAttrCode(),form);
+					attrCodes.add(form.getAttrCode());
+				}
+				model.addAttribute("observationCfgFormMap", observationCfgFormMap);
+				
+				Map<String,Map<String,String>> attrCodeMap = new HashMap<String, Map<String,String>>();
+				List<EdcAttrCode> codeList = edcModuleBiz.searchByAttrCode(projFlow,attrCodes);
+				if(codeList!=null && codeList.size()>0){
+					for(EdcAttrCode code : codeList){
+						Map<String,String> temp = attrCodeMap.get(code.getAttrCode());
+						if(temp==null){
+							temp = new HashMap<String,String>();
+						}
+						temp.put(code.getCodeValue(), code.getCodeName());
+						attrCodeMap.put(code.getAttrCode(), temp);
+					}
+				}
+				model.addAttribute("attrCodeMap", attrCodeMap);
+				
+				//EdcPatientVisitData
+				Map<String,Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("projFlow", projFlow);
+				paramMap.put("attrCodes", attrCodes);
+				paramMap.put("orgFlow",  GlobalContext.getCurrentUser().getOrgFlow());
+				
+				List<PubPatient> patientList = patientBiz.searchPatient(projFlow,  GlobalContext.getCurrentUser().getOrgFlow());
+				Map<String,PubPatient> patientMap = new HashMap<String, PubPatient>();
+				for(PubPatient patient : patientList){
+					patientMap.put(patient.getPatientFlow(), patient);
+				}
+				model.addAttribute("patientMap", patientMap);
+				
+				List<EdcPatientVisitData> visitDataList= patientVisitDataExtMapper.searchPatientVisitDataByAttrCode(paramMap);
+				if(visitDataList!=null && visitDataList.size()>0){
+					Map<String,Map<String,EdcPatientVisitData>> patientDataMap = new HashMap<String, Map<String,EdcPatientVisitData>>();
+					Map<String,Map<String,Integer>> attrGroupCountMap = new HashMap<String, Map<String,Integer>>();
+					
+					for(EdcPatientVisitData data : visitDataList){
+						Map<String,EdcPatientVisitData> dataMap = patientDataMap.get(data.getPatientFlow());
+						if(dataMap==null){
+							dataMap  = new HashMap<String, EdcPatientVisitData>();
+						}
+						dataMap.put(data.getAttrCode(), data);
+						patientDataMap.put(data.getPatientFlow(), dataMap);
+						
+						//static
+						if(attrCodeMap.containsKey(data.getAttrCode())){
+							Map<String,Integer> countMap = attrGroupCountMap.get(data.getAttrCode());
+							if(countMap == null){
+								countMap = new HashMap<String, Integer>();
+							}
+							
+							Integer sum = countMap.get("SUM");
+							if(sum == null){
+								sum = 0;
+							}
+							if(StringUtil.isNotBlank(data.getAttrValue())){
+								countMap.put("SUM", ++sum); 
+							}
+							
+							Integer count = countMap.get(data.getAttrValue());
+							if(count == null){
+								count = 0;
+							}
+							countMap.put(data.getAttrValue(), ++count);
+							
+							attrGroupCountMap.put(data.getAttrCode(), countMap);
+						} 
+						
+					}
+					model.addAttribute("patientDataMap", patientDataMap);
+					
+					model.addAttribute("attrGroupCountMap", attrGroupCountMap);
+				}
+			}
+		}
+		return "medroad/edc/statis/overview";
 	}
+	
+	
 	@RequestMapping(value="/visit")
 	public String visit(Model model,HttpServletRequest request,String patientFlow,String patientCode) throws Exception{
 		if(StringUtil.isNotBlank(patientFlow)){
@@ -1474,5 +1567,24 @@ public class MedRoadController extends GeneralController{
 		}
 	}
 	
+	@RequestMapping(value="/statis/saveChartType")
+	@ResponseBody
+	public String saveChartType(String attrCode,String chartType) throws DocumentException{
+		
+		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ); 
+		EdcInspect inspect = edcModuleBiz.readInspect(proj.getProjFlow(),InspectTypeEnum.Observation.getId());
+		String inspectInfo = inspect.getInspectInfo();
+		if(StringUtil.isNotBlank(inspectInfo)){
+			Document doc = DocumentHelper.parseText(inspectInfo); 
+			Element e = (Element) doc.selectSingleNode("inspectInfo/item[@attrCode='"+attrCode+"']");
+			
+			if(e!=null){
+				 e.addAttribute("chartType", chartType);
+			}
+			inspect.setInspectInfo(doc.asXML());
+		}
+		edcModuleBiz.editInspect(inspect);
+		return GlobalConstant.SAVE_SUCCESSED;
+	}
 }
 

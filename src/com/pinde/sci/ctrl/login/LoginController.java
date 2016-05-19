@@ -81,6 +81,7 @@ public class LoginController extends GeneralController {
 	@Autowired
 	private IResDoctorBiz doctorBiz;
 	
+	
 	/**
 	 * ÏÔÊ¾µÇÂ¼Ò³Ãæ
 	 * @return
