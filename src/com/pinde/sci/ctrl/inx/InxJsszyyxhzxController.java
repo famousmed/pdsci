@@ -21,5 +21,9 @@ public class InxJsszyyxhzxController extends GeneralController{
 	public String queryAllData(InxColumn column, Model model){
 		return "inx/jsszyyxhzx/index";
 	}
+	@RequestMapping(value="/inx/jshtcm",method={RequestMethod.GET})
+	public String jshtcm(InxColumn column, Model model){
+		return "inx/jshtcm/index";
+	}
 		
 }
