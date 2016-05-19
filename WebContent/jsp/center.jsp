@@ -23,13 +23,12 @@
 </head>
 <body>
 <div style="text-align:center; vertical-align:middle;margin-left:auto;margin-right:auto;padding:0;">
-	<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='pharmasun'}">
-		<img style="margin:0 auto;" src="<s:url value='/css/skin/${skinPath}/images/main.png'/>"/>
-	</c:if>
-	<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='medroad'}">
-		<img style="margin:0 auto;" src="<s:url value='/css/skin/${skinPath}/images/main_medroad.png'/>"/>
-	</c:if>
- 	
+ 	<c:choose>
+ 		<c:when test="${fn:indexOf(applicationScope.sysCfgMap['sys_login_img'],'medroad')>-1}">
+ 			<img style="margin:0 auto;" src="<s:url value='/css/skin/${skinPath}/images/main_medroad.png'/>"/>
+ 		</c:when>
+ 		<c:otherwise><img style="margin:0 auto;" src="<s:url value='/css/skin/${skinPath}/images/main.png'/>"/></c:otherwise>
+ 	</c:choose>
 </div>
 </body>
 </html>
