@@ -264,7 +264,7 @@ public class SchArrangeBizImpl implements ISchArrangeBiz {
 		String endDate = arrange.getBeginDate();
 		
 		if("Month".equals(resRotationUnit)){
-			endDate = DateUtil.addMonthForArrange(arrange.getBeginDate(), doctorTotalSchMonth+"");
+//			endDate = DateUtil.addMonthForArrange(arrange.getBeginDate(), doctorTotalSchMonth+"");
 		}
 		if("Week".equals(resRotationUnit)){
 			endDate = DateUtil.addDate(arrange.getBeginDate(), (int)doctorTotalSchMonth*7-1);
@@ -447,7 +447,7 @@ public class SchArrangeBizImpl implements ISchArrangeBiz {
 				float schMonth = Float.parseFloat(StringUtil.defaultIfEmpty(arrangeDoctorDeptMap.get(arrDocDeptFlow).getSchMonth(), "0.0"));
 				int oriDeptIndex = allSchDeptList.indexOf(schDeptFlow);
 				if("Month".equals(resRotationUnit)){
-					endDate = DateUtil.addMonthForArrange(startDate, schMonth+"");
+//					endDate = DateUtil.addMonthForArrange(startDate, schMonth+"");
 				}
 				if("Week".equals(resRotationUnit)){
 					endDate = DateUtil.addDate(startDate, (int)schMonth*7-1);
@@ -491,7 +491,7 @@ public class SchArrangeBizImpl implements ISchArrangeBiz {
 			int oriDeptIndex = allSchDeptList.indexOf(schDeptFlow);
 			
 			if("Month".equals(resRotationUnit)){
-				endDate = DateUtil.addMonthForArrange(startDate, schMonth+"");
+//				endDate = DateUtil.addMonthForArrange(startDate, schMonth+"");
 			}
 			if("Week".equals(resRotationUnit)){
 				endDate = DateUtil.addDate(startDate, (int)schMonth*7-1);
