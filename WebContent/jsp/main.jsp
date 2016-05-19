@@ -200,34 +200,7 @@ function resizeWin() {
 			<td colspan="3">
 				<div class="header">
 					<div class="top">
-						<p class="tleft">
-							<c:if test="${sessionScope.currWsId==GlobalConstant.EDC_WS_ID}">
-								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='pharmasun'}">
-									<img src="<s:url value='/css/skin/${skinPath}/images/sci_head.png'/>" />
-								</c:if>
-								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='medroad'}">
-									<img src="<s:url value='/css/skin/${skinPath}/images/medroad_head.png'/>" />
-								</c:if>
-							</c:if>
-							<c:if test="${sessionScope.currWsId==GlobalConstant.GCP_WS_ID}">
-								
-								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='pharmasun'}">
-									<img src="<s:url value='/css/skin/${skinPath}/images/gcp_head.png'/>" />
-								</c:if>
-								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='medroad'}">
-									<img src="<s:url value='/css/skin/${skinPath}/images/medroad_head.png'/>" />
-								</c:if>
-							</c:if>
-							<c:if test="${sessionScope.currWsId==GlobalConstant.IRB_WS_ID}">
-								
-								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='pharmasun'}">
-									<img src="<s:url value='/css/skin/${skinPath}/images/irb_head.png'/>" />
-								</c:if>
-								<c:if test="${applicationScope.sysCfgMap['sys_login_img']=='medroad'}">
-									<img src="<s:url value='/css/skin/${skinPath}/images/medroad_head.png'/>" />
-								</c:if>
-							</c:if>
-						</p>
+						<p class="tleft"><img src="<s:url value='/css/skin/${skinPath}/images/${applicationScope.sysCfgMap["sys_login_img"]}_head.png'/>" /></p>
 						<c:if test="${applicationScope.sysCfgMap['sys_skin']=='Blue' || empty applicationScope.sysCfgMap['sys_skin']}">
 						 <div class="tright">
 							<span>

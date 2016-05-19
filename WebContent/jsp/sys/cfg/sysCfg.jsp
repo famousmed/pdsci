@@ -90,24 +90,30 @@ $(document).ready(function(){
 	<td style="text-align: right" width="100px">首页地址：</td>
 	<td style="text-align: left;padding-left: 5px" width="200px">
 			<input type="hidden" name="cfgCode" value="sys_index_url">
-			<input type="radio"  name="sys_index_url" value="/login" <c:if test="${sysCfgMap['sys_index_url']=='/login'}">checked="checked"</c:if> />登录页面
+			<input type="radio"  name="sys_index_url" value="/login" <c:if test="${sysCfgMap['sys_index_url']=='/login'}">checked="checked"</c:if> />默认登录页面
 			<input type="radio"  name="sys_index_url" value="/inx/pharmasun" <c:if test="${sysCfgMap['sys_index_url']=='/inx/pharmasun'}">checked="checked"</c:if> />法默生
 			<input type="radio"  name="sys_index_url" value="/inx/enso" <c:if test="${sysCfgMap['sys_index_url']=='/inx/enso'}">checked="checked"</c:if> />恩索
 			<input type="radio"  name="sys_index_url" value="/inx/jshtcm" <c:if test="${sysCfgMap['sys_index_url']=='/inx/jshtcm'}">checked="checked"</c:if> />江苏省中
+			<input type="radio"  name="sys_index_url" value="/inx/zxyyy" <c:if test="${sysCfgMap['sys_index_url']=='/inx/zxyyy'}">checked="checked"</c:if> />中西医结合
 			<input type="hidden" name="sys_index_url_ws_id"  value="sys">		
 			<input type="hidden" name="sys_index_url_desc"  value="首页地址">		
 	</td>
 </tr>
 <tr>
-	<td style="text-align: right" width="100px">登录页面图片：</td>
+	<td style="text-align: right" width="100px">LOGO图片：</td>
 	<td style="text-align: left;padding-left: 5px" width="200px">
 			<input type="hidden" name="cfgCode" value="sys_login_img">
+			<!-- 
 			<input type="radio"  name="sys_login_img"  value="sci" <c:if test="${sysCfgMap['sys_login_img']=='sci'}">checked="checked"</c:if> />一体化
 			<input type="radio"  name="sys_login_img" value="edc" <c:if test="${sysCfgMap['sys_login_img']=='edc'}">checked="checked"</c:if> />E-CRF
 			<input type="radio"  name="sys_login_img"  value="gcp" <c:if test="${sysCfgMap['sys_login_img']=='gcp'}">checked="checked"</c:if> />GCP
 			<input type="radio"  name="sys_login_img" value="irb" <c:if test="${sysCfgMap['sys_login_img']=='irb'}">checked="checked"</c:if> />IRB
-			<input type="radio"  name="sys_login_img" value="pharmasun" <c:if test="${sysCfgMap['sys_login_img']=='pharmasun'}">checked="checked"</c:if> />pharmasun
+			 -->
+			 <input type="radio"  name="sys_login_img" value="pharmasun_ctms" <c:if test="${sysCfgMap['sys_login_img']=='pharmasun_ctms'}">checked="checked"</c:if> />pharmasun-ctms
+			 <input type="radio"  name="sys_login_img" value="pharmasun_edc" <c:if test="${sysCfgMap['sys_login_img']=='pharmasun_edc'}">checked="checked"</c:if> />pharmasun-edc
+			<input type="radio"  name="sys_login_img" value="pharmasun_irb" <c:if test="${sysCfgMap['sys_login_img']=='pharmasun_irb'}">checked="checked"</c:if> />pharmasun-irb
 			<input type="radio"  name="sys_login_img" value="medroad" <c:if test="${sysCfgMap['sys_login_img']=='medroad'}">checked="checked"</c:if> />medroad
+			<input type="radio"  name="sys_login_img" value="jshtcm" <c:if test="${sysCfgMap['sys_login_img']=='jshtcm'}">checked="checked"</c:if> />江苏省中
 			<input type="hidden" name="sys_login_img_ws_id"  value="sys">		
 			<input type="hidden" name="sys_login_img_desc"  value="登录图片">		
 	</td>

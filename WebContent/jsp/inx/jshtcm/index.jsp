@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/doctype.jsp" %>
 <html>
@@ -33,24 +33,25 @@ function checkForm(){
 	return true;
 }
 </script>
-<title>医路临床科研信息化管理系统 | Enso</title>
+<title>江苏省中医院临床试验管理系统 | pharmasun</title>
 <script Language=JavaScript> 
      function Click(){ 
-     alert('江苏法迈生医学科技有限公司版权所有'); 
+     alert('南京迈拓医药科技有限公司版权所有'); 
      window.event.returnValue=false; 
      } 
      document.oncontextmenu=Click; 
 </script>
 </head>
 <style>
-.enso{background: #EAEAEA url(<s:url value='/css/img/medroad.jpg' />) no-repeat top center;}
+.enso{background: #ffffff url(<s:url value='jsp/inx/jshtcm/jshtcm.jpg' />) no-repeat top center;}
 </style>
 <body class="enso">
 <div class="m">
 <div class="bg">
-<div class="bgt">江苏省中医院CTMS管理系统</div>
+<div class="bgt">江苏省中医院临床试验管理系统CTMS</div>
 <div class="bgform">
 <form name="loginForm" action="<s:url value='/login'/>" method="post">
+<input type="hidden" name="errorLoginPage" value="<s:url value='/inx/jshtcm'/>"/>
 <table align="left" cellpadding="0" cellspacing="0">
 									<tr>
 										<td height="50">用户名：</td>
@@ -87,7 +88,9 @@ function checkForm(){
 	</form>
     </div>
 </div>
-<div class="footer">Copyright © 医路临床科研信息化管理系统 江苏法迈生医学科技有限公司 All rights reserved. v2015.1</div>
+<div class="footer">
+<p><a href="http://www.jshtcm.com/" target="_blank">江苏省中医院</a> | <a href="http://www.jshtcm.com/bencandy.php?fid=888&id=3299" target="_blank">江苏省中医院药物临床试验机构</a> | <a href="http://www.jshtcm.com/list.php?fid=880" target="_blank">江苏省中医院医学伦理审查平台</a></p>
+<p>机构电话：<strong style="color:#F60; font-size:18px">025-86555033</strong><br/>Copyright © <a href="http://www.pharmasun.cn" target="_blank">法默生临床试验信息化解决方案</a> v2016.1  <img src="css/img/logos.png" width="16" height="16"> 南京迈拓医药科技有限公司 技术咨询：4000-5577-19</p></div>
 </div>
 </body>
 </html>
