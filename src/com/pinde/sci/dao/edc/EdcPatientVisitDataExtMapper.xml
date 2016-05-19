@@ -74,6 +74,9 @@
  		<foreach collection="attrCodes" item="attrCode" open="(" separator="," close=")">
 			#{attrCode}
 		</foreach>
+		<if test="orgFlow != null">
+	 			AND exists (select null from pub_patient where patient_flow=pvd.patient_flow and record_status='Y' and org_flow=#{orgFlow}) 
+	 		</if>
 		and exists (select null from EDC_PATIENT_VISIT where INPUT_OPER_STATUS_ID='Submit' and RECORD_FLOW = pvd.VISIT_RECORD_FLOW and record_status='Y')
  	</select>
  	
