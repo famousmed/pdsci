@@ -62,15 +62,15 @@ textarea { border:1px solid #ccc; overflow-y:auto; line-height:23px; }
 .form_fix{ width:100%;overflow-y:auto; overflow-x:hidden;position:absolute;top:40px;bottom:0px;}
 /* header */
 .header { width:100%; overflow:hidden;}
-.top { width:100%; height:73px; overflow:hidden; background-color:#1595d4;}
-.tleft { width:434px; height:73px; margin-left:-1px; float:left;}
+.top { width:100%; height:115px; overflow:hidden; background:#010D29 url("images/topbg.jpg") no-repeat;}
+.tleft { width:434px; height:115px; margin-left:-1px; float:left;}
 .tright span { line-height:40px; color:#fff; float:left;}
 .tright span a { margin:0 0px; color:#fff;}
-.tright { width:500px; height:73px; background:url("images/tcenter.png") no-repeat; float:right; padding-top:4px;}
+.tright { width:40%; height:73px; float:right; padding-top:4px;}
 .tright a {  line-height:22px; color:#fff; text-align:center;}
 .tright a:hover {color:#00fffc; }
-.menu { width:100%; height:45px; background:#e5eff8; border-top:1px solid #1595d4; border-bottom:1px solid #8fafcc;}
-.menu ul { margin:8px; color:#fff; height:29px; float:left; display:inline; border:1px solid #1083BC; border-right:none;}
+.menu { width:100%; height:29px; top:85px; position: absolute;z-index:1}
+.menu ul { margin:0; color:#fff; height:29px; float:left; display:inline; border:1px solid #1083BC; border-right:none;position:absolute;z-index:999}
 .menu ul li { float:left; line-height:29px;}
 .menu ul li a {float:left; color:#FFF; padding:0 15px;}
 .menu ul li a:hover { text-decoration:none;}
@@ -88,6 +88,7 @@ textarea { border:1px solid #ccc; overflow-y:auto; line-height:23px; }
 .tright p a.help { background:url(images/help.png) no-repeat; padding-left:22px;}
 .tright p a.zhuxiao { background:url(images/tc.png) no-repeat; padding-left:20px;}
 .tright p a.change { background:url(images/change.png) no-repeat; padding-left:20px;}
+.tright p a.xm { background:url(images/change2.png) no-repeat; padding-left:20px;}
 
 /* main */
 #main { width:100%; height:100%; padding-top:10px;padding-bottom:20px;}
@@ -149,7 +150,7 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 /*leftmenu*/
 #menu span{font-size:0px;}
 #menu img{ border:0px;}
-.menu_list{width:203px;overflow-y:auto;position:absolute;top:35px;bottom:0px;}
+.menu_list{width:203px;overflow-y:auto;position:absolute;top:0;bottom:0px;}
 .menu_sec{ height:100%;position:relative;}
 .menu_sec h1 img{ padding-right:5px; line-height:35px;}
 .menu_sec h1 { font-size:14px;background:#e1ebf4; border-bottom:1px solid #8fafcc; background-image:url(images/li_r.png); background-repeat:no-repeat; background-position:20px 13px;height:35px; text-align:left;padding-left:40px; }
@@ -249,7 +250,7 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 .basic tbody th { color:#333; height:35px; text-align:right; padding-right:10px; background:#ECF2FA;}
 .basic td { text-align:left; padding-left:10px; line-height:35px;}
 .basic b{
-	color:#60b0e1;
+	color:#e2e2e2;
 	text-decoration:underline;
 	text-align:center;
 	cursor:pointer;
@@ -286,13 +287,13 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 	background-position:51px;
 }
 .bg{
-	float:left;margin-top:80px;
+	float:left;margin-top:180px;
 	text-align:center;
 	vertical-align:middle;
 	width:980px;
 	height:240px;	
 }
-.bgt{float:left;margin-top:80px;width:530px;height:240px;color:#fff;text-align:center;font-size:22px; font-family:"microsoft yahei";line-height:200px}
+.bgt{float:left;width:530px;height:240px;color:#fff;text-align:center;font-size:24px; font-family:"microsoft yahei";line-height:200px}
 .bgform{float:left;width:450px;height:240px;}
 
 .bg table{
@@ -346,18 +347,18 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 .user{
 	padding-left:22px;}
 .footer{
-	float:left;font-size:14px;width:980px;
-	color:#000;
+	float:left;font-size:13px;width:980px;
+	color:#5f5f5f;
 	font-weight:normal;
 	text-align:center;
-	padding-top:150px;
+	padding-top:50px;
 	line-height:25px;
 }
 /*模板维护*/
 
 /*注册界面*/
 #register{
-	background:#1595d4;
+	background:#1595d4 url(images/topbg.jpg) no-repeat center;
 	height:73px;
 	}
 #logo{
@@ -411,12 +412,12 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 }
 #footer{
 	margin:0 auto;
-	margin-top:50px;
+	margin-top:15px;
 	margin-bottom:30px;
 	width:900px;
 	text-align:center;
-	color:#000;
-	font-size:12px;
+	color:#999999;
+	font-size:13px;
 	height:100px;
 }
 .reg_title{
