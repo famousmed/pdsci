@@ -304,6 +304,14 @@ $(document).ready(function(){
 <c:if test="${param.courseDetail=='true'}">
 <link rel="stylesheet" type="text/css" href="<s:url value='/jsp/res/css/video.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"/>
 </c:if>
+<c:if test="${expired == true}">
+<script type="text/javascript">
+$(document).ready(function(){
+	jboxError("系统内部出错,错误码:999,请联系系统管理员。");
+	jboxCenter();
+}); 
+</script>
+</c:if>
 <%-- <script type="text/javascript" src="<s:url value='/js/sisyphus${min}.js'/>?v=${applicationScope.sysCfgMap['sys_version']}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
