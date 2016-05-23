@@ -56,20 +56,21 @@ textarea { border:1px solid #ccc; overflow-y:auto; line-height:23px; }
 .htop {background:url(images/center_bg_r.png) repeat-x;height:37px;width:100%;line-height:35px; vertical-align:top;}
 .htop span { color:#000; font-weight:bold; padding-left:10px;}
 .htop span b { font-weight:normal; background:url("images/hurn.png") no-repeat; padding-left:30px;}
-.mainright { width:100%; height:100%; vertical-align:top; overflow:auto;}
+.mainright { width:100%; height:100%; vertical-align:top; overflow:auto;background:#fff}
+.mainright1 { width:100%; height:100%; vertical-align:top; overflow:auto;background:#98D7FC url("images/bgmain.jpg") no-repeat center top;}
 .main_fix{ width:100%;overflow-y:auto;position:absolute;top:46px;bottom:0px;}
 .basic_fix{ width:100%;overflow-y:auto; overflow-x:hidden;position:absolute;top:85px;bottom:0px;}
 .form_fix{ width:100%;overflow-y:auto; overflow-x:hidden;position:absolute;top:40px;bottom:0px;}
 /* header */
 .header { width:100%; overflow:hidden;}
-.top { width:100%; height:115px; overflow:hidden; background:#010D29 url("images/topbg.jpg") no-repeat;}
+.top { width:100%; height:115px; overflow:hidden; background:#00A3D9 url("images/topbg.jpg") no-repeat;}
 .tleft { width:434px; height:115px; margin-left:-1px; float:left;}
 .tright span { line-height:40px; color:#fff; float:left;}
 .tright span a { margin:0 0px; color:#fff;}
 .tright { width:40%; height:73px; float:right; padding-top:4px;}
 .tright a {  line-height:22px; color:#fff; text-align:center;}
 .tright a:hover {color:#00fffc; }
-.menu { width:100%; height:29px; top:85px; position: absolute;z-index:1}
+.menu { width:100%; height:29px; top:85px; position: absolute;z-index:1;}
 .menu ul { margin:0; color:#fff; height:29px; float:left; display:inline; border:1px solid #1083BC; border-right:none;position:absolute;z-index:999}
 .menu ul li { float:left; line-height:29px;}
 .menu ul li a {float:left; color:#FFF; padding:0 15px;}
@@ -293,7 +294,7 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 	width:980px;
 	height:240px;	
 }
-.bgt{float:left;width:530px;height:240px;color:#fff;text-align:center;font-size:24px; font-family:"microsoft yahei";line-height:200px}
+.bgt{float:left;width:530px;height:240px;color:#fff;text-align:center;font-size:24px; font-family:"microsoft yahei";line-height:200px; font-weight:bold;text-shadow:#000 1px 1px 1px}
 .bgform{float:left;width:450px;height:240px;}
 
 .bg table{
@@ -358,7 +359,7 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 
 /*注册界面*/
 #register{
-	background:#1595d4 url(images/topbg.jpg) no-repeat center;
+	background:#4395D0;
 	height:73px;
 	}
 #logo{
@@ -499,14 +500,13 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 #station{
 	position:relative;
 	margin:0 auto;
-	width:783px;
+	width:800px;
 	margin-bottom:30px;
-	background:url(images/station.png) no-repeat center;
-	height:576px;
+	height:500px;
 }
 #station ul{
 	position:absolute;
-	top:115px;
+	top:60px;
 	font-size:20px;
 	left:250px;
 	text-align:left;
@@ -519,7 +519,7 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 	color:#fff;
 	height:55px;
 	width:260px;
-	padding-top:5px;
+	padding-top:10px;
 }
 #station li a{
 	text-decoration:none;
@@ -527,7 +527,7 @@ background:url("images/asd.png") repeat-x 0 -187px; margin-right:20px; font-fami
 }
 #station li a:hover{
 	text-decoration:none;
-	color:#f60;
+	color:#f90;
 }
 #station .fy-btn{
 	padding-left:300px;
@@ -665,10 +665,7 @@ legend{
 .black { color:#333;}
 /*banner*/
 .i-banner{
-	background-image:url(images/gcp_main_top.jpg);
-	background-repeat:no-repeat;
-	background-position:center 50%;
-	background-color:#5ba7fe;
+	background-color:#fff;
 	padding-top:5px;
 	color:#fff;
 	border-bottom:1px solid #dfdfdf;
@@ -1048,7 +1045,7 @@ color: red;
 .con_drug{
 	width: 50px;height: 20px;float: left;margin: 10px 15px;
 	line-height: 20px;vertical-align: middle;text-align: center;
-	background: #fff;font-size: 16px;font-family:  Microsoft Yahei;
+	background: #fff;font-size: 16px;font-family:"microsoft yahei";;
 	border:1px solid #ccc;cursor: pointer;
 }
 .con_drug:HOVER {
@@ -1058,7 +1055,7 @@ color: red;
 .dept_img{
 	width: 90px;height: 80px;float: left;margin: 20px 20px 5px 20px;
 	line-height: 80px;vertical-align: middle;text-align: center;
-	font-size: 16px;font-family:  Microsoft Yahei;
+	font-size: 16px;font-family:"microsoft yahei";;
 	cursor: pointer;
 	background:url(images/htfile.png) no-repeat center;
 }
@@ -1149,7 +1146,7 @@ font-size: 24px;
 line-height: 20px;
 color: gray;
 padding:20px 0 20px 20px;
-font-family: tahoma,arial,"Hiragino Sans GB",\5b8b\4f53;
+font-family: microsoft yahei,tahoma,arial,"Hiragino Sans GB",\5b8b\4f53;
 }
 .mobile-content {
 margin: 0 auto;
