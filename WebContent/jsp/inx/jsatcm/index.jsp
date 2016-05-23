@@ -43,7 +43,7 @@ function checkForm(){
 </script>
 </head>
 <style>
-.enso{background: #ffffff url(<s:url value='jsp/inx/jsatcm/jsatcm.jpg' />) no-repeat top center;}
+.enso{background: #ffffff url(<s:url value='/jsp/inx/jsatcm/jsatcm.jpg' />) no-repeat top center;}
 </style>
 <body class="enso">
 <div class="m">
@@ -51,6 +51,7 @@ function checkForm(){
 <div class="bgt">临床试验管理系统 CTMS</div>
 <div class="bgform">
 <form name="loginForm" action="<s:url value='/login'/>" method="post">
+<input type="hidden" name="errorLoginPage" value="<s:url value='inx/jsatcm/index'/>"/>
 <table align="left" cellpadding="0" cellspacing="0">
 									<tr>
 										<td height="50">用户名：</td>
