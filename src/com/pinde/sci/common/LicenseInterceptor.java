@@ -1,15 +1,13 @@
 package com.pinde.sci.common;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.pinde.core.license.PdLicense;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pinde.core.license.PdLicense;
-import com.pinde.core.util.StringUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class LicenseInterceptor implements HandlerInterceptor {
 
@@ -31,15 +29,13 @@ public class LicenseInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object obj) throws Exception {
 		if(InitConfig.licenseed==false){
-//			request.getRequestDispatcher("/license").forward(request, response);
-//			return false;		
+			request.getRequestDispatcher("/license").forward(request, response);
+			return false;		
 		}else{
 			if(!PdLicense.checkValid()){
-//				response.sendRedirect(request.getContextPath()+"/expired");
-//				return false;
-				//request.setAttribute("expired", true);
-				//request.getRequestDispatcher("/license").forward(request, response);
-				//return false;	
+				request.setAttribute("expired", true);
+				request.getRequestDispatcher("/license").forward(request, response);
+				return true;	
 			}
 		}
 		return true;
