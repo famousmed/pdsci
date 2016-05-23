@@ -505,7 +505,7 @@
 		</module>
 		<!-- <module id='tjbb' name="统计报表"> </module> -->
 	</workStation>
-	<workStation id='gcp' name="药物试验管理系统">
+	<workStation id='gcp' name="临床试验机构管理系统">
 		<module id='sby' name="申办方/CRO" view="/gcp/declarer/projList">
 			<menuset id="sbxmxxgl" name="项目信息管理">
 				<menu id="sbxmlb" name="项目列表" url="/gcp/declarer/projList"></menu>
