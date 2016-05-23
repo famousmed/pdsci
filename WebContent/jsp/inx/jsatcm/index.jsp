@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/doctype.jsp" %>
 <html>
@@ -33,22 +33,22 @@ function checkForm(){
 	return true;
 }
 </script>
-<title>医路临床科研信息化管理系统 | Enso</title>
+<title>江苏省中西医结合医院临床试验管理系统 | pharmasun</title>
 <script Language=JavaScript> 
      function Click(){ 
-     alert('江苏法迈生医学科技有限公司版权所有'); 
+     alert('南京迈拓医药科技有限公司版权所有'); 
      window.event.returnValue=false; 
      } 
      document.oncontextmenu=Click; 
 </script>
 </head>
 <style>
-.enso{background: #EAEAEA url(<s:url value='/css/img/medroad.jpg' />) no-repeat top center;}
+.enso{background: #ffffff url(<s:url value='jsp/inx/jsatcm/jsatcm.jpg' />) no-repeat top center;}
 </style>
 <body class="enso">
 <div class="m">
 <div class="bg">
-<div class="bgt">中西医结合CTMS管理系统</div>
+<div class="bgt">临床试验管理系统 CTMS</div>
 <div class="bgform">
 <form name="loginForm" action="<s:url value='/login'/>" method="post">
 <table align="left" cellpadding="0" cellspacing="0">
@@ -87,7 +87,9 @@ function checkForm(){
 	</form>
     </div>
 </div>
-<div class="footer">Copyright © 医路临床科研信息化管理系统 江苏法迈生医学科技有限公司 All rights reserved. v2015.1</div>
+<div class="footer">
+<p><a href="http://www.jsatcm.com/" target="_blank">江苏省中西医结合医院</a> | <a href="http://www.jsatcm.com/news-0000002834.html" target="_blank">江苏省中西医结合医院临床试验机构</a> | <a href="http://www.jsatcm.com/research/ethics.html" target="_blank">江苏省中西医结合医院伦理委员会</a></p>
+<p>机构电话：<strong style="color:#F60; font-size:18px">025-85608661</strong><br/>Copyright © <a href="http://www.pharmasun.cn" target="_blank">法默生临床试验信息化解决方案</a> v2016.1  <img src="css/img/logos.png" width="16" height="16"> 南京迈拓医药科技有限公司 技术咨询：4000-5577-19</p></div>
 </div>
 </body>
 </html>

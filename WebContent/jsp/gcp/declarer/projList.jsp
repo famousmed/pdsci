@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/doctype.jsp" %>
 <html>
@@ -40,8 +40,8 @@ function option(projFlow){
 		<div class="title1 clearfix">
 			<form id="searchForm" method="post">
 				${sessionScope.currUser.userName}，您所在机构：<a href="<s:url value='/gcp/declarer/orgInfo'/>" style="color: blue">${sessionScope.currUser.orgName}</a>&#12288;目前承担项目&#12288;<span style="color: red">${empty projList.size()?0:projList.size()}</span>&#12288;个
-				&#12288;&#12288;<a href="<s:url value='/jsp/gcp/declarer/lcsyxz.docx'/>" style="font-size:20px;font-family:KaiTi_GB2312,Times New Roman "><img src="<s:url value='/css/skin/${skinPath}/images/notice.png'/>" style="height: 30px;"/>临床研究须知</a>
-				<input type="button" class="search"	onclick="add();" style="float: right;margin-right: 20px;" value="新&#12288;增"> 
+				&#12288;&#12288;<span class="search"><a href="<s:url value='/jsp/gcp/declarer/lcsyxz.docx'/>" style="font-size:16px;font-family:Microsoft Yahei;color:#ffffff;font-weight:bold;"><img src="<s:url value='/css/skin/${skinPath}/images/notice.png'/>"/>下载《临床研究须知》</a></span>
+				<input type="button" class="search" onclick="add();" style="float: right;margin-right: 20px;" value="新&#12288;增"> 
 			</form>
 		</div> 
 		<div>

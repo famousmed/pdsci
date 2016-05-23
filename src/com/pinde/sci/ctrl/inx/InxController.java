@@ -17,9 +17,9 @@ import com.pinde.sci.model.mo.InxColumn;
 @Controller
 public class InxController extends GeneralController{
 	
-	@RequestMapping(value="/inx/zxyyy",method={RequestMethod.GET})
+	@RequestMapping(value="/inx/jsatcm",method={RequestMethod.GET})
 	public String zxyyy( Model model){
-		return "inx/zxyyy/index";
+		return "inx/jsatcm/index";
 	}
 	@RequestMapping(value="/inx/nydefy",method={RequestMethod.GET})
 	public String nydefy( Model model){

@@ -43,7 +43,7 @@ function nextPage(pagenum){
 <div id="register">
 <div id="logo"><img src="<s:url value='/css/skin/${skinPath}/images/${applicationScope.sysCfgMap["sys_login_img"]}_head.png'/>" /></div>
 </div>
-<div class="mainright">
+<div class="mainright1">
 <div style="height:80px;">&nbsp;</div>
 <div id="station">
 	<c:set var="currentPage" value="1"/>

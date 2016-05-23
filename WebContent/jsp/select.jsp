@@ -38,7 +38,7 @@ function nextPage(pagenum){
 </script>
 </head>
 
-<body>
+<body class="mainright1">
 <c:set var="pageSize" value="5"/>
 <div id="station">
 <c:set var="currentPage" value="1"/>

@@ -95,7 +95,7 @@ $(document).ready(function(){
 			<input type="radio"  name="sys_index_url" value="/inx/enso" <c:if test="${sysCfgMap['sys_index_url']=='/inx/enso'}">checked="checked"</c:if> />恩索
 			<input type="radio"  name="sys_index_url" value="/inx/nydefy" <c:if test="${sysCfgMap['sys_index_url']=='/inx/nydefy'}">checked="checked"</c:if> />南医大二附院
 			<input type="radio"  name="sys_index_url" value="/inx/jshtcm" <c:if test="${sysCfgMap['sys_index_url']=='/inx/jshtcm'}">checked="checked"</c:if> />江苏省中
-			<input type="radio"  name="sys_index_url" value="/inx/zxyyy" <c:if test="${sysCfgMap['sys_index_url']=='/inx/zxyyy'}">checked="checked"</c:if> />中西医结合
+			<input type="radio"  name="sys_index_url" value="/inx/jsatcm" <c:if test="${sysCfgMap['sys_index_url']=='/inx/jsatcm'}">checked="checked"</c:if> />中西医结合
 			<input type="hidden" name="sys_index_url_ws_id"  value="sys">		
 			<input type="hidden" name="sys_index_url_desc"  value="首页地址">		
 	</td>
@@ -115,7 +115,8 @@ $(document).ready(function(){
 			<input type="radio"  name="sys_login_img" value="pharmasun_irb" <c:if test="${sysCfgMap['sys_login_img']=='pharmasun_irb'}">checked="checked"</c:if> />pharmasun-irb
 			<input type="radio"  name="sys_login_img" value="medroad" <c:if test="${sysCfgMap['sys_login_img']=='medroad'}">checked="checked"</c:if> />medroad
 			<input type="radio"  name="sys_login_img" value="nydefy" <c:if test="${sysCfgMap['sys_login_img']=='nydefy'}">checked="checked"</c:if> />南医大二附院
-			<input type="radio"  name="sys_login_img" value="jshtcm" <c:if test="${sysCfgMap['sys_login_img']=='jshtcm'}">checked="checked"</c:if> />江苏省中
+			<input type="radio"  name="sys_login_img" value="jshtcm" <c:if test="${sysCfgMap['sys_login_img']=='jshtcm'}">checked="checked"</c:if> />江苏省中医院
+			<input type="radio"  name="sys_login_img" value="jsatcm" <c:if test="${sysCfgMap['sys_login_img']=='jsatcm'}">checked="checked"</c:if> />江苏省中西医医院
 			<input type="hidden" name="sys_login_img_ws_id"  value="sys">		
 			<input type="hidden" name="sys_login_img_desc"  value="登录图片">		
 	</td>

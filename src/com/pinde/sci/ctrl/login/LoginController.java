@@ -245,6 +245,7 @@ public class LoginController extends GeneralController {
 			log.setOperId(OperTypeEnum.LogIn.getId());
 			log.setOperName(OperTypeEnum.LogIn.getName());
 			log.setLogDesc("µÇÂ¼IP["+request.getRemoteAddr()+"]");
+		
 			log.setWsId(GlobalConstant.SYS_WS_ID);
 			GeneralMethod.addSysLog(log);
 			logMapper.insert(log);
