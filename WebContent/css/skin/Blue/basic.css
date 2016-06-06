@@ -722,7 +722,7 @@ legend{
 .fn-left a{
 	 color:#fe8400;
 	 font-size:15px;
-	 font-weight:bold;
+	 /*font-weight:bold;*/
 	 text-decoration:none;
 }
 .separator-20{

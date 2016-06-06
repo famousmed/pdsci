@@ -89,6 +89,21 @@ public class GcpRecController extends GeneralController {
 		PubProj proj = this.pubProjBiz.readProject(projFlow);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("proj", proj);
+		
+		
+		if(fileList != null && !fileList.isEmpty()){
+			Map<String, GcpCfgFileForm> fileFormMap = new HashMap<String, GcpCfgFileForm>();
+			for(GcpCfgFileForm form :fileList){
+				fileFormMap.put(form.getId(), form);
+			}
+			model.addAttribute("fileFormMap", fileFormMap);
+		}
+		
+		//
+		List<GcpCfgFileForm> fileTemplateList = this.gcpCfgBiz.searchAppLyFileTemplateList();//查询文件模板
+		model.addAttribute("fileTemplateList", fileTemplateList);
+		
+		
 		return "gcp/rec/applyFile/list";
 	}
 	

@@ -42,6 +42,7 @@
 <body>
 	<div class="mainright">
 		<div class="content" style="padding-top: 10px;">
+			<div class="title1 clearfix">
 		    <form id="searchForm" action="<s:url value='/gcp/drug/recipeList'/>" method="post">
 		    	受试者姓名：
 		        <input type="text" name="patientName" value="${param.patientName }" class="xltext" style="width: 100px;"/>
@@ -50,32 +51,33 @@
 		         <input type="button" onclick="search();" value="查&#12288;询" class="search">
 		         <input type="hidden" id="currentPage" name="currentPage">
 		    </form>
-		    <table width="100%" class="xllist" style="margin-top: 10px;">
+		    </div>
+		    <table class="xllist" >
 		     <thead>
 		       <tr>
-		        <th width="3%">序号</th>
-		        <th width="17%">项目名称</th>
-		        <th width="8%">承担科室</th>
-		        <th width="8%">姓名</th>
-		        <th width="6%">性别</th>
-		        <th width="6%">年龄</th>
-		        <th width="12%">处方时间</th>
-		        <th width="8%">处方医生</th>
-		        <th width="8%">操作</th>
+		        <th width="80px;">序号</th>
+		        <th  >项目名称</th>
+		        <th width="100px;">承担科室</th>
+		        <th width="100px;">姓名</th>
+		        <th width="100px;">性别</th>
+		        <th width="100px;">年龄</th>
+		        <th width="200px;">处方时间</th>
+		        <th width="100px;">处方医生</th>
+		        <th width="100px;">操作</th>
 		       </tr>
 		     </thead>
 		     <tbody>
 		     <c:forEach items="${recipeList }" var="recipe" varStatus="status">
 		    	<tr>
-					<td width="3%">${status.count }</td>
-					<td width="17%" title="${recipe.projName }">${pdfn:cutString(recipe.projName,12,true,3 )}</td>
-					<td width="8%">${recipe.applyDeptName}</td>
-					<td width="8%">${recipe.patientName}</td>
-					<td width="6%">${recipe.sexName}</td>
-					<td width="6%">${recipe.patientAge}</td>
-					<td width="12%">${pdfn:transDateTime(recipe.recipeDate)}</td>
-					<td width="8%">${recipe.recipeDoctorName}</td>
-					<td width="8%">
+					<td>${status.count }</td>
+					<td  title="${ recipe.projName }" style="text-align: left;padding: 10px;">${!empty recipe.projShortName?recipe.projShortName:recipe.projName}</td>
+					<td>${recipe.applyDeptName}</td>
+					<td >${recipe.patientName}</td>
+					<td >${recipe.sexName}</td>
+					<td >${recipe.patientAge}</td>
+					<td >${pdfn:transDateTime(recipe.recipeDate)}</td>
+					<td >${recipe.recipeDoctorName}</td>
+					<td >
 					<a href="javascript:void(0)" onclick="dispensDrug('${recipe.recipeFlow}')" style="color: blue;">发药</a>
 					</td>
 				</tr>

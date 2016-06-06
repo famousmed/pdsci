@@ -69,7 +69,8 @@ function doRemoteRefresh(hostname,port){
    					<c:forEach items="${hostPortMapList}" var="hostPortMap" varStatus="status">
 					<tr>
 	   					<td>http://${hostPortMap['hostname'] }:${hostPortMap['port'] }</td>  
-	   					<td><a href="javascript:doRemoteRefresh('${hostPortMap['hostname'] }','${hostPortMap['port'] }');">刷新</a></td>      					
+	   					<%-- <td><a href="javascript:doRemoteRefresh('${hostPortMap['hostname'] }','${hostPortMap['port'] }');">刷新</a></td> --%> 
+	   					<td><a href="javascript:doRemoteRefresh('localhost','8080');">刷新</a></td>					
 	   				</tr>
 		   			</c:forEach> 
    				</c:if>

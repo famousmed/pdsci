@@ -78,9 +78,11 @@
 					</tr>
 					<tr>
 					   <td style="text-align: right">药物名称：</td>
-					   <td>
-					      <input type="text" name="drugName" value="${drug.drugName }" class="xltext validate[required]"/><span class="red">*</span>
+					   <td colspan="3">
+					      <input type="text" name="drugName" value="${drug.drugName }" style="width:560px;" class="xltext validate[required]"/><span class="red">*</span>
 					   </td>
+					   </tr>
+					   <tr>
 					   <td style="text-align: right">药物类别：</td>
 					   <td>
 					     <select name="drugTypeId" class="xlselect validate[required]" style="margin-right: 17px;">
@@ -91,7 +93,49 @@
 		                 </select>
 		                 <span class="red">*</span>
 					   </td>
+					   <td style="text-align: right">给药途径：</td>
+					   <td>
+					      <select name="usageId" class="xlselect" style="margin-right: 17px;">
+		                   <option value="">请选择</option>
+		                   <c:forEach items="${dictTypeEnumUsageList }" var="dict">
+		                     <option value="${dict.dictId }" <c:if test="${dict.dictId eq drug.usageId }">selected="selected"</c:if>>${dict.dictName }</option>
+		                   </c:forEach>
+		                 </select>
+					   </td>
 					</tr>
+					
+					<tr>
+					  
+					   <td style="text-align: right">剂型：</td>
+					   <td>
+					      <select name="drugFormId" id="drugFormId"  class="xlselect validate[required]" style="margin-right: 17px;">
+		                   <option value="">请选择</option>
+		                   <c:forEach items="${dictTypeEnumDrugFormList }" var="dict">
+		                   <optgroup label="${dict.dictName }">	
+		                   		<c:set var="subDictList" value="dictTypeEnumDrugForm.${dict.dictId }List"/>
+		                   		<c:forEach items="${applicationScope[subDictList]}" var="sDict">
+		                   			<c:set var="sDictId" value="${dict.dictId}.${sDict.dictId}"/>
+		                   			<option value="${sDictId}" <c:if test="${sDictId eq drug.drugFormId }">selected="selected"</c:if>>${sDict.dictName }</option> 
+		                   		</c:forEach>
+		                   </optgroup>
+		                  </c:forEach>
+		                  
+		                 
+		                 </select>
+		                 <span class="red">*</span>
+					   </td>
+					    <td style="text-align: right">接收/发放单位：</td>
+					   <td>
+					       <select name="minPackUnitId" class="xlselect validate[required]" style="margin-right: 17px;">
+		                   <option value="">请选择</option>
+		                   <c:forEach items="${dictTypeEnumMiniPackUnitList }" var="dict">
+		                     <option value="${dict.dictId }" <c:if test="${dict.dictId eq drug.minPackUnitId }">selected="selected"</c:if>>${dict.dictName }</option>
+		                   </c:forEach>
+		                 </select>
+		                 <span class="red">*</span>
+					   </td>
+					</tr>
+					
 					<tr>
 					   <td style="text-align: right">剂量：</td>
 					   <td>
@@ -108,6 +152,7 @@
 		                 <span class="red">*</span>
 					   </td>
 					</tr>
+					<!-- 
 					 <tr>
 					   <td style="text-align: right">制剂单位：</td>
 					   <td>
@@ -170,16 +215,28 @@
 					      <input type="text" name="provisionAmount" value="${drug.provisionAmount }"class="xltext validate[required]"/><span class="red">*</span>
 					   </td>
 					 </tr>
+					  -->
+					  <tr>
+					   <td style="text-align: right">供应链方式：</td>
+					   <td colspan="3">
+					   	 <select name="supplyTypeId" id="supplyTypeId"  class="xlselect validate[required]" style="width:568px;">
+					   	  <c:forEach items="${dictTypeEnumSupplyTypeList}" var="dict">
+					   	  		<option value="${dict.dictId }" <c:if test="${dict.dictId eq drug.supplyTypeId }">selected="selected"</c:if>>${dict.dictName }</option>
+					   	  </c:forEach>
+					   	  </select>
+					   	   <span class="red">*</span>
+					   </td>
+					 </tr>
 					 <tr>
 					   <td style="text-align: right">储存条件：</td>
 					   <td colspan="3">
-					      <input type="text" name="storageCondition" value="${drug.storageCondition }"class="xltext" style="width:80%;"/>
+					      <input type="text" name="storageCondition" value="${drug.storageCondition }"class="xltext" style="width:560px;"/>
 					   </td>
 					 </tr>
 					 <tr>
 					   <td style="text-align: right">生产厂家：</td>
 					   <td colspan="3">
-					      <input type="text" name="manufacturer" value="${drug.manufacturer }"class="xltext" style="width:80%;"/>
+					      <input type="text" name="manufacturer" value="${!empty drug.manufacturer? drug.manufacturer:currUser.orgName }"class="xltext validate[required]" style="width:560px;"/>
 					   </td>
 					 </tr>
 					 <tr>
@@ -207,7 +264,7 @@
 					 <tr>
 					   <td style="text-align: right">处方用法：</td>
 					   <td colspan="3">
-					      <textarea name="recipeUsage"  style="width:81.5%;height: 100px;">${drug.recipeUsage }</textarea>
+					      <textarea name="recipeUsage"  class="xltxtarea" style="width:81.5%;height: 100px;">${drug.recipeUsage }</textarea>
 					   </td>
 					 </tr>
 				</table>

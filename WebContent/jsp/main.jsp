@@ -163,8 +163,8 @@ function resizeWin() {
 		
 	}else if(${applicationScope.sysCfgMap['sys_skin']=='Blue' || empty applicationScope.sysCfgMap['sys_skin']}){
 		<c:if test="${ moduleListSize>1}">
-		leftClientHeight = 120;
-		secClientHeight = 120;
+		leftClientHeight = 116;
+		secClientHeight = 116;
 		</c:if>
 		<c:if test="${ moduleListSize<2}">
 		leftClientHeight = 73;

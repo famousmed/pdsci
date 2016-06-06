@@ -95,7 +95,10 @@ public enum DictTypeEnum implements GeneralEnum<String> {
 	
 	GcpFundUses("GcpFundUses","经费用途","gcp"),
 	
+	DrugForm("DrugForm","剂型","gcp",2),
 	DoseUnit("DoseUnit","剂量单位","gcp"),
+	SupplyType("SupplyType","供应链方式","gcp"),
+	
 	PreparationUnit("PreparationUnit","制剂单位","gcp"),
 	Usage("Usage","给药途径","gcp"),
 	Solution("Solution","溶液","gcp"),

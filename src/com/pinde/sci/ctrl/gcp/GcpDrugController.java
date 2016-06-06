@@ -94,6 +94,13 @@ public class GcpDrugController extends GeneralController{
 	    if(StringUtil.isNotBlank(gcpDrug.getDrugTypeId())){
 	    	gcpDrug.setDrugTypeName(GcpDrugTypeEnum.getNameById(gcpDrug.getDrugTypeId()));
 	    }
+	    if(StringUtil.isNotBlank(gcpDrug.getDrugFormId())){
+	    	gcpDrug.setDrugFormName(DictTypeEnum.DrugForm.getDictNameById(gcpDrug.getDrugFormId()));
+	    }
+	    if(StringUtil.isNotBlank(gcpDrug.getSupplyTypeId())){
+	    	gcpDrug.setSupplyTypeName(DictTypeEnum.SupplyType.getDictNameById(gcpDrug.getSupplyTypeId()));
+	    }
+	    
 	    if(StringUtil.isNotBlank(gcpDrug.getDoseUnitId())){
 	    	gcpDrug.setDoseUnitName(DictTypeEnum.DoseUnit.getDictNameById(gcpDrug.getDoseUnitId()));
 	    }
@@ -109,6 +116,7 @@ public class GcpDrugController extends GeneralController{
 	    if(StringUtil.isNotBlank(gcpDrug.getMinPackUnitId())){
 	    	gcpDrug.setMinPackUnitName(DictTypeEnum.MiniPackUnit.getDictNameById(gcpDrug.getMinPackUnitId()));
 	    }
+	    gcpDrug.setSpec(gcpDrug.getDose()+gcpDrug.getDoseUnitName());
 	    int result = this.gcpDrugBiz.saveDrugInfo(gcpDrug);
 		if(result==GlobalConstant.ONE_LINE){
 			return GlobalConstant.SAVE_SUCCESSED;

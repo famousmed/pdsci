@@ -254,7 +254,7 @@ public class GlobalConstant {
 	public static final String DEFAULT_ATTR_VALUE_NAME = "录入值";
 	public static final String DEFAULT_ATTR_VALUE_VAR_NAME = "val";
 	public static final String DEFAULT_ATTR_UNIT_NAME = "单位";
-	public static final String DEFAULT_ATTR_UNIT_VAR_NAME = "unit";
+	public static final String DEFAULT_ATTR_UNIT_VAR_NAME = "ORRESU";
 	public static final String DEFAULT_ATTR_ABNORMAL_NAME = "是否异常";
 	public static final String DEFAULT_ATTR_ABNORMAL_VAR_NAME = "abnormal";
 	public static final String DEFAULT_ATTR_DATA_LENGTH = "100";

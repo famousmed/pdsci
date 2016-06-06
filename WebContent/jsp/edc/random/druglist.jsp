@@ -62,7 +62,7 @@
 		<table class="xllist">
 			<tr>
 				<th width="50px">序号</th> 
-				<th width="100px">药品编码</th>
+				<th width="100px">药物编码</th>
 				<th width="100px">状态</th>
 				<th width="100px">受试者编号</th>
 				<th width="100px">预后因素</th>

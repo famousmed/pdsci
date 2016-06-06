@@ -63,6 +63,10 @@
 		}
 		$("#drugAmount").val($("[name='drugPacks']").length);
 	}
+	
+	function allSelect(){
+		$(".con_drug").click();
+	}
 </script>
 </head>
 <body>
@@ -72,7 +76,9 @@
 				<form id="saveForm"  method="post" style="position: relative;"> 
 				<table width="100%" cellpadding="0" cellspacing="0" class="basic">
 					<tr>
-					   <th colspan="4" style="text-align: left;padding-left: 10px;">药物编码</th>
+					   <th colspan="4" style="text-align: left;padding-left: 10px;">药物编码
+					   &#12288;<input type="checkbox" name="selAll" onclick="allSelect();"/>全选  
+					   </th>
 					</tr>
 					<c:if test="${!empty drugStoreRecs }">
 					<tr>

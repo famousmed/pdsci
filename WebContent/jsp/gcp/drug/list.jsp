@@ -33,7 +33,7 @@
 	}
     function edit(drugFlow){
 		var url = "<s:url value ='/gcp/drug/editDrugInfo'/>?drugFlow="+drugFlow;
-		jboxOpen(url,"编辑药物信息",700,650);
+		jboxOpen(url,"编辑药物信息",800,600);
 	}
     function del(drugFlow){
 		jboxConfirm("确认删除该药物信息？",function(){
@@ -50,6 +50,7 @@
 <body>
 	<div class="mainright">
 		<div class="content" style="padding-top: 10px;">
+			<div class="title1 clearfix">
 		    <form id="searchForm" action="<s:url value='/gcp/drug/list'/>" method="post">
 		      	项目名称：
 		        <input type="text" name="projName" value="${param.projName }" class="xltext"/>
@@ -63,22 +64,24 @@
 		           </c:forEach>
 		        </select>
 		         <input type="button" onclick="search();" value="查&#12288;询" class="search">
+		         <!-- 
 		         <input type="button" onclick="add();" value="新&#12288;增" class="search">
+		          -->
 		    </form>
-		    <table width="100%" class="xllist" style="margin-top: 10px;">
-		     <thead>
+		    </div>
+		    <div>
+		    <table class="xllist">
 		       <tr>
-		        <th width="4%">序号</th>
-		        <th width="20%">药物名称</th>
-		        <th width="8%">药物类型</th>
-		        <th width="8%">药物规格</th>
-		        <th width="8%">最小包装量</th>
-		        <th width="14%">储藏条件</th>
-		        <th width="14%">生产厂家</th>
-		        <th width="17%">项目名称</th>
-		        <th width="10%">操作</th>
+		        <th width="60px;">序号</th>
+		        <th >药物名称</th>
+		        <th width="100px;">药物类型</th>
+		        <th width="100px;">剂量</th>
+		        <th width="100px;">接收/发放单位</th>
+		        <th width="200px;">储藏条件</th>
+		        <th width="200px">生产厂家</th>
+		        <!-- <th width="17%">项目名称</th> -->
+		        <th width="80px;">操作</th>
 		       </tr>
-		     </thead>
 		     <tbody>
 		     <c:if test="${empty gcpDrugList}">
 		         <tr>
@@ -88,13 +91,13 @@
 		    <c:forEach items="${gcpDrugList }" var="drug" varStatus="num">
 			   <tr>
 			     <td>${num.count }</td>
-			     <td>${drug.drugName }</td>
+			     <td style="text-align: left;padding-left: 10px;">${drug.drugName }</td>
 			     <td>${drug.drugTypeName }</td>
-			     <td>${drug.spec }</td>
-			     <td>${drug.minPackUnitName }</td>
-			     <td>${drug.storageCondition }</td>
-			     <td>${drug.manufacturer }</td>
-			     <td title="${drug.projName }">${pdfn:cutString(drug.projName,10,true,3 )}</td>
+			     <td>${drug.spec}</td>
+			     <td>${drug.minPackUnitName }</td> 
+			     <td style="text-align: left;padding-left: 10px;">${drug.storageCondition }</td>
+			     <td style="text-align: left;padding-left: 10px;">${drug.manufacturer }</td>
+			    <%--  <td title="${drug.projName }">${pdfn:cutString(drug.projName,10,true,3 )}</td> --%>
 			     <td>
 			        <a style="color: blue;" href="javascript:void(0)" onclick="edit('${drug.drugFlow}');">编辑</a>&nbsp;&nbsp;|&nbsp;
 				    <a style="color: blue;" href="javascript:void(0)" onclick="del('${drug.drugFlow}');">删除</a> 
@@ -104,6 +107,7 @@
 		       
 		     </tbody>
 		   </table>	
+		   </div>
 		</div> 
 		</div>
 		

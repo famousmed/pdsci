@@ -134,7 +134,6 @@ public class ProjController extends GeneralController {
 		//∆‰À˚◊÷∂Œ¥Ê»Îproj.projInfo
 		String projInfo = addProjInfo(proj, projInfoForm);
 		proj.setProjInfo(projInfo);
-		
 		projBiz.save(proj);
 		
 		return GlobalConstant.SAVE_SUCCESSED;		

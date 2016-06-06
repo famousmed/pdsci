@@ -11,6 +11,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import com.pinde.core.util.StringUtil;
 import com.pinde.sci.biz.edc.IEdcModuleBiz;
 import com.pinde.sci.common.GeneralMethod;
 import com.pinde.sci.common.GlobalConstant;
+import com.pinde.sci.ctrl.edc.AppController;
 import com.pinde.sci.dao.base.EdcAttrCodeMapper;
 import com.pinde.sci.dao.base.EdcAttributeMapper;
 import com.pinde.sci.dao.base.EdcElementMapper;
@@ -64,7 +67,7 @@ import com.pinde.sci.model.mo.EdcVisitModuleExample;
 @Service
 @Transactional(rollbackFor=Exception.class)
 public class EdcModuleBizImpl implements IEdcModuleBiz{
-
+	private static Logger logger = LoggerFactory.getLogger(EdcModuleBizImpl.class);
 	@Resource
 	private EdcModuleMapper moduleMapper;
 	@Resource
@@ -541,6 +544,7 @@ public class EdcModuleBizImpl implements IEdcModuleBiz{
 		//标准单位
 		Map<String,String> standarUnitMap = new HashMap<String,String>();
 		for(EdcModule module : moduleList){
+			
 			if(module.getModuleTypeId().equals(GlobalConstant.MODULD_TYPE_LB)){
 				if(moduleElementMap.get(module.getModuleCode())!=null){
 					for(EdcElement element:moduleElementMap.get(module.getModuleCode())){
@@ -730,6 +734,8 @@ public class EdcModuleBizImpl implements IEdcModuleBiz{
 		//标准单位
 		Map<String,String> standarUnitMap = new HashMap<String,String>();
 		for(EdcModule module : moduleList){
+			
+			
 			if(module.getModuleTypeId().equals(GlobalConstant.MODULD_TYPE_LB)){
 				if(moduleElementMap.get(module.getModuleCode())!=null){
 					for(EdcElement element:moduleElementMap.get(module.getModuleCode())){
@@ -748,6 +754,7 @@ public class EdcModuleBizImpl implements IEdcModuleBiz{
 				}
 			}
 		}
+		logger.info("============zj==="+standarUnitMap);
 		designForm.setElementStandardUnitMap(standarUnitMap);
 		//正常值范围
 		EdcNormalValueExample nvExample = new EdcNormalValueExample();

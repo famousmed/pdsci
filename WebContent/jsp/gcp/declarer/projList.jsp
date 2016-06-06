@@ -27,10 +27,19 @@ function projInfo(stage, projFlow){
 }
 
 function add(){
-	jboxOpen("<s:url value='/gcp/proj/edit?editFlag=${GlobalConstant.FLAG_N}&roleScope=${GlobalConstant.ROLE_SCOPE_DECLARER}'/>","新增项目",950,460);
+	jboxOpen("<s:url value='/gcp/proj/edit?editFlag=${GlobalConstant.FLAG_N}&roleScope=${GlobalConstant.ROLE_SCOPE_DECLARER}'/>","新增项目",950,500);
 }
 function option(projFlow){
 	jboxOpen("<s:url value='/gcp/proj/optionList'/>?projFlow="+projFlow,"审核记录列表",800,400);
+}
+function swfView(){
+	 var mainIframe = window.parent.frames["mainIframe"];
+	  var width = mainIframe.document.body.scrollWidth;
+	   var height = mainIframe.document.body.scrollHeight;
+	   var url ='<s:url value='/jsp/gcp/declarer/notice.jsp'/>';
+	   var iframe ="<iframe name='jbox-message-iframe' id='jbox-message-iframe' width='"+width+"px' height='"+height+"px' marginheight='0' marginwidth='0' frameborder='0' scrolling='auto' src='"+url+"'></iframe>";
+	   jboxMessager(iframe,'临床试验需知',width,height);
+	//jboxOpen("<s:url value='/jsp/pub/p2fview.jsp'/>","swf查看",800,400);
 }
 </script>
 </head>
@@ -40,7 +49,14 @@ function option(projFlow){
 		<div class="title1 clearfix">
 			<form id="searchForm" method="post">
 				${sessionScope.currUser.userName}，您所在机构：<a href="<s:url value='/gcp/declarer/orgInfo'/>" style="color: blue">${sessionScope.currUser.orgName}</a>&#12288;目前承担项目&#12288;<span style="color: red">${empty projList.size()?0:projList.size()}</span>&#12288;个
-				&#12288;&#12288;<span class="search"><a href="<s:url value='/jsp/gcp/declarer/lcsyxz.docx'/>" style="font-size:16px;font-family:Microsoft Yahei;color:#ffffff;font-weight:bold;"><img src="<s:url value='/css/skin/${skinPath}/images/notice.png'/>"/>下载《临床研究须知》</a></span>
+				&#12288;&#12288;
+				<c:if test="${applicationScope.sysCfgMap['gcp_sponsor_notice_flag'] ==  GlobalConstant.FLAG_Y}">
+				<span class="search">
+				<%-- <s:url value='/jsp/gcp/declarer/lcsyxz.docx'/> --%>
+				
+					<a href="javascript:swfView();" style="font-size:16px;font-family:Microsoft Yahei;color:#ffffff;font-weight:bold;"><img src="<s:url value='/css/skin/${skinPath}/images/notice.png'/>"/>《临床研究须知》</a>
+				</c:if>
+				</span>
 				<input type="button" class="search" onclick="add();" style="float: right;margin-right: 20px;" value="新&#12288;增"> 
 			</form>
 		</div> 

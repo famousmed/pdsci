@@ -38,6 +38,7 @@
 <body>
 	<div class="mainright">
 		<div class="content" style="padding-top: 10px;">
+			<div class="title1 clearfix">
 		    <form id="searchForm" action="<s:url value='/gcp/drug/dispensRecord'/>" method="post">
 		    	受试者姓名：
 		        <input type="text" name="patientName" value="${param.patientName }" class="xltext" style="width: 100px;"/>
@@ -46,7 +47,8 @@
 		         <input type="button" onclick="search();" value="查&#12288;询" class="search">
 		         <input id="currentPage" type="hidden" name="currentPage" value=""/> 
 		    </form>
-		    <table width="100%" class="xllist" style="margin-top: 10px;">
+		    </div>
+		    <table  class="xllist" >
 		     <thead>
 		       <tr>
 		        <th width="3%">序号</th>
@@ -70,9 +72,9 @@
 						<td width="7%" rowspan="${rowspan}">${recipe.patientName}</td>
 						<td width="7%" rowspan="${rowspan}">${recipeDrug.drugPack}</td>
 					</c:if>
-					<td width="16%">${recipeDrug.drugName}</td>
+					<td width="16%" style="text-align: left;padding: 10px;">${recipeDrug.drugName}</td>
 					<c:if test="${status.first}">
-						<td width="15%" title="${recipe.projName }" rowspan="${rowspan}">${pdfn:cutString(recipe.projName,12,true,3 )}</td>
+						<td width="15%" style="text-align: left;padding: 10px;" title="${recipe.projName }" rowspan="${rowspan}">${pdfn:cutString(recipe.projName,12,true,3 )}</td>
 						<td width="12%" rowspan="${rowspan}">${pdfn:transDateTime(recipe.sendDate)}</td>
 						<td width="7%" rowspan="${rowspan}">${recipe.sendUserName}</td>
 						<td width="12%" rowspan="${rowspan}">${pdfn:transDateTime(recipe.recipeDate)}</td>

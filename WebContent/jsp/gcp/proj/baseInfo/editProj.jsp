@@ -81,7 +81,7 @@
 <body>
 	<div class="mainright">
 	<div class="content">
-		<div class="title1 clearfix" id="projInfoDiv" style="display: ${param.roleScope==GlobalConstant.ROLE_SCOPE_DECLARER&& empty projInfoForm.proj.projFlow?'none':''}">
+		<div class="title1 clearfix" id="projInfoDiv" style="display: ${param.roleScope==GlobalConstant.ROLE_SCOPE_DECLARER&& empty projInfoForm.proj.projFlow && applicationScope.sysCfgMap['gcp_sponsor_notice_flag'] ==  GlobalConstant.FLAG_Y  ?'none':''}">
 			<div class="title1 clearfix">
 				<form id="projForm"> 
 				<input type="hidden" name="projInfo" value='${projInfoForm.proj.projInfo}'/>
@@ -220,19 +220,20 @@
 			<input class="search" type="button" value="关&#12288;闭" onclick="jboxClose();" />
 		</div>
 </div>
-<div class="title1 clearfix" id="noticeDiv" style="display: ${param.roleScope==GlobalConstant.ROLE_SCOPE_DECLARER && empty projInfoForm.proj.projFlow ?'':'none'}">
-		<table class="xllist" > 
-				<tr>
-   					<th align="center" style="font-size: 16px;"><font color="red">临床研究须知</font></th>
-   				</tr>
-				<tr>
-   					<td style="font-size: 15px;text-align: left;">${applicationScope.sysCfgMap['gcp_sponsor_notice']}</td>
-   				</tr> 
-			</table>
-			<div style="width: 100%;margin-top: 10px;" align="center" >
-				<input class="search" type="button" value="同&#12288;意" onclick="doAgree();" />
-		</div>
-</div>
+<c:if test="${applicationScope.sysCfgMap['gcp_sponsor_notice_flag'] ==  GlobalConstant.FLAG_Y}">
+<div style="" class="mainright"  id="noticeDiv">
+		<embed
+			src="<s:url value='/jsp/gcp/declarer/notice.docx.swf'/>"
+			quality="best" width="100%" height="500" align="Middle"
+			name="Print2FlashDoc" play="true" loop="false"
+			allowscriptaccess="sameDomain" type="application/x-shockwave-flash"
+			pluginspage="http://www.macromedia.com/go/getflashplayer">
+		<div style="width: 100%;margin-top: 10px;" align="center" >
+			<input class="search" type="button" value="同&#12288;意" onclick="doAgree();" />
+	</div>
+	</div>
+	
+</c:if>
 </div></div>
 </body>
 </html>

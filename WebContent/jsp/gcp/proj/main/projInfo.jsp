@@ -8,6 +8,7 @@
 	<jsp:param name="jquery_validation" value="true"/>
 	<jsp:param name="jquery_datePicker" value="true"/>
 </jsp:include>
+<link rel="stylesheet" type="text/css" href="<s:url value='/css/fontawesome/css/font-awesome.css'/>?v=${applicationScope.sysCfgMap['sys_version']}"></link>
 <script type="text/javascript">
 $(function(){
 	if("${param.tagId}" != ""){
@@ -41,7 +42,7 @@ function selectTag(url, id) {
     jboxLoad("contentDiv",url,true);
 }
 function editDrug(drugFlow,projFlow){
-	jboxOpen("<s:url value='/gcp/drug/editDrugInfo'/>?drugFlow="+drugFlow+"&projFlow="+projFlow,"编辑药物信息", 700,625);
+	jboxOpen("<s:url value='/gcp/drug/editDrugInfo'/>?drugFlow="+drugFlow+"&projFlow="+projFlow,"编辑药物信息", 800,600);
 }
 
 function drugStore(drugFlow){
@@ -156,7 +157,20 @@ function loadFund(){
 function loadIrbProv(){
 	selectTag('<s:url value="/gcp/proj/loadIrbProv?projFlow=${param.projFlow}&roleScope=${param.roleScope}"/>', 'irbprov');
 }
-
+function toggleView (){
+	if($(".fa").hasClass("fa-chevron-up")){
+		$(".fa").addClass("fa-chevron-down");
+		$(".fa").removeClass("fa-chevron-up");
+		$(".i-assets").hide();
+		$("#overview").show();
+	}else {
+		$(".fa").removeClass("fa-chevron-down");
+		$(".fa").addClass("fa-chevron-up");
+		$(".i-assets").show();
+		$("#overview").hide();
+	}
+	
+}
 </script>
 </head>
 <body>
@@ -182,12 +196,16 @@ function loadIrbProv(){
         	${proj.projShortName}
         </div>
         <div class="i-banner-main-detail">
-         <div class="fn-left">期类别：<a>${proj.projSubTypeName }</a></div><div class="separator-20">|</div><div class="fn-left">项目来源：<a>${proj.projDeclarer }</a></div><div class="separator-20">|</div><div class="fn-left">承担科室：<a><c:out value="${proj.applyDeptName}" default="尚未分配"/></a></div><div class="separator-20">|</div><div class="fn-left">主要研究者：<a><c:out value="${proj.applyUserName }" default="尚未分配"/>&#12288;${applyUser.userPhone }</a></div>
+         <div class="fn-left">试验分期：<a>${proj.projSubTypeName }</a></div><div class="separator-20">|</div><div class="fn-left">承担科室：<a><c:out value="${proj.applyDeptName}" default="未选择"/></a></div><div class="separator-20">|</div><div class="fn-left">主要研究者：<a><c:out value="${proj.applyUserName }" default="尚未分配"/>&#12288;</a></div><div class="separator-20">|</div><div class="fn-left">项目来源：<a>${proj.projDeclarer }</a></div>
         </div>
       </div>
     </div>
   </div>
   <div class="i-content" style="width: 100%">
+  	<i class="fa fa-chevron-up"  style="float: right;cursor: pointer;margin-top: 20px;margin-right: 10px;" onclick="toggleView();" title="隐藏/展开"></i>
+  	<div class="ith_t" id="overview" style="height: 40px;margin-top: 5px;">
+            <div style="margin-top: 10px;float: left;">项目概况</div> 
+  	</div>
     <div class="i-assets">
       <table class="i-assets-table"  border="0" cellpadding="0" cellspacing="0">
       <tbody>
@@ -260,46 +278,50 @@ function loadIrbProv(){
 	            </div>
             </c:if>
           </td>
-          <td rowspan="2" width="250">
+          <td rowspan="2" >
             <div class="i-assets-content">
-            <h3>药物信息</h3>
-              <ul>
+            <h3>试验药物</h3>
+              <ul class="content" style="padding-bottom: 0;height: 160px;">
               <c:choose>
 				<c:when test="${empty drug }">
 				<li class="gray content" id="drugTip">
-                	<p>暂无药物信息，请<a class="ui-blue-no-margin" href="javascript:void(0);" onclick="editDrug('${drug.drugFlow}','${proj.projFlow }');">&nbsp;编辑</a></p>
+                	<p>暂无药物信息，请<a class="ui-blue-no-margin" href="javascript:void(0);" onclick="editDrug('${drug.drugFlow}','${proj.projFlow }');">&nbsp;新增</a></p>
                 </li>
                 </c:when>
                 <c:otherwise>
-				<li class="gray content" id="drugInfo">
-                <p>${drug.drugName }</p>
-                <p>规格：${drug.spec }</p>
-                <p>用法：${pdfn:cutString(drug.recipeUsage,10,true,3 )}</p>
-                </li>
-                <li class="ui-message" id="drugMore" <c:if test="${empty drug}">style="display:none;"</c:if>>
-                <c:if test="${param.roleScope != GlobalConstant.ROLE_SCOPE_DECLARER }">
-                                                     库存编码数：<font class="yellow">${drugPackNum }</font>
-                </c:if>
-                <span class="ui-button-blue-50" style="margin-left: ${param.roleScope != GlobalConstant.ROLE_SCOPE_DECLARER?'20px':'120px'};">
-                <a class="ui-blue" href="javascript:void(0);" onclick="editDrug('${drug.drugFlow}','${proj.projFlow}');">编辑</a>
-                <c:if test="${param.roleScope != GlobalConstant.ROLE_SCOPE_DECLARER }">
-                |<a class="ui-blue" onclick="drugStore('${drug.drugFlow }','')">库存</a>
-                </c:if>
-                </span>
+				<li class=" content" id="drugInfo" style="    line-height: 30px;">
+                <p><strong>${drug.drugName }</strong></p>
+                <p>剂量：${drug.dose }${drug.doseUnitName} &#12288;&#12288;接收/发放单位：${drug.minPackUnitName }</p>
+                <p>
+              	 供应链方式：${drug.supplyTypeName} 
+                </p>
+                <p title="${drug.recipeUsage }">用法用量：
+              	 ${pdfn:cutString(drug.recipeUsage,40,true,3 )} 
+                </p>
+                <p <c:if test="${empty drug}">style="display:none;"</c:if>>
+	                <c:if test="${param.roleScope == GlobalConstant.ROLE_SCOPE_DECLARER }">
+	                                                     库存编码数：<font class="yellow">${drugPackNum }</font>
+	                </c:if>
+                </p>
                 </li>
 				</c:otherwise>
 			</c:choose>
 			</ul>
+			 <span class="ui-button-blue-50" style="float: right">
+                <a class="ui-blue" href="javascript:void(0);" onclick="editDrug('${drug.drugFlow}','${proj.projFlow}');">编辑</a>
+              
+                |<a class="ui-blue" onclick="drugStore('${drug.drugFlow }','')">库存</a>
+                </span>
             </div>
           </td>
-          <td rowspan="2">
+          <td rowspan="2" width="260px;">
             <div class="i-assets-content">
             <h3>伦理审查</h3>
-              <ul class="content" style="padding-bottom: 0;height: 140px;">
+              <ul class="content" style="padding-bottom: 0;height: 160px;">
               <c:choose>
 				<c:when test="${proj.projStatusId==gcpProjStatusEnumPassed.id&& empty irbList}">
 					<li class="ui-ico-cssc">
-					您还没有提交伦理审查
+					未提交伦理审查
 					 <c:if test="${param.roleScope != GlobalConstant.ROLE_SCOPE_DECLARER }">
 					，请<a href="javascript:void(0)" class="ui-blue-no-margin" 
 					<c:choose><c:when test="${applicationScope.sysCfgMap['gcp_irb_sys_on']==GlobalConstant.FLAG_N }"> onclick="addIrb();" </c:when><c:otherwise>onclick="submitIrbCheck();"</c:otherwise></c:choose> >&nbsp;新增</a>
@@ -337,7 +359,7 @@ function loadIrbProv(){
 				</c:otherwise>
 			</c:choose>
 			   </ul>
-			   <div <c:if test="${proj.projStatusId!=gcpProjStatusEnumPassed.id}">style="display:none;"</c:if> >
+			    <div <c:if test="${proj.projStatusId!=gcpProjStatusEnumPassed.id}">style="display:none;"</c:if> >
 			   <span class="ui-button-blue-15" style="float: right;">
 			     <c:if test="${param.roleScope != GlobalConstant.ROLE_SCOPE_DECLARER }">
 			       	<a href="javascript:void(0)" class="ui-blue-no-margin" <c:choose><c:when test="${applicationScope.sysCfgMap['gcp_irb_sys_on']==GlobalConstant.FLAG_N }"> onclick="addIrb();" </c:when><c:otherwise>onclick="submitIrbCheck();"</c:otherwise></c:choose> >新增</a> |
@@ -353,13 +375,13 @@ function loadIrbProv(){
             <div class="i-assets-content">
                <h3>项目进展</h3>
               <div class="i-assets-left">
-              <font class="black"><strong>总例数：<a class="yellow" href="javascript:detail('${proj.projFlow}');">${patientCountMap[param.projFlow]+0}</a></strong></font>
+              <font class="black">总例数：<a class="yellow" href="javascript:detail('${proj.projFlow}');">${patientCountMap[param.projFlow]+0}</a></font>
               <span class="ui-left">入组：<a class="yellow" href="javascript:detail('${proj.projFlow}','${patientStageEnumIn.id }');">${patientCountMap[patientStageEnumIn.id]}</a></span>
               <span class="ui-left">完成：<a class="yellow" href="javascript:detail('${proj.projFlow}','${patientStageEnumFinish.id }');">${patientCountMap[patientStageEnumFinish.id]}</a></span>
               <span class="ui-left">SAE：<a class="yellow" href="javascript:aeView('${proj.projFlow}');">${patientCountMap['saeNum']}</a></span>
               <span class="ui-left">脱落：<a class="yellow" href="javascript:detail('${proj.projFlow}','${patientStageEnumOff.id }');">${patientCountMap[patientStageEnumOff.id]}</a></span>
-              <span class="ui-button-blue-15">|<a class="ui-blue" href="javascript:detail('${proj.projFlow}','');">查看</a></span>
               </div>
+              <span class="ui-button-blue-15" style="float: right;margin-top: 3px;"><a class="ui-blue" href="javascript:detail('${proj.projFlow}','');">查看</a></span>
             </div>  
           </td>
         </tr>
@@ -418,7 +440,7 @@ function loadIrbProv(){
         <tr>
           <td>
             <div id="itagContent">
-             <div class="selectTag" id="contentDiv">
+             <div class="selectTag" id="contentDiv" style="min-height: 500px;">
              </div>
             </div>
           </td>

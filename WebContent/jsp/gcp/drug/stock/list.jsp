@@ -59,6 +59,7 @@
 <body>
 	<div class="mainright">
 		<div class="content" style="padding-top: 10px;">
+		<div class="title1 clearfix">
 		    <form id="searchForm" action="<s:url value='/gcp/drug/stockList'/>" method="post">
 		      	项目名称：
 		        <input type="text" name="projName" value="${param.projName }" class="xltext"/>
@@ -74,13 +75,14 @@
 		         <input type="button" onclick="search();" value="查&#12288;询" class="search">
 		         <input type="hidden" id="currentPage" name="currentPage">
 		    </form>
-		    <table width="100%" class="xllist" style="margin-top: 10px;">
+		    </div>
+		    <table class="xllist" >
 		     <thead>
 		       <tr>
 		        <th width="4%">序号</th>
 		        <th width="20%">药物名称</th>
 		        <th width="8%">药物类型</th>
-		        <th width="8%">药物规格</th>
+		        <th width="8%">剂量</th>
 		        <th width="18%">项目名称</th>
 		        <th width="20%">库存编码</th>
 		        <th width="22%">操作</th>
@@ -90,10 +92,10 @@
 		    <c:forEach items="${gcpDrugList }" var="drug" varStatus="num">
 			   <tr>
 			     <td>${num.count }</td>
-			     <td>${drug.drugName }</td>
+			     <td style="text-align: left;padding-left: 10px;">${drug.drugName }</td>
 			     <td>${drug.drugTypeName }</td>
 			     <td>${drug.spec }</td>
-			     <td title="${drug.projName }">${pdfn:cutString(drug.projName,12,true,3 )}</td>
+			     <td style="text-align: left;padding-left: 10px;" title="${drug.projName }">${pdfn:cutString(drug.projName,12,true,3 )}</td>
 			     <td style="text-align: left;padding-left: 10px;">
 			     	<c:forEach items="${drugRecMap[drug.drugFlow]}" var="rec" varStatus="statu">
 				        ${rec.drugPack}<c:if test="${!statu.last}">，</c:if>

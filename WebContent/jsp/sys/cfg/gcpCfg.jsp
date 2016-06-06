@@ -15,7 +15,7 @@ function save() {
 }
 $(document).ready(function(){
 	if ('systemFuncs'=="${param.tagId}"){
-		initUE("gcp_sponsor_notice");
+		//initUE("gcp_sponsor_notice");
 	}
 });
 </script>
@@ -170,16 +170,6 @@ $(document).ready(function(){
 					<input type="hidden" name="gcp_default_org_desc"  value="默认的机构">
 					</td>
 				</tr>
-				<tr>
-					<td style="text-align: right" width="100px">是否CRO版本：</td>
-					<td style="text-align: left;padding-left: 5px" width="200px">
-					<input type="hidden" name="cfgCode" value="gcp_cro_flag">
-					<input type="radio"  name="gcp_cro_flag" value="${GlobalConstant.FLAG_Y }" <c:if test="${sysCfgMap['gcp_cro_flag']==GlobalConstant.FLAG_Y}">checked="checked"</c:if> />是
-					<input type="radio"  name="gcp_cro_flag" value="${GlobalConstant.FLAG_N }" <c:if test="${sysCfgMap['gcp_cro_flag']==GlobalConstant.FLAG_N }">checked="checked"</c:if> />否
-					<input type="hidden" name="gcp_cro_flag_ws_id"  value="gcp">		
-					<input type="hidden" name="gcp_cro_flag_desc"  value="是否CRO版本">
-					</td>
-				</tr>
 			</table>
 			</fieldset>
 			<fieldset>
@@ -212,7 +202,19 @@ $(document).ready(function(){
 					</tr>
 				</thead>
 				<tr>
-					<td style="text-align: right" width="100px">临床试验需知：</td>
+					<td style="text-align: right" width="100px">是否启用临床试验需知：</td>
+					<td style="text-align: left;padding-left: 5px" width="200px">
+						<input type="radio"  name="gcp_sponsor_notice_flag" value="${GlobalConstant.FLAG_Y }" <c:if test="${sysCfgMap['gcp_sponsor_notice_flag']==GlobalConstant.FLAG_Y}">checked="checked"</c:if> />是
+						<input type="radio"  name="gcp_sponsor_notice_flag" value="${GlobalConstant.FLAG_N }" <c:if test="${sysCfgMap['gcp_sponsor_notice_flag']==GlobalConstant.FLAG_N }">checked="checked"</c:if> />否
+						<input type="hidden" name="cfgCode" value="gcp_sponsor_notice_flag">
+						<input type="hidden" name="gcp_sponsor_notice_flag_ws_id"  value="gcp">		
+						<input type="hidden" name="gcp_sponsor_notice_flag_desc"  value="是否启用临床试验需知">
+					</td>
+				</tr>
+				<%-- 
+				<tr>
+					<td style="text-align: right" width="100px">临床试验需知文档：</td>
+				
 					<td style="text-align: left;padding-left: 5px">
 							<input type="hidden" name="cfgCode" value="gcp_sponsor_notice">
 							<script id="gcp_sponsor_notice" name="gcp_sponsor_notice_big_value" type="text/plain" style="width:78%;height:200px;position:relative;">${sysCfgMap['gcp_sponsor_notice']}</script>
@@ -220,6 +222,7 @@ $(document).ready(function(){
 							<input type="hidden" name="gcp_sponsor_notice_desc"  value="临床试验需知">		
 					</td>
 				</tr>
+					 --%>
 				</table>
 				</fieldset>
 			</c:if>

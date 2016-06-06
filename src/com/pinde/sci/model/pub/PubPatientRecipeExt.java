@@ -8,11 +8,18 @@ public class PubPatientRecipeExt extends PubPatientRecipe{
 	private String patientName;
 	private String sexName;
 	private String patientAge;
+	private String projShortName;
 	private String projName;
 	private String applyDeptName;
 	
 	public String getSexName() {
 		return sexName;
+	}
+	public String getProjShortName() {
+		return projShortName;
+	}
+	public void setProjShortName(String projShortName) {
+		this.projShortName = projShortName;
 	}
 	public void setSexName(String sexName) {
 		this.sexName = sexName;

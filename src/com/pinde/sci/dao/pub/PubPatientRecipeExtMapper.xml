@@ -6,13 +6,14 @@
 	<result column="sex_name"  property="sexName" />
 	<result column="patient_age"  property="patientAge" />
 	<result column="proj_name"  property="projName" />
+	<result column="proj_short_name"  property="projShortName" />
 	<result column="apply_dept_name"  property="applyDeptName" />
  </resultMap>
  
   <select id="searchPatientRecipe" parameterType="java.util.Map" resultMap="PubPatientRecipeExt">
      select ppr.RECIPE_FLOW,ppr.PATIENT_FLOW,ppr.PATIENT_CODE,ppr.PATIENT_NAME_PY,ppr.ORG_FLOW,ppr.PROJ_FLOW,ppr.RECIPE_DATE,
      ppr.RECIPE_DOCTOR_FLOW,ppr.RECIPE_DOCTOR_NAME,ppr.SEND_DATE,ppr.SEND_USER_FLOW,ppr.SEND_USER_NAME,
-     pp.proj_name,pp.apply_dept_name,pa.patient_Name,pa.sex_name,pa.patient_age from pdsci.pub_proj pp,pdsci.pub_patient pa,pdsci.pub_patient_recipe ppr
+     pp.proj_name,pp.proj_short_name,pp.apply_dept_name,pa.patient_Name,pa.sex_name,pa.patient_age from pdsci.pub_proj pp,pdsci.pub_patient pa,pdsci.pub_patient_recipe ppr
        where ppr.proj_flow=pp.proj_flow and ppr.patient_flow=pa.patient_flow and pp.RECORD_STATUS ='Y' and pa.RECORD_STATUS ='Y' and ppr.RECORD_STATUS ='Y' 
         <if test='patientName!=null and patientName!=""'>
             and pa.patient_name like '%${patientName}%'

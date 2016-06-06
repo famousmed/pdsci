@@ -20,7 +20,7 @@
                  gd.min_Pack_Unit_name,gd.STORAGE_CONDITION,gd.manufacturer,
                  gd.recipe_Usage,pp.proj_Name projName,gd.proj_Flow projFlow
          from pdsci.pub_proj pp,pdsci.gcp_drug gd
-          where gd.RECORD_STATUS='Y' and pp.proj_flow=gd.proj_flow and pp.PROJ_STATUS_ID='Passed' and pp.RECORD_STATUS='Y'
+          where gd.RECORD_STATUS='Y' and pp.proj_flow=gd.proj_flow  and pp.RECORD_STATUS='Y'
             <if test='projName!=null and projName!=""'>
                 and pp.proj_name like '%${projName}%'
             </if>
