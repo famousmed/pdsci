@@ -12,10 +12,10 @@
 	<c:set var="elementCode" value="${param.elementCode }" />
 	<c:set var="columnCount" value="${param.columnCount }" />
 	<!-- 设置宽度 -->
-	<c:set var="attrWidth" value="100px" />
+	<c:set var="attrWidth" value="150px" />
 	<c:set var="attrCodeWidth" value="150px" />
 	<c:if test="${ empty columnCount || (columnCount == '1')}">
-		<c:set var="attrWidth" value="" />
+		<c:set var="attrWidth" value="150px;" />
 		<c:set var="attrCodeWidth" value="" />
 	</c:if> 
 	<table  class="basic repVertb" >
@@ -59,12 +59,13 @@
 														or columnCount == '1'}">
 															<div style="clear: both !important" attrName="${sessionScope.projDescForm.attrMap[attr.attrCode].attrName }"></div>
 														</c:if>
-														<div style="float:left;">
+														<div style="float:left;margin-right: 10px;">
 														<c:if test="${sessionScope.projDescForm.attrMap[attr.attrCode].isViewName eq GlobalConstant.FLAG_Y}">
-															<span width="${attrWidth }" > 
+															<div  style="float: left;width: ${attrWidth}"> 
 																${sessionScope.projDescForm.attrMap[attr.attrCode].attrName}:
-															</span>
+															</div> 
 														</c:if>
+														<div style="float: left;">
 															<!-- 文本/日期-->
 															<c:if test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumText.id or 
 																	empty sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId or 
@@ -149,6 +150,7 @@
 																</select>
 															</c:if>
 															</div>
+															</div>
 													</c:forEach>
 													<div style="clear: both !important" ></div>
 											</c:if>
@@ -183,11 +185,11 @@
 														or columnCount == '1'}">
 															<div style="clear: both !important" attrName="${sessionScope.projDescForm.attrMap[attr.attrCode].attrName }"></div>
 													</c:if>
-													<div style="float:left;">
+													<div style="float:left;margin-right: 10px;">
 													<c:if test="${sessionScope.projDescForm.attrMap[attr.attrCode].isViewName eq GlobalConstant.FLAG_Y}">
-														<span width="${attrWidth }" > 
+														<div  style="float: left;width: ${attrWidth}"> 
 															${sessionScope.projDescForm.attrMap[attr.attrCode].attrName}:
-														</span>
+														</div>
 													</c:if>
 														<!-- 文本 /日期-->
 														<c:if test="${sessionScope.projDescForm.attrMap[attr.attrCode].inputTypeId == attrInputTypeEnumText.id or 

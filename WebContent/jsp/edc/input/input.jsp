@@ -21,6 +21,8 @@
 	<jsp:param name="jquery_placeholder" value="true"/>
 	<jsp:param name="jquery_iealert" value="false"/>
 </jsp:include>
+
+
 <style type="text/css">
 .selected {
 background-color:pink;
@@ -398,7 +400,10 @@ function cosAll(){
 	$(".moduleBody").hide();
 }
 function showPatientCase(){
-	jboxOpen("<s:url value='/edc/input/showPatientCase'/>","病例查看",600,500);
+	 var mainIframe = window.parent.frames["mainIframe"];
+	 var width = mainIframe.document.body.scrollWidth;
+	 var height = mainIframe.document.body.scrollHeight;
+	jboxOpen("<s:url value='/edc/input/showPatientCase'/>","病例查看",width,height);
 }
 </script>
 <style>

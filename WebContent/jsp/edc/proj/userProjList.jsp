@@ -42,14 +42,14 @@
 			<table class="xllist">
 				<tr>
 					<th width="200px">项目编号</th>
-					<th width="60%">项目名称</th>
+					<th width="400px">项目名称</th>
 					<th width="200px">操作</th>
 				</tr>
 				<c:if test="${not empty sessionScope.edcCurrProj}">
 				<tr style="height: 20px;background-color : pink;">
-					<td>${sessionScope.edcCurrProj.projNo }</td>
-					<td>${sessionScope.edcCurrProj.projShortName }</td>
-					<td>
+					<td width="200px">${sessionScope.edcCurrProj.projNo }</td>
+					<td width="400px">${sessionScope.edcCurrProj.projShortName }</td>
+					<td width="200px">
 						[<a	href="javascript:setCurrProj('${sessionScope.edcCurrProj.projFlow}');">选择</a>] 
 					</td>
 				</tr>
@@ -57,9 +57,9 @@
 				<c:forEach items="${projList}" var="proj">
 					<c:if test="${sessionScope.edcCurrProj.projFlow != proj.projFlow}">
 					<tr style="height: 20px">
-						<td>${proj.projNo }</td>
-						<td>${proj.projShortName }</td>
-						<td>
+						<td width="200px">${proj.projNo }</td>
+						<td width="400px">${proj.projShortName }</td>
+						<td width="200px">
 							[<a	href="javascript:setCurrProj('${proj.projFlow}');">选择</a>] 
 						</td>
 					</tr>

@@ -99,7 +99,7 @@
 					<tr>
 						<th style="text-align: right" width="150px">入组日期：</th>
 						<td >
-							<input type="text" name="inDate" class="validate[required] " value="${pdfn:getCurrDateTime('yyyy-MM-dd HH:mm:ss')}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+							<input type="text" name="inDate" class="validate[required] " value="" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
 						</td>
 					</tr>
 				</table>

@@ -1,62 +1,87 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="/jsp/common/doctype.jsp" %>
-<html>
-<head>
-<script type="text/javascript" src="<s:url value='/js/jquery-1.8.3.min.js'/>">?v=${applicationScope.sysCfgMap['sys_version']}"></script>
-<style type="text/css"> 
-*{margin:0;padding:0;list-style-type:none;}
-a,img{border:0;}
-body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+  <script src="<s:url value='/js/jquery.min.js'/>"></script>
+ <script src="<s:url value='/js/jquery.blueimp-gallery.min.js'/>"></script>
+<link rel="stylesheet" href="<s:url value='/css/blueimp-gallery.min.css'/>?" />
+ <style>
 
-.banner{width:100%;overflow:hidden;height:470px;}
-.banList{height:470px}
-.banList li{height:470px;z-index:1;}
-.banList li.active{opacity:1;transform:scale(1);z-index:2;}
-.fomW{position:absolute;bottom:20px;left:50%;height:20px;z-index:9;width:1000px;margin-left:-500px}
-.jsNav{text-align:center;}
-.jsNav a{display:inline-block;background:#fff;width:15px;height:15px;border-radius:50%;margin:0 5px;}
-.jsNav a.current{background:#fc8f0f;cursor:pointer}
+    .lightBoxGallery {
+        text-align: center;
+    }
+
+    .lightBoxGallery a {
+        margin: 5px;
+        display: inline-block;
+        float: left;
+        text-decoration: none;
+    }
+.alert {
+    margin-bottom: 0;
+    border-radius: 0;
+    border: 1px solid #e4e5e7;
+    border-bottom: none;
+}
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.docs-pictures {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.docs-pictures li {
+    margin: 0 -1px -1px 0;
+    border: 1px solid transparent;
+    overflow: hidden;
+}
+.docs-pictures li img {
+ 
+}
+.page-header {
+    padding-bottom: 9px;
+    margin: 10px 0 10px;
+    border-bottom: 1px solid #eee;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
 </style>
-</head>
-	<body style="background-color: black">
-		<div class="banner">
-	<ul class="banList">
-	<c:forEach items="${dataList }" var="data" varStatus="status">
-	<font color="white" imgFlow="${data.imageFlow}">${data.time}<br/>${data.note}</font>
-		<c:if test="${status.first }">
-			<li class="active" imgFlow="${data.imageFlow }"><a href="#"><img style="width: 100%;height: 100%" src="${data.imageUrl}"/></a></li>
-		</c:if>
-		<c:if test="${!status.first }">
-			<li style="display: none" imgFlow="${data.imageFlow }"><a href="#"><img src="${data.imageUrl}"/></a></li>
-		</c:if>
-	</c:forEach> 
-	</ul>
-	<div class="fomW">
-		<div class="jsNav">
-			<c:forEach items="${dataList }" var="data"  varStatus="status">
-				<c:if test="${status.first }">
-					<a href="javascript:;" class="trigger current" imgFlow="${data.imageFlow }"></a>
-				</c:if>
-				<c:if  test="${!status.first }">
-				<a href="javascript:;" class="trigger" imgFlow="${data.imageFlow }"></a>
-				</c:if>
-			</c:forEach>
+ <div class="alert alert-success">
+                <i class="fa fa-bolt"></i> ${currVisit.visitName }
+            </div>
+  <div class="lightBoxGallery" style="overflow: auto;height: 100%">
+  	 <div class="docs-pictures clearfix">
+				<c:forEach items="${dataList }" var="data" varStatus="status">
+						<div style="width: 50%;float: left;">
+                            <a href="${data.imageUrl}" title="${data.note }&#10;&#13;${data.time}" data-gallery=""><img src="${data.thumbUrl }">
+                            <span style="vertical-align: top;display: inline-block;text-align: left;">${data.time }<br/>
+					            		备注：<font id="${data.imageFlow}_label">${data.note }</font>
+					            </span>
+                            </a>
+                        </div>
+					</c:forEach>
+					<c:if test="${empty dataList }">无上传病例!</c:if>
 		</div>
-	</div>
+    </div>
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
 </div>
-	
-<script type="text/javascript"> 
-$(".trigger").bind("click",function(){
-	$(".current").removeClass("current");
-	$(this).addClass("current");
-	var imgFlow = $(this).attr("imgFlow");
-	$("li").hide();
-	$("li[imgFlow='"+imgFlow+"']").show();
-	$("font").hide();
-	$("font[imgFlow='"+imgFlow+"']").show();
-});
-</script>
-
-</body>
-</html>
+    
