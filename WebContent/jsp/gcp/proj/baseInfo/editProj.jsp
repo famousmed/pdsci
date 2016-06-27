@@ -223,7 +223,7 @@
 <c:if test="${applicationScope.sysCfgMap['gcp_sponsor_notice_flag'] ==  GlobalConstant.FLAG_Y}">
 <div style="" class="mainright"  id="noticeDiv">
 		<embed
-			src="<s:url value='/jsp/gcp/declarer/notice.docx.swf'/>"
+			src="<s:url value='/jsp/gcp/declarer/notice.swf'/>"
 			quality="best" width="100%" height="500" align="Middle"
 			name="Print2FlashDoc" play="true" loop="false"
 			allowscriptaccess="sameDomain" type="application/x-shockwave-flash"
