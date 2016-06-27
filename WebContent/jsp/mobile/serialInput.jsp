@@ -15,6 +15,7 @@ ${callback}({
     ,
    	"attributes":[
    		<c:set var="commAttrCode" value="${visitFlow}_${module.moduleCode}_${elementCode}"/>
+   		<c:set var="inputValue" value=""/>
      		 <c:forEach items="${projDescForm.visitElementAttributeMap[commAttrCode] }" var="attr" varStatus="status1">
      		 	{
      		 		"attrCode": "${attr.attrCode}",
@@ -26,12 +27,15 @@ ${callback}({
 	     		 		<c:choose>
 	     		 			<c:when test="${oper=='oper1' }">
 	     		 				"inputValue":"${elementSerialSeqValueMap[elementCode][serialNum][attr.attrCode].attrValue1}",
+	     		 				<c:set var="inputValue" value="${elementSerialSeqValueMap[elementCode][serialNum][attr.attrCode].attrValue1}"/>
 	     		 			</c:when>
 	     		 			<c:when test="${oper=='oper2' }">
 	     		 				"inputValue":"${elementSerialSeqValueMap[elementCode][serialNum][attr.attrCode].attrValue2}",
+	     		 				<c:set var="inputValue" value="${elementSerialSeqValueMap[elementCode][serialNum][attr.attrCode].attrValue2}"/>
 	     		 			</c:when>
 	     		 			<c:when test="${oper=='oper3' }">
 	     		 				"inputValue":"${elementSerialSeqValueMap[elementCode][serialNum][attr.attrCode].attrValue}",
+	     		 				<c:set var="inputValue" value="${elementSerialSeqValueMap[elementCode][serialNum][attr.attrCode].attrValue}"/>
 	     		 			</c:when>
 	     		 			<c:otherwise>
 	     		 				"inputValue":"",
@@ -47,7 +51,8 @@ ${callback}({
      		 			 <c:forEach items="${projDescForm.visitAttrCodeMap[commCodeFlow]}" var="code" varStatus="status2">
      		 			 	{
     		 					 "codeValue":	"${projDescForm.codeMap[code.codeFlow].codeValue}",
-     		 					 "codeName":	"${projDescForm.codeMap[code.codeFlow].codeName}"
+     		 					 "codeName":	"${projDescForm.codeMap[code.codeFlow].codeName}",
+     		 					 "selected":${fn:indexOf(inputValue,projDescForm.codeMap[code.codeFlow].codeValue)>-1?true:false}
 				    }
      		 				 <c:if test="${not status2.last }">
 						,
