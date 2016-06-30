@@ -40,6 +40,7 @@ import com.pinde.sci.common.GeneralMethod;
 import com.pinde.sci.common.GlobalConstant;
 import com.pinde.sci.common.GlobalContext;
 import com.pinde.sci.dao.base.PubPatientIeMapper;
+import com.pinde.sci.enums.edc.AppResultTypeEnum;
 import com.pinde.sci.enums.edc.EdcInputStatusEnum;
 import com.pinde.sci.enums.edc.PatientTypeEnum;
 import com.pinde.sci.enums.edc.ProjInputTypeEnum;
@@ -202,26 +203,28 @@ public class InputController extends GeneralController{
 		model.addAttribute("patientVisit", pateintVisit);
 		if(pateintVisit != null ){
 			EdcPatientVisit edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
-			model.addAttribute("edcPatientVisit", edcPatientVisit);
-			
-			String currOperFlow = GlobalContext.getCurrentUser().getUserFlow();
-			String inputOperStatusId = edcPatientVisit.getInputOperStatusId();
-			String inputOperFlow = edcPatientVisit.getInputOperFlow();
-			if (EdcInputStatusEnum.Checked.getId().equals(inputOperStatusId)) {	//录入完成
-				model.addAttribute("inputOperFlow", inputOperFlow);
-				model.addAttribute("inputStatusId", inputOperStatusId);
-			} else {
-				model.addAttribute("inputOperFlow", currOperFlow);
-				if (currOperFlow.equals(edcPatientVisit.getInputOper1Flow())) {
-					model.addAttribute("inputStatusId", edcPatientVisit.getInputOper1StatusId());
+			if(edcPatientVisit!=null){
+				model.addAttribute("edcPatientVisit", edcPatientVisit);
+				
+				String currOperFlow = GlobalContext.getCurrentUser().getUserFlow();
+				String inputOperStatusId = edcPatientVisit.getInputOperStatusId();
+				String inputOperFlow = edcPatientVisit.getInputOperFlow();
+				if (EdcInputStatusEnum.Checked.getId().equals(inputOperStatusId)) {	//录入完成
+					model.addAttribute("inputOperFlow", inputOperFlow);
+					model.addAttribute("inputStatusId", inputOperStatusId);
 				} else {
-					model.addAttribute("inputStatusId", edcPatientVisit.getInputOper2StatusId());
+					model.addAttribute("inputOperFlow", currOperFlow);
+					if (currOperFlow.equals(edcPatientVisit.getInputOper1Flow())) {
+						model.addAttribute("inputStatusId", edcPatientVisit.getInputOper1StatusId());
+					} else {
+						model.addAttribute("inputStatusId", edcPatientVisit.getInputOper2StatusId());
+					}
 				}
+				
+				//页面使用，单次，多次 通用
+				Map<String,Map<String,Map<String,EdcPatientVisitData>>> elementSerialSeqValueMap  = 	inputBiz.getelementSerialSeqValueMap(pateintVisit.getRecordFlow());
+				model.addAttribute("elementSerialSeqValueMap", elementSerialSeqValueMap);
 			}
-			
-			//页面使用，单次，多次 通用
-			Map<String,Map<String,Map<String,EdcPatientVisitData>>> elementSerialSeqValueMap  = 	inputBiz.getelementSerialSeqValueMap(pateintVisit.getRecordFlow());
-			model.addAttribute("elementSerialSeqValueMap", elementSerialSeqValueMap);
 		}
 		
 		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
@@ -1153,21 +1156,19 @@ public class InputController extends GeneralController{
 	@RequestMapping(value = {"/showPatientCase" },method={RequestMethod.GET})
 	
 	public String showPatientCase(Model model){
-		PubProj proj = (PubProj) getSessionAttribute(GlobalConstant.EDC_CURR_PROJ);
+		PubPatient patient = (PubPatient) getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT);
+	
+		EdcVisit visit = (EdcVisit) getSessionAttribute(GlobalConstant.EDC_CURR_VISIT);
 		
-		String patientFlow =  ((PubPatient)getSessionAttribute(GlobalConstant.EDC_CURR_PATIENT)).getPatientFlow();
-		
-		PubPatientIeExample  example = new PubPatientIeExample();
-		example.createCriteria().andPatientFlowEqualTo(patientFlow).andRecordStatusEqualTo(GlobalConstant.RECORD_STATUS_Y);
-		List<PubPatientIe> recList = patientIeMapper.selectByExampleWithBLOBs(example);
 		List<Map<String,String>> dataList = new ArrayList<Map<String,String>>(); 
-		if(recList.size()>0){
-			PubPatientIe record = recList.get(0);
+		PubPatientVisit pateintVisit = inputBiz.readPatientVisit(patient.getProjFlow(),visit.getVisitFlow(),patient.getPatientFlow());
+		if(pateintVisit!=null && StringUtil.isNotBlank(pateintVisit.getVisitInfo())){
 			try {
-				Document doc = DocumentHelper.parseText(record.getIeInfo());
+				Document doc = DocumentHelper.parseText(pateintVisit.getVisitInfo());
 				Element rootEle = doc.getRootElement();
-				List<Element> images = rootEle.elements();
-				if(images!=null){
+				Element PatientCase = rootEle.element("PatientCase");
+				if(PatientCase!=null){ 
+					List<Element> images = PatientCase.elements("image");
 					for(Element ele : images){
 						Map<String,String> map = new HashMap<String, String>();
 						map.put("imageFlow", ele.attributeValue("imageFlow"));
@@ -1178,11 +1179,9 @@ public class InputController extends GeneralController{
 						dataList.add(map);
 					}
 				}
-				
 			} catch (DocumentException e) {
 				e.printStackTrace();
 			}
-			
 		}
 		model.addAttribute("dataList",dataList);
 		

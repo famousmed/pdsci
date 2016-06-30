@@ -355,49 +355,49 @@ public class MobileController extends GeneralController{
 		return "mobile/patientList";
 	}
 	@RequestMapping(value={"/savePatient"},method={RequestMethod.POST})
-	public String _savePatient(PubPatient patient,HttpServletResponse response,Model model) {
+	public String _savePatient(PubPatient patient,HttpServletResponse response,Model model,String userFlow) {
 		response.setHeader("Access-Control-Allow-Origin", "*"); //允许哪些url可以跨域请求到本域
 		response.setHeader("Access-Control-Allow-Methods","POST"); //允许的请求方法，一般是GET,POST,PUT,DELETE,OPTIONS
 		response.setHeader("Access-Control-Allow-Headers","x-requested-with,content-type"); //允许哪些请求头可以跨域
 		
 		
+		String resultId = AppResultTypeEnum.Success.getId();
+		String resultName = AppResultTypeEnum.Success.getName();
+		
+		String projFlow = patient.getProjFlow();
+		String orgFlow = patient.getOrgFlow(); 
+		SysUser user = userBiz.readSysUser(userFlow);
 		String patientName = patient.getPatientName();
-		if(StringUtil.isNotBlank(patientName)){
-			patient.setPatientNamePy(PyUtil.getFirstSpell(patientName).toUpperCase());
-		}
-		if(StringUtil.isNotBlank(patient.getSexId())){ 
-			patient.setSexName(UserSexEnum.getNameById(patient.getSexId()));
-		}
-		patient.setPatientStageId(PatientStageEnum.In.getId());
-		patient.setPatientStageName(PatientStageEnum.In.getName());
-		patient.setPatientTypeId(PatientTypeEnum.Real.getId());
-		patient.setPatientTypeName(PatientTypeEnum.Real.getName());
-		if(StringUtil.isNotBlank(patient.getPatientSourceId())){
-			patient.setPatientSourceName(PatientSourceEnum.getNameById(patient.getPatientSourceId()));
-		}
-		if(StringUtil.isNotBlank(patient.getInDate())){
-			patient.setInDate(DateUtil.transDate(patient.getInDate()));
-		}
-		PubPatient patientSearch = new PubPatient();
-		patientSearch.setProjFlow(patient.getProjFlow());
-		patientSearch.setOrgFlow(patient.getOrgFlow());
-		patientSearch.setPatientTypeId(PatientTypeEnum.Real.getId());
-		List<PubPatient> patientList = patientBiz.searchPatient(patientSearch);
-		int patientSeq = 0;
-		if(patientList != null && patientList.size()>0){
-			for(PubPatient patientTemp : patientList){
-				if(patientTemp.getPatientSeq() != null){
-					if(patientTemp.getPatientSeq()>patientSeq){
-						patientSeq = patientTemp.getPatientSeq();
-					}
-				}
+		
+		boolean repeatFlag = _checkRepeatAssign(projFlow,orgFlow,patientName);
+		if(repeatFlag){
+			resultId = "0324";
+			resultName = patientName +"已存在入组记录,请确认是否重复入组!";
+		}else {
+			
+			List<PubPatient> unAssignPatientList = patientBiz.getUnAssignPatientList(projFlow,orgFlow);
+			if(unAssignPatientList.size()>0){
+				PubPatient currPatient = patientBiz.readPatient(unAssignPatientList.get(0).getPatientFlow()); 
+				currPatient.setPatientBirthday(patient.getPatientBirthday());
+				currPatient.setPatientName(patient.getPatientName());
+				currPatient.setPatientNamePy(PyUtil.getFirstSpell(patient.getPatientName()).toUpperCase());
+				currPatient.setSexId(patient.getSexId());
+				currPatient.setSexName(UserSexEnum.getNameById(patient.getSexId()));
+				currPatient.setPatientPhone(patient.getPatientPhone());
+				
+				currPatient.setPatientStageId(PatientStageEnum.In.getId());
+				currPatient.setPatientStageName(PatientStageEnum.In.getName());
+				currPatient.setInDate(DateUtil.getCurrDateTime());
+				currPatient.setInDoctorFlow(user.getUserFlow());
+				currPatient.setInDoctorName(user.getUserName());
+				patientBiz.modifyPatient(currPatient);
+			}else {
+				resultId = AppResultTypeEnum.PatientNotFound.getId();
+				resultName = AppResultTypeEnum.PatientNotFound.getName();
 			}
 		}
-		patient.setPatientSeq(patientSeq+1);
-		patient.setPatientCode(patientSeq+1+"");
-		patientBiz.savePatient(patient);
-		model.addAttribute("resultId", AppResultTypeEnum.Success.getId());
-		model.addAttribute("resultName",AppResultTypeEnum.Success.getName());
+		model.addAttribute("resultId", resultId);
+		model.addAttribute("resultName",resultName);
 		return "mobile/savePatient";
 	}
 	@RequestMapping(value={"/assignPatient"},method={RequestMethod.POST})
@@ -487,6 +487,7 @@ public class MobileController extends GeneralController{
 		
 		EdcVisitModuleExample vmExample = new EdcVisitModuleExample();
 		vmExample.createCriteria().andProjFlowEqualTo(projFlow).andRecordStatusEqualTo(GlobalConstant.FLAG_Y);
+		vmExample.setOrderByClause("ORDINAL");
 		List<EdcVisitModule> moduleList = visitBiz.searchVisitModule(vmExample);
 		Map<String,List<EdcVisitModule>> visitModuleListMap = new HashMap<String, List<EdcVisitModule>>();
 		for(EdcVisitModule vm : moduleList){
@@ -551,38 +552,41 @@ public class MobileController extends GeneralController{
 			PubPatientVisit pateintVisit = inputBiz.readPatientVisit(projFlow,visitFlow,patientFlow);
 			if(pateintVisit!=null){
 				EdcPatientVisit edcPatientVisit = inputBiz.readEdcPatientVisit(pateintVisit.getRecordFlow());
-				if(ProjInputTypeEnum.Single.getId().equals(param)){
-					if(pateintVisit!=null&&!edcPatientVisit.getInputOper1Flow().equals(userFlow)){
-						model.addAttribute("resultId","09002");
-						model.addAttribute("resultName","单份录入,已有录入员  "+edcPatientVisit.getInputOper1Name()+"录入");
-						return "mobile/input";
-					}
-				}else {
-					//双份录入
-					String inputOperStatusId = edcPatientVisit.getInputOperStatusId();
-					if (EdcInputStatusEnum.Checked.getId().equals(inputOperStatusId)) {	//录入完成
-						model.addAttribute("inputStatusId", EdcInputStatusEnum.Checked.getId());
-						model.addAttribute("oper", "oper3");
-					} else {
-						if (userFlow.equals(edcPatientVisit.getInputOper1Flow())) {
-							model.addAttribute("oper", "oper1");
-							model.addAttribute("inputStatusId", edcPatientVisit.getInputOper1StatusId());
-						} else if(userFlow.equals(edcPatientVisit.getInputOper2Flow())||StringUtil.isBlank(edcPatientVisit.getInputOper2Flow())){
-							model.addAttribute("oper", "oper2");
-							model.addAttribute("inputStatusId", edcPatientVisit.getInputOper2StatusId());
-						}else {
+				if(edcPatientVisit!=null){
+				
+					if(ProjInputTypeEnum.Single.getId().equals(param)){
+						if(pateintVisit!=null&&!edcPatientVisit.getInputOper1Flow().equals(userFlow)){
 							model.addAttribute("resultId","09002");
-							model.addAttribute("resultName","已存在两位录入员："+edcPatientVisit.getInputOper1Name()+"、"+edcPatientVisit.getInputOper2Name());
-							
+							model.addAttribute("resultName","单份录入,已有录入员  "+edcPatientVisit.getInputOper1Name()+"录入");
 							return "mobile/input";
 						}
+					}else {
+						//双份录入
+						String inputOperStatusId = edcPatientVisit.getInputOperStatusId();
+						if (EdcInputStatusEnum.Checked.getId().equals(inputOperStatusId)) {	//录入完成
+							model.addAttribute("inputStatusId", EdcInputStatusEnum.Checked.getId());
+							model.addAttribute("oper", "oper3");
+						} else {
+							if (userFlow.equals(edcPatientVisit.getInputOper1Flow())) {
+								model.addAttribute("oper", "oper1");
+								model.addAttribute("inputStatusId", edcPatientVisit.getInputOper1StatusId());
+							} else if(userFlow.equals(edcPatientVisit.getInputOper2Flow())||StringUtil.isBlank(edcPatientVisit.getInputOper2Flow())){
+								model.addAttribute("oper", "oper2");
+								model.addAttribute("inputStatusId", edcPatientVisit.getInputOper2StatusId());
+							}else {
+								model.addAttribute("resultId","09002");
+								model.addAttribute("resultName","已存在两位录入员："+edcPatientVisit.getInputOper1Name()+"、"+edcPatientVisit.getInputOper2Name());
+								
+								return "mobile/input";
+							}
+						}
 					}
+					
+					
+					//页面使用，单次，多次 通用
+					Map<String,Map<String,Map<String,EdcPatientVisitData>>> elementSerialSeqValueMap  = 	inputBiz.getelementSerialSeqValueMap(pateintVisit.getRecordFlow());
+					model.addAttribute("elementSerialSeqValueMap", elementSerialSeqValueMap);
 				}
-				
-				
-				//页面使用，单次，多次 通用
-				Map<String,Map<String,Map<String,EdcPatientVisitData>>> elementSerialSeqValueMap  = 	inputBiz.getelementSerialSeqValueMap(pateintVisit.getRecordFlow());
-				model.addAttribute("elementSerialSeqValueMap", elementSerialSeqValueMap);
 			}
 			 
 			
@@ -667,7 +671,7 @@ public class MobileController extends GeneralController{
 	private String saveData(Model model,HttpServletRequest request) {
 		Map<String,String> paramMap = new HashMap<String,String>();
 		_putAll(paramMap, request);
-		System.err.println(paramMap); 
+		System.err.println("paramMap="+paramMap); 
 		
 		String projFlow = paramMap.get("projFlow");
 		String moduleCode = paramMap.get("moduleCode");
