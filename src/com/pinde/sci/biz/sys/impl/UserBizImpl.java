@@ -56,6 +56,7 @@ import com.pinde.sci.dao.base.SysUserDeptMapper;
 import com.pinde.sci.dao.base.SysUserMapper;
 import com.pinde.sci.dao.sys.SysUserExtMapper;
 import com.pinde.sci.enums.edu.EduCourseTypeEnum;
+import com.pinde.sci.enums.pub.UserSexEnum;
 import com.pinde.sci.enums.pub.UserStatusEnum;
 import com.pinde.sci.enums.res.CertificateTypeEnum;
 import com.pinde.sci.model.edu.EduCourseExt;
@@ -736,6 +737,7 @@ public class UserBizImpl implements IUserBiz {
             	String userFlow;
             	String userName;
             	String idNo;
+            	String sexName;
             	String userEmail;
             	String userPhone;
             	String orgFlow;
@@ -762,6 +764,14 @@ public class UserBizImpl implements IUserBiz {
 					}else if("员工姓名".equals(colnames.get(j))){
 						userName = value;
 						sysUser.setUserName(userName);
+					}else if("性别".equals(colnames.get(j))){
+						sexName = value;
+						sysUser.setSexName(sexName);
+						if(UserSexEnum.Man.getName().equals(sexName)){
+							sysUser.setSexId(UserSexEnum.Man.getId());
+						}else if(UserSexEnum.Woman.getName().equals(sexName)){
+							sysUser.setSexId(UserSexEnum.Woman.getId());
+						}
 					}else if("身份证".equals(colnames.get(j))){
 						idNo = value;
 						sysUser.setIdNo(idNo);
@@ -791,6 +801,10 @@ public class UserBizImpl implements IUserBiz {
 						sysUser.setUserCode(userCode);
 					}
 				}
+				//默认当前机构
+				sysUser.setOrgFlow(GlobalContext.getCurrentUser().getOrgFlow());
+				sysUser.setOrgName(GlobalContext.getCurrentUser().getOrgName());
+				
 				if(StringUtil.isBlank(sysUser.getUserFlow())){
 					continue;
 				}
