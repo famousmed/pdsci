@@ -25,4 +25,8 @@ public class InxController extends GeneralController{
 	public String nydefy( Model model){
 		return "inx/nydefy/index";
 	}
+	@RequestMapping(value="/inx/ctfh",method={RequestMethod.GET})
+	public String ctfh( Model model){
+		return "inx/ctfh/index";
+	}
 }
