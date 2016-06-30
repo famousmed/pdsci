@@ -200,7 +200,7 @@ function resizeWin() {
 			<td colspan="3">
 				<div class="header">
 					<div class="top">
-						<p class="tleft"><img src="<s:url value='/css/skin/${skinPath}/images/${applicationScope.sysCfgMap["sys_login_img"]}_${sessionScope.currWsId}_head.png'/>" /></p>
+						<p class="tleft"><img src="<s:url value='/css/skin/${skinPath}/images/${applicationScope.sysCfgMap["sys_login_img"]}_head.png'/>" /></p>
 						<c:if test="${applicationScope.sysCfgMap['sys_skin']=='Blue' || empty applicationScope.sysCfgMap['sys_skin']}">
 						 <div class="tright">
 							<span>

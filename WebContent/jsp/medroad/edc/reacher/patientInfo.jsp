@@ -68,7 +68,7 @@ function idToggle(){
 				<td colspan="3">${patient.patientStageNote }</td>
 			</tr>
 		</table>
-		 <div>
+		 <div style="display: none">
 		     <p class="caption">已参加临床试验记录
 		     <span class="fr">
 		    <!-- 

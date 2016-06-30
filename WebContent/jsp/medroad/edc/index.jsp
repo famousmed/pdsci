@@ -247,7 +247,7 @@ body{overflow:hidden;}
  <div class="body">
    <div class="container">
     	<div class="content_side">
-     
+     	 <div style="margin-bottom: 150px;">
      	 <dl class="menu menu_first">
           <dt class="menu_title">
             <i class="icon_menu menu_management"></i>项目管理
@@ -259,7 +259,7 @@ body{overflow:hidden;}
            -->
           <dd class="menu_item"><a href="javascript:projFile();">项目文档</a></dd>
         </dl>
-        <dl class="menu menu_first">
+        <dl class="menu ">
           <dt class="menu_title">
             <i class="icon_menu menu_management"></i>受试者管理
           </dt>
@@ -293,6 +293,7 @@ body{overflow:hidden;}
           </dt>
            <dd class="menu_item"><a href="javascript:accounts();">安全中心</a></dd>
         </dl>
+        </div>
      </div>
      <div class="col_main" id="content">
        <div class="content_main">
@@ -373,20 +374,17 @@ body{overflow:hidden;}
        </div>
      </div>
     </div>
-     <div class="faq">
-           <ul class="links">
-                 <li class="links_item"><a href="http://kf.qq.com/faq/120911VrYVrA1509086vyumm.html" target="_blank">返回顶部</a></li>
+     <div class="faq" style="display: block;">
+         <ul class="links">
+              <li class="links_item"><a href="#">技术支持</a></li>
+               <li class="links_item"><a href="#">QQ:51555945</a></li>
            </ul>
-           <p class="tail">www.famousmed.cn</p>
+           <p class="tail">江苏法迈生<a href="http://www.famousmed.cn" target="_blank">www.famousmed.cn</a></p>
        </div>
    </div>
  </div>
 </div>
-
 </div>
-<jsp:include page="/jsp/medroad/foot.jsp" />
-
- 
 </body>
 
 </html>

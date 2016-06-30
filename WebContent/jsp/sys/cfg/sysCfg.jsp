@@ -96,6 +96,7 @@ $(document).ready(function(){
 			<input type="radio"  name="sys_index_url" value="/inx/nydefy" <c:if test="${sysCfgMap['sys_index_url']=='/inx/nydefy'}">checked="checked"</c:if> />南医大二附院
 			<input type="radio"  name="sys_index_url" value="/inx/jshtcm" <c:if test="${sysCfgMap['sys_index_url']=='/inx/jshtcm'}">checked="checked"</c:if> />江苏省中
 			<input type="radio"  name="sys_index_url" value="/inx/jsatcm" <c:if test="${sysCfgMap['sys_index_url']=='/inx/jsatcm'}">checked="checked"</c:if> />中西医结合
+			<input type="radio"  name="sys_index_url" value="/inx/ctfh" <c:if test="${sysCfgMap['sys_index_url']=='/inx/ctfh'}">checked="checked"</c:if> />正大丰海
 			<input type="hidden" name="sys_index_url_ws_id"  value="sys">		
 			<input type="hidden" name="sys_index_url_desc"  value="首页地址">		
 	</td>

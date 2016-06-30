@@ -261,7 +261,7 @@
 											style="text-align: left;  padding-left: 45px;" onclick="showProjInfo('${projForm.proj.projFlow}');">
 											<h3>${projForm.proj.projName }</h3>
 											<p style="margin-top: 10px;">项目类型：${projForm.proj.projSubTypeName } &#12288;&#12288;
-											计划病例数：${projForm.caseCount}&#12288;&#12288;适应症：${projForm.indication}&#12288;&#12288;申办单位：${projForm.proj.projShortDeclarer}</p>
+											计划病例数：${projForm.caseCount}&#12288;&#12288;适应症：${projForm.indication}&#12288;<br/>申办单位：${projForm.proj.projShortDeclarer}</p>
 										</td>
 										<td width="100px;">${sysRoleMap[roleMap[projForm.proj.projFlow]].roleName }</td>
 										<td style="text-align: right;width: 100px;">

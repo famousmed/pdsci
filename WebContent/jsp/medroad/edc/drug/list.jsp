@@ -30,6 +30,7 @@
 }
 
 .tool_item .info1 {
+	line-height:30px;
 	overflow: hidden
 }
 

@@ -72,7 +72,7 @@ function writeBirthday(obj){
 			</td></tr>
 		</table>
         </div>
-        <div class="index_form" style="margin-top: 20px;">
+        <div class="index_form" style="margin-top: 20px;display: none">
           <h3>诊疗方案</h3>
          <table class="${projForm.proj.projFlow }" style="margin-bottom: 20px;border: 1px solid #ddd;border-top: 0px;width: 100%;">
 			<tr><td  style="padding-left: 20px;padding-top:20px;font-size: 16px;">未维护</td></tr>
@@ -81,7 +81,7 @@ function writeBirthday(obj){
 			</td></tr>
 		</table>
         </div>
-        <div class="index_form" style="margin-top: 20px;">
+        <div class="index_form" style="margin-top: 20px;display: none">
           <h3>临床路径释义</h3>
           <table class="${projForm.proj.projFlow }" style="margin-bottom: 20px;border: 1px solid #ddd;border-top: 0px;width: 100%;">
 			<tr><td  style="padding-left: 20px;padding-top:20px;font-size: 16px;">未维护</td></tr>

@@ -11,17 +11,17 @@
 <%@ page import="com.pinde.sci.biz.pub.IFileBiz" %>
 <%@ page import="java.io.File" %>
  <%
-    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-	MultipartFile file = multipartRequest.getFile("file");
-	String fileName = "";
-	try {
-		IFileBiz fileBiz = (IFileBiz) SpringUtil.getBean(IFileBiz.class);
-		String fileFlow = fileBiz.addFile(file, "123456");
-		
-		out.println(fileFlow);
-	} catch (Exception e) {
-		e.printStackTrace();
-		String resultMsg = GlobalConstant.UPLOAD_FAIL;
-		out.println(resultMsg);
-	}
+ 	MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+ 	MultipartFile file = multipartRequest.getFile("file");
+ 	String fileName = "";
+ 	try {
+ 		IFileBiz fileBiz = (IFileBiz) Test.getBean(IFileBiz.class);
+ 		String fileFlow = fileBiz.addFile(file, "123456");
+ 		
+ 		out.println(fileFlow);
+ 	} catch (Exception e) {
+ 		e.printStackTrace();
+ 		String resultMsg = GlobalConstant.UPLOAD_FAIL;
+ 		out.println(resultMsg);
+ 	}
  %>
